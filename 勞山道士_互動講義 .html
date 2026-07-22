@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>勞山道士｜互動國文講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ece2c9;
+    --paper-deep: #e2d5b3;
+    --ink: #26221b;
+    --ink-soft: #4a4438;
+    --pine: #445938;
+    --pine-deep: #303f28;
+    --moon: #c99a52;
+    --moon-glow: #f2d999;
+    --seal: #9c3a2c;
+    --seal-deep: #7c2c21;
+    --line: rgba(38,34,27,0.18);
+    --wrong: #7a4a3d;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse at 20% -10%, rgba(196,164,94,0.18), transparent 55%),
+      radial-gradient(ellipse at 90% 10%, rgba(68,89,56,0.10), transparent 45%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Noto Serif TC", serif;
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+  }
+  .texture{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.5;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(38,34,27,0.02) 0px, transparent 1px, transparent 3px),
+      repeating-linear-gradient(0deg, rgba(38,34,27,0.015) 0px, transparent 1px, transparent 3px);
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px 120px; position:relative; z-index:1;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:64px 0 40px;
+    text-align:center;
+    position:relative;
+  }
+  .hero-eyebrow{
+    font-family:"Noto Sans TC", sans-serif;
+    letter-spacing:0.5em;
+    font-size:12px;
+    color:var(--pine-deep);
+    font-weight:600;
+    margin:0 0 22px;
+  }
+  .moon-hero{
+    width:150px; height:150px; margin:0 auto 26px; position:relative; cursor:pointer;
+  }
+  .moon-hero svg{width:100%; height:100%; display:block;}
+  .moon-disc{fill:var(--paper-deep); stroke:var(--ink); stroke-width:1.4; transition:fill 1.1s ease, filter 1.1s ease;}
+  .moon-hero.lit .moon-disc{fill:var(--moon-glow); filter:drop-shadow(0 0 22px rgba(242,217,153,0.85));}
+  .moon-crack{stroke:var(--ink); stroke-width:1; fill:none; opacity:0.55;}
+  .moon-ray{stroke:var(--moon); stroke-width:1.2; opacity:0; transition:opacity 1s ease;}
+  .moon-hero.lit .moon-ray{opacity:0.8;}
+  h1.title{
+    font-size:clamp(40px,7vw,64px);
+    margin:0 0 10px;
+    font-weight:900;
+    letter-spacing:0.12em;
+  }
+  .subtitle{
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:15px;
+    color:var(--ink-soft);
+    letter-spacing:0.08em;
+  }
+  .hero-hint{
+    margin-top:20px;
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:12.5px;
+    color:var(--pine-deep);
+    letter-spacing:0.06em;
+  }
+
+  /* ---------- STICKY CONTROL STRIP ---------- */
+  .control-strip{
+    position:sticky; top:0; z-index:40;
+    background:rgba(236,226,201,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    padding:11px 20px;
+    display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap;
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:12.5px;
+  }
+  .switch-label{display:flex; align-items:center; gap:9px; cursor:pointer; color:var(--ink-soft); user-select:none;}
+  .switch-track{position:relative; width:38px; height:21px; border-radius:99px; background:var(--line); transition:background 0.25s ease; flex-shrink:0;}
+  .switch-track::after{content:""; position:absolute; top:2px; left:2px; width:17px; height:17px; border-radius:50%; background:#fff8ea; transition:transform 0.25s ease; box-shadow:0 1px 3px rgba(0,0,0,0.35);}
+  input.switch-input{display:none;}
+  input.switch-input:checked + .switch-track{background:var(--pine);}
+  input.switch-input:checked + .switch-track::after{transform:translateX(17px);}
+  .hint-tag{
+    font-size:11.5px; color:var(--seal-deep); border:1px solid var(--seal-deep);
+    padding:2px 11px; border-radius:99px; letter-spacing:0.02em;
+  }
+
+  /* ---------- SECTION LABELS ---------- */
+  .section-tag{
+    display:flex; align-items:center; gap:14px;
+    margin:70px 0 26px;
+  }
+  .section-tag .num{
+    font-family:"Noto Serif TC", serif;
+    font-weight:900;
+    font-size:13px;
+    color:var(--paper);
+    background:var(--pine-deep);
+    width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .section-tag h2{
+    font-size:22px; margin:0; letter-spacing:0.08em; font-weight:700;
+  }
+  .section-tag::after{
+    content:""; flex:1; height:1px; background:var(--line);
+  }
+  .section-intro{
+    font-family:"Noto Sans TC", sans-serif; font-size:13.5px; color:var(--ink-soft);
+    margin:-14px 0 24px;
+  }
+
+  /* ---------- INTRO CARD ---------- */
+  .intro-card{
+    background:rgba(255,251,240,0.45);
+    border:1px solid var(--line);
+    border-left:4px solid var(--pine);
+    padding:26px 28px;
+    font-size:15.5px;
+    color:var(--ink-soft);
+  }
+  .intro-card b{color:var(--ink); font-weight:600;}
+
+  /* ---------- STORY PARAGRAPHS ---------- */
+  .para{
+    border-bottom:1px solid var(--line);
+    padding:26px 0;
+    transition:max-width 1.05s cubic-bezier(.2,.8,.2,1), box-shadow 0.6s ease, padding 1.05s cubic-bezier(.2,.8,.2,1);
+  }
+  .para:first-of-type{border-top:1px solid var(--line);}
+  .para-head{
+    display:flex; align-items:flex-start; gap:16px; cursor:pointer;
+    user-select:none;
+  }
+  .moon-toggle{
+    flex-shrink:0; width:34px; height:34px; margin-top:2px; position:relative;
+  }
+  .moon-toggle svg{width:100%; height:100%;}
+  .moon-toggle .disc{fill:var(--paper-deep); stroke:var(--ink); stroke-width:1.2; transition:fill 0.6s ease, filter 0.6s ease;}
+  .para.open .moon-toggle .disc{fill:var(--moon-glow); filter:drop-shadow(0 0 8px rgba(242,217,153,0.9));}
+  .orig-text{
+    font-size:19px;
+    letter-spacing:0.02em;
+    flex:1;
+  }
+  .translation{
+    max-height:0; overflow:hidden; opacity:0;
+    transition:max-height 0.55s ease, opacity 0.5s ease, padding 0.5s ease;
+    margin-left:50px;
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    border-left:2px solid var(--moon);
+    padding-left:0;
+  }
+  .para.open .translation{
+    max-height:400px; opacity:1; padding:12px 0 4px 16px; margin-top:14px;
+  }
+  .para-tag{
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:11px; color:var(--pine-deep); font-weight:700;
+    letter-spacing:0.15em; margin-bottom:6px; display:block;
+  }
+
+  /* gloss inline tooltip words */
+  .gloss{
+    border-bottom:2px dotted var(--seal);
+    color:var(--seal-deep);
+    cursor:pointer;
+    font-weight:600;
+    padding:0 1px;
+  }
+  .gloss:hover{background:rgba(156,58,44,0.08);}
+
+  #tooltip{
+    position:fixed; max-width:250px; background:var(--ink); color:var(--paper);
+    padding:10px 14px; border-radius:8px; font-family:"Noto Sans TC", sans-serif;
+    font-size:13px; line-height:1.6; z-index:200; display:none;
+    box-shadow:0 10px 26px rgba(0,0,0,0.35);
+  }
+  #tooltip::before{
+    content:""; position:absolute; top:-6px; left:16px;
+    border-width:0 6px 6px 6px; border-style:solid;
+    border-color:transparent transparent var(--ink) transparent;
+  }
+
+  /* moon-reveal effect for the banquet paragraph */
+  .para.moon-narrow{max-width:400px; margin:0 auto; padding-left:0; padding-right:0;}
+  .para.moon-wide{
+    max-width:920px; margin:0; padding-left:0; padding-right:0;
+    box-shadow:0 0 0 1px rgba(242,217,153,0.4), 0 30px 60px -30px rgba(201,154,82,0.55);
+  }
+  .moon-caption{
+    text-align:center; font-family:"Noto Sans TC", sans-serif; font-size:11.5px;
+    color:var(--pine-deep); letter-spacing:0.15em; padding-top:10px;
+  }
+
+  /* global toggle */
+  .global-toggle-row{
+    display:flex; justify-content:flex-end; margin:-10px 0 18px;
+  }
+  .btn-ghost{
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:12.5px; letter-spacing:0.05em;
+    background:transparent; border:1px solid var(--pine); color:var(--pine-deep);
+    padding:8px 16px; border-radius:20px; cursor:pointer;
+    transition:background 0.25s ease, color 0.25s ease;
+  }
+  .btn-ghost:hover{background:var(--pine); color:var(--paper);}
+
+  /* ---------- VOCAB ---------- */
+  table.vocab{
+    width:100%; border-collapse:collapse;
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:14px;
+    margin-bottom:20px;
+    background:rgba(255,251,240,0.35);
+  }
+  table.vocab th{
+    background:var(--pine-deep); color:var(--paper);
+    text-align:left; padding:10px 14px; font-weight:600; letter-spacing:0.04em;
+    font-size:12.5px;
+  }
+  table.vocab td{
+    padding:10px 14px; border-bottom:1px solid var(--line); vertical-align:top;
+  }
+  table.vocab tr:last-child td{border-bottom:none;}
+  .grammar-box{
+    border:1px dashed var(--pine);
+    padding:18px 22px;
+    margin-bottom:10px;
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+  .grammar-box .g-title{
+    font-family:"Noto Serif TC", serif;
+    font-weight:700; color:var(--ink); font-size:16px; margin-bottom:8px;
+  }
+  .subhead{
+    font-family:"Noto Serif TC", serif; font-weight:700; color:var(--ink);
+    margin:34px 0 14px; font-size:16px; display:flex; align-items:center; gap:10px;
+  }
+  .subhead::before{content:""; width:8px; height:8px; background:var(--seal); border-radius:50%; display:inline-block;}
+
+  /* ---------- MATCHING GAME ---------- */
+  .match-intro{font-family:"Noto Sans TC", sans-serif; font-size:13.5px; color:var(--ink-soft); margin-bottom:16px;}
+  .match-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:10px; max-width:460px; margin-left:auto; margin-right:auto;}
+  @media (max-width:640px){.match-grid{max-width:340px; gap:9px;}}
+  .match-deck-note{
+    text-align:center; font-family:"Noto Sans TC", sans-serif; font-size:12px;
+    color:var(--ink-soft); margin-bottom:14px;
+  }
+  .match-card{aspect-ratio:1/1; cursor:pointer; perspective:700px;}
+  .match-card.empty{cursor:default;}
+  .match-inner{width:100%; height:100%; position:relative; transform-style:preserve-3d; transition:transform 0.5s cubic-bezier(.2,.8,.2,1);}
+  .match-card.flipped .match-inner, .match-card.matched .match-inner{transform:rotateY(180deg);}
+  .match-face{
+    position:absolute; inset:0; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    backface-visibility:hidden; padding:10px; text-align:center;
+  }
+  .match-front{
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), transparent 60%),
+      var(--pine-deep);
+    color:var(--moon-glow); font-family:"Noto Serif TC", serif; font-size:26px; font-weight:900;
+    border:1px solid var(--pine);
+  }
+  .match-back{
+    background:rgba(255,251,240,0.6); border:2px solid var(--moon);
+    color:var(--ink); font-family:"Noto Sans TC", sans-serif; font-size:12.5px;
+    transform:rotateY(180deg); line-height:1.5;
+  }
+  .match-card.matched .match-back{border-color:var(--pine); background:rgba(68,89,56,0.1); color:var(--pine-deep); font-weight:600;}
+  #matchStatus{
+    text-align:center; font-family:"Noto Sans TC", sans-serif; font-weight:700;
+    color:var(--pine-deep); min-height:22px; font-size:13.5px;
+  }
+  .match-reset{
+    display:block; margin:12px auto 0;
+    font-family:"Noto Sans TC", sans-serif; font-size:12px;
+    background:transparent; border:1px solid var(--line); color:var(--ink-soft);
+    padding:6px 16px; border-radius:14px; cursor:pointer;
+  }
+  .match-reset:hover{border-color:var(--pine);}
+
+  /* ---------- 道士問答連連看 (CONNECT-THE-DOTS) ---------- */
+  .qa-wrap{position:relative;}
+  .qa-status{
+    text-align:center; font-family:"Noto Sans TC", sans-serif; font-weight:700;
+    color:var(--pine-deep); min-height:22px; font-size:13.5px; margin-bottom:8px;
+  }
+  .qa-board{
+    position:relative;
+    display:flex; justify-content:space-between; gap:6%;
+  }
+  .qa-col{display:flex; flex-direction:column; gap:14px; width:46%;}
+  .qa-col-label{
+    font-family:"Noto Sans TC", sans-serif; font-size:12px; letter-spacing:0.1em;
+    font-weight:700; margin-bottom:4px;
+    display:inline-flex; align-items:center; gap:6px;
+    padding:4px 12px; border-radius:99px; width:fit-content;
+  }
+  .qa-col.left .qa-col-label{color:#3a5a78; background:rgba(58,90,120,0.12); border:1px solid rgba(58,90,120,0.3);}
+  .qa-col.right .qa-col-label{color:#8a4a2e; background:rgba(184,118,62,0.14); border:1px solid rgba(184,118,62,0.35);}
+  .qa-col.right .qa-col-label{margin-left:auto;}
+  .qa-node{
+    display:flex; align-items:center; gap:10px;
+    background:linear-gradient(180deg, rgba(255,251,240,0.75), rgba(255,251,240,0.45));
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:13.5px;
+    cursor:pointer;
+    box-shadow:0 1px 2px rgba(38,34,27,0.05);
+    transition:background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    position:relative;
+  }
+  .qa-col.left .qa-node{flex-direction:row-reverse;}
+  .qa-col.right .qa-node{text-align:right;}
+  .qa-dot{
+    flex-shrink:0; width:11px; height:11px; border-radius:50%;
+    border:1.6px solid var(--pine); background:var(--paper);
+    transition:background 0.2s ease, border-color 0.2s ease;
+  }
+  .qa-node:hover{border-color:var(--moon); background:rgba(242,217,153,0.16); transform:translateY(-1px); box-shadow:0 4px 10px rgba(38,34,27,0.08);}
+  .qa-node.selected{border-color:var(--moon); background:rgba(242,217,153,0.3); transform:scale(1.02); box-shadow:0 4px 14px rgba(201,154,82,0.3);}
+  .qa-node.selected .qa-dot{background:var(--moon); border-color:var(--moon);}
+  .qa-node.matched{cursor:default; border-width:1.4px; font-weight:600; box-shadow:none;}
+  .qa-node.matched:hover{transform:none; box-shadow:none;}
+  .qa-node.wrong{border-color:var(--wrong); background:rgba(122,74,61,0.14);}
+  .qa-node.wrong .qa-dot{background:var(--wrong); border-color:var(--wrong);}
+  .qa-lines{position:absolute; inset:0; width:100%; height:100%; pointer-events:none;}
+  .qa-lines line{stroke-width:2; opacity:0.8; stroke-linecap:round;}
+  .qa-reset{
+    display:block; margin:18px auto 0;
+    font-family:"Noto Sans TC", sans-serif; font-size:12px;
+    background:transparent; border:1px solid var(--line); color:var(--ink-soft);
+    padding:6px 16px; border-radius:14px; cursor:pointer;
+  }
+  .qa-reset:hover{border-color:var(--pine);}
+  @media (max-width:640px){
+    .qa-node{font-size:12.5px; padding:10px 10px;}
+  }
+
+  /* ---------- QUIZ ---------- */
+  .quiz-item{
+    border:1px solid var(--line);
+    background:rgba(255,251,240,0.45);
+    margin-bottom:22px;
+    padding:22px 24px 20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .quiz-stem{
+    display:flex; gap:12px; font-size:16px; margin-bottom:16px; font-weight:600;
+  }
+  .quiz-stem .q-index{
+    font-family:"Noto Sans TC", sans-serif;
+    font-weight:900; color:var(--seal); flex-shrink:0;
+  }
+  .quiz-depth{
+    display:inline-block;
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:10.5px; letter-spacing:0.08em;
+    color:var(--pine-deep); border:1px solid var(--pine); border-radius:10px;
+    padding:1px 9px; margin-left:8px; font-weight:600; vertical-align:middle;
+  }
+  .options{display:flex; flex-direction:column; gap:10px;}
+  .option{
+    display:flex; align-items:flex-start; gap:12px;
+    padding:10px 12px;
+    border:1px solid transparent;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:14.5px;
+    position:relative;
+    transition:background 0.2s ease, border-color 0.2s ease;
+  }
+  .option:hover{background:rgba(68,89,56,0.08);}
+  .option .letter{
+    flex-shrink:0; width:24px; height:24px; border-radius:50%;
+    border:1.4px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Noto Sans TC", sans-serif; font-size:12px; font-weight:700;
+  }
+  .quiz-item.answered .option{cursor:default;}
+  .quiz-item.answered .option:hover{background:transparent;}
+  .option.correct{background:rgba(68,89,56,0.14); border-color:var(--pine);}
+  .option.correct .letter{background:var(--pine); color:var(--paper); border-color:var(--pine);}
+  .option.wrong{background:rgba(122,74,61,0.10); border-color:var(--wrong);}
+  .option.wrong .letter{background:var(--wrong); color:var(--paper); border-color:var(--wrong);}
+
+  .seal-stamp{
+    position:absolute; right:10px; top:50%;
+    width:34px; height:34px; margin-top:-17px;
+    border:2.4px solid var(--seal); border-radius:6px;
+    color:var(--seal); font-family:"Noto Serif TC", serif; font-weight:900; font-size:13px;
+    display:flex; align-items:center; justify-content:center;
+    transform:scale(2.4) rotate(-18deg); opacity:0;
+    animation:stampIn 0.45s cubic-bezier(.2,1.6,.4,1) forwards;
+    animation-delay:0.15s;
+    background:rgba(156,58,44,0.05);
+  }
+  @keyframes stampIn{
+    to{transform:scale(1) rotate(-10deg); opacity:0.92;}
+  }
+
+  .explain{
+    max-height:0; overflow:hidden; opacity:0;
+    transition:max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease;
+    font-family:"Noto Sans TC", sans-serif; font-size:13.5px; color:var(--ink-soft);
+    border-left:3px solid var(--seal); background:rgba(156,58,44,0.06);
+  }
+  .quiz-item.answered .explain{max-height:300px; opacity:1; margin-top:16px; padding:12px 16px;}
+  .explain b{color:var(--seal-deep);}
+
+  .score-bar{
+    position:sticky; bottom:18px;
+    display:flex; justify-content:center; z-index:5;
+    margin-top:10px;
+  }
+  .score-pill{
+    font-family:"Noto Sans TC", sans-serif;
+    background:var(--ink); color:var(--paper);
+    padding:10px 26px; border-radius:24px; font-size:13.5px; letter-spacing:0.05em;
+    box-shadow:0 8px 24px rgba(38,34,27,0.35);
+    transition:transform 0.3s ease;
+  }
+  .score-pill.pulse{transform:scale(1.06);}
+  .score-pill b{color:var(--moon-glow); font-size:15px;}
+
+  footer{
+    text-align:center; margin-top:80px;
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:12px; color:var(--ink-soft); letter-spacing:0.1em;
+  }
+
+  @media (max-width:600px){
+    .orig-text{font-size:17px;}
+    .translation{margin-left:0;}
+    h1.title{letter-spacing:0.06em;}
+    .para.moon-narrow{max-width:100%;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; animation:none !important;}
+  }
+
+  /* ---------- ORAL PRESENTER MODE ---------- */
+  .presenter-launch{
+    position:fixed; right:22px; bottom:22px; z-index:30;
+    display:flex; align-items:center; gap:9px;
+    font-family:"Noto Sans TC", sans-serif; font-size:13px; font-weight:600;
+    background:var(--pine-deep); color:var(--paper);
+    border:none; padding:13px 20px 13px 16px; border-radius:30px; cursor:pointer;
+    box-shadow:0 10px 28px rgba(38,34,27,0.35);
+    transition:transform 0.2s ease;
+  }
+  .presenter-launch:hover{transform:translateY(-3px);}
+  .presenter-launch svg{width:18px; height:18px; flex-shrink:0;}
+
+  .presenter-overlay{
+    position:fixed; inset:0; z-index:100; display:none;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(196,164,94,0.16), transparent 55%),
+      var(--ink);
+    color:var(--paper);
+    flex-direction:column;
+  }
+  .presenter-overlay.active{display:flex;}
+  .presenter-top{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 28px; font-family:"Noto Sans TC", sans-serif; font-size:13px;
+    color:rgba(236,226,201,0.65); letter-spacing:0.08em; flex-shrink:0;
+  }
+  .presenter-deck-switch{display:flex; gap:8px;}
+  .deck-btn{
+    font-family:"Noto Sans TC", sans-serif; font-size:12.5px;
+    background:transparent; border:1px solid rgba(236,226,201,0.35); color:rgba(236,226,201,0.75);
+    padding:6px 16px; border-radius:16px; cursor:pointer; transition:all 0.2s ease;
+  }
+  .deck-btn.active{background:var(--moon-glow); color:var(--ink); border-color:var(--moon-glow); font-weight:700;}
+  .presenter-close{
+    background:transparent; border:1px solid rgba(236,226,201,0.35); color:rgba(236,226,201,0.75);
+    width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:16px; line-height:1;
+  }
+  .presenter-close:hover{border-color:var(--paper); color:var(--paper);}
+
+  .presenter-stage{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:20px 40px; text-align:center; gap:26px; overflow:hidden;
+  }
+  .presenter-card-tag{
+    font-family:"Noto Sans TC", sans-serif; font-size:12.5px; letter-spacing:0.3em;
+    color:var(--moon-glow); text-transform:uppercase;
+  }
+  .presenter-prompt{
+    font-family:"Noto Serif TC", serif; font-weight:700;
+    font-size:clamp(26px,4.4vw,46px); line-height:1.6; max-width:920px;
+  }
+  .presenter-answer{
+    max-width:820px; font-family:"Noto Sans TC", sans-serif; font-size:clamp(15px,2vw,19px);
+    line-height:1.9; color:rgba(236,226,201,0.9);
+    background:rgba(242,217,153,0.08); border:1px solid rgba(242,217,153,0.3);
+    border-radius:14px; padding:20px 26px;
+    max-height:0; opacity:0; overflow:hidden;
+    transition:max-height 0.5s ease, opacity 0.4s ease, padding 0.5s ease, margin 0.5s ease;
+  }
+  .presenter-answer.show{max-height:340px; opacity:1; margin-top:4px;}
+  .presenter-answer b{color:var(--moon-glow);}
+
+  .presenter-bottom{
+    display:flex; align-items:center; justify-content:center; gap:16px;
+    padding:26px 28px 34px; flex-shrink:0;
+  }
+  .p-btn{
+    font-family:"Noto Sans TC", sans-serif; font-size:14px; font-weight:600;
+    background:rgba(236,226,201,0.08); border:1px solid rgba(236,226,201,0.35); color:var(--paper);
+    padding:12px 24px; border-radius:24px; cursor:pointer; transition:all 0.2s ease;
+  }
+  .p-btn:hover{background:rgba(236,226,201,0.18);}
+  .p-btn.primary{background:var(--moon-glow); color:var(--ink); border-color:var(--moon-glow); font-weight:700;}
+  .p-btn.primary:hover{background:#fce4ab;}
+  .p-btn:disabled{opacity:0.3; cursor:default;}
+  .p-index{
+    font-family:"Noto Sans TC", sans-serif; font-size:13px; color:rgba(236,226,201,0.55);
+    min-width:64px; text-align:center;
+  }
+  .presenter-key-hint{
+    text-align:center; font-family:"Noto Sans TC", sans-serif; font-size:11px;
+    color:rgba(236,226,201,0.4); padding-bottom:16px; letter-spacing:0.05em;
+  }
+</style>
+</head>
+<body>
+<div class="texture"></div>
+<div id="tooltip"></div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">聊 齋 誌 異 ‧ 選 篇 講 義</p>
+    <div class="moon-hero" id="moonHero" onclick="setAllTranslations(!allOpen)">
+      <svg viewBox="0 0 100 100">
+        <circle class="moon-disc" cx="50" cy="50" r="42"/>
+        <path class="moon-crack" d="M50 10 L54 42 L86 46"/>
+        <path class="moon-crack" d="M12 54 L42 50 L46 88"/>
+        <path class="moon-crack" d="M18 24 L48 46"/>
+        <line class="moon-ray" x1="50" y1="2" x2="50" y2="14"/>
+        <line class="moon-ray" x1="50" y1="86" x2="50" y2="98"/>
+        <line class="moon-ray" x1="2" y1="50" x2="14" y2="50"/>
+        <line class="moon-ray" x1="86" y1="50" x2="98" y2="50"/>
+        <line class="moon-ray" x1="16" y1="16" x2="24" y2="24"/>
+        <line class="moon-ray" x1="76" y1="76" x2="84" y2="84"/>
+        <line class="moon-ray" x1="84" y1="16" x2="76" y2="24"/>
+        <line class="moon-ray" x1="24" y1="76" x2="16" y2="84"/>
+      </svg>
+    </div>
+    <h1 class="title">勞山道士</h1>
+    <p class="subtitle">蒲松齡．《聊齋誌異》</p>
+    <p class="hero-hint">點擊剪紙月亮，如道士剪紙為鏡——一次照亮全文語譯</p>
+  </section>
+</div>
+
+<!-- STICKY CONTROL STRIP -->
+<div class="control-strip">
+  <label class="switch-label">
+    <input type="checkbox" class="switch-input" id="transSwitch" onchange="setAllTranslations(this.checked)">
+    <span class="switch-track"></span>
+    顯示全部語譯
+  </label>
+  <span class="hint-tag">點選文中虛線詞語　可查看注釋</span>
+</div>
+
+<div class="wrap">
+
+  <!-- INTRO -->
+  <div class="section-tag"><span class="num">序</span><h2>作者與背景</h2></div>
+  <div class="intro-card">
+    <p style="margin:0 0 12px;"><b>蒲松齡</b>（1640－1715），字留仙，號柳泉居士，清代山東淄川人。屢應科舉不第，一生落拓，晚年設館授徒維生，卻花費近四十年功夫蒐羅奇聞異事，寫成文言短篇小說集《聊齋誌異》，凡近五百篇，多藉狐鬼花妖之事，寄託對現實社會的諷刺與感慨。</p>
+    <p style="margin:0;">〈勞山道士〉是其中膾炙人口的一篇，敘寫富家子王生慕道學仙，卻因不耐勞苦、貪求捷徑，終致穿牆術失驗、頭觸硬壁的故事，篇末「異史氏曰」直陳寓意，是全篇諷刺筆法的點睛之處。</p>
+  </div>
+
+  <!-- MAIN TEXT -->
+  <div class="section-tag"><span class="num">壹</span><h2>文言原文與語譯</h2></div>
+  <p class="section-intro">依情節分為十段。點選文中<span class="gloss" data-def="這裡只是示範樣式，正文中虛線詞語才有實際注釋喔。">虛線標示</span>的詞語可查看注釋；點段落左側小月亮，可單獨展開該段語譯。</p>
+  <div class="global-toggle-row">
+    <button class="btn-ghost" onclick="setAllTranslations(!allOpen)">展開／收合 全部語譯</button>
+  </div>
+
+  <div id="paraList"></div>
+
+  <!-- VOCAB -->
+  <div class="section-tag"><span class="num">貳</span><h2>字詞與句法整理</h2></div>
+
+  <table class="vocab">
+    <tr><th style="width:70px;">常用字</th><th>課文義</th><th>其他常見義</th></tr>
+    <tr><td>之</td><td>代詞（指其事、其人）／結構助詞（的）</td><td>往（動詞）</td></tr>
+    <tr><td>其</td><td>他的、那個（如「其苦」「其劍」）</td><td>大概、豈（表推測、反詰語氣）</td></tr>
+    <tr><td>乃</td><td>於是、就（如「乃以箸擲月中」）</td><td>竟然、才（表意外或條件）</td></tr>
+    <tr><td>而</td><td>轉折連詞：卻、但（如「而不知世之為王生者」）</td><td>並列／承接連詞：而且、然後</td></tr>
+    <tr><td>俄</td><td>不久、一會兒（如「俄頃」「俄一客曰」）</td><td>——</td></tr>
+    <tr><td>謝</td><td>道謝（如「入謝」）</td><td>推辭、告誡、凋謝</td></tr>
+    <tr><td>驗</td><td>應驗、靈驗（如「否則不驗」）</td><td>檢驗、證實</td></tr>
+    <tr><td>顧</td><td>回頭看（如「驚顧之間」）</td><td>但是、反而（表轉折）</td></tr>
+  </table>
+
+  <div class="grammar-box">
+    <div class="g-title">★ 雙重否定表強調──「不可不同」</div>
+    「良宵勝樂，不可不同」：「不可」＋「不同」＝雙重否定，語意反成強烈肯定，即「必須一起同樂」。與白話「不能不去」「非做不可」句法相同，是文言中常見的加強語氣手法。
+  </div>
+  <div class="grammar-box">
+    <div class="g-title">★ 「異史氏曰」的敘事傳統</div>
+    篇末「異史氏曰」仿《史記》「太史公曰」之體例，作者跳出故事之外直接發表議論，屬「夾敘夾議」筆法：先以生動情節敘事，再以簡短評論點明寓意，是《聊齋誌異》全書固定的收束方式。
+  </div>
+
+  <div class="subhead">剪紙記憶配對</div>
+  <p class="match-intro">牌桌固定 3×3、共九格，翻開「紙」牌找出詞語與注釋的配對；配對成功後會自動補上新牌，直到桌上的紙牌全部配對完成——像道士剪紙一樣，翻面便見真章。</p>
+  <div class="match-grid" id="matchGrid"></div>
+  <div id="matchStatus"></div>
+  <p class="match-deck-note" id="matchDeckNote"></p>
+  <button class="match-reset" onclick="initMatch()">重新洗牌</button>
+
+  <!-- QA CONNECT GAME -->
+  <div class="section-tag"><span class="num">參</span><h2>道士問答連連看</h2></div>
+  <p class="section-intro">左側是王生在情節中提出的請求或處境，右側是道士對應的回應，順序已被打散。依情節先後，點選左側一句，再點選右側對應的道士回應，配對正確會以彩線連起；配對錯誤則稍後自動取消，可再試一次——藉此檢驗對故事脈絡的掌握。</p>
+  <div class="qa-wrap">
+    <div class="qa-status" id="qaStatus"></div>
+    <div class="qa-board" id="qaBoard">
+      <svg class="qa-lines" id="qaLines"></svg>
+      <div class="qa-col left" id="qaColLeft">
+        <div class="qa-col-label">王生的請求</div>
+      </div>
+      <div class="qa-col right" id="qaColRight">
+        <div class="qa-col-label">道士的回應</div>
+      </div>
+    </div>
+    <button class="qa-reset" onclick="initQA()">重新出題</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="section-tag"><span class="num">肆</span><h2>閱讀理解測驗</h2></div>
+  <div id="quizList"></div>
+
+  <div class="score-bar">
+    <div class="score-pill" id="scorePill">已作答 <b id="scoreCount">0</b> / 5　．　答對 <b id="scoreCorrect">0</b> 題</div>
+  </div>
+
+  <footer>製作於古文互動講義 ‧ 原文據《聊齋誌異》通行本整理</footer>
+</div>
+
+<!-- ORAL PRESENTER MODE (teacher-controlled, for remote / verbal Q&A) -->
+<button class="presenter-launch" onclick="openPresenter()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a4 4 0 0 0-4 4v6a4 4 0 0 0 8 0V5a4 4 0 0 0-4-4z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/></svg>
+  課堂口說模式
+</button>
+
+<div class="presenter-overlay" id="presenterOverlay">
+  <div class="presenter-top">
+    <div class="presenter-deck-switch">
+      <button class="deck-btn active" id="deckBtnVocab" onclick="switchDeck('vocab')">詞語搶答</button>
+      <button class="deck-btn" id="deckBtnQA" onclick="switchDeck('qa')">道士問答</button>
+      <button class="deck-btn" id="deckBtnQuiz" onclick="switchDeck('quiz')">課文測驗</button>
+    </div>
+    <span>教師手動出題．學生口頭作答</span>
+    <button class="presenter-close" onclick="closePresenter()">✕</button>
+  </div>
+  <div class="presenter-stage">
+    <div class="presenter-card-tag" id="pTag">詞語搶答</div>
+    <div class="presenter-prompt" id="pPrompt"></div>
+    <div class="presenter-answer" id="pAnswer"></div>
+  </div>
+  <div class="presenter-bottom">
+    <button class="p-btn" id="pPrev" onclick="presenterPrev()">← 上一題</button>
+    <button class="p-btn primary" id="pReveal" onclick="presenterReveal()">公布答案</button>
+    <span class="p-index" id="pIndex">1 / 8</span>
+    <button class="p-btn" id="pNext" onclick="presenterNext()">下一題 →</button>
+  </div>
+  <div class="presenter-key-hint">鍵盤操作：空白鍵／Enter＝公布答案　←→＝切換題目　Esc＝離開</div>
+</div>
+
+<script>
+/* ---------------- STORY DATA (with inline gloss spans) ---------------- */
+const G = (term, def) => `<span class="gloss" data-def="${def}">${term}</span>`;
+
+const paragraphs = [
+  {
+    tag:"起．慕道拜師",
+    orig:`邑有王生，行七，故家子。少慕道，聞勞山多仙人，${G('負笈','背著書箱，指遠行求學。')}往遊。登一頂，有觀宇，甚幽。一道士坐${G('蒲團','以蒲草編成的圓形坐墊，僧道打坐所用。')}上，素髮垂領，而神觀爽邁。叩而與語，理甚玄妙。請師之。道士曰：「恐嬌惰不能作苦。」答言「能之」。其門人甚眾，薄暮畢集，王俱與${G('稽首','跪拜之禮，以頭觸地，表示恭敬。')}，遂留觀中。`,
+    trans:"縣裡有位王生，排行第七，出身世家。他年少時仰慕修道之術，聽說勞山多有仙人，便背著書箱前往遊歷求師。登上一座山頂，見有一座道觀，十分幽靜。一位道士盤坐在蒲團上，白髮垂到衣領，神情氣度卻爽朗不凡。王生上前叩問，與他交談，道理十分玄妙，便請求拜他為師。道士說：「恐怕你嬌生慣養，吃不了苦。」王生回答說「能吃苦」。道士的門徒很多，傍晚時全都聚集回來，王生一一向他們行禮，於是就留在道觀中。"
+  },
+  {
+    tag:"承．樵蘇之苦",
+    orig:"凌晨，道士呼王去，授以斧，使隨眾採樵。王謹受教。過月餘，手足重繭，不堪其苦，陰有歸志。",
+    trans:"清晨，道士叫王生過去，交給他一把斧頭，讓他跟著眾徒弟一起上山砍柴。王生恭謹地聽從教導。過了一個多月，手腳都磨出厚厚的繭，實在受不了這種辛苦，暗地裡便有了想回家的念頭。"
+  },
+  {
+    tag:"轉．剪紙為月",
+    orig:`一夕歸，見二人與師共酌，日已暮，尚無燈燭。師乃剪紙如鏡，粘壁間。俄頃，月明輝室，光鑑毫芒。諸門人環聽奔走。一客曰：「良宵勝樂，不可不同。」乃於案上取壺酒，分${G('賚','音ㄌㄞˋ，賜與、贈予。')}諸徒，且囑盡醉。王自思：七八人，壺酒何能遍給？遂各覓${G('盎盂','盛物的瓦盆與缽碗，此指盛酒的器皿。')}，競飲先釂，惟恐樽盡；而往復挹注，竟不少減。心奇之。`,
+    trans:"有一晚王生回來，看見兩位客人正與師父一起飲酒，天色已晚，屋裡卻還沒點燈燭。師父便剪了一張紙，形狀像鏡子，貼在牆壁上。不一會兒，月光便照亮了整間屋子，光芒明亮得連細微毫毛都能看清。眾弟子在四周聽候奔走侍候。一位客人說：「這麼美好的夜晚、這麼快樂的事，不能不讓大家一起同樂。」於是從桌上取來一壺酒，分給眾弟子，並且叮囑一定要喝到盡興。王生心想：七八個人，一壺酒怎麼可能分得夠？於是大家各自找來碗盆，搶著先喝，唯恐酒壺先空；然而來回倒酒，酒卻始終不見減少。王生心裡覺得十分奇異。",
+    moonReveal:true
+  },
+  {
+    tag:"轉．嫦娥起舞",
+    orig:`俄一客曰：「蒙賜月明之照，乃爾寂飲，何不呼嫦娥來？」乃以箸擲月中。見一美人，自光中出，初不盈尺，至地遂與人等。纖腰秀項，翩翩作${G('《霓裳舞》','即〈霓裳羽衣舞〉，相傳為描寫仙境的樂舞。')}。已而歌曰：「仙仙乎，而還乎，而幽我於廣寒乎！」其聲清越，烈如簫管。歌畢，盤旋而起，躍登几上，驚顧之間，已復為箸。三人大笑。`,
+    trans:"不久，一位客人說：「承蒙賜給我們這樣皎潔的月光，卻只是這樣安靜地喝酒，何不把嫦娥請來呢？」於是把筷子擲向月亮之中。只見一位美人從光中走出，起初還不滿一尺高，落地後便和常人一樣高了。她腰肢纖細、頸項秀麗，輕盈地跳起《霓裳羽衣舞》。跳完後又唱道：「翩翩欲仙啊，你們要我回去嗎？要把我幽禁在廣寒宮裡嗎！」歌聲清脆嘹亮，如簫管一般高亢。唱畢，她盤旋而起，一躍跳上桌案，眾人驚訝回頭一看，她已經又變回了一雙筷子。三位客人大笑起來。"
+  },
+  {
+    tag:"轉．月宮消散",
+    orig:"又一客曰：「今宵最樂，然不勝酒力矣。其飲我於月宮可乎？」三人移席，漸入月中。眾視三人，坐月中飲，鬚眉畢見，如影之在鏡中。移時，月漸暗；門人然燭來，則道士獨坐，而客杳矣。几上肴核尚存；壁上月，紙圓如鏡而已。",
+    trans:"又一位客人說：「今晚最是快樂，只是已經喝不下更多酒了。可否移到月宮裡請我喝酒呢？」三人便移動座席，漸漸走入月光之中。眾人看見三人坐在月裡飲酒，連鬍鬚眉毛都清清楚楚，就像影像映在鏡子裡一樣。過了一段時間，月光漸漸暗了下來；弟子點燃蠟燭進來一看，只有道士獨自坐著，客人已經不見蹤影了。桌案上酒菜果核都還擺著；牆上的月亮，其實只是一張圓形的紙，形狀像鏡子罷了。"
+  },
+  {
+    tag:"合．暫息歸志",
+    orig:"道士問眾：「飲足乎？」曰：「足矣。」「足，宜早寢，勿誤樵蘇。」眾諾而退。王竊忻慕，歸念遂息。",
+    trans:"道士問眾弟子：「喝夠了嗎？」大家回答：「夠了。」道士說：「既然夠了，就該早點休息，不要耽誤了明天砍柴割草。」眾人答應著退下。王生內心暗自欣羨傾慕，回家的念頭也就暫時打消了。"
+  },
+  {
+    tag:"起．再求仙術",
+    orig:"又一月，苦不可忍，而道士並不傳教一術。心不能待，辭曰：「弟子數百里受業仙師，縱不能得長生術，或小有傳習，亦可慰求教之心。今閱兩三月，不過早樵而暮歸，弟子在家，未諳此苦。」道士笑曰：「我固謂不能作苦，今果然。明早當遣汝行。」王曰：「弟子操作多日，師略授小技，此來為不負也。」道士問：「何術之求？」王曰：「每見師行處，牆壁所不能隔，但得此法足矣。」道士笑而允之。乃傳以訣，令自咒畢，呼曰：「入之！」",
+    trans:"又過了一個月，王生實在苦得受不了，可是道士始終沒有傳授任何法術。他終於等不下去，向道士辭別說：「弟子從數百里外前來拜師求學，縱使不能學得長生之術，若能稍微傳授一些小技藝，也可以安慰我一片求教的心。如今兩三個月過去，不過是早出砍柴、晚歸而已，弟子在家中，從未經歷過這樣的辛苦。」道士笑著說：「我本來就說你吃不了苦，如今果然如此。明天早上就送你回去吧。」王生說：「弟子辛勤勞作了這麼多天，師父只要稍微傳授一點小技藝，這趟就不算白來了。」道士問：「你想學什麼法術？」王生說：「每次看見師父所到之處，牆壁都不能阻隔，只要學得這個法術，我就滿足了。」道士笑著答應了他，便傳授口訣，讓他自己唸完咒語，喊道：「進去吧！」"
+  },
+  {
+    tag:"轉．穿牆得驗",
+    orig:`王面牆，不敢入。又曰：「試入之。」王果從容入，及牆而阻。道士曰：「俯首驟入，勿${G('逡巡','音ㄑㄩㄣ ㄒㄩㄣˊ，猶豫、遲疑不前。')}！」王果去牆數步奔而入；及牆，虛若無物，回視，果在牆外矣。大喜，入謝。道士曰：「歸宜${G('潔持','保持心地純潔專一，不可懷有雜念私心。')}，否則不驗。」遂助資斧遣之歸。`,
+    trans:"王生面對牆壁，不敢走進去。道士又說：「試著走進去看看。」王生便從容地走過去，一到牆邊卻被擋住了。道士說：「低下頭快速地衝進去，不要猶豫不前！」王生便退後幾步，奔跑著衝向牆壁；到了牆邊，竟感覺空空盪盪像沒有東西一樣，回頭一看，自己果然已經到了牆外。他非常高興，回去向道士道謝。道士叮囑說：「回去以後應當保持心地純潔，否則法術就不會靈驗了。」於是給了他一些路費，送他回家。"
+  },
+  {
+    tag:"合．觸壁踣地",
+    orig:`抵家，自詡遇仙，堅壁所不能阻，妻不信。王效其作為，去牆數尺，奔而入；頭觸硬壁，驀然而踣。妻扶視之，額上墳起如巨卵焉。妻${G('揶揄','音ㄧㄝˊ ㄩˊ，嘲笑戲弄。')}之。王慚忿，罵老道士之無良而已。`,
+    trans:"回到家中，王生自誇說遇見了仙人，堅硬的牆壁也阻擋不了自己，妻子卻不相信。王生便照著先前的作法演示，退後幾尺，奔跑著衝向牆壁；結果額頭撞上堅硬的牆壁，猛然摔倒在地。妻子扶起他一看，額頭上腫起一塊，像顆大蛋一樣。妻子譏笑嘲弄他。王生又羞又氣，只能咒罵那老道士心術不良罷了。"
+  },
+  {
+    tag:"評．異史氏曰",
+    orig:`異史氏曰：聞此事，未有不大笑者，而不知世之為王生者正復不少。今有${G('傖父','音ㄘㄤ ㄈㄨˇ，鄙陋粗俗之人，含輕蔑意。')}，喜${G('疢毒','音ㄔㄣˋ ㄉㄨˊ，逆耳卻有益的忠言，此與下句「藥石」對舉，喻指使人警醒的批評。')}而畏藥石，遂有薄劣之尤，翻然詡：「執此術也以往，可以橫行而無礙。」初試未嘗不小效，遂謂天下之大，舉可以如是行矣，勢不至觸硬壁而${G('顛蹶','跌倒、受挫，此喻遭遇重大失敗。')}不止也。`,
+    trans:"異史氏（作者自稱）說：聽到這件事的人，沒有不大笑的，卻不知道世上像王生這樣的人其實還真不少。如今有些粗俗淺薄之人，喜歡聽奉承阿諛的話，卻害怕聽逆耳的忠言，於是有更加卑劣的一類人，反而得意地誇口說：「憑著這一套本領走遍天下，也可以橫行無阻。」起初嘗試時未必沒有小小的成效，便自以為天下之大，都可以照這樣的方式行事了，這樣的人勢必要一路碰壁跌倒，直到不能自已才肯罷休。"
+  }
+];
+
+/* ---------------- RENDER PARAGRAPHS ---------------- */
+const paraList = document.getElementById('paraList');
+paragraphs.forEach((p, i) => {
+  const div = document.createElement('div');
+  div.className = 'para' + (p.moonReveal ? ' moon-narrow' : '');
+  div.id = 'para-' + i;
+  div.innerHTML = `
+    <div class="para-head" onclick="togglePara(${i})">
+      <div class="moon-toggle">
+        <svg viewBox="0 0 40 40"><circle class="disc" cx="20" cy="20" r="17"/></svg>
+      </div>
+      <div class="orig-text">
+        <span class="para-tag">${p.tag}</span>
+        ${p.orig}
+      </div>
+    </div>
+    <div class="translation">${p.trans}</div>
+    ${p.moonReveal ? '<div class="moon-caption">— 剪紙化月，光影漸次擴散滿室 —</div>' : ''}
+  `;
+  paraList.appendChild(div);
+});
+
+function togglePara(i){
+  document.getElementById('para-' + i).classList.toggle('open');
+}
+
+let allOpen = false;
+function setAllTranslations(open){
+  allOpen = open;
+  document.querySelectorAll('.para').forEach(p => p.classList.toggle('open', allOpen));
+  document.getElementById('moonHero').classList.toggle('lit', allOpen);
+  document.getElementById('transSwitch').checked = allOpen;
+}
+
+/* ---------- moon-reveal scroll widen for the banquet paragraph ---------- */
+const moonPara = document.querySelector('.para.moon-narrow');
+if (moonPara){
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        setTimeout(() => {
+          moonPara.classList.remove('moon-narrow');
+          moonPara.classList.add('moon-wide');
+        }, 300);
+        io.disconnect();
+      }
+    });
+  }, {threshold:0.5});
+  io.observe(moonPara);
+}
+
+/* ---------------- GLOSS TOOLTIP ---------------- */
+const tooltip = document.getElementById('tooltip');
+document.addEventListener('click', (e) => {
+  const g = e.target.closest('.gloss');
+  if (g){
+    e.stopPropagation();
+    const rect = g.getBoundingClientRect();
+    tooltip.textContent = g.dataset.def;
+    tooltip.style.display = 'block';
+    let left = rect.left;
+    const maxLeft = window.innerWidth - 270;
+    if (left > maxLeft) left = maxLeft;
+    if (left < 10) left = 10;
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = (rect.bottom + 8) + 'px';
+  } else {
+    tooltip.style.display = 'none';
+  }
+});
+
+/* ---------------- MATCHING GAME ---------------- */
+const MATCH_PAIRS = [
+  {term:'負笈', def:'背著書箱，遠行求學'},
+  {term:'蒲團', def:'蒲草編成的圓形坐墊'},
+  {term:'賚', def:'音ㄌㄞˋ，賜與、贈予'},
+  {term:'盎盂', def:'盛酒或食物的瓦盆缽碗'},
+  {term:'逡巡', def:'猶豫、遲疑不前'},
+  {term:'潔持', def:'保持心地純潔專一'},
+  {term:'揶揄', def:'嘲笑戲弄'},
+  {term:'傖父', def:'鄙陋粗俗之人'}
+];
+let flipped = [], lockBoard = false, matchedCount = 0, deck = [];
+const BOARD_SIZE = 9; // 固定 3×3
+
+function shuffleArr(arr){ return arr.sort(() => Math.random() - 0.5); }
+
+function createMatchCard(card){
+  const el = document.createElement('div');
+  el.className = 'match-card';
+  el.dataset.pair = card.pair;
+  el.dataset.id = card.id;
+  el.innerHTML = `
+    <div class="match-inner">
+      <div class="match-face match-front">紙</div>
+      <div class="match-face match-back">${card.text}</div>
+    </div>`;
+  el.addEventListener('click', () => onMatchClick(el));
+  return el;
+}
+
+function updateDeckNote(){
+  const note = document.getElementById('matchDeckNote');
+  note.textContent = deck.length > 0 ? `牌堆尚餘 ${deck.length} 張，配對成功會自動補牌到 3×3 桌面` : '';
+}
+
+function initMatch(){
+  const grid = document.getElementById('matchGrid');
+  grid.innerHTML = '';
+  flipped = []; lockBoard = false; matchedCount = 0;
+  document.getElementById('matchStatus').textContent = '';
+
+  let cards = [];
+  MATCH_PAIRS.forEach((p, i) => {
+    cards.push({id:'t'+i, pair:i, text:p.term});
+    cards.push({id:'d'+i, pair:i, text:p.def});
+  });
+  deck = shuffleArr(cards);
+
+  const initial = deck.splice(0, Math.min(BOARD_SIZE, deck.length));
+  initial.forEach(card => grid.appendChild(createMatchCard(card)));
+  updateDeckNote();
+}
+
+function onMatchClick(el){
+  if (lockBoard || el.classList.contains('flipped') || el.classList.contains('matched')) return;
+  el.classList.add('flipped');
+  flipped.push(el);
+  if (flipped.length === 2){
+    lockBoard = true;
+    const [a, b] = flipped;
+    if (a.dataset.pair === b.dataset.pair && a.dataset.id !== b.dataset.id){
+      a.classList.add('matched'); b.classList.add('matched');
+      matchedCount++;
+      setTimeout(() => {
+        const grid = document.getElementById('matchGrid');
+        [a, b].forEach(cardEl => {
+          if (deck.length > 0){
+            grid.replaceChild(createMatchCard(deck.shift()), cardEl);
+          } else if (grid.contains(cardEl)){
+            grid.removeChild(cardEl);
+          }
+        });
+        updateDeckNote();
+        flipped = []; lockBoard = false;
+        if (matchedCount === MATCH_PAIRS.length){
+          document.getElementById('matchStatus').textContent = '🌕 全部配對成功，滿室生輝！';
+        }
+      }, 550);
+    } else {
+      setTimeout(() => {
+        a.classList.remove('flipped'); b.classList.remove('flipped');
+        flipped = []; lockBoard = false;
+      }, 750);
+    }
+  }
+}
+initMatch();
+
+/* ---------------- 道士問答連連看 ---------------- */
+const QA_PAIRS = [
+  {q:"（初登山叩見道士，願拜於門下修道學仙）", a:"「恐嬌惰不能作苦。」"},
+  {q:"「弟子數百里受業仙師，縱不能得長生術，或小有傳習，亦可慰求教之心……弟子在家，未諳此苦。」（不堪樵蘇之勞，求辭歸）", a:"「我固謂不能作苦，今果然。明早當遣汝行。」"},
+  {q:"「弟子操作多日，師略授小技，此來為不負也。」（求師傅授一技，不虛此行）", a:"「何術之求？」"},
+  {q:"「每見師行處，牆壁所不能隔，但得此法足矣。」（明言欲學穿牆之術）", a:"（笑而允之，傳訣令咒畢）「入之！」"},
+  {q:"（面牆躊躇，不敢向前）", a:"「俯首驟入，勿逡巡！」"},
+  {q:"（穿牆果驗，大喜入謝）", a:"「歸宜潔持，否則不驗。」"}
+];
+
+/* 六種典雅配色，依序賦予每組配對，讓連線與節點各具辨識度 */
+const QA_COLORS = [
+  {c:'#3a6a86', bg:'rgba(58,106,134,0.16)'},   // 靛青
+  {c:'#a13d4c', bg:'rgba(161,61,76,0.15)'},    // 胭脂
+  {c:'#4a7a5f', bg:'rgba(74,122,95,0.16)'},    // 石綠
+  {c:'#b8763e', bg:'rgba(184,118,62,0.18)'},   // 赭石
+  {c:'#7c5a89', bg:'rgba(124,90,137,0.16)'},   // 藕紫
+  {c:'#8a8a3a', bg:'rgba(138,138,58,0.18)'}    // 松花
+];
+
+let selectedQA = null, qaLocked = false, qaMatchedCount = 0;
+
+function createQANode(text, pairIdx, side){
+  const el = document.createElement('div');
+  el.className = 'qa-node';
+  el.dataset.pair = pairIdx;
+  el.dataset.side = side;
+  el.innerHTML = `<span class="qa-dot"></span><span>${text}</span>`;
+  el.addEventListener('click', () => onQAClick(el));
+  return el;
+}
+
+function syncQALinesSize(){
+  const svg = document.getElementById('qaLines');
+  const board = document.getElementById('qaBoard');
+  svg.setAttribute('width', board.offsetWidth);
+  svg.setAttribute('height', board.offsetHeight);
+}
+
+function appendQALine(leftEl, rightEl, color){
+  const svg = document.getElementById('qaLines');
+  const boardRect = document.getElementById('qaBoard').getBoundingClientRect();
+  const d1 = leftEl.querySelector('.qa-dot').getBoundingClientRect();
+  const d2 = rightEl.querySelector('.qa-dot').getBoundingClientRect();
+  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1', d1.left + d1.width/2 - boardRect.left);
+  line.setAttribute('y1', d1.top + d1.height/2 - boardRect.top);
+  line.setAttribute('x2', d2.left + d2.width/2 - boardRect.left);
+  line.setAttribute('y2', d2.top + d2.height/2 - boardRect.top);
+  line.setAttribute('stroke', color);
+  svg.appendChild(line);
+}
+
+function redrawQALines(){
+  syncQALinesSize();
+  document.getElementById('qaLines').innerHTML = '';
+  document.querySelectorAll('#qaColLeft .qa-node.matched').forEach(leftEl => {
+    const rightEl = document.querySelector(`#qaColRight .qa-node[data-pair="${leftEl.dataset.pair}"]`);
+    if (rightEl) appendQALine(leftEl, rightEl, QA_COLORS[leftEl.dataset.pair % QA_COLORS.length].c);
+  });
+}
+
+function onQAClick(el){
+  if (qaLocked || el.classList.contains('matched')) return;
+  if (!selectedQA){
+    el.classList.add('selected');
+    selectedQA = el;
+    return;
+  }
+  if (selectedQA === el){
+    el.classList.remove('selected');
+    selectedQA = null;
+    return;
+  }
+  if (selectedQA.dataset.side === el.dataset.side){
+    selectedQA.classList.remove('selected');
+    el.classList.add('selected');
+    selectedQA = el;
+    return;
+  }
+  if (selectedQA.dataset.pair === el.dataset.pair){
+    const leftEl = selectedQA.dataset.side === 'q' ? selectedQA : el;
+    const rightEl = selectedQA.dataset.side === 'q' ? el : selectedQA;
+    const color = QA_COLORS[leftEl.dataset.pair % QA_COLORS.length];
+    [leftEl, rightEl].forEach(node => {
+      node.classList.remove('selected');
+      node.classList.add('matched');
+      node.style.borderColor = color.c;
+      node.style.background = color.bg;
+      node.style.color = color.c;
+      node.querySelector('.qa-dot').style.background = color.c;
+      node.querySelector('.qa-dot').style.borderColor = color.c;
+    });
+    syncQALinesSize();
+    appendQALine(leftEl, rightEl, color.c);
+    qaMatchedCount++;
+    selectedQA = null;
+    document.getElementById('qaStatus').textContent = qaMatchedCount === QA_PAIRS.length
+      ? '🌕 連連看全部完成，情節脈絡了然於心！'
+      : `已連對 ${qaMatchedCount} / ${QA_PAIRS.length}`;
+  } else {
+    const a = selectedQA, b = el;
+    a.classList.add('wrong'); b.classList.add('wrong');
+    qaLocked = true;
+    selectedQA = null;
+    setTimeout(() => {
+      a.classList.remove('selected', 'wrong');
+      b.classList.remove('wrong');
+      qaLocked = false;
+    }, 650);
+  }
+}
+
+function initQA(){
+  qaMatchedCount = 0; selectedQA = null; qaLocked = false;
+  document.getElementById('qaStatus').textContent = '';
+  const leftCol = document.getElementById('qaColLeft');
+  const rightCol = document.getElementById('qaColRight');
+  leftCol.querySelectorAll('.qa-node').forEach(n => n.remove());
+  rightCol.querySelectorAll('.qa-node').forEach(n => n.remove());
+  document.getElementById('qaLines').innerHTML = '';
+
+  const leftOrder = shuffleArr(QA_PAIRS.map((_, i) => i));
+  const rightOrder = shuffleArr(QA_PAIRS.map((_, i) => i));
+  leftOrder.forEach(i => leftCol.appendChild(createQANode(QA_PAIRS[i].q, i, 'q')));
+  rightOrder.forEach(i => rightCol.appendChild(createQANode(QA_PAIRS[i].a, i, 'a')));
+
+  syncQALinesSize();
+}
+initQA();
+
+window.addEventListener('resize', () => {
+  if (document.querySelectorAll('#qaColLeft .qa-node.matched').length){
+    redrawQALines();
+  } else {
+    syncQALinesSize();
+  }
+});
+
+/* ---------------- QUIZ ---------------- */
+const quiz = [
+  {
+    q:"根據文章內容，下列敘述何者正確？",
+    depth:"內容理解",
+    options:[
+      "道士剪紙為月，主要是為了考驗王生是否貪杯好酒",
+      "二客擲箸化為美人起舞、又移席入月中對飲，以奇幻情節襯托道士法力高深莫測",
+      "王生因苦於樵蘇之勞而向道士辭歸，道士竟不加以挽留，可見道士對王生並無耐心教誨之心",
+      "王生返家後觸壁而踣，可知道士所授穿牆之術本屬虛妄，從未真正應驗"
+    ],
+    correct:1,
+    explain:"（B）剪紙為月、擲箸化人、移席入月等情節皆極盡誇飾奇幻之能事，正是為了襯托道士法力之高妙不可測。（A）剪紙為月是營造賞月飲宴的氣氛，並非考驗貪杯；（C）道士爽快允其歸去，是順其本性、不強留人，並非「無耐心教誨」，文中道士傳藝、贈資皆見用心；（D）穿牆術當場確實應驗（「果在牆外矣」），失敗原因在王生歸家後未能「潔持」（保持心地純潔），而非法術本屬虛妄。"
+  },
+  {
+    q:"王生返家演示穿牆術卻「頭觸硬壁，驀然而踣」，作者藉此情節主要寓意為何？",
+    depth:"主旨寓意",
+    options:[
+      "諷刺道士教學方法有誤，故所授法術終究只是虛妄之談",
+      "說明仙術本須經年苦修方能習得，王生修行時日尚淺，火候未足",
+      "藉以批評世人急功近利、淺嘗輒止便自滿於一得之效，終致自食其果",
+      "強調妻子的不信任是導致穿牆術失靈的關鍵原因"
+    ],
+    correct:2,
+    explain:"（C）呼應篇末「異史氏曰」所言「傖父」「翻然詡」之輩，稍有小效便自以為可以橫行無礙，終至「觸硬壁而顛蹶不止」，正是全篇諷刺之核心寓意，批評世人不肯腳踏實地、貪求速成。（A）（B）（D）皆偏離作者藉異史氏所點明的本旨，屬過度延伸或無中生有的解讀。"
+  },
+  {
+    q:"關於本文的寫作手法，下列敘述何者正確？",
+    depth:"寫作手法",
+    options:[
+      "全文採第一人稱視角敘寫，藉「我」的親身見聞增加故事真實感",
+      "以誇飾筆法描繪月宮飲宴之奇幻場景，襯托後文穿牆術失敗之荒謬可笑，形成強烈對比",
+      "篇末「異史氏曰」旨在保留懸疑，刻意不表明作者對王生的褒貶態度",
+      "王生兩度向道士求去，皆遭道士婉拒慰留，可見道士對王生器重有加"
+    ],
+    correct:1,
+    explain:"（B）前半段月夜飲宴極盡誇飾奇幻（剪紙為月、擲箸化美人、移席入月），後半段卻是王生撞牆跌倒的滑稽收場，一奇幻一荒謬，形成強烈對比，深化諷刺效果。（A）全文為第三人稱敘事，並無「我」的視角；（C）「異史氏曰」正是直接、明確地表明作者的批判態度，並非保留懸疑；（D）道士對王生兩次去意皆爽快答應（「明早當遣汝行」），並非婉拒慰留。"
+  },
+  {
+    q:"「良宵勝樂，不可不同」句中「不可不同」意謂：",
+    depth:"字詞句法",
+    options:[
+      "不可以有不同的意見",
+      "不能不一起同樂共享",
+      "不可以彼此不相同",
+      "不能夠不感到同情"
+    ],
+    correct:1,
+    explain:"「不可」＋「不同」為雙重否定表強烈肯定，「同」在此作動詞，指「一同、共享」，全句意為「這樣美好的夜晚、如此快樂的事，一定要與大家一起同樂」，而非涉及意見異同或同情之意。"
+  },
+  {
+    q:"「聞此事，未有不大笑者，而不知世之為王生者正復不少」句中的「而」字，其用法與下列何者最為相近？",
+    depth:"字詞句法",
+    options:[
+      "溫故而知新",
+      "任重而道遠",
+      "君子博學而日參省乎己",
+      "學而時習之，不亦說乎"
+    ],
+    correct:1,
+    explain:"本句「而」上下文語意相反（世人大笑此事，卻不知此事其實普遍存在），為「轉折連詞」，可譯作「然而、卻」。「任重而道遠」中「而」連接「任重」與「道遠」兩層意思，同樣帶有轉折語氣（責任雖重，路途尤遠），用法相近。其餘選項「而」多作順接、並列之用（溫故進而知新、日日省察、學習後又時常複習），與本句轉折語氣不同。"
+  }
+];
+
+const letters = ['A','B','C','D'];
+const quizList = document.getElementById('quizList');
+let answeredCount = 0, correctCount = 0;
+
+quiz.forEach((item, qi) => {
+  const box = document.createElement('div');
+  box.className = 'quiz-item';
+  box.id = 'quiz-' + qi;
+
+  const optionsHtml = item.options.map((opt, oi) => `
+    <div class="option" data-oi="${oi}" onclick="answerQuiz(${qi}, ${oi})">
+      <div class="letter">${letters[oi]}</div>
+      <div>${opt}</div>
+    </div>
+  `).join('');
+
+  box.innerHTML = `
+    <div class="quiz-stem">
+      <span class="q-index">${qi + 1}.</span>
+      <span>${item.q}<span class="quiz-depth">${item.depth}</span></span>
+    </div>
+    <div class="options">${optionsHtml}</div>
+    <div class="explain"><b>解析　</b>${item.explain}</div>
+  `;
+  quizList.appendChild(box);
+});
+
+function answerQuiz(qi, oi){
+  const box = document.getElementById('quiz-' + qi);
+  if (box.classList.contains('answered')) return;
+  box.classList.add('answered');
+  answeredCount++;
+  const item = quiz[qi];
+  const opts = box.querySelectorAll('.option');
+  opts.forEach((el, idx) => {
+    if (idx === item.correct){
+      el.classList.add('correct');
+      const stamp = document.createElement('div');
+      stamp.className = 'seal-stamp';
+      stamp.textContent = '正解';
+      el.appendChild(stamp);
+    } else if (idx === oi && oi !== item.correct){
+      el.classList.add('wrong');
+    }
+  });
+  if (oi === item.correct) correctCount++;
+  document.getElementById('scoreCount').textContent = answeredCount;
+  document.getElementById('scoreCorrect').textContent = correctCount;
+  const pill = document.getElementById('scorePill');
+  pill.classList.add('pulse');
+  setTimeout(() => pill.classList.remove('pulse'), 300);
+}
+
+/* ---------------- ORAL PRESENTER MODE ---------------- */
+const presenterDecks = {
+  vocab: {
+    label:'詞語搶答',
+    cards: MATCH_PAIRS.map(p => ({ prompt:p.term, answer:`<b>${p.term}</b>：${p.def}` }))
+  },
+  qa: {
+    label:'道士問答',
+    cards: QA_PAIRS.map((item, i) => ({
+      prompt: `${i+1}. ${item.q}`,
+      answer: `<b>參考答案：</b>${item.a}`
+    }))
+  },
+  quiz: {
+    label:'課文測驗',
+    cards: quiz.map((item, i) => ({
+      prompt: `${i+1}. ${item.q}<br><br>` + item.options.map((o,oi)=>`${letters[oi]}. ${o}`).join('<br>'),
+      answer: `<b>正解：${letters[item.correct]}</b><br>${item.explain}`
+    }))
+  }
+};
+let currentDeck = 'vocab';
+let presenterIndex = 0;
+let presenterShown = false;
+
+function openPresenter(){
+  document.getElementById('presenterOverlay').classList.add('active');
+  switchDeck('vocab');
+}
+function closePresenter(){
+  document.getElementById('presenterOverlay').classList.remove('active');
+}
+function switchDeck(name){
+  currentDeck = name;
+  presenterIndex = 0;
+  document.getElementById('deckBtnVocab').classList.toggle('active', name === 'vocab');
+  document.getElementById('deckBtnQA').classList.toggle('active', name === 'qa');
+  document.getElementById('deckBtnQuiz').classList.toggle('active', name === 'quiz');
+  document.getElementById('pTag').textContent = presenterDecks[name].label;
+  renderPresenterCard();
+}
+function renderPresenterCard(){
+  const deck = presenterDecks[currentDeck];
+  const card = deck.cards[presenterIndex];
+  presenterShown = false;
+  document.getElementById('pPrompt').innerHTML = card.prompt;
+  const ansEl = document.getElementById('pAnswer');
+  ansEl.innerHTML = card.answer;
+  ansEl.classList.remove('show');
+  document.getElementById('pIndex').textContent = `${presenterIndex + 1} / ${deck.cards.length}`;
+  document.getElementById('pPrev').disabled = presenterIndex === 0;
+  document.getElementById('pNext').disabled = presenterIndex === deck.cards.length - 1;
+  document.getElementById('pReveal').textContent = '公布答案';
+}
+function presenterReveal(){
+  const ansEl = document.getElementById('pAnswer');
+  presenterShown = !presenterShown;
+  ansEl.classList.toggle('show', presenterShown);
+  document.getElementById('pReveal').textContent = presenterShown ? '隱藏答案' : '公布答案';
+}
+function presenterNext(){
+  const deck = presenterDecks[currentDeck];
+  if (presenterIndex < deck.cards.length - 1){
+    presenterIndex++;
+    renderPresenterCard();
+  }
+}
+function presenterPrev(){
+  if (presenterIndex > 0){
+    presenterIndex--;
+    renderPresenterCard();
+  }
+}
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('presenterOverlay').classList.contains('active')) return;
+  if (e.key === 'Escape') closePresenter();
+  else if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); presenterReveal(); }
+  else if (e.key === 'ArrowRight') presenterNext();
+  else if (e.key === 'ArrowLeft') presenterPrev();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>項脊軒志｜互動古文教材</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap');
+
+:root{
+  --paper:#FBF6EC;
+  --paper-deep:#F1E3C6;
+  --ink:#4A3728;
+  --ink-soft:#9C8770;
+  --pink:#E3B575;
+  --pink-deep:#C1793C;
+  --mint:#D3DEC1;
+  --mint-deep:#6B8F52;
+  --lavender:#E3B575;
+  --lavender-deep:#C1793C;
+  --butter:#D3DEC1;
+  --line:#E9DCBE;
+  --card:#FFFFFF;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif;
+  line-height:1.9;
+}
+h1,h2,h3,.disp{font-family:"Noto Serif TC",serif;}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;
+  min-height:92vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  background:
+    radial-gradient(55% 50% at 12% 12%, #F3E3BE 0%, transparent 70%),
+    radial-gradient(55% 50% at 92% 88%, #E7D9B0 0%, transparent 70%),
+    linear-gradient(180deg,#FDFAF2 0%, #F1E3C6 100%);
+  padding:40px 20px;
+}
+.hero-blobs{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.blob{position:absolute;border-radius:50%;filter:blur(2px);opacity:.55;}
+.hero-inner{position:relative;z-index:2;max-width:720px;}
+.eyebrow{
+  font-size:.85rem;letter-spacing:.5em;color:var(--pink-deep);
+  margin-bottom:18px;font-weight:700;
+}
+.hero h1{
+  font-size:clamp(3rem,9vw,5.2rem);
+  margin:0 0 10px;font-weight:900;color:var(--ink);letter-spacing:.15em;
+  text-shadow:0 6px 0 rgba(255,159,199,.18);
+}
+.hero .sub{font-size:1.1rem;color:var(--ink-soft);margin-bottom:6px;letter-spacing:.2em;}
+.hero .author{font-size:1rem;color:var(--mint-deep);margin-bottom:34px;letter-spacing:.3em;font-weight:600;}
+.hero p.lead{font-size:1.02rem;color:var(--ink-soft);max-width:520px;margin:0 auto 36px;}
+.scroll-cta{
+  display:inline-flex;align-items:center;gap:10px;padding:14px 30px;border-radius:999px;
+  background:linear-gradient(135deg,var(--pink-deep),var(--mint-deep));
+  color:#fff;font-family:"Noto Serif TC",serif;font-size:1rem;letter-spacing:.2em;
+  text-decoration:none;cursor:pointer;border:none;
+  box-shadow:0 10px 26px -10px rgba(255,143,182,.55);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.scroll-cta:hover{transform:translateY(-3px);box-shadow:0 14px 30px -8px rgba(92,166,224,.5);}
+.scroll-cta svg{width:16px;height:16px;animation:bob 1.6s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+/* ===== CONTROLS BAR ===== */
+.controls{
+  position:sticky;top:0;z-index:55;
+  background:rgba(255,247,251,.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+  padding:12px 20px;
+  display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;font-size:.92rem;
+}
+.controls label{display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--ink-soft);user-select:none;}
+.switch{position:relative;width:38px;height:22px;border-radius:99px;background:var(--line);transition:background .2s ease;flex-shrink:0;}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s ease;box-shadow:0 1px 2px rgba(0,0,0,.3);}
+input[type=checkbox]{display:none;}
+input[type=checkbox]:checked + .switch{background:var(--mint-deep);}
+input[type=checkbox]:checked + .switch::after{transform:translateX(16px);}
+.hint-tag{font-size:.78rem;color:var(--mint-deep);border:1px solid var(--mint-deep);padding:2px 10px;border-radius:99px;}
+
+/* ===== STEPPING-STONE NAV ===== */
+.stones{
+  position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:59;
+  display:flex;flex-direction:column;gap:12px;
+}
+.stone{
+  width:14px;height:14px;border-radius:50%;background:var(--line);
+  border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.12);cursor:pointer;
+  transition:background .25s ease, transform .25s ease;position:relative;
+}
+.stone:hover{transform:scale(1.25);}
+.stone.active{background:var(--pink-deep);transform:scale(1.3);}
+.stone .stone-label{
+  position:absolute;right:24px;top:50%;transform:translateY(-50%);
+  background:var(--ink);color:#fff;font-size:.72rem;padding:4px 9px;border-radius:8px;
+  white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease;
+}
+.stone:hover .stone-label{opacity:1;}
+@media(max-width:800px){.stones{display:none;}}
+
+/* ===== SECTION WRAP ===== */
+.wrap{max-width:900px;margin:0 auto;padding:70px 22px;}
+.section-title{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;}
+.section-title h2{font-size:1.7rem;margin:0;letter-spacing:.08em;}
+.section-title .num{font-family:"Noto Serif TC",serif;color:var(--pink-deep);font-weight:700;font-size:1.1rem;}
+.section-intro{color:var(--ink-soft);margin:0 0 34px;font-size:.96rem;}
+
+/* ===== PASSAGE CARDS ===== */
+.passage{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:26px;overflow:hidden;
+  box-shadow:0 1px 0 rgba(0,0,0,.02);
+  transition:max-width .9s cubic-bezier(.2,.8,.2,1), padding .9s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
+}
+.passage-head{
+  display:flex;align-items:center;justify-content:space-between;padding:14px 24px;
+  background:var(--paper-deep);border-bottom:1px solid var(--line);
+}
+.passage-head .ptitle{font-weight:700;color:var(--mint-deep);font-size:.92rem;letter-spacing:.1em;}
+.passage-body{padding:26px 28px;display:grid;grid-template-columns:1.15fr 1fr;gap:28px;}
+@media(max-width:720px){.passage-body{grid-template-columns:1fr;}}
+.classical{font-family:"Noto Serif TC",serif;font-size:1.18rem;line-height:2.5;color:var(--ink);}
+.classical ruby{ruby-position:over;}
+.classical rt{font-size:.5em;font-family:"Noto Sans TC",sans-serif;color:var(--pink-deep);font-weight:600;user-select:none;letter-spacing:0;}
+.classical .gloss{border-bottom:2px dotted var(--pink-deep);cursor:pointer;color:var(--pink-deep);font-weight:600;padding:0 1px;}
+.classical .gloss:hover{background:#E8F3FC;}
+.translation{font-size:.98rem;color:var(--ink-soft);border-left:2px solid var(--mint);padding-left:20px;}
+.translation .tlabel{display:block;font-size:.75rem;letter-spacing:.2em;color:var(--mint-deep);margin-bottom:8px;font-weight:700;}
+body.hide-translation .translation{display:none;}
+body.hide-translation .passage-body{grid-template-columns:1fr;}
+
+#p1b.narrow{max-width:340px;margin-left:auto;margin-right:auto;padding-left:0;padding-right:0;}
+#p1b.narrow .passage-body{padding:26px 18px;}
+#p1b.wide{max-width:900px;box-shadow:0 10px 34px -14px rgba(255,111,166,.32);}
+.cave-caption{text-align:center;font-size:.8rem;color:var(--mint-deep);letter-spacing:.15em;padding:10px 0 0;font-family:"Noto Serif TC",serif;}
+
+.pivot-line{text-align:center;font-family:"Noto Serif TC",serif;font-size:1.12rem;color:var(--pink-deep);margin:0 0 10px;padding:18px 20px;background:var(--paper-deep);border-radius:14px;border:1px dashed var(--pink-deep);}
+.pivot-line b{font-weight:900;}
+.pivot-sub{text-align:center;font-size:.8rem;color:var(--ink-soft);margin:0 0 40px;letter-spacing:.1em;}
+
+/* ===== TOOLTIP ===== */
+#tooltip{
+  position:fixed;max-width:260px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:10px;
+  font-size:.85rem;line-height:1.6;z-index:200;display:none;box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+#tooltip::before{content:"";position:absolute;top:-6px;left:16px;border-width:0 6px 6px 6px;border-style:solid;border-color:transparent transparent var(--ink) transparent;}
+
+/* ===== TABLES ===== */
+.table-wrap{overflow-x:auto;margin-bottom:30px;border-radius:14px;border:1px solid var(--line);}
+table{width:100%;border-collapse:collapse;background:var(--card);font-size:.92rem;}
+thead th{background:var(--mint-deep);color:#fff;text-align:left;padding:12px 16px;font-family:"Noto Serif TC",serif;font-weight:600;letter-spacing:.05em;}
+tbody td{padding:12px 16px;border-top:1px solid var(--line);}
+tbody tr:nth-child(even){background:#F2F8FD;}
+td.wc{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--pink-deep);font-size:1.05rem;}
+.subhead{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--ink);margin:36px 0 12px;font-size:1.05rem;display:flex;align-items:center;gap:10px;}
+.subhead::before{content:"";width:8px;height:8px;background:var(--pink-deep);border-radius:50%;display:inline-block;}
+
+/* ===== FLASHCARD MATCH GAME ===== */
+.match-wrap{margin:34px 0 10px;}
+.match-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:640px){.match-grid{grid-template-columns:repeat(2,1fr);}}
+.match-card{
+  aspect-ratio:1/1;border-radius:14px;cursor:pointer;position:relative;
+  perspective:600px;
+}
+.match-card-inner{
+  width:100%;height:100%;position:relative;transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.match-card.flipped .match-card-inner{transform:rotateY(180deg);}
+.match-card.matched .match-card-inner{transform:rotateY(180deg);}
+.match-face{
+  position:absolute;inset:0;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  backface-visibility:hidden;font-size:.85rem;text-align:center;padding:10px;font-weight:600;
+}
+.match-front{background:linear-gradient(135deg,var(--pink),var(--mint));color:#fff;font-family:"Noto Serif TC",serif;font-size:1.4rem;}
+.match-back{background:var(--card);border:2px solid var(--mint);color:var(--ink);transform:rotateY(180deg);}
+.match-card.matched .match-back{border-color:var(--mint-deep);background:#EFFBF6;}
+#match-status{text-align:center;color:var(--mint-deep);font-weight:700;margin-top:14px;font-family:"Noto Serif TC",serif;min-height:24px;}
+
+/* ===== CLASSIFY GAME ===== */
+.classify-wrap{margin:34px 0 10px;}
+.classify-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:14px;}
+.classify-quote{font-family:"Noto Serif TC",serif;font-size:1.05rem;margin-bottom:14px;color:var(--ink);line-height:1.7;}
+.classify-btns{display:flex;gap:10px;}
+.classify-btn{flex:1;padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--paper-deep);cursor:pointer;font-family:"Noto Serif TC",serif;font-weight:700;font-size:.95rem;color:var(--ink);transition:all .15s ease;}
+.classify-btn:hover:not(:disabled){border-color:var(--pink-deep);transform:translateY(-1px);}
+.classify-btn.correct{background:#EBFBF4;border-color:var(--mint-deep);color:var(--mint-deep);}
+.classify-btn.wrong{background:#FFEDF5;border-color:var(--pink-deep);color:var(--pink-deep);}
+.classify-btn:disabled{cursor:default;opacity:.85;}
+#classify-status{text-align:center;color:var(--mint-deep);font-weight:700;margin-top:10px;font-family:"Noto Serif TC",serif;min-height:24px;}
+
+/* ===== QUIZ ===== */
+.quiz-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 26px;margin-bottom:18px;}
+.quiz-q{font-weight:700;margin-bottom:14px;font-family:"Noto Serif TC",serif;font-size:1.02rem;}
+.quiz-tag{display:inline-block;font-size:.72rem;color:var(--mint-deep);border:1px solid var(--mint-deep);padding:1px 8px;border-radius:99px;margin-bottom:10px;letter-spacing:.05em;}
+.quiz-opt{display:block;padding:10px 14px;margin-bottom:8px;border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:all .15s ease;font-size:.94rem;}
+.quiz-opt:hover{border-color:var(--pink-deep);}
+.quiz-opt.correct{background:#EBFBF4;border-color:var(--mint-deep);color:var(--mint-deep);font-weight:700;}
+.quiz-opt.wrong{background:#FFEDF5;border-color:var(--pink-deep);color:var(--pink-deep);}
+.quiz-opt input{margin-right:10px;}
+#quiz-result{text-align:center;font-family:"Noto Serif TC",serif;font-size:1.2rem;color:var(--mint-deep);margin:22px 0;min-height:30px;font-weight:700;}
+.quiz-btn{
+  display:block;margin:10px auto 0;padding:12px 34px;border-radius:999px;border:none;
+  background:linear-gradient(135deg,var(--pink-deep),var(--mint-deep));color:#fff;
+  font-family:"Noto Serif TC",serif;font-size:1rem;letter-spacing:.1em;cursor:pointer;transition:transform .2s ease;
+}
+.quiz-btn:hover{transform:translateY(-2px);}
+
+footer{text-align:center;padding:40px 20px 60px;color:var(--ink-soft);font-size:.85rem;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+
+<div id="tooltip"></div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-blobs">
+    <div class="blob" style="width:240px;height:240px;background:#F3E3BE;top:10%;left:8%;"></div>
+    <div class="blob" style="width:220px;height:220px;background:#D9C99A;bottom:8%;right:10%;"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="eyebrow">互動古文教材</div>
+    <h1>項脊軒志</h1>
+    <div class="sub">明．歸有光</div>
+    <div class="author">一間老屋　三代人事　半生悲喜</div>
+    <p class="lead">歸有光以一間陋室「項脊軒」為線索，串起家道的興衰、母親與祖母的深情，
+      以及亡妻手植枇杷樹的思念。全文不事雕琢，卻字字含情，
+      是古文中「以小見大、寓情於物」的代表之作。</p>
+    <a class="scroll-cta" href="#passage-1">
+      <span>走進項脊軒，讀一段家族往事</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16M6 14l6 6 6-6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===================== CONTROLS ===================== -->
+<div class="controls">
+  <label>
+    <input type="checkbox" id="toggleTrans" checked onchange="document.body.classList.toggle('hide-translation', !this.checked)">
+    <span class="switch"></span>
+    顯示白話翻譯
+  </label>
+  <span class="hint-tag">點選文中粉色詞語　可查看註釋</span>
+</div>
+
+<!-- ===================== STEPPING STONE NAV ===================== -->
+<div class="stones" id="stones">
+  <div class="stone" data-target="passage-1"><span class="stone-label">陋室方丈</span></div>
+  <div class="stone" data-target="p1b"><span class="stone-label">修葺洞然</span></div>
+  <div class="stone" data-target="p2"><span class="stone-label">家道中落</span></div>
+  <div class="stone" data-target="p3"><span class="stone-label">老嫗憶母</span></div>
+  <div class="stone" data-target="p4"><span class="stone-label">大母授笏</span></div>
+  <div class="stone" data-target="p5"><span class="stone-label">幸而不焚</span></div>
+  <div class="stone" data-target="p6"><span class="stone-label">項脊生曰</span></div>
+  <div class="stone" data-target="p7"><span class="stone-label">補記亡妻</span></div>
+  <div class="stone" data-target="vocab-sec"><span class="stone-label">字詞整理</span></div>
+  <div class="stone" data-target="quiz-sec"><span class="stone-label">自我檢測</span></div>
+</div>
+
+<!-- ===================== PASSAGE 1a ===================== -->
+<div class="wrap" id="passage-1">
+  <div class="section-title"><span class="num">壹</span><h2>課文與注釋</h2></div>
+  <p class="section-intro">全文依情節分為七段：陋室原貌、修葺後的清幽、家道中落、老嫗憶母、大母授笏、幸而不焚、項脊生曰的感慨，以及後人補記亡妻與枇杷樹。點選文中標色詞語可查看解釋。</p>
+
+  <div class="passage">
+    <div class="passage-head"><span class="ptitle">第一段（上）．陋室方丈，百年老屋</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        項脊軒，舊<span class="gloss" data-def="舊時稱南面的小屋為閣子。">南閣子</span>也。室僅<span class="gloss" data-def="一丈見方，形容屋子極為狹小。">方丈</span>，可容一人居。百年老屋，塵泥<span class="gloss" data-def="滲透而往下漏。"><ruby>滲<rt>ㄕㄣˋ</rt></ruby><ruby>漉<rt>ㄌㄨˋ</rt></ruby></span>，雨澤下注；每移案，顧視無可置者。又北向，不能得日，日過午已昏。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        項脊軒，是以前的南邊小閣樓。屋子只有一丈見方，僅能容納一個人居住。這是一間有百年歷史的老屋，泥土常從屋頂滲漏下來，雨水也往下灌注；每次移動桌案，環顧四周都找不到可以安放的地方。而且屋子朝北，照不到陽光，一過中午屋內就已經昏暗了。
+      </div>
+    </div>
+  </div>
+
+  <div class="passage narrow" id="p1b">
+    <div class="passage-head"><span class="ptitle">第一段（下）．稍加修葺，室始洞然</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        余稍為修<ruby>葺<rt>ㄑㄧˋ</rt></ruby>，使不上漏。前<ruby>闢<rt>ㄆㄧˋ</rt></ruby>四窗，<ruby>垣<rt>ㄩㄢˊ</rt></ruby>牆<span class="gloss" data-def="環繞。">周</span>庭，以<span class="gloss" data-def="抵擋。">當</span>南日，日影反照，室始<span class="gloss" data-def="明亮的樣子。">洞然</span>。又雜植蘭桂竹木於庭，舊時<span class="gloss" data-def="欄杆。縱者為欄，橫者為楯。">欄<ruby>楯<rt>ㄕㄨㄣˇ</rt></ruby></span>，亦遂增<span class="gloss" data-def="美景、勝景。">勝</span>。借書滿架，<span class="gloss" data-def="或俯或仰，形容悠然自得的樣子。"><ruby>偃<rt>ㄧㄢˇ</rt></ruby><ruby>仰<rt>ㄧㄤˇ</rt></ruby></span><ruby>嘯<rt>ㄒㄧㄠˋ</rt></ruby>歌，<span class="gloss" data-def="沉靜的樣子。"><ruby>冥<rt>ㄇㄧㄥˊ</rt></ruby>然</span><ruby>兀<rt>ㄨˋ</rt></ruby>坐，<span class="gloss" data-def="自然界的一切聲響。籟：聲音。">萬<ruby>籟<rt>ㄌㄞˋ</rt></ruby></span>有聲；而庭階寂寂，小鳥時來啄食，人至不去。三五之夜，明月半牆，桂影斑駁，風移影動，<span class="gloss" data-def="形容枝影搖曳、姿態美好可愛的樣子。"><ruby>珊<rt>ㄕㄢ</rt></ruby><ruby>珊<rt>ㄕㄢ</rt></ruby></span>可愛。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        我稍微加以修整，使屋頂不再漏雨。在南面開了四扇窗子，繞著庭院築起圍牆，用來遮擋南邊照來的陽光，陽光反射，屋子裡才開始變得明亮。又在庭院中雜植蘭花、桂樹、竹子，舊有的欄杆，也因此增添了幾分美景。屋內堆滿了借來的書籍，坐臥其間長嘯歌詠，或靜靜獨自端坐，連細微的聲響都能聽見；庭院台階前一片寂靜，小鳥不時飛來啄食，人來了也不飛走。每逢十五月圓的夜晚，明月照著半面牆壁，桂樹的影子斑斑駁駁，微風吹過影子搖動，姿態美好可愛。
+      </div>
+    </div>
+    <div class="cave-caption">— 由方丈斗室到洞然明亮：捲動至此，畫面隨「修葺」而展開 —</div>
+  </div>
+
+  <p class="pivot-line">然余居於此，<b>多可喜，亦多可悲</b>。</p>
+  <p class="pivot-sub">全文情感基調的樞紐句：以下先敘家道變遷、再憶親人往事，喜與悲交織而下</p>
+
+  <div class="passage" id="p2">
+    <div class="passage-head"><span class="ptitle">第二段．諸父異爨，家道中落</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        先是，庭中通南北為一。<span class="gloss" data-def="等到。"><ruby>迨<rt>ㄉㄞˋ</rt></ruby></span>諸父<span class="gloss" data-def="伯父叔父們分家，各自起火煮飯。爨：燒火煮飯，引申為分家。">異<ruby>爨<rt>ㄘㄨㄢˋ</rt></ruby></span>，內外多置小門，牆往往而是。東犬西吠，客<span class="gloss" data-def="越過廚房。逾：越過。庖：廚房。"><ruby>逾<rt>ㄩˊ</rt></ruby><ruby>庖<rt>ㄆㄠˊ</rt></ruby></span>而宴，雞棲於廳。庭中始為<span class="gloss" data-def="籬笆。"><ruby>籬<rt>ㄌㄧˊ</rt></ruby></span>，<span class="gloss" data-def="不久、後來（副詞）。">已</span>為牆，凡再變矣。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        在此之前，庭院南北是相通的。等到伯叔們分家各自起爨，屋內屋外都設置了許多小門，牆壁到處都是。東家的狗對著西家叫，客人得越過廚房才能到宴席，雞隻棲息在廳堂上。庭院裡起初只是用籬笆隔開，後來又築起了牆，總共變化了兩次。
+      </div>
+    </div>
+  </div>
+
+  <div class="passage" id="p3">
+    <div class="passage-head"><span class="ptitle">第三段．老嫗憶母，語未畢而泣</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        家有老<ruby>嫗<rt>ㄩˋ</rt></ruby>，嘗居於此。<ruby>嫗<rt>ㄩˋ</rt></ruby>，<span class="gloss" data-def="已故的祖母。大母：祖母。">先大母</span>婢也，<span class="gloss" data-def="餵養、哺育，此指曾照顧過祖母與母親兩代人。">乳二世</span>，<span class="gloss" data-def="已故的母親。">先<ruby>妣<rt>ㄅㄧˇ</rt></ruby></span>撫之甚厚。室西連於<span class="gloss" data-def="內室、閨房。">中閨</span>，先<ruby>妣<rt>ㄅㄧˇ</rt></ruby>嘗一至。<ruby>嫗<rt>ㄩˋ</rt></ruby>每謂余曰：「某所，<span class="gloss" data-def="通「爾」，作代詞用，你的。">而</span>母立於茲。」<ruby>嫗<rt>ㄩˋ</rt></ruby>又曰：「汝姊在吾懷，<span class="gloss" data-def="形容嬰兒哭泣的聲音。"><ruby>呱<rt>ㄍㄨ</rt></ruby><ruby>呱<rt>ㄍㄨ</rt></ruby></span>而泣；娘以指<span class="gloss" data-def="敲。"><ruby>叩<rt>ㄎㄡˋ</rt></ruby></span>門<ruby>扉<rt>ㄈㄟ</rt></ruby>曰：『兒寒乎？欲食乎？』吾從板外相為應答。」語未畢，余泣，<ruby>嫗<rt>ㄩˋ</rt></ruby>亦泣。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        家裡有位老婦人，曾經住在這裡。她是已故祖母的婢女，曾經奶養過我家兩代人，已故的母親對她也很優厚。項脊軒的西邊和內室相連，母親曾經到過這裡一次。老婦人常常對我說：「這個地方，你母親曾經站在這裡。」老婦人又說：「你姊姊那時還在我懷裡，哇哇地哭；你母親用手指敲著門板說：『孩子冷嗎？想吃東西嗎？』我就隔著木板一一回答她。」話還沒說完，我就哭了，老婦人也跟著落淚。
+      </div>
+    </div>
+  </div>
+
+  <div class="passage" id="p4">
+    <div class="passage-head"><span class="ptitle">第四段．大母授笏，長號不自禁</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        余自<span class="gloss" data-def="古代男子十五歲束髮為髻，表示成童，此指少年時期。">束髮</span>讀書軒中，一日，大母<span class="gloss" data-def="探望、看視。">過</span>余曰：「吾兒，久不見<span class="gloss" data-def="你。">若</span>影，何<span class="gloss" data-def="整天、一整天。">竟日</span>默默在此，大類女郎也？」<span class="gloss" data-def="等到。">比</span>去，以手<span class="gloss" data-def="關閉。"><ruby>闔<rt>ㄏㄜˊ</rt></ruby></span>門，自語曰：「吾家讀書久不效，兒之成，則可待乎！」<span class="gloss" data-def="不久。">頃之</span>，持一<span class="gloss" data-def="象牙製的笏板，古代大臣上朝時用以記事的手板。">象<ruby>笏<rt>ㄏㄨˋ</rt></ruby></span>至，曰：「此吾祖太常公宣德間執此以朝，他日汝當用之！」<ruby>瞻<rt>ㄓㄢ</rt></ruby>顧遺跡，如在昨日，令人長<ruby>號<rt>ㄏㄠˊ</rt></ruby>不自禁。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        我從少年時期起就在軒中讀書，有一天，祖母來看我，說：「我的孩子，好久沒看見你的身影了，為什麼整天默默地待在這裡，簡直像個女孩子一樣？」等到要離開時，她用手把門關上，自言自語說：「我們家讀書已經很久沒有成效了，這孩子的成就，應該可以期待了吧！」過了不久，她拿著一塊象牙笏板進來，說：「這是我祖父太常公在宣德年間拿著上朝用的，將來你應當會用得到它！」看著這些遺留下來的物品，就好像是昨天發生的事一樣，讓人忍不住放聲長號。
+      </div>
+    </div>
+  </div>
+
+  <div class="passage" id="p5">
+    <div class="passage-head"><span class="ptitle">第五段．軒中歲月，幸而不焚</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        軒東故嘗為廚，人往，從軒前過。余<span class="gloss" data-def="關閉窗子。扃：關閉。牖：窗子。"><ruby>扃<rt>ㄐㄩㄥ</rt></ruby><ruby>牖<rt>ㄧㄡˇ</rt></ruby></span>而居，久之，能以足音辨人。軒凡四遭火，得不焚，<span class="gloss" data-def="大概、恐怕。"><ruby>殆<rt>ㄉㄞˋ</rt></ruby></span>有神護者。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        項脊軒東邊以前曾經是廚房，人們要去廚房，都得經過軒前。我關著窗子獨自居住，時間久了，只憑腳步聲就能分辨是誰經過。項脊軒總共遭遇過四次火災，卻都沒有被燒毀，大概是有神明保佑的緣故吧。
+      </div>
+    </div>
+  </div>
+
+  <div class="passage" id="p6">
+    <div class="passage-head"><span class="ptitle">第六段．項脊生曰，自況感慨</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        項脊生曰：「蜀清守<span class="gloss" data-def="出產丹砂的礦穴。">丹穴</span>，利<span class="gloss" data-def="居……第一。甲：第一。">甲</span>天下，其後秦皇帝築女懷清臺；劉玄德與曹操爭天下，諸葛孔明起<span class="gloss" data-def="地名，在今湖北襄陽一帶，諸葛亮隱居躬耕之地。"><ruby>隴<rt>ㄌㄨㄥˇ</rt></ruby>中</span>。方二人之<span class="gloss" data-def="不為人知、默默無聞。"><ruby>昧<rt>ㄇㄟˋ</rt></ruby><ruby>昧<rt>ㄇㄟˋ</rt></ruby></span>於一隅也，世何足以知之，余區區處敗屋中，方<span class="gloss" data-def="意氣風發、得意的樣子。瞬目：眨眼。">揚眉<ruby>瞬<rt>ㄕㄨㄣˋ</rt></ruby>目</span>，謂有奇景，人知之者，其謂與<span class="gloss" data-def="井底之蛙，比喻見識淺陋。坎井：淺井。"><ruby>坎<rt>ㄎㄢˇ</rt></ruby>井之蛙</span>何異？」
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        項脊生（作者自稱）說：「蜀地寡婦清守著出產丹砂的礦穴，獲利天下第一，後來秦始皇還為她築了女懷清臺；劉備和曹操爭奪天下，諸葛亮則是從隆中崛起。當這兩人還默默無聞地蟄居一隅時，世人哪裡懂得認識他們呢？我如今卑微地身處這破敗的屋子裡，卻自得意滿地認為屋中別有奇景，如果有人知道了，恐怕會說我和井底之蛙有什麼不同呢？」
+      </div>
+    </div>
+  </div>
+
+  <div class="passage" id="p7">
+    <div class="passage-head"><span class="ptitle">第七段．後人補記，亡妻與枇杷樹</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        余既為此志，後五年，吾妻來歸，時至軒中，從余問古事，或憑几學書。吾妻<span class="gloss" data-def="出嫁女子回娘家探望父母。">歸寧</span>，述諸小妹語曰：「聞姊家有閣子，且何謂閣子也？」其後六年，吾妻死，室壞不修。其後二年，余久臥病無聊，乃使人復葺南閣子，其<span class="gloss" data-def="格局、規制。">制</span>稍異於前。然自後余多在外，不常居。
+        <br><br>
+        庭有枇杷樹，吾妻死之年所<span class="gloss" data-def="親手栽種。">手植</span>也，今已<span class="gloss" data-def="高聳直立的樣子。">亭亭</span>如蓋矣。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        我寫完這篇志文之後，過了五年，我的妻子嫁了過來，她常常來到軒中，向我請教古書上的事情，有時也靠著小桌學習寫字。妻子回娘家探望時，轉述幾個小姑的話說：「聽說姊姊家裡有個小閣樓，那什麼叫做閣子呢？」又過了六年，我的妻子去世了，項脊軒因此損壞卻沒有再修理。再過了兩年，我長期臥病在床，百無聊賴，於是派人重新修整了南邊的閣樓，格局和以前略有不同。然而從那以後，我大多時間都在外奔波，很少再住在這裡了。
+        <br><br>
+        庭院裡有一棵枇杷樹，是妻子去世那一年我親手栽種的，如今已經高高聳立，枝葉茂密得像傘蓋一樣了。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== VOCAB TABLES ===================== -->
+<div class="wrap" id="vocab-sec">
+  <div class="section-title"><span class="num">貳</span><h2>字詞整理</h2></div>
+  <p class="section-intro">整理特殊用法、古今異義、一字多義與寫作手法，是考試最常出題的重點。</p>
+
+  <div class="subhead">特殊用法（通假）</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>字</th><th>通</th><th>解釋</th><th>出處</th></tr></thead>
+      <tbody>
+        <tr><td class="wc">而</td><td>爾</td><td>你的（代詞）</td><td>而母立於茲</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">古今異義</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>詞語</th><th>文中古義</th><th>常見今義</th></tr></thead>
+      <tbody>
+        <tr><td class="wc">束髮</td><td>男子十五歲，成童之年</td><td>把頭髮束起來（動作）</td></tr>
+        <tr><td class="wc">竟日</td><td>整天、一整天</td><td>畢竟、終究</td></tr>
+        <tr><td class="wc">比</td><td>等到</td><td>比較</td></tr>
+        <tr><td class="wc">制</td><td>格局、規制</td><td>製作、限制</td></tr>
+        <tr><td class="wc">過</td><td>探望、看視</td><td>經過、超過</td></tr>
+        <tr><td class="wc">歸寧</td><td>出嫁女子回娘家探望父母</td><td>（今較少單獨使用）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">一字多義</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>例句</th><th>詞性</th><th>詞義</th></tr></thead>
+      <tbody>
+        <tr><td>大母「過」余曰</td><td>動詞</td><td>探望、看視</td></tr>
+        <tr><td>而母立於茲（「而」）</td><td>代詞，通「爾」</td><td>你的</td></tr>
+        <tr><td>客逾庖「而」宴</td><td>連詞</td><td>表承接，不譯</td></tr>
+        <tr><td>「而」庭階寂寂</td><td>連詞</td><td>表轉折，然而</td></tr>
+        <tr><td>日過午「已」昏</td><td>副詞</td><td>已經</td></tr>
+        <tr><td>庭中始為籬，「已」為牆</td><td>副詞</td><td>不久、後來</td></tr>
+        <tr><td>頃「之」</td><td>助詞</td><td>音節助詞，無義</td></tr>
+        <tr><td>他日汝當用「之」</td><td>代詞</td><td>指象笏</td></tr>
+        <tr><td>吾妻死「之」年所手植也</td><td>助詞</td><td>的</td></tr>
+        <tr><td>余稍「為」修葺</td><td>介詞</td><td>替、幫</td></tr>
+        <tr><td>軒東故嘗「為」廚</td><td>動詞</td><td>是、作為</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">寫作手法與結構賞析</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>手法／結構</th><th>說明</th></tr></thead>
+      <tbody>
+        <tr><td class="wc">多可喜，亦多可悲</td><td>全文情感基調的樞紐句，以下先敘軒室之美（可喜），再敘家道中落、思念親人（可悲）</td></tr>
+        <tr><td class="wc">以物寄情</td><td>藉「項脊軒」、「枇杷樹」等具體物象，寄託對親人的思念與人生感慨</td></tr>
+        <tr><td class="wc">白描手法</td><td>以簡練文字描摹生活細節（如「東犬西吠，客逾庖而宴」），不加渲染而情味自現</td></tr>
+        <tr><td class="wc">情感層遞（泣、泣、長號）</td><td>由老嫗轉述先妣往事而「泣」，到追念先大母遺物而「長號不自禁」，情感層層堆疊，推向高潮</td></tr>
+        <tr><td class="wc">今昔對比</td><td>軒室今昔、家庭聚散、人事變遷層層對照，寓「悲」於「喜」的敘述架構之中</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">記憶配對小遊戲</div>
+  <p class="section-intro" style="margin-bottom:16px;">翻開卡片找出「詞語」與「意思」的配對，全部配對成功即完成。</p>
+  <div class="match-wrap">
+    <div class="match-grid" id="matchGrid"></div>
+    <div id="match-status"></div>
+  </div>
+
+  <div class="subhead">可喜可悲分類挑戰</div>
+  <p class="section-intro" style="margin-bottom:16px;">判斷下列文中情節，屬於作者筆下的「可喜」還是「可悲」，點選按鈕立即看出對錯，全部答完會顯示總分。</p>
+  <div class="classify-wrap" id="classifyWrap"></div>
+  <div id="classify-status"></div>
+</div>
+
+<!-- ===================== QUIZ ===================== -->
+<div class="wrap" id="quiz-sec">
+  <div class="section-title"><span class="num">參</span><h2>自我檢測</h2></div>
+  <p class="section-intro">十二題選擇題，涵蓋一字多義、古今異義、文意理解、修辭鑑賞、情感結構與文學常識，難度較高，答對後會立即顯示正確與否。</p>
+
+  <div id="quiz"></div>
+  <button class="quiz-btn" onclick="gradeQuiz()">送出答案</button>
+  <div id="quiz-result"></div>
+</div>
+
+<footer>項脊軒志．歸有光　｜　互動教材僅供學習使用</footer>
+
+<script>
+/* ---------- tooltip for gloss words ---------- */
+const tooltip = document.getElementById('tooltip');
+document.querySelectorAll('.gloss').forEach(el=>{
+  el.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    const rect = el.getBoundingClientRect();
+    tooltip.textContent = el.dataset.def;
+    tooltip.style.display = 'block';
+    let left = rect.left;
+    const maxLeft = window.innerWidth - 280;
+    if(left > maxLeft) left = maxLeft;
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = (rect.bottom + 8) + 'px';
+  });
+});
+document.addEventListener('click', ()=>{ tooltip.style.display='none'; });
+
+/* ---------- narrow -> wide reveal for paragraph 1b ---------- */
+const p1b = document.getElementById('p1b');
+const ioP1b = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      setTimeout(()=>{
+        p1b.classList.remove('narrow');
+        p1b.classList.add('wide');
+      }, 350);
+      ioP1b.disconnect();
+    }
+  });
+},{threshold:0.5});
+ioP1b.observe(p1b);
+
+/* ---------- stepping stone scrollspy nav ---------- */
+const stoneEls = document.querySelectorAll('.stone');
+const targets = Array.from(stoneEls).map(s=>document.getElementById(s.dataset.target));
+stoneEls.forEach(s=>{
+  s.addEventListener('click', ()=>{
+    document.getElementById(s.dataset.target).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+const ioStones = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    const idx = targets.indexOf(entry.target);
+    if(idx === -1) return;
+    if(entry.isIntersecting){
+      stoneEls.forEach(s=>s.classList.remove('active'));
+      stoneEls[idx].classList.add('active');
+    }
+  });
+},{rootMargin:'-40% 0px -50% 0px'});
+targets.forEach(t=>{ if(t) ioStones.observe(t); });
+
+/* ---------- glossary matching game ---------- */
+const MATCH_PAIRS = [
+  {term:'束髮', def:'男子十五歲成童'},
+  {term:'過', def:'探望、看視'},
+  {term:'竟日', def:'整天、一整天'},
+  {term:'象笏', def:'象牙笏板，大臣上朝記事用'},
+  {term:'歸寧', def:'出嫁女子回娘家探望'},
+  {term:'異爨', def:'分家各自起火煮飯'},
+  {term:'坎井之蛙', def:'井底之蛙，見識淺陋'},
+  {term:'手植', def:'親手栽種'}
+];
+let matchCards = [];
+MATCH_PAIRS.forEach((p,i)=>{
+  matchCards.push({id:'t'+i, pair:i, type:'term', text:p.term});
+  matchCards.push({id:'d'+i, pair:i, type:'def', text:p.def});
+});
+matchCards = matchCards.sort(()=>Math.random()-0.5);
+
+const grid = document.getElementById('matchGrid');
+let flipped = [];
+let lockBoard = false;
+let matchedCount = 0;
+
+matchCards.forEach(card=>{
+  const el = document.createElement('div');
+  el.className='match-card';
+  el.dataset.pair = card.pair;
+  el.dataset.id = card.id;
+  el.innerHTML = `
+    <div class="match-card-inner">
+      <div class="match-face match-front">軒</div>
+      <div class="match-face match-back">${card.text}</div>
+    </div>`;
+  el.addEventListener('click', ()=>onCardClick(el));
+  grid.appendChild(el);
+});
+
+function onCardClick(el){
+  if(lockBoard || el.classList.contains('flipped') || el.classList.contains('matched')) return;
+  el.classList.add('flipped');
+  flipped.push(el);
+  if(flipped.length === 2){
+    lockBoard = true;
+    const [a,b] = flipped;
+    if(a.dataset.pair === b.dataset.pair && a.dataset.id !== b.dataset.id){
+      a.classList.add('matched'); b.classList.add('matched');
+      matchedCount++;
+      flipped = []; lockBoard = false;
+      if(matchedCount === MATCH_PAIRS.length){
+        document.getElementById('match-status').textContent = '🎉 全部配對成功！';
+      }
+    } else {
+      setTimeout(()=>{
+        a.classList.remove('flipped'); b.classList.remove('flipped');
+        flipped = []; lockBoard = false;
+      }, 800);
+    }
+  }
+}
+
+/* ---------- classify game: 可喜 or 可悲 ---------- */
+const CLASSIFY_ITEMS = [
+  {quote:'前闢四窗，室始洞然，又雜植蘭桂竹木於庭。', answer:'喜'},
+  {quote:'三五之夜，明月半牆，桂影斑駁，風移影動，珊珊可愛。', answer:'喜'},
+  {quote:'迨諸父異爨，內外多置小門牆，往往而是。', answer:'悲'},
+  {quote:'東犬西吠，客逾庖而宴，雞棲於廳。', answer:'悲'},
+  {quote:'嫗述先妣叩門相問之語，語未畢，余泣，嫗亦泣。', answer:'悲'},
+  {quote:'瞻顧大母所遺象笏，如在昨日，令人長號不自禁。', answer:'悲'},
+  {quote:'軒凡四遭火，得不焚，殆有神護者。', answer:'喜'},
+  {quote:'庭有枇杷樹，吾妻死之年所手植也，今已亭亭如蓋矣。', answer:'悲'}
+];
+let classifyAnswered = 0;
+let classifyCorrect = 0;
+const classifyWrap = document.getElementById('classifyWrap');
+CLASSIFY_ITEMS.forEach((item, ci)=>{
+  const card = document.createElement('div');
+  card.className = 'classify-card';
+  card.innerHTML = `
+    <div class="classify-quote">「${item.quote}」</div>
+    <div class="classify-btns">
+      <button class="classify-btn" data-choice="喜" data-ci="${ci}">可喜</button>
+      <button class="classify-btn" data-choice="悲" data-ci="${ci}">可悲</button>
+    </div>`;
+  classifyWrap.appendChild(card);
+});
+classifyWrap.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.classify-btn');
+  if(!btn) return;
+  const card = btn.closest('.classify-card');
+  const buttons = card.querySelectorAll('.classify-btn');
+  if(card.dataset.done) return;
+  card.dataset.done = '1';
+  const ci = Number(btn.dataset.ci);
+  const correctAnswer = CLASSIFY_ITEMS[ci].answer;
+  buttons.forEach(b=>{
+    b.disabled = true;
+    if(b.dataset.choice === correctAnswer) b.classList.add('correct');
+    else if(b === btn) b.classList.add('wrong');
+  });
+  classifyAnswered++;
+  if(btn.dataset.choice === correctAnswer) classifyCorrect++;
+  const statusEl = document.getElementById('classify-status');
+  if(classifyAnswered === CLASSIFY_ITEMS.length){
+    statusEl.textContent = `🎉 挑戰完成！你答對了 ${classifyCorrect} / ${CLASSIFY_ITEMS.length} 題`;
+  } else {
+    statusEl.textContent = `已完成 ${classifyAnswered} / ${CLASSIFY_ITEMS.length} 題`;
+  }
+});
+
+/* ---------- quiz ---------- */
+const QUIZ = [
+  {
+    tag:'一字多義',
+    q:'1.「大母過余曰」的「過」字意思為何？',
+    options:['經過','超過','探望、看視','責備、怪罪'],
+    answer:2
+  },
+  {
+    tag:'一字多義',
+    q:'2.「庭中始為籬，已為牆」的「已」字，意思最接近下列何者？',
+    options:['已經','後來、不久','停止','太、過於'],
+    answer:1
+  },
+  {
+    tag:'特殊用法',
+    q:'3.「某所，而母立於茲」的「而」字，用法與意義為何？',
+    options:['表示轉折，譯為「但是」','表示承接，可不譯','通「爾」，作代詞用，譯為「你的」','表示假設，譯為「如果」'],
+    answer:2
+  },
+  {
+    tag:'修辭鑑賞',
+    q:'4.「三五之夜，明月半牆，桂影斑駁，風移影動，珊珊可愛」一句，主要運用了下列何種寫作手法？',
+    options:['誇飾，極言月色之亮','白描，以簡潔文字勾勒清幽夜景，寓情於景','層遞，由遠而近描寫月色','設問，引發讀者好奇'],
+    answer:1
+  },
+  {
+    tag:'文意理解',
+    q:'5.「借書滿架，偃仰嘯歌，冥然兀坐，萬籟有聲；而庭階寂寂，小鳥時來啄食，人至不去」這段文字，最主要在表現什麼？',
+    options:['項脊軒藏書豐富，足供研究','作者少年時苦讀的艱辛','項脊軒環境清幽，作者讀書自得其樂之情','暗示作者即將離開項脊軒，依依不捨'],
+    answer:2
+  },
+  {
+    tag:'情感結構',
+    q:'6.「語未畢，余泣，嫗亦泣」，作者落淚的原因為何？',
+    options:['感傷老嫗年老體衰','因老嫗轉述亡母生前疼愛子女的往事而傷懷','因思念亡妻而落淚','因家道中落而感傷'],
+    answer:1
+  },
+  {
+    tag:'文意理解',
+    q:'7.「瞻顧遺跡，如在昨日，令人長號不自禁」，作者為何「長號不自禁」？',
+    options:['因見到項脊軒破敗荒涼','看見祖母當年留下的象笏，想起祖母的殷切期望而傷懷','因科舉落第，愧對家族期望','因懷念幼年與祖母共處的歡樂時光'],
+    answer:1
+  },
+  {
+    tag:'文學常識',
+    q:'8.「項脊軒」得名的由來，下列敘述何者正確？',
+    options:['因軒中遍植脊草而得名','因軒室狹小如人之脊背而得名','為紀念遠祖曾居於江蘇太倉項脊涇而取名','取自《詩經》典故，寓意讀書成材'],
+    answer:2
+  },
+  {
+    tag:'古今異義',
+    q:'9.「何竟日默默在此」的「竟日」，意思是？',
+    options:['畢竟一天','整天、一整天','究竟哪一天','竟然有一天'],
+    answer:1
+  },
+  {
+    tag:'主旨鑑賞',
+    q:'10. 文末補記「庭有枇杷樹，吾妻死之年所手植也，今已亭亭如蓋矣」，這段文字的作用，下列敘述最恰當的是？',
+    options:['單純描寫庭院景物，與主旨無關','以枇杷樹的茂盛成長，反襯歲月流逝、物是人非之悲，寄託對亡妻的深沉思念','說明作者晚年致力於園藝','暗示項脊軒即將被拆除改建'],
+    answer:1
+  },
+  {
+    tag:'篇章結構',
+    q:'11. 本文以「多可喜，亦多可悲」統攝全篇，下列何者屬於文中「可喜」之事？',
+    options:['諸父異爨，庭院隔閡','軒室修葺後，清幽宜居，讀書自得其樂','祖母持象笏，期望殷切','亡妻早逝，室壞不修'],
+    answer:1
+  },
+  {
+    tag:'修辭鑑賞',
+    q:'12.「東犬西吠，客逾庖而宴，雞棲於廳」三句，主要運用下列何種修辭手法，以呈現家族分裂後的混亂景象？',
+    options:['誇飾','對偶與白描，用瑣碎具體的生活細節側寫家道中落之亂','設問','層遞'],
+    answer:1
+  }
+];
+
+const quizDiv = document.getElementById('quiz');
+QUIZ.forEach((item, qi)=>{
+  const card = document.createElement('div');
+  card.className='quiz-card';
+  card.innerHTML = `<span class="quiz-tag">${item.tag}</span><div class="quiz-q">${item.q}</div>` +
+    item.options.map((opt,oi)=>`
+      <label class="quiz-opt" data-q="${qi}" data-o="${oi}">
+        <input type="radio" name="q${qi}" value="${oi}"> ${opt}
+      </label>
+    `).join('');
+  quizDiv.appendChild(card);
+});
+
+function gradeQuiz(){
+  let score = 0;
+  QUIZ.forEach((item, qi)=>{
+    const selected = document.querySelector(`input[name="q${qi}"]:checked`);
+    const opts = document.querySelectorAll(`.quiz-opt[data-q="${qi}"]`);
+    opts.forEach(opt=>{
+      opt.classList.remove('correct','wrong');
+      const oi = Number(opt.dataset.o);
+      if(oi === item.answer) opt.classList.add('correct');
+      else if(selected && Number(selected.value) === oi) opt.classList.add('wrong');
+    });
+    if(selected && Number(selected.value) === item.answer) score++;
+  });
+  document.getElementById('quiz-result').textContent =
+    `你答對了 ${score} / ${QUIZ.length} 題`;
+}
+</script>
+</body>
+</html>

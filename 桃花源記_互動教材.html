@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>桃花源記｜互動古文教材</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap');
+
+:root{
+  --paper:#F6FAFE;
+  --paper-deep:#E7F1FB;
+  --ink:#3B4A5C;
+  --ink-soft:#8B9BAF;
+  --pink:#8FC7EF;
+  --pink-deep:#4E9BDB;
+  --mint:#BFE0F7;
+  --mint-deep:#3D82BE;
+  --lavender:#8FC7EF;
+  --lavender-deep:#4E9BDB;
+  --butter:#BFE0F7;
+  --line:#DCEAF7;
+  --card:#FFFFFF;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif;
+  line-height:1.9;
+}
+h1,h2,h3,.disp{font-family:"Noto Serif TC",serif;}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;
+  min-height:92vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  background:
+    radial-gradient(55% 50% at 12% 12%, #DCEEFB 0%, transparent 70%),
+    radial-gradient(55% 50% at 92% 88%, #CFE6F8 0%, transparent 70%),
+    linear-gradient(180deg,#F9FCFF 0%, #E7F1FB 100%);
+  padding:40px 20px;
+}
+.hero-blobs{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.blob{position:absolute;border-radius:50%;filter:blur(2px);opacity:.55;}
+.hero-inner{position:relative;z-index:2;max-width:720px;}
+.eyebrow{
+  font-size:.85rem;letter-spacing:.5em;color:var(--pink-deep);
+  margin-bottom:18px;font-weight:700;
+}
+.hero h1{
+  font-size:clamp(3rem,9vw,5.2rem);
+  margin:0 0 10px;font-weight:900;color:var(--ink);letter-spacing:.15em;
+  text-shadow:0 6px 0 rgba(255,159,199,.18);
+}
+.hero .sub{font-size:1.1rem;color:var(--ink-soft);margin-bottom:6px;letter-spacing:.2em;}
+.hero .author{font-size:1rem;color:var(--mint-deep);margin-bottom:34px;letter-spacing:.3em;font-weight:600;}
+.hero p.lead{font-size:1.02rem;color:var(--ink-soft);max-width:520px;margin:0 auto 36px;}
+.scroll-cta{
+  display:inline-flex;align-items:center;gap:10px;padding:14px 30px;border-radius:999px;
+  background:linear-gradient(135deg,var(--pink-deep),var(--mint-deep));
+  color:#fff;font-family:"Noto Serif TC",serif;font-size:1rem;letter-spacing:.2em;
+  text-decoration:none;cursor:pointer;border:none;
+  box-shadow:0 10px 26px -10px rgba(255,143,182,.55);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.scroll-cta:hover{transform:translateY(-3px);box-shadow:0 14px 30px -8px rgba(92,166,224,.5);}
+.scroll-cta svg{width:16px;height:16px;animation:bob 1.6s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+/* ===== RIVER SCROLL PROGRESS ===== */
+.river-bar{
+  position:sticky;top:0;z-index:60;height:34px;
+  background:linear-gradient(180deg,#FCFEFF,#E7F1FB);
+  border-bottom:1px solid var(--line);
+}
+.river-bar svg{width:100%;height:34px;display:block;}
+#boat{transition:transform .05s linear;}
+
+/* ===== CONTROLS BAR ===== */
+.controls{
+  position:sticky;top:34px;z-index:55;
+  background:rgba(255,247,251,.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+  padding:12px 20px;
+  display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;font-size:.92rem;
+}
+.controls label{display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--ink-soft);user-select:none;}
+.switch{position:relative;width:38px;height:22px;border-radius:99px;background:var(--line);transition:background .2s ease;flex-shrink:0;}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s ease;box-shadow:0 1px 2px rgba(0,0,0,.3);}
+input[type=checkbox]{display:none;}
+input[type=checkbox]:checked + .switch{background:var(--mint-deep);}
+input[type=checkbox]:checked + .switch::after{transform:translateX(16px);}
+.hint-tag{font-size:.78rem;color:var(--mint-deep);border:1px solid var(--mint-deep);padding:2px 10px;border-radius:99px;}
+
+/* ===== STEPPING-STONE NAV ===== */
+.stones{
+  position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:59;
+  display:flex;flex-direction:column;gap:14px;
+}
+.stone{
+  width:14px;height:14px;border-radius:50%;background:var(--line);
+  border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.12);cursor:pointer;
+  transition:background .25s ease, transform .25s ease;position:relative;
+}
+.stone:hover{transform:scale(1.25);}
+.stone.active{background:var(--pink-deep);transform:scale(1.3);}
+.stone .stone-label{
+  position:absolute;right:24px;top:50%;transform:translateY(-50%);
+  background:var(--ink);color:#fff;font-size:.72rem;padding:4px 9px;border-radius:8px;
+  white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease;
+}
+.stone:hover .stone-label{opacity:1;}
+@media(max-width:800px){.stones{display:none;}}
+
+/* ===== SECTION WRAP ===== */
+.wrap{max-width:900px;margin:0 auto;padding:70px 22px;}
+.section-title{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;}
+.section-title h2{font-size:1.7rem;margin:0;letter-spacing:.08em;}
+.section-title .num{font-family:"Noto Serif TC",serif;color:var(--pink-deep);font-weight:700;font-size:1.1rem;}
+.section-intro{color:var(--ink-soft);margin:0 0 34px;font-size:.96rem;}
+
+/* ===== PASSAGE CARDS ===== */
+.passage{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:26px;overflow:hidden;
+  box-shadow:0 1px 0 rgba(0,0,0,.02);
+  transition:max-width .9s cubic-bezier(.2,.8,.2,1), padding .9s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
+}
+.passage-head{
+  display:flex;align-items:center;justify-content:space-between;padding:14px 24px;
+  background:var(--paper-deep);border-bottom:1px solid var(--line);
+}
+.passage-head .ptitle{font-weight:700;color:var(--mint-deep);font-size:.92rem;letter-spacing:.1em;}
+.passage-body{padding:26px 28px;display:grid;grid-template-columns:1.15fr 1fr;gap:28px;}
+@media(max-width:720px){.passage-body{grid-template-columns:1fr;}}
+.classical{font-family:"Noto Serif TC",serif;font-size:1.18rem;line-height:2.15;color:var(--ink);}
+.classical .gloss{border-bottom:2px dotted var(--pink-deep);cursor:pointer;color:var(--pink-deep);font-weight:600;padding:0 1px;}
+.classical .gloss:hover{background:#E8F3FC;}
+.translation{font-size:.98rem;color:var(--ink-soft);border-left:2px solid var(--mint);padding-left:20px;}
+.translation .tlabel{display:block;font-size:.75rem;letter-spacing:.2em;color:var(--mint-deep);margin-bottom:8px;font-weight:700;}
+body.hide-translation .translation{display:none;}
+body.hide-translation .passage-body{grid-template-columns:1fr;}
+
+#p2.narrow{max-width:340px;margin-left:auto;margin-right:auto;padding-left:0;padding-right:0;}
+#p2.narrow .passage-body{padding:26px 18px;}
+#p2.wide{max-width:900px;box-shadow:0 10px 34px -14px rgba(255,111,166,.32);}
+.cave-caption{text-align:center;font-size:.8rem;color:var(--mint-deep);letter-spacing:.15em;padding:10px 0 0;font-family:"Noto Serif TC",serif;}
+
+/* ===== TOOLTIP ===== */
+#tooltip{
+  position:fixed;max-width:260px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:10px;
+  font-size:.85rem;line-height:1.6;z-index:200;display:none;box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+#tooltip::before{content:"";position:absolute;top:-6px;left:16px;border-width:0 6px 6px 6px;border-style:solid;border-color:transparent transparent var(--ink) transparent;}
+
+/* ===== TABLES ===== */
+.table-wrap{overflow-x:auto;margin-bottom:30px;border-radius:14px;border:1px solid var(--line);}
+table{width:100%;border-collapse:collapse;background:var(--card);font-size:.92rem;}
+thead th{background:var(--mint-deep);color:#fff;text-align:left;padding:12px 16px;font-family:"Noto Serif TC",serif;font-weight:600;letter-spacing:.05em;}
+tbody td{padding:12px 16px;border-top:1px solid var(--line);}
+tbody tr:nth-child(even){background:#F2F8FD;}
+td.wc{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--pink-deep);font-size:1.05rem;}
+.subhead{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--ink);margin:36px 0 12px;font-size:1.05rem;display:flex;align-items:center;gap:10px;}
+.subhead::before{content:"";width:8px;height:8px;background:var(--pink-deep);border-radius:50%;display:inline-block;}
+
+/* ===== FLASHCARD MATCH GAME ===== */
+.match-wrap{margin:34px 0 10px;}
+.match-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:640px){.match-grid{grid-template-columns:repeat(2,1fr);}}
+.match-card{
+  aspect-ratio:1/1;border-radius:14px;cursor:pointer;position:relative;
+  perspective:600px;
+}
+.match-card-inner{
+  width:100%;height:100%;position:relative;transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.match-card.flipped .match-card-inner{transform:rotateY(180deg);}
+.match-card.matched .match-card-inner{transform:rotateY(180deg);}
+.match-face{
+  position:absolute;inset:0;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  backface-visibility:hidden;font-size:.85rem;text-align:center;padding:10px;font-weight:600;
+}
+.match-front{background:linear-gradient(135deg,var(--pink),var(--mint));color:#fff;font-family:"Noto Serif TC",serif;font-size:1.4rem;}
+.match-back{background:var(--card);border:2px solid var(--mint);color:var(--ink);transform:rotateY(180deg);}
+.match-card.matched .match-back{border-color:var(--mint-deep);background:#EFFBF6;}
+#match-status{text-align:center;color:var(--mint-deep);font-weight:700;margin-top:14px;font-family:"Noto Serif TC",serif;min-height:24px;}
+
+/* ===== QUIZ ===== */
+.quiz-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 26px;margin-bottom:18px;}
+.quiz-q{font-weight:700;margin-bottom:14px;font-family:"Noto Serif TC",serif;font-size:1.02rem;}
+.quiz-opt{display:block;padding:10px 14px;margin-bottom:8px;border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:all .15s ease;font-size:.94rem;}
+.quiz-opt:hover{border-color:var(--pink-deep);}
+.quiz-opt.correct{background:#EBFBF4;border-color:var(--mint-deep);color:var(--mint-deep);font-weight:700;}
+.quiz-opt.wrong{background:#FFEDF5;border-color:var(--pink-deep);color:var(--pink-deep);}
+.quiz-opt input{margin-right:10px;}
+#quiz-result{text-align:center;font-family:"Noto Serif TC",serif;font-size:1.2rem;color:var(--mint-deep);margin:22px 0;min-height:30px;font-weight:700;}
+.quiz-btn{
+  display:block;margin:10px auto 0;padding:12px 34px;border-radius:999px;border:none;
+  background:linear-gradient(135deg,var(--pink-deep),var(--mint-deep));color:#fff;
+  font-family:"Noto Serif TC",serif;font-size:1rem;letter-spacing:.1em;cursor:pointer;transition:transform .2s ease;
+}
+.quiz-btn:hover{transform:translateY(-2px);}
+
+footer{text-align:center;padding:40px 20px 60px;color:var(--ink-soft);font-size:.85rem;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+
+<div id="tooltip"></div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-blobs">
+    <div class="blob" style="width:240px;height:240px;background:#DCEEFB;top:10%;left:8%;"></div>
+    <div class="blob" style="width:220px;height:220px;background:#CFE6F8;bottom:8%;right:10%;"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="eyebrow">互動古文教材</div>
+    <h1>桃花源記</h1>
+    <div class="sub">東晉．陶淵明</div>
+    <div class="author">緣溪而行　忘路遠近　誤入桃源</div>
+    <p class="lead">一名武陵漁人循溪而上，穿越一片落英繽紛的桃花林，
+      在山洞盡頭，發現了一個與世隔絕、雞犬相聞的理想世界。
+      這篇千古名作，寄託了陶淵明對亂世的失望，與對淳樸社會的嚮往。</p>
+    <a class="scroll-cta" href="#passage-1">
+      <span>隨漁人一同進入桃花源</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16M6 14l6 6 6-6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===================== RIVER PROGRESS ===================== -->
+<div class="river-bar">
+  <svg viewBox="0 0 1000 34" preserveAspectRatio="none">
+    <path id="riverPath" d="M0 17 Q 125 4, 250 17 T 500 17 T 750 17 T 1000 17"
+      fill="none" stroke="#C6E9FF" stroke-width="10" stroke-linecap="round"/>
+    <text id="boat" x="0" y="24" font-size="18">🛶</text>
+  </svg>
+</div>
+
+<!-- ===================== CONTROLS ===================== -->
+<div class="controls">
+  <label>
+    <input type="checkbox" id="toggleTrans" checked onchange="document.body.classList.toggle('hide-translation', !this.checked)">
+    <span class="switch"></span>
+    顯示白話翻譯
+  </label>
+  <span class="hint-tag">點選文中粉色詞語　可查看註釋</span>
+</div>
+
+<!-- ===================== STEPPING STONE NAV ===================== -->
+<div class="stones" id="stones">
+  <div class="stone" data-target="passage-1"><span class="stone-label">發現桃林</span></div>
+  <div class="stone" data-target="p2"><span class="stone-label">豁然開朗</span></div>
+  <div class="stone" data-target="p3"><span class="stone-label">村中作客</span></div>
+  <div class="stone" data-target="p4"><span class="stone-label">尋而不獲</span></div>
+  <div class="stone" data-target="p5"><span class="stone-label">無人問津</span></div>
+  <div class="stone" data-target="vocab-sec"><span class="stone-label">字詞整理</span></div>
+  <div class="stone" data-target="quiz-sec"><span class="stone-label">自我檢測</span></div>
+</div>
+
+<!-- ===================== PASSAGE 1 ===================== -->
+<div class="wrap" id="passage-1">
+  <div class="section-title"><span class="num">壹</span><h2>課文與注釋</h2></div>
+  <p class="section-intro">依情節分為五段：發現桃花林、進入桃花源、村中作客、離去尋而不獲、無人再訪。點選文中標色詞語可查看解釋。</p>
+
+  <div class="passage">
+    <div class="passage-head"><span class="ptitle">第一段．緣溪忘返，忽逢桃林</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        晉<span class="gloss" data-def="東晉孝武帝的年號（西元376–396年）。">太元</span>中，武陵人捕魚為業。
+        <span class="gloss" data-def="沿著、順著。">緣</span>溪行，忘路<span class="gloss" data-def="結構助詞「的」。">之</span>遠近。
+        忽逢桃花林，<span class="gloss" data-def="夾著兩岸生長。">夾岸</span>數百步，中無雜樹，
+        芳草<span class="gloss" data-def="古義：鮮艷美麗。今義：（味道）新鮮可口。">鮮美</span>，
+        <span class="gloss" data-def="落花繁多紛亂的樣子。英：花。">落英繽紛</span>。
+        漁人甚<span class="gloss" data-def="對……感到驚異。之：代詞，指眼前的景象。">異之</span>，復前行，
+        欲<span class="gloss" data-def="走到盡頭、探究到底。">窮</span>其林。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        東晉太元年間，武陵有個人以捕魚為業。他沿著溪水前行，忘記了路程的遠近。忽然遇到一片桃花林，夾著兩岸生長數百步，其中沒有別的雜樹，花草鮮嫩美麗，落花繽紛滿地。漁人對此感到十分驚異，繼續往前走，想走到林子的盡頭。
+      </div>
+    </div>
+  </div>
+
+  <div class="passage narrow" id="p2">
+    <div class="passage-head"><span class="ptitle">第二段．捨船入洞，豁然開朗</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        林盡水源，便得一山，山有小口，<span class="gloss" data-def="隱隱約約的樣子。">彷彿</span>若有光。
+        便<span class="gloss" data-def="捨棄。">捨</span>船，從口入。初極狹，
+        <span class="gloss" data-def="通「才」，僅僅。">纔</span>通人。復行數十步，
+        <span class="gloss" data-def="忽然變得開闊明亮的樣子。">豁然開朗</span>。
+        土地平曠，屋舍<span class="gloss" data-def="古義：整齊的樣子。今義：很像。">儼然</span>，
+        有良田美池桑竹之屬。<span class="gloss" data-def="田間小路交錯相通。交通為古今異義詞，今義為運輸事業。">阡陌交通</span>，
+        雞犬相聞。其中往來種作，男女衣著，悉如外人。
+        <span class="gloss" data-def="借代老人與小孩：老人髮白，小孩垂髮。">黃髮垂髫</span>，
+        並<span class="gloss" data-def="安適愉快、自得其樂的樣子。">怡然自樂</span>。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        桃花林在溪水的發源處就沒有了，便看見一座山，山上有個小洞口，隱隱約約好像有光線透出。漁人便捨棄小船，從洞口走進去。起初洞口極為狹窄，僅能容一人通過。又走了幾十步，忽然變得開闊明亮。只見土地平坦寬廣，房屋整齊有序，有肥沃的田地、美麗的池塘，以及桑樹竹林之類。田間小路交錯相通，雞鳴狗吠之聲彼此都能聽見。人們在其中來往耕作，男女的穿著打扮，都和桃花源外的人一樣。老人與小孩，都安適愉快，自得其樂。
+      </div>
+    </div>
+    <div class="cave-caption">— 由狹窄到開闊：捲動至此，畫面隨「豁然開朗」展開 —</div>
+  </div>
+
+  <div class="passage" id="p3">
+    <div class="passage-head"><span class="ptitle">第三段．村人設宴，話說前朝</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        見漁人，乃大驚，問所從來。<span class="gloss" data-def="詳盡地。">具</span>答之。
+        便<span class="gloss" data-def="通「邀」，邀請。">要</span>還家，設酒殺雞作食。
+        村中聞有此人，<span class="gloss" data-def="都。">咸</span>來問訊。
+        自云先世避秦時亂，率<span class="gloss" data-def="古義：妻子和兒女。今義：男子的配偶。">妻子</span>邑人來此
+        <span class="gloss" data-def="古義：與世隔絕的地方。今義：沒有出路的境地。">絕境</span>，
+        不復出焉，遂與外人<span class="gloss" data-def="隔絕、不相往來。">間隔</span>。
+        問今是何世，乃不知有漢，
+        <span class="gloss" data-def="古義：不要說、更不必說。今義：表條件關係的連詞。">無論</span>魏晉。
+        此人一一為具言所聞，皆歎惋。餘人各復
+        <span class="gloss" data-def="邀請。">延</span>至其家，皆出酒食。停數日，辭去。
+        此中人<span class="gloss" data-def="告訴（他）說。語，動詞，讀ㄩˋ。">語云</span>：
+        「<span class="gloss" data-def="古義：不值得。今義：不夠。">不足</span>為外人道也。」
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        村人見到漁人，竟然十分驚訝，問他從哪裡來。漁人詳細地回答了他們。村人便邀請他到家裡去，擺酒殺雞做飯招待他。村裡的人聽說來了這樣一個人，都來探問消息。他們自己說，祖先為了躲避秦朝時的戰亂，帶領妻子兒女和同鄉的人來到這個與世隔絕的地方，從此不再出去，於是就與外面的人斷絕了往來。問起現在是什麼朝代，竟然不知道有漢朝，更不必說魏、晉了。漁人一一詳細地說出自己所知道的事，大家聽了都感嘆惋惜。其餘的人各自又邀請漁人到自己家中，都拿出酒食款待他。漁人停留了幾天，便告辭離去。這裡的人告訴他說：「這裡的情形不值得對外面的人說啊。」
+      </div>
+    </div>
+  </div>
+
+  <div class="passage" id="p4">
+    <div class="passage-head"><span class="ptitle">第四段．處處誌之，尋而不獲</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        既出，得其船，便<span class="gloss" data-def="扶：沿著。向：先前的。">扶向路</span>，
+        處處<span class="gloss" data-def="通「志」，動詞，做記號。">誌</span>之。
+        及郡下，<span class="gloss" data-def="前往拜見。">詣</span>太守，說如此。
+        太守即<span class="gloss" data-def="派遣。">遣</span>人隨其往，尋向所誌，遂迷，不復得路。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        漁人出來以後，找到了他的船，便沿著先前的路回去，一路上處處做下記號。到了郡城，就去拜見太守，稟報了這番經歷。太守立即派人跟隨他前往，尋找先前所做的記號，最終還是迷失了方向，再也找不到原來的路。
+      </div>
+    </div>
+  </div>
+
+  <div class="passage" id="p5">
+    <div class="passage-head"><span class="ptitle">第五段．高士欲往，未果病終</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        南陽劉子驥，高尚士也，聞之，欣然
+        <span class="gloss" data-def="計劃前往。規：計劃。">規往</span>。
+        <span class="gloss" data-def="沒有實現。">未果</span>，
+        <span class="gloss" data-def="副詞，不久。">尋</span>病終。
+        後遂無<span class="gloss" data-def="打聽渡口，引申為訪求（探訪桃花源的路）。">問津</span>者。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        南陽有個叫劉子驥的人，是個志節高尚的隱士，聽說了這件事，高高興興地計劃前往。但計劃還沒有實現，不久就病死了。此後就再也沒有人去探訪桃花源的路了。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== VOCAB TABLES ===================== -->
+<div class="wrap" id="vocab-sec">
+  <div class="section-title"><span class="num">貳</span><h2>字詞整理</h2></div>
+  <p class="section-intro">仿講義形式整理通同字、古今異義與一字多義，考試常從這幾類出題。</p>
+
+  <div class="subhead">通同（通假）字</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>字</th><th>通</th><th>解釋</th><th>出處</th></tr></thead>
+      <tbody>
+        <tr><td class="wc">要</td><td>邀</td><td>邀請</td><td>便要還家</td></tr>
+        <tr><td class="wc">誌</td><td>志</td><td>做記號（動詞）</td><td>處處誌之</td></tr>
+        <tr><td class="wc">纔</td><td>才</td><td>僅僅</td><td>纔通人</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">古今異義</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>詞語</th><th>文中古義</th><th>常見今義</th></tr></thead>
+      <tbody>
+        <tr><td class="wc">鮮美</td><td>鮮艷美麗</td><td>（味道）新鮮可口</td></tr>
+        <tr><td class="wc">交通</td><td>交錯相通</td><td>運輸事業</td></tr>
+        <tr><td class="wc">妻子</td><td>妻子和兒女</td><td>男子的配偶</td></tr>
+        <tr><td class="wc">絕境</td><td>與世隔絕的地方</td><td>沒有出路的境地</td></tr>
+        <tr><td class="wc">無論</td><td>不要說、更不必說</td><td>表條件關係的連詞</td></tr>
+        <tr><td class="wc">儼然</td><td>整齊的樣子</td><td>很像</td></tr>
+        <tr><td class="wc">不足</td><td>不值得</td><td>不夠</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">一字多義</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>例句</th><th>詞性</th><th>詞義</th></tr></thead>
+      <tbody>
+        <tr><td>忘路「之」遠近</td><td>助詞</td><td>的</td></tr>
+        <tr><td>漁人甚異「之」</td><td>代詞</td><td>指眼前的景象</td></tr>
+        <tr><td>處處誌「之」</td><td>代詞</td><td>指沿途的路</td></tr>
+        <tr><td>聞「之」，欣然規往</td><td>代詞</td><td>指這件事</td></tr>
+        <tr><td>「尋」向所誌</td><td>動詞</td><td>尋找</td></tr>
+        <tr><td>「尋」病終</td><td>副詞</td><td>不久</td></tr>
+        <tr><td>便「捨」船</td><td>動詞</td><td>捨棄（通「捨」）</td></tr>
+        <tr><td>屋「舍」儼然</td><td>名詞</td><td>房屋</td></tr>
+        <tr><td>捕魚「為」業</td><td>動詞</td><td>作為</td></tr>
+        <tr><td>不足「為」外人道也</td><td>介詞</td><td>對、向</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">句型筆記</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>句型</th><th>例句</th><th>說明</th></tr></thead>
+      <tbody>
+        <tr><td>判斷句</td><td>南陽劉子驥，高尚士「也」。</td><td>「……也」表判斷語氣，相當於「是」。</td></tr>
+        <tr><td>省略句</td><td>（村人）便要還家</td><td>省略主語「村人」，承前一句「見漁人」省略。</td></tr>
+        <tr><td>省略句</td><td>（漁人）停數日，辭去</td><td>省略主語「漁人」。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">記憶配對小遊戲</div>
+  <p class="section-intro" style="margin-bottom:16px;">翻開卡片找出「詞語」與「意思」的配對，全部配對成功即完成。</p>
+  <div class="match-wrap">
+    <div class="match-grid" id="matchGrid"></div>
+    <div id="match-status"></div>
+  </div>
+</div>
+
+<!-- ===================== QUIZ ===================== -->
+<div class="wrap" id="quiz-sec">
+  <div class="section-title"><span class="num">參</span><h2>自我檢測</h2></div>
+  <p class="section-intro">五題選擇題，測試古今異義、一字多義與文章主旨的理解，答對後會立即顯示正確與否。</p>
+
+  <div id="quiz"></div>
+  <button class="quiz-btn" onclick="gradeQuiz()">送出答案</button>
+  <div id="quiz-result"></div>
+</div>
+
+<footer>桃花源記．陶淵明　｜　互動教材僅供學習使用</footer>
+
+<script>
+/* ---------- tooltip for gloss words ---------- */
+const tooltip = document.getElementById('tooltip');
+document.querySelectorAll('.gloss').forEach(el=>{
+  el.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    const rect = el.getBoundingClientRect();
+    tooltip.textContent = el.dataset.def;
+    tooltip.style.display = 'block';
+    let left = rect.left;
+    const maxLeft = window.innerWidth - 280;
+    if(left > maxLeft) left = maxLeft;
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = (rect.bottom + 8) + 'px';
+  });
+});
+document.addEventListener('click', ()=>{ tooltip.style.display='none'; });
+
+/* ---------- narrow -> wide reveal for paragraph 2 ---------- */
+const p2 = document.getElementById('p2');
+const ioP2 = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      setTimeout(()=>{
+        p2.classList.remove('narrow');
+        p2.classList.add('wide');
+      }, 350);
+      ioP2.disconnect();
+    }
+  });
+},{threshold:0.5});
+ioP2.observe(p2);
+
+/* ---------- river progress boat ---------- */
+const riverPath = document.getElementById('riverPath');
+const boat = document.getElementById('boat');
+const pathLen = riverPath.getTotalLength();
+function updateBoat(){
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = Math.min(Math.max(scrollTop / docHeight, 0), 1);
+  const pt = riverPath.getPointAtLength(progress * pathLen);
+  boat.setAttribute('x', pt.x - 9);
+  boat.setAttribute('y', pt.y + 6);
+}
+document.addEventListener('scroll', updateBoat, {passive:true});
+window.addEventListener('resize', updateBoat);
+updateBoat();
+
+/* ---------- stepping stone scrollspy nav ---------- */
+const stoneEls = document.querySelectorAll('.stone');
+const targets = Array.from(stoneEls).map(s=>document.getElementById(s.dataset.target));
+stoneEls.forEach(s=>{
+  s.addEventListener('click', ()=>{
+    document.getElementById(s.dataset.target).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+const ioStones = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    const idx = targets.indexOf(entry.target);
+    if(idx === -1) return;
+    if(entry.isIntersecting){
+      stoneEls.forEach(s=>s.classList.remove('active'));
+      stoneEls[idx].classList.add('active');
+    }
+  });
+},{rootMargin:'-40% 0px -50% 0px'});
+targets.forEach(t=>{ if(t) ioStones.observe(t); });
+
+/* ---------- glossary matching game ---------- */
+const MATCH_PAIRS = [
+  {term:'鮮美', def:'鮮艷美麗'},
+  {term:'交通', def:'交錯相通'},
+  {term:'妻子', def:'妻子和兒女'},
+  {term:'絕境', def:'與世隔絕之地'},
+  {term:'無論', def:'更不必說'},
+  {term:'儼然', def:'整齊的樣子'}
+];
+let matchCards = [];
+MATCH_PAIRS.forEach((p,i)=>{
+  matchCards.push({id:'t'+i, pair:i, type:'term', text:p.term});
+  matchCards.push({id:'d'+i, pair:i, type:'def', text:p.def});
+});
+matchCards = matchCards.sort(()=>Math.random()-0.5);
+
+const grid = document.getElementById('matchGrid');
+let flipped = [];
+let lockBoard = false;
+let matchedCount = 0;
+
+matchCards.forEach(card=>{
+  const el = document.createElement('div');
+  el.className='match-card';
+  el.dataset.pair = card.pair;
+  el.dataset.id = card.id;
+  el.innerHTML = `
+    <div class="match-card-inner">
+      <div class="match-face match-front">桃</div>
+      <div class="match-face match-back">${card.text}</div>
+    </div>`;
+  el.addEventListener('click', ()=>onCardClick(el));
+  grid.appendChild(el);
+});
+
+function onCardClick(el){
+  if(lockBoard || el.classList.contains('flipped') || el.classList.contains('matched')) return;
+  el.classList.add('flipped');
+  flipped.push(el);
+  if(flipped.length === 2){
+    lockBoard = true;
+    const [a,b] = flipped;
+    if(a.dataset.pair === b.dataset.pair && a.dataset.id !== b.dataset.id){
+      a.classList.add('matched'); b.classList.add('matched');
+      matchedCount++;
+      flipped = []; lockBoard = false;
+      if(matchedCount === MATCH_PAIRS.length){
+        document.getElementById('match-status').textContent = '🎉 全部配對成功！';
+      }
+    } else {
+      setTimeout(()=>{
+        a.classList.remove('flipped'); b.classList.remove('flipped');
+        flipped = []; lockBoard = false;
+      }, 800);
+    }
+  }
+}
+
+/* ---------- quiz ---------- */
+const QUIZ = [
+  {
+    q:'1.「阡陌交通」的「交通」，在文中的意思是？',
+    options:['交通運輸事業','田間小路交錯相通','來往交流頻繁','通訊聯絡方便'],
+    answer:1
+  },
+  {
+    q:'2.「率妻子邑人來此絕境」的「妻子」是指？',
+    options:['男子的配偶','妻子和兒女','同鄉的長輩','漁人的家人'],
+    answer:1
+  },
+  {
+    q:'3.「乃不知有漢，無論魏晉」的「無論」意思是？',
+    options:['不管、不論','更不必說','無法討論','沒有評論'],
+    answer:1
+  },
+  {
+    q:'4.「便扶向路」的「扶」字意思是？',
+    options:['用手攙扶','沿著、順著','幫助他人','依靠倚仗'],
+    answer:1
+  },
+  {
+    q:'5. 本文最終「不復得路」、「未果」的結局，最能呼應下列何者？',
+    options:[
+      '桃花源只是漁人的幻覺，並不存在',
+      '寄託作者對理想世界可望而不可即的感慨',
+      '諷刺太守辦事不力',
+      '說明漁人記性不好'
+    ],
+    answer:1
+  }
+];
+
+const quizDiv = document.getElementById('quiz');
+QUIZ.forEach((item, qi)=>{
+  const card = document.createElement('div');
+  card.className='quiz-card';
+  card.innerHTML = `<div class="quiz-q">${item.q}</div>` +
+    item.options.map((opt,oi)=>`
+      <label class="quiz-opt" data-q="${qi}" data-o="${oi}">
+        <input type="radio" name="q${qi}" value="${oi}"> ${opt}
+      </label>
+    `).join('');
+  quizDiv.appendChild(card);
+});
+
+function gradeQuiz(){
+  let score = 0;
+  QUIZ.forEach((item, qi)=>{
+    const selected = document.querySelector(`input[name="q${qi}"]:checked`);
+    const opts = document.querySelectorAll(`.quiz-opt[data-q="${qi}"]`);
+    opts.forEach(opt=>{
+      opt.classList.remove('correct','wrong');
+      const oi = Number(opt.dataset.o);
+      if(oi === item.answer) opt.classList.add('correct');
+      else if(selected && Number(selected.value) === oi) opt.classList.add('wrong');
+    });
+    if(selected && Number(selected.value) === item.answer) score++;
+  });
+  document.getElementById('quiz-result').textContent =
+    `你答對了 ${score} / ${QUIZ.length} 題`;
+}
+</script>
+</body>
+</html>
