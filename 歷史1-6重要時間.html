@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>近代中國與東亞檔案室｜大事記憶站</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ece1c8;
+    --paper-2:#e2d3ab;
+    --paper-dark:#d6c393;
+    --ink:#2c2620;
+    --ink-soft:#5d5140;
+    --ink-faint:#8a7d67;
+    --seal:#a13a2c;
+    --seal-dark:#7c2c21;
+    --jade:#3c6353;
+    --jade-dark:#2a4a3d;
+    --navy:#2b3a52;
+    --brass:#a9822e;
+    --line:rgba(44,38,32,0.18);
+    --card-shadow: 0 10px 24px rgba(44,38,32,0.16), 0 2px 6px rgba(44,38,32,0.12);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 700px at 10% -10%, rgba(169,130,46,0.10), transparent 60%),
+      radial-gradient(900px 600px at 100% 0%, rgba(161,58,44,0.07), transparent 55%),
+      var(--paper);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:'Noto Sans TC', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* subtle paper fiber texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(44,38,32,0.015) 0px, rgba(44,38,32,0.015) 1px, transparent 1px, transparent 3px);
+    opacity:0.6;
+  }
+  .wrap{ position:relative; z-index:1; max-width:920px; margin:0 auto; padding:28px 18px 80px; }
+
+  /* ---------- Header : folder tab ---------- */
+  header{ margin-bottom:22px; }
+  .folder-tab{
+    display:inline-block;
+    background:var(--seal);
+    color:#f4ead2;
+    font-family:'Noto Serif TC', serif;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:0.28em;
+    padding:6px 16px 7px;
+    border-radius:3px 3px 0 0;
+    margin-left:14px;
+  }
+  .file-title{
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:2px 10px 10px 10px;
+    padding:22px 24px 20px;
+    box-shadow: var(--card-shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  .file-title::after{
+    content:"";
+    position:absolute; right:18px; top:14px;
+    width:64px;height:64px;
+    border:3px solid var(--seal);
+    border-radius:50%;
+    opacity:0.85;
+    transform:rotate(-14deg);
+  }
+  .file-title::before{
+    content:"檔存";
+    position:absolute; right:35px; top:30px;
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:20px;
+    color:var(--seal);
+    transform:rotate(-14deg);
+    letter-spacing:0.15em;
+    opacity:0.85;
+  }
+  h1{
+    font-family:'Noto Serif TC', serif;
+    font-weight:900;
+    font-size:clamp(24px,4.6vw,34px);
+    margin:0 0 6px;
+    letter-spacing:0.03em;
+    max-width:70%;
+  }
+  .subtitle{ color:var(--ink-soft); font-size:14px; line-height:1.7; max-width:64%; }
+  .meta-row{ display:flex; gap:16px; margin-top:14px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-faint); flex-wrap:wrap; }
+  .meta-row span b{ color:var(--ink-soft); font-weight:700; }
+
+  /* ---------- Mode tabs ---------- */
+  .modes{ display:flex; gap:10px; margin:22px 0 16px; }
+  .mode-btn{
+    flex:1;
+    font-family:'Noto Serif TC', serif;
+    font-weight:700;
+    font-size:14.5px;
+    letter-spacing:0.06em;
+    padding:12px 10px;
+    background:transparent;
+    border:1.5px solid var(--line);
+    color:var(--ink-soft);
+    border-radius:8px;
+    cursor:pointer;
+    transition:all .18s ease;
+  }
+  .mode-btn.active{
+    background:var(--ink);
+    color:var(--paper);
+    border-color:var(--ink);
+    box-shadow: 0 4px 10px rgba(44,38,32,0.25);
+  }
+  .mode-btn:hover:not(.active){ border-color:var(--seal); color:var(--seal-dark); }
+
+  /* ---------- Chapter chips ---------- */
+  .chips{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px; }
+  .chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    padding:6px 12px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,0.35);
+    color:var(--ink-soft);
+    cursor:pointer;
+    user-select:none;
+    transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .chip.active{ background:var(--jade); border-color:var(--jade); color:#eef4ee; }
+  .chip:hover:not(.active){ border-color:var(--jade); color:var(--jade-dark); }
+
+  .view{ display:none; }
+  .view.active{ display:block; }
+
+  /* ---------- Timeline ---------- */
+  .timeline{ position:relative; padding-left:26px; }
+  .timeline::before{
+    content:"";
+    position:absolute; left:6px; top:6px; bottom:6px; width:2px;
+    background:linear-gradient(var(--brass), var(--jade) 45%, var(--navy) 75%, var(--seal));
+    opacity:0.55;
+  }
+  .era-label{
+    font-family:'Noto Serif TC',serif; font-weight:700; font-size:13px;
+    color:var(--paper);
+    background:var(--ink-soft);
+    display:inline-block;
+    padding:4px 12px 5px;
+    border-radius:0 6px 6px 0;
+    margin:26px 0 12px -26px;
+    letter-spacing:0.12em;
+  }
+  .era-label:first-child{ margin-top:0; }
+  .tl-item{ position:relative; margin:0 0 14px; padding-left:20px; }
+  .tl-dot{
+    position:absolute; left:-26px; top:6px;
+    width:13px; height:13px; border-radius:50%;
+    background:var(--paper); border:2.5px solid var(--seal);
+  }
+  .tl-item.stamped .tl-dot{ background:var(--seal); }
+  .tl-card{
+    background:rgba(255,255,255,0.5);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:12px 14px;
+    cursor:pointer;
+    transition:box-shadow .15s ease, transform .15s ease;
+  }
+  .tl-card:hover{ box-shadow:var(--card-shadow); transform:translateX(2px); }
+  .tl-head{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+  .tl-year{ font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--seal-dark); font-size:16px; }
+  .tl-era{ font-size:11.5px; color:var(--ink-faint); }
+  .tl-title{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:15.5px; margin-left:2px; }
+  .tl-tag{ margin-left:auto; font-size:10.5px; font-family:'JetBrains Mono',monospace; color:var(--jade-dark); border:1px solid var(--jade); padding:1px 7px; border-radius:999px; }
+  .tl-detail{ display:none; font-size:13.3px; color:var(--ink-soft); line-height:1.7; margin-top:8px; padding-top:8px; border-top:1px dashed var(--line); }
+  .tl-item.open .tl-detail{ display:block; }
+
+  /* ---------- Flashcards ---------- */
+  .fc-wrap{ display:flex; flex-direction:column; align-items:center; }
+  .fc-progress{ font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--ink-faint); margin-bottom:14px; }
+  .fc-stage{ perspective:1400px; width:100%; max-width:460px; height:270px; margin-bottom:20px; }
+  .fc-card{
+    position:relative; width:100%; height:100%;
+    transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.2,.9,.3,1);
+    cursor:pointer;
+  }
+  .fc-card.flipped{ transform:rotateY(180deg); }
+  .fc-face{
+    position:absolute; inset:0;
+    backface-visibility:hidden;
+    border-radius:12px;
+    border:1.5px solid var(--line);
+    box-shadow:var(--card-shadow);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:26px; text-align:center;
+    background:var(--paper-2);
+  }
+  .fc-face.front{ background:var(--paper-2); }
+  .fc-face.back{ transform:rotateY(180deg); background:var(--ink); color:var(--paper); }
+  .fc-chapter-badge{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-faint); margin-bottom:12px; letter-spacing:0.08em; }
+  .fc-face.back .fc-chapter-badge{ color:var(--paper-dark); }
+  .fc-event-title{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:19px; line-height:1.5; }
+  .fc-hint{ margin-top:16px; font-size:12px; color:var(--ink-faint); }
+  .fc-face.back .fc-hint{ color:var(--paper-dark); }
+  .fc-year-big{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:44px; color:var(--seal); letter-spacing:0.02em; }
+  .fc-era-small{ font-size:13px; color:var(--paper-dark); margin-top:4px; }
+  .fc-detail-small{ font-size:12.5px; margin-top:14px; line-height:1.6; color:var(--paper-dark); max-width:340px; }
+
+  .fc-controls{ display:flex; gap:12px; }
+  .fc-btn{
+    font-family:'Noto Serif TC',serif; font-weight:700; font-size:14px;
+    padding:11px 20px; border-radius:8px; border:1.5px solid var(--line);
+    background:transparent; cursor:pointer; color:var(--ink-soft);
+    transition:all .15s ease;
+  }
+  .fc-btn.review{ border-color:var(--navy); color:var(--navy); }
+  .fc-btn.review:hover{ background:var(--navy); color:var(--paper); }
+  .fc-btn.know{ border-color:var(--seal); color:var(--seal-dark); }
+  .fc-btn.know:hover{ background:var(--seal); color:var(--paper); }
+  .fc-nav{ margin-top:16px; display:flex; gap:14px; }
+  .fc-nav button{ background:none; border:none; color:var(--ink-faint); font-size:13px; cursor:pointer; text-decoration:underline; font-family:'Noto Sans TC',sans-serif; }
+  .fc-nav button:hover{ color:var(--seal-dark); }
+  .fc-done{ text-align:center; padding:50px 20px; }
+  .fc-done .stamp-big{ font-family:'Noto Serif TC',serif; font-size:26px; font-weight:900; color:var(--seal); border:4px solid var(--seal); display:inline-block; padding:10px 26px; border-radius:10px; transform:rotate(-4deg); }
+
+  /* ---------- Quiz ---------- */
+  .quiz-wrap{ display:flex; flex-direction:column; align-items:center; }
+  .quiz-score{ font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--ink-faint); margin-bottom:14px; }
+  .quiz-card{
+    width:100%; max-width:520px; background:var(--paper-2); border:1.5px solid var(--line);
+    border-radius:12px; padding:26px; box-shadow:var(--card-shadow);
+  }
+  .quiz-chapter-badge{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-faint); letter-spacing:0.08em; margin-bottom:10px; }
+  .quiz-q{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:17px; line-height:1.6; margin-bottom:20px; }
+  .quiz-opts{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .quiz-opt{
+    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:16px;
+    padding:13px; border-radius:8px; border:1.5px solid var(--line); background:rgba(255,255,255,0.4);
+    cursor:pointer; text-align:center; transition:all .12s ease;
+  }
+  .quiz-opt:hover{ border-color:var(--jade); }
+  .quiz-opt.correct{ background:var(--jade); border-color:var(--jade); color:#eef4ee; }
+  .quiz-opt.wrong{ background:var(--seal); border-color:var(--seal); color:#f8eae6; }
+  .quiz-feedback{ margin-top:16px; font-size:13.5px; color:var(--ink-soft); line-height:1.7; min-height:20px; }
+  .quiz-next{ margin-top:16px; }
+  .quiz-btn{
+    font-family:'Noto Serif TC',serif; font-weight:700; font-size:14px;
+    padding:10px 22px; border-radius:8px; border:1.5px solid var(--ink); color:var(--ink);
+    background:transparent; cursor:pointer;
+  }
+  .quiz-btn:hover{ background:var(--ink); color:var(--paper); }
+  .quiz-final{ text-align:center; padding:40px 20px; }
+
+  footer{ text-align:center; margin-top:38px; font-size:11.5px; color:var(--ink-faint); font-family:'JetBrains Mono',monospace; }
+
+  @media (max-width:600px){
+    .file-title::after, .file-title::before{ display:none; }
+    h1, .subtitle{ max-width:100%; }
+    .quiz-opts{ grid-template-columns:1fr; }
+    .modes{ flex-wrap:wrap; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .fc-card, .tl-card{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="folder-tab">第二篇．中國與東亞（下）</div>
+    <div class="file-title">
+      <h1>近代中國與東亞　大事記憶站</h1>
+      <div class="subtitle">翰林版八下歷史・第1〜6章｜從辛亥革命到當代東亞局勢，用時間軸、記憶卡與小測驗建立年代感。</div>
+      <div class="meta-row">
+        <span>範圍　<b>1894–1995</b></span>
+        <span>章節　<b>6 章</b></span>
+        <span>事件　<b id="eventCountMeta">–</b> 則</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="modes">
+    <button class="mode-btn active" data-mode="timeline">時間軸</button>
+    <button class="mode-btn" data-mode="flash">記憶卡</button>
+    <button class="mode-btn" data-mode="quiz">小測驗</button>
+  </div>
+
+  <div class="chips" id="chips"></div>
+
+  <!-- TIMELINE VIEW -->
+  <div class="view active" id="view-timeline">
+    <div class="timeline" id="timelineList"></div>
+  </div>
+
+  <!-- FLASHCARD VIEW -->
+  <div class="view" id="view-flash">
+    <div class="fc-wrap">
+      <div class="fc-progress" id="fcProgress"></div>
+      <div id="fcStageWrap"></div>
+    </div>
+  </div>
+
+  <!-- QUIZ VIEW -->
+  <div class="view" id="view-quiz">
+    <div class="quiz-wrap">
+      <div class="quiz-score" id="quizScore"></div>
+      <div id="quizStageWrap"></div>
+    </div>
+  </div>
+
+  <footer>依「同盟會成立→辛亥革命→中華民國建立→軍閥割據→北伐→抗戰→國共內戰→政府遷臺→兩岸與東亞冷戰局勢」脈絡整理｜點卡片可展開細節</footer>
+</div>
+
+<script>
+const EVENTS = [
+  {ch:1, year:1894, era:"清", title:"甲午戰爭爆發", tag:"外交衝突", detail:"清朝與日本因朝鮮問題開戰，成為日後民族危機意識高漲、革命運動興起的重要背景。"},
+  {ch:1, year:1905, era:"清．光緒31年", title:"中國同盟會成立", tag:"革命運動", detail:"孫中山在東京結合各革命團體成立同盟會，以「三民主義」（民族、民權、民生）為號召，推動排滿革命。"},
+  {ch:1, year:1911, era:"清．宣統3年", title:"武昌起事．辛亥革命", tag:"革命運動", detail:"因鐵路國有政策引發保路運動，各省抗爭激烈，武昌新軍起事後各省紛紛獨立響應，清朝統治瓦解。"},
+  {ch:1, year:1912, era:"民國元年", title:"中華民國成立", tag:"建國", detail:"1月1日孫中山就任臨時大總統，改用民國紀年、陽曆紀日；清帝隨後退位，中國兩千多年帝制結束。"},
+  {ch:1, year:1913, era:"民國2年", title:"二次革命", tag:"政治動盪", detail:"國民黨在國會大選獲勝後，孫中山等人號召南方數省討伐袁世凱，最終失敗，袁世凱權力更加鞏固。"},
+  {ch:1, year:1914, era:"民國3年", title:"第一次世界大戰爆發．日本出兵山東", tag:"國際局勢", detail:"歐戰爆發，日本藉對德宣戰之名出兵占領山東，為日後二十一條要求與巴黎和會爭議埋下伏筆。"},
+  {ch:1, year:1915, era:"民國4年", title:"日本提出「二十一條要求」", tag:"外交", detail:"日本乘歐戰列強無暇東顧，向袁世凱政府提出擴大在華特權的苛刻條款，袁世凱最終被迫接受部分條款。"},
+  {ch:1, year:1916, era:"民國5年", title:"袁世凱稱帝旋即取消．軍閥割據開始", tag:"政治動盪", detail:"袁世凱定「洪憲」年號稱帝，各方反對聲浪四起，隨即撤銷帝制、不久病逝，此後進入軍閥割據時期（民國5〜17年）。"},
+  {ch:1, year:1919, era:"民國8年", title:"巴黎和會．五四運動", tag:"外交／社會運動", detail:"巴黎和會允許日本繼承德國在山東的特權，消息傳回中國，引爆北京學生遊行抗議的五四運動。"},
+
+  {ch:2, year:1915, era:"民國4年", title:"《新青年》雜誌創刊", tag:"新文化運動", detail:"陳獨秀創辦《新青年》，成為新文化運動宣揚民主與科學（「德先生」與「賽先生」）的重要陣地。"},
+  {ch:2, year:1917, era:"民國6年", title:"胡適倡議白話文．蔡元培任北大校長", tag:"新文化運動", detail:"胡適發表〈文學改良芻議〉，打響白話文運動第一槍；蔡元培主持北京大學，使校內思想風氣趨於自由開放。"},
+  {ch:2, year:1918, era:"民國7年", title:"魯迅發表〈狂人日記〉", tag:"新文學", detail:"魯迅以白話文與新式標點寫成〈狂人日記〉，刊於《新青年》，是白話小說的重要代表作。"},
+  {ch:2, year:1919, era:"民國8年", title:"陳獨秀答辯「德先生與賽先生」．女性投入五四運動", tag:"新文化運動", detail:"陳獨秀在〈本誌罪案之答辯書〉中公開擁護民主與科學；同年女學生積極參與五四愛國運動，「她」字也在此時出現。"},
+  {ch:2, year:1920, era:"民國9年", title:"女性進入大學就讀漸增", tag:"社會變遷", detail:"如燕京大學等校已可見女性學生團體，反映婦女解放思潮下女性教育機會的擴展。"},
+  {ch:2, year:1932, era:"民國21年", title:"中國訂定兒童節（4月4日）", tag:"社會變遷", detail:"社會逐漸接納重視兒童地位的新觀念，兒童節設立後，相關優惠與宣傳活動也隨之出現。"},
+
+  {ch:3, year:1923, era:"民國12年", title:"孫中山推動「聯俄容共」", tag:"政策", detail:"孫中山為尋求革命奧援，改組國民黨並採取聯合蘇聯、容納中共黨員的政策方針。"},
+  {ch:3, year:1924, era:"民國13年", title:"黃埔軍校成立", tag:"軍事", detail:"蔣中正於廣州黃埔創辦陸軍軍官學校，為國民革命軍培育骨幹，奠定北伐武力基礎。"},
+  {ch:3, year:1926, era:"民國15年", title:"國民革命軍出師北伐", tag:"統一戰爭", detail:"國民政府誓師北伐，欲討伐軍閥、統一全國，北伐過程中國民黨與共黨勢力的矛盾也逐漸浮現。"},
+  {ch:3, year:1927, era:"民國16年", title:"國共決裂（清黨）", tag:"政治鬥爭", detail:"北伐途中國民政府漸受共黨與親共勢力滲透，蔣中正遂以武力清除國民黨內的中共分子，國共正式決裂。"},
+  {ch:3, year:1928, era:"民國17年", title:"北伐完成．訓政時期開始", tag:"統一／建設", detail:"北伐宣告完成，全國名義上統一；依孫中山建國大綱進入「訓政」階段，並展開十年建設（財政、教育、交通等）。"},
+  {ch:3, year:1931, era:"民國20年", title:"九一八事變", tag:"侵略戰爭", detail:"日本關東軍藉口炸毀南滿鐵路，隨即出兵占領中國東北，是日本擴大侵華的重要轉捩點。"},
+  {ch:3, year:1932, era:"民國21年", title:"一二八事變．滿洲國成立", tag:"侵略戰爭", detail:"日軍藉故攻擊上海，爆發一二八事變；同年日本扶植清廢帝溥儀在東北成立傀儡政權「滿洲國」。"},
+  {ch:3, year:1934, era:"民國19〜23年", title:"國軍五次圍剿．中共展開長征", tag:"國共內戰", detail:"國民政府多次圍剿中共根據地，中共被迫展開戰略轉移的「長征」，隔年抵達陝西北部。"},
+  {ch:3, year:1936, era:"民國25年", title:"西安事變", tag:"政治事件", detail:"張學良於西安發動兵諫，扣留蔣中正，要求停止剿共、一致抗日；經協商後蔣中正獲釋，事變落幕，促成國共合作抗日的契機。"},
+
+  {ch:4, year:1937, era:"民國26年", title:"七七事變．抗日戰爭全面爆發．南京大屠殺", tag:"抗日戰爭", detail:"7月盧溝橋事變後中日戰爭全面爆發；12月日軍攻陷南京，犯下南京大屠殺等暴行，戰爭期間平民傷亡慘重。"},
+  {ch:4, year:1939, era:"民國28年", title:"第二次世界大戰在歐洲爆發", tag:"國際局勢", detail:"歐洲戰事全面展開，中國的抗日戰爭自此與世界大戰的局勢緊密相連。"},
+  {ch:4, year:1941, era:"民國30年", title:"日本偷襲珍珠港．太平洋戰爭爆發", tag:"太平洋戰爭", detail:"日本突襲美國夏威夷珍珠港海軍基地，太平洋戰爭全面爆發，戰火擴及整個亞太地區。"},
+  {ch:4, year:1943, era:"民國32年", title:"中美英舉行開羅會議", tag:"國際外交", detail:"蔣中正、羅斯福、邱吉爾於開羅會晤，會後發表宣言，確立戰後日本應歸還臺灣、澎湖等占領地予中華民國。"},
+  {ch:4, year:1945, era:"民國34年", title:"雅爾達密約．日本無條件投降", tag:"戰爭結束", detail:"2月美英蘇簽署雅爾達密約；8月日本宣布無條件投降，長達八年的抗日戰爭終告結束。"},
+  {ch:4, year:1947, era:"民國36年", title:"頒布《中華民國憲法》．實施動員戡亂", tag:"憲政", detail:"中華民國憲法公布施行，邁向憲政；同年因國共內戰情勢惡化，政府宣布實施動員戡亂體制。"},
+  {ch:4, year:1948, era:"民國37年", title:"發行「金圓券」．金融全面崩潰", tag:"經濟危機", detail:"政府發行金圓券欲取代急遽貶值的法幣，但隨內戰失利，金圓券以更快速度崩潰，惡性通貨膨脹重創民生。"},
+  {ch:4, year:1949, era:"民國38年", title:"中華民國政府遷臺", tag:"國共內戰", detail:"國共內戰全面失利下，中華民國中央政府播遷來臺，兩岸自此分治。"},
+
+  {ch:5, year:1949, era:"—", title:"中華人民共和國成立", tag:"政權建立", detail:"10月1日，毛澤東於北京宣告中華人民共和國成立，實行中國共產黨一黨專政。"},
+  {ch:5, year:1950, era:"—", title:"中蘇簽署友好同盟互助條約", tag:"外交", detail:"中華人民共和國與蘇聯結盟，接受蘇聯援助，成為冷戰時期東亞共產陣營的一員。"},
+  {ch:5, year:1958, era:"—", title:"推行「大躍進」", tag:"經濟運動", detail:"中共發動大規模生產運動，欲快速提升工農業產量，實際卻造成資源浪費與嚴重饑荒，經濟遭受重創。"},
+  {ch:5, year:1962, era:"—", title:"中蘇關係破裂", tag:"外交", detail:"中蘇因意識型態與國家利益衝突而關係惡化，昔日的同盟走向對立。"},
+  {ch:5, year:1966, era:"—", title:"文化大革命爆發．「破四舊」", tag:"政治運動", detail:"毛澤東發動文化大革命，紅衛兵推行「破四舊」，破壞傳統思想文化風俗，社會陷入長期動盪（十年浩劫，1966〜1976）。"},
+  {ch:5, year:1968, era:"—", title:"文革思潮影響歐美（法國學運等）", tag:"國際影響", detail:"西方部分青年將文革口號視為反政府、反戰的前衛象徵，如法國學生占領校園、模仿「破四舊」，反映文革的國際擴散效應。"},
+  {ch:5, year:1976, era:"—", title:"毛澤東逝世．文化大革命結束", tag:"政治轉折", detail:"毛澤東去世後文革隨即落幕，長達十年的動亂終告一段落，中國隨後走向路線調整。"},
+  {ch:5, year:1979, era:"—", title:"推行「改革開放」政策", tag:"經濟改革", detail:"鄧小平主導下，中國走上經濟改革與對外開放的新路線，國力自此逐步提升。"},
+  {ch:5, year:1989, era:"—", title:"六四天安門事件", tag:"政治事件", detail:"北京天安門廣場的民主訴求運動遭到武力鎮壓，成為中共建政以來備受矚目的重大政治事件。"},
+  {ch:5, year:2001, era:"—", title:"中國加入世界貿易組織（WTO）", tag:"國際參與", detail:"中國正式加入WTO，代表其更深入融入全球經濟體系，國際經貿地位大幅提升。"},
+  {ch:5, year:2008, era:"—", title:"北京舉辦奧運", tag:"國際參與", detail:"北京主辦夏季奧運，象徵中國以嶄新姿態登上國際舞臺，展現經濟與國力發展成果。"},
+  {ch:5, year:2010, era:"—", title:"上海舉辦世界博覽會", tag:"國際參與", detail:"上海世博會的舉行，進一步展現中國作為世界主要經濟實體的國際影響力。"},
+
+  {ch:6, year:1950, era:"—", title:"韓戰爆發", tag:"區域戰爭", detail:"6月25日北韓越過38度線進攻南韓，韓戰爆發，成為冷戰時期東亞第一場大規模區域戰爭（1950〜1953）。"},
+  {ch:6, year:1953, era:"—", title:"韓戰結束（簽署停戰協定）", tag:"區域戰爭", detail:"7月27日雙方簽署停戰協定，戰線大致回到38度線附近，朝鮮半島南北分治格局延續至今。"},
+  {ch:6, year:1954, era:"—", title:"東南亞公約組織成立．越南分裂", tag:"冷戰體系", detail:"美國主導成立東南亞公約組織，欲圍堵共產勢力擴張；同年日內瓦協定使越南以北緯17度分裂為南北兩部分，揭開越戰序幕（1954〜1975）。"},
+  {ch:6, year:1961, era:"—", title:"不結盟運動成立", tag:"第三世界", detail:"埃及、印尼、印度等國倡議不加入美蘇任何一方陣營，成立不結盟運動，代表冷戰下第三世界國家的自主路線。"},
+  {ch:6, year:1967, era:"—", title:"東南亞國家協會（ASEAN）成立", tag:"區域統合", detail:"東南亞國家組成東協，初期仍具反共色彩，後逐漸轉型為推動區域經濟與政治統合的重要組織。"},
+  {ch:6, year:1975, era:"—", title:"越戰結束．越南統一", tag:"區域戰爭", detail:"北越擊敗南越政權，越南全境統一並成為共產國家，長達二十餘年的越戰畫下句點。"},
+  {ch:6, year:1977, era:"—", title:"東南亞公約組織解散", tag:"冷戰體系", detail:"因會員國意見分歧、陸續退出，原以反共為使命的東南亞公約組織正式解散。"},
+  {ch:6, year:1995, era:"—", title:"越南加入東協", tag:"區域統合", detail:"冷戰結束後區域對立逐漸淡化，越南於1995年加入東協，反映東南亞從對抗走向合作統合的轉變。"},
+];
+
+EVENTS.forEach((e,i)=>{ e.id = i; });
+EVENTS.sort((a,b)=> a.year - b.year || a.ch - b.ch);
+
+const CH_NAMES = {1:"第1章 中華民國的建立",2:"第2章 舊傳統與新思潮",3:"第3章 現代國家的挑戰",4:"第4章 現代國家的變局",5:"第5章 共黨政權在中國",6:"第6章 當代東亞的局勢"};
+
+let state = {
+  mode:"timeline",
+  chapterFilter:"all",
+  stamped:new Set(),
+  fc:{ deck:[], idx:0, flipped:false, knowCount:0 },
+  quiz:{ deck:[], idx:0, score:0, answered:false }
+};
+
+document.getElementById('eventCountMeta').textContent = EVENTS.length;
+
+// ---------- Chips ----------
+function renderChips(){
+  const chips = document.getElementById('chips');
+  chips.innerHTML = "";
+  const all = document.createElement('div');
+  all.className = 'chip' + (state.chapterFilter==='all' ? ' active':'');
+  all.textContent = '全部章節';
+  all.onclick = ()=>{ state.chapterFilter='all'; refresh(); };
+  chips.appendChild(all);
+  for(let c=1;c<=6;c++){
+    const el = document.createElement('div');
+    el.className = 'chip' + (state.chapterFilter===c ? ' active':'');
+    el.textContent = '第'+c+'章';
+    el.onclick = ()=>{ state.chapterFilter=c; refresh(); };
+    chips.appendChild(el);
+  }
+}
+
+function filteredEvents(){
+  if(state.chapterFilter==='all') return EVENTS;
+  return EVENTS.filter(e=>e.ch===state.chapterFilter);
+}
+
+// ---------- Timeline ----------
+function renderTimeline(){
+  const list = document.getElementById('timelineList');
+  list.innerHTML = "";
+  const evs = filteredEvents();
+  let lastEra = null;
+  evs.forEach(e=>{
+    const eraKey = e.ch;
+    if(eraKey !== lastEra){
+      const label = document.createElement('div');
+      label.className = 'era-label';
+      label.textContent = CH_NAMES[e.ch];
+      list.appendChild(label);
+      lastEra = eraKey;
+    }
+    const item = document.createElement('div');
+    item.className = 'tl-item' + (state.stamped.has(e.id) ? ' stamped':'');
+    item.innerHTML = `
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-head">
+          <span class="tl-year">${e.year}</span>
+          <span class="tl-era">${e.era}</span>
+          <span class="tl-title">${e.title}</span>
+          <span class="tl-tag">${e.tag}</span>
+        </div>
+        <div class="tl-detail">${e.detail}</div>
+      </div>`;
+    item.querySelector('.tl-card').onclick = ()=>{
+      item.classList.toggle('open');
+    };
+    list.appendChild(item);
+  });
+}
+
+// ---------- Flashcards ----------
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function startFlash(){
+  state.fc.deck = shuffle(filteredEvents());
+  state.fc.idx = 0;
+  state.fc.flipped = false;
+  state.fc.knowCount = 0;
+  renderFlash();
+}
+
+function renderFlash(){
+  const wrap = document.getElementById('fcStageWrap');
+  const prog = document.getElementById('fcProgress');
+  const deck = state.fc.deck;
+  if(deck.length===0){
+    wrap.innerHTML = `<div class="fc-done">目前篩選條件下沒有事件，換個章節看看吧。</div>`;
+    prog.textContent = "";
+    return;
+  }
+  if(state.fc.idx >= deck.length){
+    prog.textContent = "";
+    wrap.innerHTML = `
+      <div class="fc-done">
+        <div class="stamp-big">全部複習完畢</div>
+        <p style="margin-top:18px;color:var(--ink-soft);">本輪共 ${deck.length} 則，你標記「已熟記」 ${state.fc.knowCount} 則。</p>
+        <div class="fc-nav" style="justify-content:center;margin-top:10px;">
+          <button onclick="startFlash()">再來一輪（重新洗牌）</button>
+        </div>
+      </div>`;
+    return;
+  }
+  const e = deck[state.fc.idx];
+  prog.textContent = `第 ${state.fc.idx+1} / ${deck.length} 張　｜　已熟記 ${state.fc.knowCount}`;
+  wrap.innerHTML = `
+    <div class="fc-stage">
+      <div class="fc-card ${state.fc.flipped?'flipped':''}" id="fcCard">
+        <div class="fc-face front">
+          <div class="fc-chapter-badge">${CH_NAMES[e.ch]}　·　${e.tag}</div>
+          <div class="fc-event-title">${e.title}</div>
+          <div class="fc-hint">點卡片　翻面看年代</div>
+        </div>
+        <div class="fc-face back">
+          <div class="fc-chapter-badge">${e.era}</div>
+          <div class="fc-year-big">${e.year}</div>
+          <div class="fc-detail-small">${e.detail}</div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-controls">
+      <button class="fc-btn review" id="fcReviewBtn">還不熟</button>
+      <button class="fc-btn know" id="fcKnowBtn">已熟記，蓋章</button>
+    </div>
+    <div class="fc-nav">
+      <button id="fcSkip">跳過這張</button>
+      <button id="fcReshuffle">重新洗牌</button>
+    </div>
+  `;
+  document.getElementById('fcCard').onclick = ()=>{
+    state.fc.flipped = !state.fc.flipped;
+    document.getElementById('fcCard').classList.toggle('flipped');
+  };
+  document.getElementById('fcReviewBtn').onclick = (ev)=>{ ev.stopPropagation(); nextFlash(false, e); };
+  document.getElementById('fcKnowBtn').onclick = (ev)=>{ ev.stopPropagation(); nextFlash(true, e); };
+  document.getElementById('fcSkip').onclick = ()=>{ state.fc.idx++; state.fc.flipped=false; renderFlash(); };
+  document.getElementById('fcReshuffle').onclick = ()=> startFlash();
+}
+
+function nextFlash(knew, e){
+  if(knew){ state.stamped.add(e.id); state.fc.knowCount++; }
+  state.fc.idx++;
+  state.fc.flipped = false;
+  renderFlash();
+}
+window.startFlash = startFlash;
+
+// ---------- Quiz ----------
+function startQuiz(){
+  state.quiz.deck = shuffle(filteredEvents()).slice(0, Math.min(10, filteredEvents().length));
+  state.quiz.idx = 0;
+  state.quiz.score = 0;
+  state.quiz.answered = false;
+  renderQuiz();
+}
+
+function buildOptions(correctEvent){
+  const pool = EVENTS.filter(e=>e.id!==correctEvent.id).map(e=>e.year);
+  const uniqueYears = Array.from(new Set(pool));
+  const distractors = [];
+  const shuffled = shuffle(uniqueYears);
+  for(const y of shuffled){
+    if(distractors.length>=3) break;
+    if(Math.abs(y - correctEvent.year) < 1000) distractors.push(y);
+  }
+  while(distractors.length<3){
+    const jitter = correctEvent.year + (Math.floor(Math.random()*10)+1) * (Math.random()<0.5?-1:1);
+    if(jitter!==correctEvent.year && !distractors.includes(jitter)) distractors.push(jitter);
+  }
+  const opts = shuffle([correctEvent.year, ...distractors]);
+  return opts;
+}
+
+function renderQuiz(){
+  const wrap = document.getElementById('quizStageWrap');
+  const scoreEl = document.getElementById('quizScore');
+  const deck = state.quiz.deck;
+  if(deck.length===0){
+    wrap.innerHTML = `<div class="quiz-final">目前篩選條件下沒有足夠事件出題，換個章節看看吧。</div>`;
+    scoreEl.textContent = "";
+    return;
+  }
+  if(state.quiz.idx >= deck.length){
+    scoreEl.textContent = "";
+    wrap.innerHTML = `
+      <div class="quiz-card quiz-final">
+        <div class="fc-chapter-badge">測驗結束</div>
+        <div class="quiz-q">本輪得分：${state.quiz.score} / ${deck.length}</div>
+        <button class="quiz-btn" onclick="startQuiz()">再測一輪</button>
+      </div>`;
+    return;
+  }
+  const e = deck[state.quiz.idx];
+  scoreEl.textContent = `第 ${state.quiz.idx+1} / ${deck.length} 題　｜　目前得分 ${state.quiz.score}`;
+  const opts = buildOptions(e);
+  state.quiz.answered = false;
+  wrap.innerHTML = `
+    <div class="quiz-card">
+      <div class="quiz-chapter-badge">${CH_NAMES[e.ch]}　·　${e.tag}</div>
+      <div class="quiz-q">「${e.title}」發生在哪一年？</div>
+      <div class="quiz-opts">
+        ${opts.map(y=>`<div class="quiz-opt" data-year="${y}">${y}</div>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-next" id="quizNextWrap"></div>
+    </div>
+  `;
+  wrap.querySelectorAll('.quiz-opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      if(state.quiz.answered) return;
+      state.quiz.answered = true;
+      const chosen = parseInt(btn.dataset.year,10);
+      const correct = chosen === e.year;
+      if(correct){ state.quiz.score++; state.stamped.add(e.id); }
+      wrap.querySelectorAll('.quiz-opt').forEach(b=>{
+        const y = parseInt(b.dataset.year,10);
+        if(y===e.year) b.classList.add('correct');
+        else if(b===btn) b.classList.add('wrong');
+      });
+      document.getElementById('quizFeedback').textContent = (correct ? "答對了！" : `正解是 ${e.year} 年。`) + "　" + e.detail;
+      document.getElementById('quizNextWrap').innerHTML = `<button class="quiz-btn" id="quizNextBtn">下一題</button>`;
+      document.getElementById('quizNextBtn').onclick = ()=>{ state.quiz.idx++; renderQuiz(); };
+    };
+  });
+}
+window.startQuiz = startQuiz;
+
+// ---------- Mode switching ----------
+function setMode(m){
+  state.mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=> b.classList.toggle('active', b.dataset.mode===m));
+  document.querySelectorAll('.view').forEach(v=> v.classList.remove('active'));
+  document.getElementById('view-'+m).classList.add('active');
+  refresh();
+}
+document.querySelectorAll('.mode-btn').forEach(b=>{
+  b.onclick = ()=> setMode(b.dataset.mode);
+});
+
+function refresh(){
+  renderChips();
+  if(state.mode==='timeline') renderTimeline();
+  else if(state.mode==='flash') startFlash();
+  else if(state.mode==='quiz') startQuiz();
+}
+
+refresh();
+</script>
+</body>
+</html>

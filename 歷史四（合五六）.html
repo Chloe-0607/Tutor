@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>戰後臺灣史講義｜第四單元：民主的挑戰</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  :root{
+    --paper: #f2ecdd;
+    --paper-deep: #ece3cd;
+    --ink: #2a241c;
+    --ink-soft: #5b5142;
+    --line: #cbbfa0;
+    --vermilion: #ab3b2a;
+    --vermilion-soft: #ab3b2a1a;
+    --celadon: #5c7a63;
+    --celadon-soft: #5c7a6320;
+    --gold: #9c7a2e;
+    --gold-soft: #9c7a2e20;
+    --indigo: #3d5266;
+    --indigo-soft: #3d526620;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 20% 10%, #00000006 0%, transparent 40%),
+      radial-gradient(circle at 80% 90%, #00000006 0%, transparent 40%);
+    color:var(--ink);
+    font-family:"Noto Sans CJK TC","Noto Sans TC","PingFang TC",sans-serif;
+    line-height:1.9;
+    font-size:16px;
+    padding:0 0 80px;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- Header ---------- */
+  header.hero{
+    padding:64px 24px 48px;
+    text-align:center;
+    border-bottom:3px double var(--ink);
+    background:linear-gradient(180deg, var(--paper-deep), var(--paper));
+    position:relative;
+  }
+  header.hero::before, header.hero::after{
+    content:"";
+    position:absolute; top:14px; bottom:14px; width:1px;
+    background:var(--line);
+  }
+  header.hero::before{left:14px;} header.hero::after{right:14px;}
+  .eyebrow{
+    font-family:"Noto Serif CJK TC","Noto Serif TC",serif;
+    letter-spacing:.5em;
+    font-size:12px;
+    color:var(--vermilion);
+    margin-bottom:14px;
+  }
+  h1.title{
+    font-family:"Noto Serif CJK TC","Noto Serif TC",serif;
+    font-weight:900;
+    font-size:44px;
+    margin:0 0 10px;
+    letter-spacing:.06em;
+  }
+  .subtitle{
+    font-family:"Noto Serif CJK TC","Noto Serif TC",serif;
+    font-size:18px;
+    color:var(--ink-soft);
+    letter-spacing:.15em;
+  }
+  .scope-tags{
+    margin-top:22px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+  }
+  .scope-tags span{
+    font-size:12.5px; border:1px solid var(--ink); padding:4px 12px; border-radius:2px;
+    font-family:"Noto Serif CJK TC","Noto Serif TC",serif; letter-spacing:.1em;
+  }
+
+  /* ---------- Nav ---------- */
+  nav.toc{
+    max-width:920px; margin:28px auto 0; padding:18px 24px;
+    display:flex; flex-wrap:wrap; gap:8px 14px; justify-content:center;
+    font-size:13.5px;
+  }
+  nav.toc a{
+    color:var(--ink-soft); text-decoration:none; padding:6px 10px;
+    border-bottom:1px solid transparent;
+  }
+  nav.toc a:hover{border-bottom:1px solid var(--vermilion); color:var(--vermilion);}
+
+  /* ---------- Section headers ---------- */
+  section{padding:44px 0 6px;}
+  .sec-head{
+    display:flex; align-items:baseline; gap:16px; margin-bottom:6px;
+  }
+  .sec-num{
+    font-family:"Noto Serif CJK TC","Noto Serif TC",serif; font-weight:700; font-size:15px;
+    color:#fff; background:var(--ink); padding:3px 11px; border-radius:2px;
+  }
+  h2.sec-title{
+    font-family:"Noto Serif CJK TC","Noto Serif TC",serif; font-size:28px; margin:0; font-weight:700;
+  }
+  .sec-sub{color:var(--ink-soft); font-size:14px; margin:2px 0 26px 62px;}
+  hr.rule{border:none; border-top:1px solid var(--line); margin:0 0 26px;}
+
+  /* ---------- Timeline ---------- */
+  .timeline{position:relative; margin:30px 0 10px; padding-left:26px;}
+  .timeline::before{
+    content:""; position:absolute; left:6px; top:4px; bottom:4px; width:2px;
+    background:linear-gradient(var(--vermilion), var(--gold), var(--celadon), var(--indigo));
+  }
+  .t-item{position:relative; padding:0 0 26px 24px;}
+  .t-item::before{
+    content:""; position:absolute; left:-27px; top:4px; width:11px; height:11px;
+    border-radius:50%; background:var(--paper); border:2.5px solid var(--dot,var(--ink));
+  }
+  .t-item.pol::before{--dot:var(--vermilion);}
+  .t-item.eco::before{--dot:var(--celadon);}
+  .t-item.dip::before{--dot:var(--gold);}
+  .t-item.dem::before{--dot:var(--indigo);}
+  .t-year{
+    font-family:"Noto Serif CJK TC","Noto Serif TC",serif; font-weight:700; font-size:15px;
+    display:inline-block; margin-right:8px;
+  }
+  .t-tag{
+    font-size:11px; padding:1px 8px; border-radius:10px; margin-right:6px;
+    font-family:"Noto Sans CJK TC","Noto Sans TC"; letter-spacing:.05em; color:#fff;
+  }
+  .t-item.pol .t-tag{background:var(--vermilion);}
+  .t-item.eco .t-tag{background:var(--celadon);}
+  .t-item.dip .t-tag{background:var(--gold);}
+  .t-item.dem .t-tag{background:var(--indigo);}
+  .t-body{margin-top:4px; color:var(--ink);}
+  .t-body b{color:var(--ink);}
+
+  .legend{display:flex; gap:18px; flex-wrap:wrap; margin:14px 0 8px; font-size:13px; color:var(--ink-soft);}
+  .legend span{display:inline-flex; align-items:center; gap:6px;}
+  .legend i{width:10px;height:10px;border-radius:50%;display:inline-block;}
+
+  /* ---------- Content blocks ---------- */
+  h3.h3{
+    font-family:"Noto Serif CJK TC","Noto Serif TC",serif; font-size:19px; margin:30px 0 10px;
+    padding-left:12px; border-left:4px solid var(--vermilion);
+  }
+  p{margin:0 0 14px;}
+  .lede{font-size:15px; color:var(--ink-soft); margin-bottom:18px;}
+
+  .card{
+    background:#fffdf7; border:1px solid var(--line); border-radius:3px;
+    padding:20px 22px; margin:18px 0;
+  }
+  .card.note{border-left:4px solid var(--gold);}
+  .card.term{border-left:4px solid var(--indigo);}
+  .card.link5-6{
+    background:var(--celadon-soft); border:1px solid var(--celadon);
+  }
+  .card.link5-6 .card-tag{color:var(--celadon);}
+  .card.link-dip{
+    background:var(--gold-soft); border:1px solid var(--gold);
+  }
+  .card.link-dip .card-tag{color:var(--gold);}
+  .card-tag{
+    font-family:"Noto Serif CJK TC","Noto Serif TC",serif; font-weight:700; font-size:13px;
+    letter-spacing:.1em; margin-bottom:8px; display:block;
+  }
+
+  ul.plain, ol.plain{padding-left:20px; margin:0 0 14px;}
+  ul.plain li, ol.plain li{margin-bottom:8px;}
+
+  table.tbl{
+    width:100%; border-collapse:collapse; margin:16px 0 22px; font-size:14.5px;
+    background:#fffdf7;
+  }
+  table.tbl th, table.tbl td{
+    border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top;
+  }
+  table.tbl th{background:var(--paper-deep); font-family:"Noto Serif CJK TC","Noto Serif TC",serif;}
+  table.tbl tr:nth-child(even) td{background:#f9f4e6;}
+
+  .keyword{color:var(--vermilion); font-weight:700;}
+  .keyword2{color:var(--celadon); font-weight:700;}
+  .keyword3{color:var(--gold); font-weight:700;}
+
+  .quiz{
+    background:var(--indigo-soft); border:1px solid var(--indigo);
+    border-radius:3px; padding:18px 22px; margin:16px 0;
+  }
+  .quiz b{color:var(--indigo);}
+  .quiz .ans{
+    margin-top:8px; padding-top:8px; border-top:1px dashed var(--line);
+    color:var(--ink-soft); font-size:14px;
+  }
+
+  .compare-people{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:14px; margin:16px 0 24px;
+  }
+  .person{
+    border:1px solid var(--line); border-radius:3px; padding:14px 16px; background:#fffdf7;
+  }
+  .person .name{font-family:"Noto Serif CJK TC","Noto Serif TC",serif; font-weight:700; font-size:16px; color:var(--vermilion);}
+  .person .term{font-size:12px; color:var(--ink-soft); margin-bottom:6px;}
+
+  footer{
+    text-align:center; color:var(--ink-soft); font-size:12.5px; margin-top:60px;
+    padding-top:20px; border-top:1px solid var(--line);
+  }
+
+  @media print{
+    body{background:#fff;}
+    nav.toc{display:none;}
+    section{page-break-inside:avoid;}
+  }
+  @media (max-width:600px){
+    h1.title{font-size:32px;}
+    .sec-sub{margin-left:0;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">國中歷史．七年級下學期</div>
+  <h1 class="title">民主的挑戰</h1>
+  <div class="subtitle">戰後臺灣政治發展史講義　第四單元</div>
+  <div class="scope-tags">
+    <span>4-1 戰後初期與二二八事件</span>
+    <span>4-2 戒嚴體制與白色恐怖</span>
+    <span>4-3 政治民主化的歷程</span>
+    <span>延伸：經濟起飛與外交轉折（第五、六章）</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#timeline">■ 總覽時間軸</a>
+  <a href="#s1">4-1 戰後初期與二二八</a>
+  <a href="#s2">4-2 戒嚴與白色恐怖</a>
+  <a href="#s3">4-3 政治民主化</a>
+  <a href="#leaders">元首任期對照</a>
+  <a href="#glossary">關鍵名詞解釋</a>
+  <a href="#compare">易混淆比較表</a>
+  <a href="#quiz">自我檢測</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ TIMELINE ============ -->
+<section id="timeline">
+  <div class="sec-head"><span class="sec-num">總覽</span><h2 class="sec-title">戰後臺灣大事年表（民國34年～105年）</h2></div>
+  <div class="sec-sub">四條軸線並行：政治統治／民主運動／經濟發展／外交關係</div>
+  <hr class="rule">
+
+  <div class="legend">
+    <span><i style="background:var(--vermilion)"></i>政治統治與衝突</span>
+    <span><i style="background:var(--indigo)"></i>民主化運動</span>
+    <span><i style="background:var(--celadon)"></i>經濟發展（第五章）</span>
+    <span><i style="background:var(--gold)"></i>外交關係（第六章）</span>
+  </div>
+
+  <div class="timeline">
+
+    <div class="t-item pol">
+      <span class="t-tag">政治</span><span class="t-year">民國34年（1945）</span>
+      <div class="t-body">8月，日本宣布無條件投降，二戰結束。10月25日，臺灣、澎湖由<b>中華民國</b>接收，設立<b>臺灣省行政長官公署</b>，陳儀擔任行政長官，是為「<b>臺灣光復</b>」。</div>
+    </div>
+
+    <div class="t-item pol">
+      <span class="t-tag">政治</span><span class="t-year">民國36年（1947）</span>
+      <div class="t-body">2月27日查緝私菸誤傷民眾，引爆民怨，28日起全臺爆發衝突，史稱<b>二二八事件</b>；地方仕紳組成處理委員會提出改革訴求，中央卻派兵鎮壓、實施清鄉，造成大量傷亡與長期族群裂痕。</div>
+    </div>
+
+    <div class="t-item pol">
+      <span class="t-tag">政治</span><span class="t-year">民國38年（1949）</span>
+      <div class="t-body">國共內戰失利，5月頒布<b>戒嚴令</b>，限制言論、出版、集會、結社等自由；年底中央政府遷臺。同年推動<b>三七五減租</b>，是戰後土地改革的第一步。</div>
+    </div>
+
+    <div class="t-item eco">
+      <span class="t-tag">經濟</span><span class="t-year">民國38～42年（1949～53）</span>
+      <div class="t-body">推行土地改革三部曲：<b>三七五減租→公地放領→耕者有其田</b>，穩定農村、釋出地主資金轉入工商業，為日後經濟發展奠基。</div>
+    </div>
+
+    <div class="t-item pol">
+      <span class="t-tag">政治</span><span class="t-year">民國37～38年（1948～49）</span>
+      <div class="t-body">37年制定<b>動員戡亂時期臨時條款</b>，總統權力擴大且不受連任限制；隔年戒嚴令頒布，總統與國會長期不需改選，形成「萬年國會」。</div>
+    </div>
+
+    <div class="t-item dip">
+      <span class="t-tag">外交</span><span class="t-year">民國39年（1950）</span>
+      <div class="t-body">韓戰爆發，美國第七艦隊協防臺灣海峽，美援與美軍顧問團陸續到位，臺灣進入冷戰下「反共陣營」的一員。</div>
+    </div>
+
+    <div class="t-item pol">
+      <span class="t-tag">政治</span><span class="t-year">民國39年起</span>
+      <div class="t-body">實施地方自治，開放縣市長與地方民代選舉；但省主席、直轄市長仍由中央官派，地方自治並不完整。</div>
+    </div>
+
+    <div class="t-item pol">
+      <span class="t-tag">白色恐怖</span><span class="t-year">民國40、50年代</span>
+      <div class="t-body">情治機關常未經正常司法程序逮捕、審判人民，造成大量「<b>白色恐怖</b>」冤案，人人自危、互不信任，社會發展受到嚴重壓抑。</div>
+    </div>
+
+    <div class="t-item dem">
+      <span class="t-tag">民主</span><span class="t-year">民國49年（1960）</span>
+      <div class="t-body"><b>雷震事件</b>：雷震等人創辦《自由中國》雜誌批評時政，籌組「中國民主黨」，遭政府逮捕入獄，反對運動受到嚴厲壓制。</div>
+    </div>
+
+    <div class="t-item eco">
+      <span class="t-tag">經濟</span><span class="t-year">民國55年（1966）</span>
+      <div class="t-body">設立<b>高雄加工出口區</b>，以租稅優惠吸引外資、發展勞力密集的出口導向產業，帶動就業與外匯累積，是「經濟奇蹟」的起點之一。</div>
+    </div>
+
+    <div class="t-item dip">
+      <span class="t-tag">外交</span><span class="t-year">民國60年（1971）</span>
+      <div class="t-body">聯合國大會通過<b>2758號決議</b>，中華民國<b>退出聯合國</b>，由中華人民共和國取得代表權，外交陷入孤立的開端。</div>
+    </div>
+
+    <div class="t-item dip">
+      <span class="t-tag">外交</span><span class="t-year">民國61年（1972）</span>
+      <div class="t-body"><b>中日斷交</b>：日本轉與中華人民共和國建交，是臺灣外交挫敗的連鎖效應之一。</div>
+    </div>
+
+    <div class="t-item eco">
+      <span class="t-tag">經濟</span><span class="t-year">民國62～68年（1973～79）</span>
+      <div class="t-body">蔣經國推動<b>十大建設</b>（含中山高速公路、鐵路電氣化、中鋼、中船、桃園國際機場等），以公共建設與重化工業因應能源危機、鞏固經濟基礎。</div>
+    </div>
+
+    <div class="t-item pol">
+      <span class="t-tag">政治</span><span class="t-year">民國67年（1978）</span>
+      <div class="t-body">蔣經國就任總統（任期至民國77年）；面對外交挫折，政府開始有限度地推動本土化與革新保臺策略。</div>
+    </div>
+
+    <div class="t-item dip">
+      <span class="t-tag">外交</span><span class="t-year">民國68年（1979）</span>
+      <div class="t-body"><b>中美斷交</b>：美國轉與中華人民共和國建交；同年美國國會通過《臺灣關係法》，維持非官方但實質的軍售與交流關係。</div>
+    </div>
+
+    <div class="t-item dem">
+      <span class="t-tag">民主</span><span class="t-year">民國68年（1979）</span>
+      <div class="t-body"><b>美麗島事件</b>：12月10日，《美麗島》雜誌社在高雄舉辦「國際人權日紀念大會」，爆發憲警與民眾的激烈衝突，多名「<b>黨外</b>」人士被捕入獄，卻也讓民主運動的訴求受到社會關注。</div>
+    </div>
+
+    <div class="t-item eco">
+      <span class="t-tag">經濟</span><span class="t-year">民國69年（1980）</span>
+      <div class="t-body">設立<b>新竹科學工業園區</b>，帶動臺灣產業由勞力密集轉向技術密集，奠定日後半導體與資訊電子業的基礎。</div>
+    </div>
+
+    <div class="t-item dem">
+      <span class="t-tag">民主</span><span class="t-year">民國75年（1986）</span>
+      <div class="t-body">「黨外」人士突破黨禁，成立<b>民主進步黨</b>，是戰後第一個實質運作的反對黨。</div>
+    </div>
+
+    <div class="t-item pol">
+      <span class="t-tag">政治</span><span class="t-year">民國76年（1987）</span>
+      <div class="t-body">7月，蔣經國總統宣布<b>解除戒嚴</b>，同時開放黨禁、報禁，並保障人民集會、遊行的自由；年底進一步開放<b>民眾赴大陸探親</b>，兩岸關係出現轉折。</div>
+    </div>
+
+    <div class="t-item pol">
+      <span class="t-tag">政治</span><span class="t-year">民國77年（1988）</span>
+      <div class="t-body">蔣經國逝世，副總統<b>李登輝</b>繼任，成為首位臺灣出生的總統（任期至民國89年）。</div>
+    </div>
+
+    <div class="t-item dem">
+      <span class="t-tag">民主</span><span class="t-year">民國79年（1990）</span>
+      <div class="t-body">3月，數千名大學生聚集臺北市中正紀念堂廣場（今自由廣場），提出「廢除臨時條款」等改革訴求，因以野百合為精神象徵，稱為「<b>三月學運</b>」（野百合學運）。</div>
+    </div>
+
+    <div class="t-item pol">
+      <span class="t-tag">政治</span><span class="t-year">民國80年（1991）</span>
+      <div class="t-body">政府<b>廢除動員戡亂時期臨時條款</b>，正式終止動員戡亂，並展開修憲與中央民意代表（國會）全面改選。</div>
+    </div>
+
+    <div class="t-item pol">
+      <span class="t-tag">政治</span><span class="t-year">民國85年（1996）</span>
+      <div class="t-body">舉行<b>首次人民直選總統</b>，李登輝、連戰當選，臺灣民主政治邁向新的里程碑。</div>
+    </div>
+
+    <div class="t-item dem">
+      <span class="t-tag">民主</span><span class="t-year">民國89年（2000）</span>
+      <div class="t-body">陳水扁當選總統，是<b>首次政黨輪替</b>，民主進步黨首度執政。</div>
+    </div>
+
+    <div class="t-item dem">
+      <span class="t-tag">民主</span><span class="t-year">民國97年（2008）</span>
+      <div class="t-body">馬英九當選總統，為<b>第二次政黨輪替</b>。</div>
+    </div>
+
+    <div class="t-item dem">
+      <span class="t-tag">民主</span><span class="t-year">民國105年（2016）</span>
+      <div class="t-body">蔡英文當選總統，是<b>首位女性總統</b>，亦為第三次政黨輪替。此後透過選舉，政黨輪替成為常態，民主政治得以落實在臺灣人民的生活之中。</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 4-1 ============ -->
+<section id="s1">
+  <div class="sec-head"><span class="sec-num">4-1</span><h2 class="sec-title">戰後初期與二二八事件</h2></div>
+  <hr class="rule">
+
+  <h3 class="h3">戰後初期局勢（民國34～36年）</h3>
+  <p class="lede">民國34年8月，日本宣布無條件投降，二戰結束，臺灣、澎湖由中華民國接收與治理。10月25日在臺北公會堂（今臺北中山堂）舉行受降典禮，政府明定此日為「臺灣光復節」。政府設立<span class="keyword">臺灣省行政長官公署</span>，由<b>陳儀</b>擔任行政長官，其權力集行政、軍事大權於一身，類似日治時期的臺灣總督，制度上留下高度集權的隱憂。</p>
+
+  <table class="tbl">
+    <tr><th>面向</th><th>戰後初期的困境</th></tr>
+    <tr><td><b>政治</b></td><td>行政長官公署權力過度集中；陳儀統治下部分軍警、官員貪汙腐化，濫用特權，民眾逐漸感到失望與不滿。</td></tr>
+    <tr><td><b>文化</b></td><td>臺灣與中國大陸分隔已久，語言、生活習慣差異大，兩岸文化落差加深彼此的隔閡與誤解。</td></tr>
+    <tr><td><b>經濟</b></td><td>政府實施經濟管制，加上戰爭破壞與米糧短缺，導致物價飛漲、社會秩序不穩，民怨一觸即發。</td></tr>
+  </table>
+
+  <h3 class="h3">二二八事件的爆發與影響</h3>
+  <p>民國36年（1947）2月27日，行政長官公署專賣局查緝私菸時誤傷、誤殺民眾，引發群眾憤慨。28日起，全臺各地陸續爆發衝突事件，史稱「<span class="keyword">二二八事件</span>」。地方仕紳、民意代表組成「<b>二二八事件處理委員會</b>」，試圖維持社會秩序並提出政治改革要求；然而中央政府派遣軍隊來臺強力鎮壓，並展開「<b>清鄉</b>」行動，藉清查戶口、收繳武器之名掃蕩反政府人士，過程中執法失當，造成大量知識分子與無辜民眾傷亡，財產亦嚴重受損。</p>
+
+  <div class="card note">
+    <span class="card-tag">釐清概念｜清鄉</span>
+    民國36年，政府在鎮壓二二八事件後展開的後續行動，軍警藉清查戶口、收繳武器等方式，掃蕩所謂「反政府分子」。由於執行過程未經正當程序、多有濫用，造成不少冤案，是二二八事件傷亡擴大的重要原因。
+  </div>
+
+  <p>二二八事件之後，中央政府將陳儀免職，改以<b>臺灣省政府</b>取代行政長官公署，做為局部的補救措施。但此事件已對日後臺灣的政治發展與族群關係造成長期不良影響；近年來政府針對當年處置失當已公開道歉、進行賠償、興建紀念碑，希望撫平歷史傷痕（如臺北市二二八紀念碑，位於臺北二二八和平公園內）。</p>
+
+  <div class="card link5-6">
+    <span class="card-tag">串聯第五章｜同時期的經濟起點</span>
+    二二八事件發生的同時，政府也著手進行土地改革：民國38年起推行<b>三七五減租</b>，規定地租不得超過主要作物收穫量的37.5%，是後續公地放領、耕者有其田的第一步。這些政策雖與二二八事件無直接關係，卻同屬戰後初期政府重建臺灣統治基礎的一環，也是日後經濟發展的前奏。
+  </div>
+</section>
+
+<!-- ============ 4-2 ============ -->
+<section id="s2">
+  <div class="sec-head"><span class="sec-num">4-2</span><h2 class="sec-title">戒嚴體制與白色恐怖</h2></div>
+  <hr class="rule">
+
+  <h3 class="h3">戒嚴體制的建立</h3>
+  <p class="lede">民國36年底，中華民國實施憲政，選出中央民意代表、總統與副總統；但為因應<span class="keyword">國共內戰</span>的局勢，政府於民國37年制定<span class="keyword">動員戡亂時期臨時條款</span>，全國進入戰爭準備狀態，總統權力大幅提高，不再受憲法連任次數的限制。</p>
+  <p>民國38年，政府為防止共產思想與活動蔓延而發布<span class="keyword">戒嚴令</span>，限制人民的言論、出版、集會、結社等自由。同年底，中華民國政府因國共內戰失利，退守臺灣。</p>
+
+  <div class="card note">
+    <span class="card-tag">小幫手｜國共內戰</span>
+    第二次世界大戰後，中國國民黨與中國共產黨為了爭奪政權而爆發的內戰。民國38年底，國民黨在內戰失利後，中央政府遷至臺灣，兩岸從此分治。
+  </div>
+
+  <h3 class="h3">白色恐怖</h3>
+  <p>戒嚴期間，政府為鞏固在臺政權，濫用國家公權力，運用嚴密的情治特務系統戕害人權，造成許多「<span class="keyword">白色恐怖</span>」案件。情治單位往往不依法律程序逮捕民眾，也未經正常、公開的司法審判便予以定罪，造成人心惶惶不安。白色恐怖的受難者不分族群或性別，受難者及其家屬都承受著心靈與身體的雙重創傷。這段期間，社會人人自危、互不信任，嚴重影響臺灣社會的正常發展。</p>
+
+  <h3 class="h3">原住民政策</h3>
+  <p>戰後，政府統稱原住民為「<b>山地同胞</b>」，並要求以漢名登記戶籍，透過學校教育積極推行國語運動，造成各族群的語言逐漸消失。此外，政府劃設山林保護區或設立國家公園的政策，使原住民與自己成長的土地分離。原住民的身分認同、語言文化、傳統土地權等方面，都在國家政策下遭到衝擊或喪失。</p>
+
+  <div class="card link5-6">
+    <span class="card-tag">串聯第五、六章｜戒嚴下的經濟與外交</span>
+    值得注意的是，戒嚴體制與白色恐怖籠罩社會的同時，臺灣的<b>經濟建設</b>並未停滯：民國50年代政府推動出口導向政策、設立加工出口區，民國60年代更推動十大建設。這說明戰後臺灣的「威權統治」與「經濟成長」是同時並行的兩條線索——政治上高壓管制，經濟上卻力求發展，這也是後來要求政治鬆綁、民主化呼聲興起的重要背景之一：經濟成長帶動中產階級與教育普及，人民開始要求相應的政治參與權利。
+  </div>
+
+  <div class="card link-dip">
+    <span class="card-tag">串聯第六章｜外交風暴下的內部緊縮</span>
+    民國60年（1971）退出聯合國、61年中日斷交、68年中美斷交，一連串外交挫折使政府在對外倍感孤立之際，對內部反對聲音也更加敏感戒慎，白色恐怖的氛圍在民國60、70年代並未因經濟起飛而立即緩解，直到解嚴前夕才逐漸鬆動。
+  </div>
+</section>
+
+<!-- ============ 4-3 ============ -->
+<section id="s3">
+  <div class="sec-head"><span class="sec-num">4-3</span><h2 class="sec-title">政治民主化的歷程</h2></div>
+  <hr class="rule">
+
+  <h3 class="h3">地方自治與有限的參政空間</h3>
+  <p class="lede">政府遷臺後，於民國39年起實行<span class="keyword">地方自治</span>，開放地方行政首長和民意代表選舉。但戒嚴期間，臺灣省主席、直轄市市長仍由官方指派，並未完全落實地方自治，中央層級的總統與國會長期未曾全面改選，形成所謂「<b>萬年國會</b>」的現象。</p>
+
+  <h3 class="h3">民主運動的興起</h3>
+  <p>在戒嚴統治下，反對勢力的活動空間十分有限：</p>
+  <ul class="plain">
+    <li><b>民國49年（1960）雷震事件</b>：雷震（1897～1979）等人創辦《自由中國》雜誌，批評時政；其籌組「中國民主黨」，卻遭到政府的壓制與逮捕入獄。</li>
+    <li><b>民國60年代以後</b>：由於國內經濟、教育迅速發展，人民不斷挑戰政府的威權統治。</li>
+    <li><b>民國68年（1979）美麗島事件</b>：高雄爆發「美麗島事件」，「黨外」人士雖多人被捕，但仍透過選舉與宣傳等方式繼續推動民主運動。</li>
+    <li><b>民國75年（1986）</b>：黨外人士突破黨禁，成立<b>民主進步黨</b>。</li>
+  </ul>
+
+  <div class="card term">
+    <span class="card-tag">小幫手｜黨外</span>
+    通常指「非國民黨籍」。民國60～70年代，人們用這個名詞，稱呼從事民主運動的人士。
+  </div>
+
+  <div class="card term">
+    <span class="card-tag">小幫手｜美麗島事件</span>
+    民國68年12月10日，《美麗島》雜誌社在高雄市舉行「國際人權日紀念大會」，發生憲警與民眾的激烈衝突，多人遭到逮捕入獄。此事件雖使黨外運動受挫，卻也讓臺灣社會更廣泛地關注民主與人權議題，是日後組黨與解嚴的重要遠因。
+  </div>
+
+  <h3 class="h3">民主時代的來臨</h3>
+  <p>蔣經國總統（民國67～77年在任）於民國76年（1987）宣布<span class="keyword">解除戒嚴</span>，開放黨禁、報禁，並保障人民集會、遊行的自由，臺灣的民主政治從此邁向新的里程碑。次年蔣經國逝世，繼任總統<b>李登輝</b>（民國77～89年在任）順應時代趨勢，繼續推動民主改革。</p>
+  <p>民國79年（1990），青年學生發起「<span class="keyword">三月學運</span>」，促使政府於隔年廢除臨時條款，終止動員戡亂，同時進行修憲及中央民意代表全面改選。民國85年（1996），臺灣第一次由人民直選總統。此後，透過選舉，政黨輪替成為常態，民主政治得以落實在臺灣人民的生活之中。</p>
+
+  <div class="card term">
+    <span class="card-tag">小幫手｜三月學運（野百合學運）</span>
+    民國79年3月，數千名大學生聚集臺北市中正紀念堂廣場（今自由廣場），公開提出「廢除臨時條款」等多項政治改革訴求。歷時一週，因以臺灣野百合作為精神象徵，又稱「野百合學運」。
+  </div>
+
+  <h3 class="h3">臺灣民主化大事記（總整理表）</h3>
+  <table class="tbl">
+    <tr><th>領導人</th><th>時間</th><th>大事</th></tr>
+    <tr><td rowspan="1">臺灣總督（日治）</td><td>1935年</td><td>舉辦首次地方議員選舉</td></tr>
+    <tr><td>蔣中正總統</td><td>民國39年</td><td>實施<b>地方自治</b></td></tr>
+    <tr><td></td><td>民國49年</td><td>爆發<b>雷震事件</b></td></tr>
+    <tr><td rowspan="3">蔣經國總統</td><td>民國68年</td><td>爆發<b>美麗島事件</b></td></tr>
+    <tr><td>民國75年</td><td><b>民主進步黨</b>成立</td></tr>
+    <tr><td>民國76年</td><td><b>解除戒嚴</b>，開放黨禁、報禁</td></tr>
+    <tr><td rowspan="3">李登輝總統</td><td>民國79年</td><td>青年學生發動<b>三月學運</b></td></tr>
+    <tr><td>民國80年</td><td><b>廢除臨時條款</b>，終止動員戡亂</td></tr>
+    <tr><td>民國85年</td><td><b>首次人民直選總統</b></td></tr>
+    <tr><td>陳水扁總統</td><td>民國89年</td><td><b>首次政黨輪替</b></td></tr>
+    <tr><td>馬英九總統</td><td>民國97年</td><td>第二次政黨輪替</td></tr>
+    <tr><td>蔡英文總統</td><td>民國105年</td><td>首位女性總統</td></tr>
+  </table>
+
+  <div class="card link5-6">
+    <span class="card-tag">串聯第五章｜產業升級與民主化同步</span>
+    民國69年（1980）設立新竹科學工業園區，臺灣產業從勞力密集轉向技術密集；此後半導體、資訊電子業快速成長，被譽為「<b>亞洲四小龍</b>」之一。經濟自由化與民主化的腳步幾乎並行——民國76年解嚴的同一年，政府也開始推動貿易與投資的進一步開放，兩者可視為同一波「鬆綁威權管制」浪潮下的不同面向。
+  </div>
+
+  <div class="card link-dip">
+    <span class="card-tag">串聯第六章｜兩岸關係的轉折</span>
+    民國76年（1987）政府宣布解嚴的同一年年底，也開放民眾赴大陸探親，是兩岸關係走向交流的重要轉捩點。此後兩岸經貿、文化往來逐漸增加，也連帶影響臺灣的外交策略，由早期「漢賊不兩立」轉向「<b>務實外交</b>」，以爭取更多國際參與空間（例如加入世界貿易組織WTO等）。
+  </div>
+</section>
+
+<!-- ============ Leaders ============ -->
+<section id="leaders">
+  <div class="sec-head"><span class="sec-num">整理</span><h2 class="sec-title">歷任總統任期與重大事件對照</h2></div>
+  <hr class="rule">
+  <div class="compare-people">
+    <div class="person">
+      <div class="name">蔣中正</div>
+      <div class="term">民國37～49年間陸續連任</div>
+      遷臺、頒布戒嚴令與臨時條款、韓戰後美援、土地改革、地方自治開放
+    </div>
+    <div class="person">
+      <div class="name">蔣經國</div>
+      <div class="term">民國67～77年在任</div>
+      十大建設（行政院長任內）、退出聯合國後外交轉折、美麗島事件、<b>解除戒嚴</b>、開放探親
+    </div>
+    <div class="person">
+      <div class="name">李登輝</div>
+      <div class="term">民國77～89年在任</div>
+      三月學運、廢除臨時條款、國會全面改選、<b>首次總統直選</b>
+    </div>
+    <div class="person">
+      <div class="name">陳水扁</div>
+      <div class="term">民國89～97年在任</div>
+      <b>首次政黨輪替</b>
+    </div>
+    <div class="person">
+      <div class="name">馬英九</div>
+      <div class="term">民國97～105年在任</div>
+      第二次政黨輪替
+    </div>
+    <div class="person">
+      <div class="name">蔡英文</div>
+      <div class="term">民國105年起</div>
+      首位女性總統，第三次政黨輪替
+    </div>
+  </div>
+</section>
+
+<!-- ============ Glossary ============ -->
+<section id="glossary">
+  <div class="sec-head"><span class="sec-num">名詞</span><h2 class="sec-title">關鍵名詞速記</h2></div>
+  <hr class="rule">
+  <table class="tbl">
+    <tr><th>名詞</th><th>解釋重點</th></tr>
+    <tr><td><b>行政長官公署</b></td><td>戰後初期治臺機構，陳儀掌行政、軍事大權，權力集中類似日治總督。</td></tr>
+    <tr><td><b>清鄉</b></td><td>二二八事件後軍警藉清查戶口、收繳武器掃蕩「反政府分子」，過程失當、造成冤案。</td></tr>
+    <tr><td><b>動員戡亂時期臨時條款</b></td><td>民國37年制定，擴大總統權力、不受連任限制，民國80年廢除。</td></tr>
+    <tr><td><b>戒嚴令</b></td><td>民國38年頒布，限制言論、出版、集會、結社自由，民國76年解除。</td></tr>
+    <tr><td><b>白色恐怖</b></td><td>戒嚴期間政府濫權，情治系統未經正當程序逮捕、審判人民，造成大量冤案。</td></tr>
+    <tr><td><b>黨外</b></td><td>民國60～70年代對「非國民黨籍」從事民主運動人士的統稱。</td></tr>
+    <tr><td><b>美麗島事件</b></td><td>民國68年高雄爆發憲警與民眾衝突，多名黨外人士被捕，是組黨、解嚴的重要遠因。</td></tr>
+    <tr><td><b>三月學運（野百合學運）</b></td><td>民國79年學生於中正紀念堂廣場提出廢除臨時條款等訴求，促成隔年修憲。</td></tr>
+    <tr><td><b>萬年國會</b></td><td>因未全面改選而長期由同批民代組成的中央民意機構，至民國80年代才全面改選。</td></tr>
+    <tr><td><b>加工出口區／科學工業園區</b></td><td>民國55年設高雄加工出口區（勞力密集），民國69年設新竹科學園區（技術密集），標誌臺灣產業升級。</td></tr>
+    <tr><td><b>退出聯合國／中美斷交</b></td><td>民國60年退出聯合國、68年與美國斷交，是臺灣外交由「漢賊不兩立」轉向「務實外交」的關鍵背景。</td></tr>
+  </table>
+</section>
+
+<!-- ============ Compare ============ -->
+<section id="compare">
+  <div class="sec-head"><span class="sec-num">辨析</span><h2 class="sec-title">最容易混淆的三組概念</h2></div>
+  <hr class="rule">
+
+  <table class="tbl">
+    <tr><th>概念</th><th>本質</th><th>解除／終結時間</th></tr>
+    <tr>
+      <td><b>戒嚴令</b></td>
+      <td>限制人民言論、出版、集會、結社等<b>自由權利</b>的行政命令</td>
+      <td>民國76年（1987）解除</td>
+    </tr>
+    <tr>
+      <td><b>動員戡亂時期臨時條款</b></td>
+      <td>擴大<b>總統職權</b>（不受連任限制、緊急處分權等）的憲法臨時性條款</td>
+      <td>民國80年（1991）廢除</td>
+    </tr>
+    <tr>
+      <td><b>萬年國會</b></td>
+      <td>中央民意代表<b>長期未改選</b>的現象（結果，而非單一法令）</td>
+      <td>民國80年代初全面改選</td>
+    </tr>
+  </table>
+
+  <table class="tbl">
+    <tr><th>事件</th><th>發生地與時間</th><th>訴求／性質</th><th>後續影響</th></tr>
+    <tr>
+      <td><b>雷震事件</b></td>
+      <td>民國49年</td>
+      <td>創辦雜誌批評時政、籌組反對黨</td>
+      <td>組黨失敗、雷震入獄，反對運動受挫</td>
+    </tr>
+    <tr>
+      <td><b>美麗島事件</b></td>
+      <td>民國68年，高雄</td>
+      <td>黨外人士舉辦人權紀念大會，與憲警衝突</td>
+      <td>黨外人士被捕，卻促成社會關注民主，為組黨鋪路</td>
+    </tr>
+    <tr>
+      <td><b>三月學運（野百合學運）</b></td>
+      <td>民國79年，臺北中正紀念堂廣場</td>
+      <td>大學生和平集會，要求廢除臨時條款、國會全面改選</td>
+      <td>隔年廢除臨時條款、推動修憲，是政治民主化的關鍵一步</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-head"><span class="sec-num">練習</span><h2 class="sec-title">自我檢測題庫</h2></div>
+  <div class="sec-sub">單選題 15 題．填空題 8 題．事件排序 4 題．配對題 1 組．簡答題 6 題（含解析）</div>
+  <hr class="rule">
+
+  <h3 class="h3">一、單選題</h3>
+
+  <div class="quiz">
+    <b>1.</b> 民國34年10月25日，臺灣、澎湖由何政府接收與治理？<br>
+    (A) 日本政府　(B) 中華民國政府　(C) 中華人民共和國政府　(D) 美國軍政府
+    <div class="ans">答：(B)。此日訂為「臺灣光復節」，受降典禮於臺北公會堂（今臺北中山堂）舉行。</div>
+  </div>
+
+  <div class="quiz">
+    <b>2.</b> 戰後初期治臺的最高機構是下列何者？<br>
+    (A) 臺灣總督府　(B) 臺灣省政府　(C) 臺灣省行政長官公署　(D) 臺灣省議會
+    <div class="ans">答：(C)。由陳儀擔任行政長官，集行政、軍事大權於一身，權力集中程度類似日治時期的臺灣總督。</div>
+  </div>
+
+  <div class="quiz">
+    <b>3.</b> 二二八事件的導火線，與下列何種公務機關的查緝行動有關？<br>
+    (A) 警察局　(B) 專賣局　(C) 稅捐處　(D) 憲兵隊
+    <div class="ans">答：(B)。民國36年2月27日，行政長官公署專賣局查緝私菸時誤傷、誤殺民眾，引爆群眾憤慨。</div>
+  </div>
+
+  <div class="quiz">
+    <b>4.</b> 二二八事件後，中央政府展開「清鄉」，其主要作法為何？<br>
+    (A) 興建道路橋梁　(B) 藉清查戶口、收繳武器掃蕩反政府分子　(C) 推動土地改革　(D) 舉辦地方選舉
+    <div class="ans">答：(B)。執行過程未經正當程序，多有濫用，造成許多冤案。</div>
+  </div>
+
+  <div class="quiz">
+    <b>5.</b> 「動員戡亂時期臨時條款」制定的主要背景是？<br>
+    (A) 二二八事件　(B) 國共內戰　(C) 韓戰爆發　(D) 中美斷交
+    <div class="ans">答：(B)。民國37年因應國共內戰而制定，擴大總統職權、不受連任次數限制。</div>
+  </div>
+
+  <div class="quiz">
+    <b>6.</b> 下列何者不是戒嚴令限制人民的自由項目？<br>
+    (A) 言論自由　(B) 出版自由　(C) 信仰宗教自由　(D) 集會結社自由
+    <div class="ans">答：(C)。戒嚴令主要限制言論、出版、集會、結社等自由，並未直接限制宗教信仰自由。</div>
+  </div>
+
+  <div class="quiz">
+    <b>7.</b> 「白色恐怖」時期，情治機關逮捕人民最主要的問題是？<br>
+    (A) 逮捕人數過少　(B) 未經正常法律程序與公開審判　(C) 只逮捕外國人　(D) 逮捕後立即釋放
+    <div class="ans">答：(B)。未依法律程序逮捕、未經正常公開司法審判便定罪，是白色恐怖侵害人權的核心問題。</div>
+  </div>
+
+  <div class="quiz">
+    <b>8.</b> 戰後政府對原住民的政策，下列敘述何者錯誤？<br>
+    (A) 統稱原住民為「山地同胞」　(B) 要求以漢名登記戶籍　(C) 積極保存並推廣原住民各族語言　(D) 劃設山林保護區或國家公園
+    <div class="ans">答：(C)。政府推行國語運動，反而造成各族群語言逐漸消失，並非積極保存推廣。</div>
+  </div>
+
+  <div class="quiz">
+    <b>9.</b> 民國49年創辦《自由中國》雜誌、籌組「中國民主黨」而遭逮捕入獄的是？<br>
+    (A) 陳儀　(B) 雷震　(C) 蔣經國　(D) 李登輝
+    <div class="ans">答：(B)。史稱「雷震事件」，是戒嚴時期組黨運動最早、也最受挫折的案例之一。</div>
+  </div>
+
+  <div class="quiz">
+    <b>10.</b> 民國68年爆發於高雄、多名黨外人士遭逮捕入獄的事件是？<br>
+    (A) 雷震事件　(B) 二二八事件　(C) 美麗島事件　(D) 三月學運
+    <div class="ans">答：(C)。因《美麗島》雜誌社舉辦「國際人權日紀念大會」而爆發憲警與民眾衝突。</div>
+  </div>
+
+  <div class="quiz">
+    <b>11.</b> 民國75年成立、是戰後第一個實質運作反對黨的是？<br>
+    (A) 中國民主黨　(B) 民主進步黨　(C) 中國國民黨　(D) 臺灣民眾黨
+    <div class="ans">答：(B)。黨外人士突破黨禁，於民國75年成立民主進步黨。</div>
+  </div>
+
+  <div class="quiz">
+    <b>12.</b> 宣布解除戒嚴、開放黨禁報禁的總統是？<br>
+    (A) 蔣中正　(B) 蔣經國　(C) 李登輝　(D) 陳水扁
+    <div class="ans">答：(B)。蔣經國於民國76年（1987）宣布解嚴，同年底並開放大陸探親。</div>
+  </div>
+
+  <div class="quiz">
+    <b>13.</b> 民國79年學生於中正紀念堂廣場發起的學運，又稱為？<br>
+    (A) 太陽花學運　(B) 野百合學運　(C) 五四運動　(D) 保釣運動
+    <div class="ans">答：(B)。因以臺灣野百合作為精神象徵，稱為「野百合學運」，即三月學運。</div>
+  </div>
+
+  <div class="quiz">
+    <b>14.</b> 臺灣「首次人民直選總統」發生於民國幾年？<br>
+    (A) 76年　(B) 80年　(C) 85年　(D) 89年
+    <div class="ans">答：(C)。民國85年（1996）舉行首次總統直選，李登輝、連戰當選。</div>
+  </div>
+
+  <div class="quiz">
+    <b>15.</b> 民國89年陳水扁當選總統，此事件的歷史意義為？<br>
+    (A) 首次總統直選　(B) 首次政黨輪替　(C) 廢除臨時條款　(D) 解除戒嚴
+    <div class="ans">答：(B)。這是中華民國政府遷臺以來首次政黨輪替，民主進步黨首度執政。</div>
+  </div>
+
+  <h3 class="h3">二、填空題</h3>
+  <div class="quiz">
+    <ol class="plain">
+      <li>民國34年10月25日，政府在臺北公會堂舉行受降典禮，此日訂為「＿＿＿＿」。</li>
+      <li>民國36年爆發二二八事件，地方仕紳組成「＿＿＿＿＿＿＿＿委員會」提出改革訴求。</li>
+      <li>民國38年政府頒布＿＿＿＿，限制人民言論、出版、集會、結社等自由。</li>
+      <li>戒嚴期間政府濫用公權力，造成大量政治冤案，史稱「＿＿＿＿」。</li>
+      <li>民國49年雷震創辦＿＿＿＿雜誌，批評時政並籌組反對黨。</li>
+      <li>民國68年高雄爆發的憲警與民眾衝突事件，稱為「＿＿＿＿事件」。</li>
+      <li>民國76年，總統＿＿＿＿宣布解除戒嚴。</li>
+      <li>民國80年，政府廢除＿＿＿＿＿＿＿＿＿＿＿＿＿＿，終止動員戡亂。</li>
+    </ol>
+    <div class="ans">
+      答：①臺灣光復節　②二二八事件處理　③戒嚴令　④白色恐怖　⑤自由中國　⑥美麗島　⑦蔣經國　⑧動員戡亂時期臨時條款
+    </div>
+  </div>
+
+  <h3 class="h3">三、事件先後排序</h3>
+
+  <div class="quiz">
+    <b>1.</b> ①解除戒嚴　②美麗島事件　③雷震事件　④首次總統直選
+    <div class="ans">答：③雷震事件（49年）→②美麗島事件（68年）→①解除戒嚴（76年）→④首次總統直選（85年）</div>
+  </div>
+
+  <div class="quiz">
+    <b>2.</b> ①三月學運　②民主進步黨成立　③廢除臨時條款　④首次政黨輪替
+    <div class="ans">答：②民主進步黨成立（75年）→①三月學運（79年）→③廢除臨時條款（80年）→④首次政黨輪替（89年）</div>
+  </div>
+
+  <div class="quiz">
+    <b>3.</b>（跨章節）①退出聯合國　②設立新竹科學園區　③中美斷交　④十大建設推動
+    <div class="ans">答：①退出聯合國（60年）→④十大建設推動（62～68年）→③中美斷交（68年）→②設立新竹科學園區（69年）</div>
+  </div>
+
+  <div class="quiz">
+    <b>4.</b> ①二二八事件　②國共內戰失利、中央政府遷臺　③頒布戒嚴令　④行政長官公署成立
+    <div class="ans">答：④行政長官公署成立（34年）→①二二八事件（36年）→③頒布戒嚴令（38年5月）→②中央政府遷臺（38年底）</div>
+  </div>
+
+  <h3 class="h3">四、配對題：把事件與其正確的「年代／總統任期」連起來</h3>
+  <table class="tbl">
+    <tr><th>事件</th><th>可選年代／任期</th></tr>
+    <tr><td>A．美麗島事件</td><td rowspan="6">
+      甲．蔣中正總統任內　　乙．蔣經國總統任內　　丙．李登輝總統任內　　丁．陳水扁總統任內
+    </td></tr>
+    <tr><td>B．解除戒嚴</td></tr>
+    <tr><td>C．三月學運</td></tr>
+    <tr><td>D．首次政黨輪替</td></tr>
+    <tr><td>E．頒布戒嚴令</td></tr>
+    <tr><td>F．首次總統直選</td></tr>
+  </table>
+  <div class="quiz">
+    <div class="ans">答：A－乙　B－乙　C－丙　D－丁　E－甲　F－丙</div>
+  </div>
+
+  <h3 class="h3">五、簡答與申論題</h3>
+
+  <div class="quiz">
+    <b>1.</b> 二二八事件的直接導火線是什麼？地方仕紳成立了什麼組織來回應？後續政府又是如何處置的？
+    <div class="ans">答：導火線為民國36年2月27日行政長官公署專賣局查緝私菸時誤傷、誤殺民眾；地方仕紳組成「二二八事件處理委員會」，維持秩序並提出改革要求；然而中央政府派兵鎮壓並展開「清鄉」，造成大量傷亡，事後將陳儀免職、以臺灣省政府取代行政長官公署。</div>
+  </div>
+
+  <div class="quiz">
+    <b>2.</b> 「動員戡亂時期臨時條款」與「戒嚴令」有何不同？分別於何時廢止？
+    <div class="ans">答：臨時條款是擴大總統職權（不受連任限制、緊急處分權）的憲法性條款，民國80年廢除；戒嚴令是限制人民言論、出版、集會、結社等自由權利的行政命令，民國76年解除。兩者性質、廢止時間皆不同，是最容易混淆的一組概念。</div>
+  </div>
+
+  <div class="quiz">
+    <b>3.</b> 請簡述民主進步黨成立的歷史背景，以及它與「黨外」、「美麗島事件」之間的關係。
+    <div class="ans">答：戒嚴期間組黨受到嚴格限制，「黨外」是對從事民主運動的非國民黨籍人士的統稱；民國68年美麗島事件雖使黨外人士多人被捕，卻讓民主與人權議題受到社會更廣泛關注，黨外運動並未因此消失，反而持續累積能量，終於在民國75年突破黨禁，成立民主進步黨。</div>
+  </div>
+
+  <div class="quiz">
+    <b>4.</b> 為什麼說臺灣「經濟起飛」與「政治民主化」在民國70～80年代是同步發生的？請各舉一項經濟事件與一項政治事件說明其關聯。
+    <div class="ans">答：經濟面如民國69年設立新竹科學工業園區、產業升級為技術密集；政治面如民國76年解除戒嚴。經濟成長帶動教育普及與中產階級興起，是人民要求政治參與、推動民主化的重要社會基礎，兩者互為因果。</div>
+  </div>
+
+  <div class="quiz">
+    <b>5.</b> 民國60年代臺灣一連串外交挫折（退出聯合國、中日斷交、中美斷交）如何影響當時的內政氛圍？
+    <div class="ans">答：外交孤立使政府對內部反對聲浪更加敏感戒慎，白色恐怖與戒嚴管制在此時期並未立即鬆綁，直到解嚴前夕才逐步改變；但另一方面，外交挫折也促使政府思考本土化與內部政策調整，例如逐漸起用臺籍菁英、推動十大建設以穩定民心。</div>
+  </div>
+
+  <div class="quiz">
+    <b>6.</b>（歷史解釋）有人說「臺灣的民主化是由上而下的恩賜，也有人說是由下而上爭取而來」，請根據本單元內容，舉出支持這兩種說法的具體事例各一項，並說明你的看法。
+    <div class="ans">
+      參考方向：<br>
+      支持「由上而下」：蔣經國主動宣布解除戒嚴、開放探親，展現統治者順應時勢的決策。<br>
+      支持「由下而上」：雷震組黨、美麗島事件、三月學運等，都是民間或知識分子長期爭取、付出代價換來的成果。<br>
+      合理的看法通常會指出：兩者其實是互動的過程——沒有民間長期的抗爭與壓力，統治者未必會主動讓步；但沒有蔣經國等領導者最終的決策，改革也難以真正落實。（言之成理即可，鼓勵學生從課文史料舉證說明。）
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  臺灣戰後史講義　整理自國中歷史課本第四單元（第五、六章重點延伸）　僅供課堂與自學參考
+</footer>
+
+</div>
+</body>
+</html>

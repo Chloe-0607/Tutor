@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>東南亞與南亞｜季風下的兩個世界</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDE5D3;
+    --paper-2:#E4D9C0;
+    --ink:#2B2118;
+    --ink-soft:#5A4C3B;
+    --jungle:#2F4F3E;
+    --jungle-2:#3E6650;
+    --monsoon:#24425F;
+    --monsoon-2:#335A7D;
+    --turmeric:#C89B3C;
+    --clay:#9C4A3A;
+    --contour:#8B6F47;
+    --line: rgba(43,33,24,0.18);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(139,111,71,0.08), transparent 40%),
+      radial-gradient(circle at 85% 92%, rgba(36,66,95,0.07), transparent 45%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans TC', sans-serif;
+    line-height:1.75;
+  }
+  .mono{font-family:'JetBrains Mono', monospace;}
+  h1,h2,h3,h4{font-family:'Noto Serif TC', serif; margin:0 0 .4em;}
+
+  /* ===== Topo texture strip ===== */
+  .topo-rule{
+    height:14px;
+    background-image: repeating-linear-gradient(90deg, transparent 0 18px, var(--contour) 18px 19px);
+    opacity:.35;
+    margin: 0 auto;
+  }
+
+  /* ===== Header / Nav ===== */
+  header.top{
+    position:sticky; top:0; z-index:50;
+    background:linear-gradient(180deg, var(--paper) 85%, transparent);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-wrap{
+    max-width:1100px; margin:0 auto; padding:14px 24px 10px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{
+    width:34px;height:34px; border-radius:50%;
+    background:conic-gradient(from 200deg, var(--jungle), var(--monsoon), var(--turmeric), var(--jungle));
+    box-shadow:inset 0 0 0 2px var(--paper);
+  }
+  .brand-title{font-family:'Noto Serif TC',serif; font-weight:700; font-size:1.05rem; letter-spacing:.02em;}
+  .brand-sub{font-size:.72rem; color:var(--ink-soft); font-family:'JetBrains Mono',monospace;}
+  nav.tabs{display:flex; gap:6px; background:rgba(43,33,24,0.06); padding:4px; border-radius:999px;}
+  nav.tabs button{
+    border:none; background:transparent; padding:8px 18px; border-radius:999px;
+    font-family:'Noto Sans TC',sans-serif; font-weight:700; font-size:.88rem; color:var(--ink-soft);
+    cursor:pointer; transition:.2s;
+  }
+  nav.tabs button.active{background:var(--ink); color:var(--paper);}
+  nav.tabs button:not(.active):hover{color:var(--ink);}
+
+  /* ===== Hero ===== */
+  .hero{max-width:1100px; margin:0 auto; padding:38px 24px 10px;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:36px; align-items:center;}
+  @media(max-width:820px){.hero-grid{grid-template-columns:1fr;}}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--monsoon); font-weight:600;
+    padding:4px 10px; border:1px solid rgba(36,66,95,0.3); border-radius:999px; margin-bottom:14px;
+  }
+  .hero h1{font-size:2.5rem; line-height:1.25; font-weight:900; color:var(--ink);}
+  .hero h1 em{font-style:normal; background:linear-gradient(180deg, transparent 60%, rgba(200,155,60,.45) 60%);}
+  .hero p.lede{color:var(--ink-soft); font-size:1.02rem; max-width:46ch;}
+
+  /* ===== Monsoon signature widget ===== */
+  .monsoon-card{
+    background:#fff8ea; border:1px solid var(--line); border-radius:18px; padding:22px;
+    box-shadow:0 18px 40px -22px rgba(43,33,24,0.35);
+  }
+  .monsoon-card h3{font-size:1rem; display:flex; justify-content:space-between; align-items:baseline;}
+  .season-toggle{
+    display:flex; background:rgba(43,33,24,0.07); border-radius:999px; padding:3px; margin:10px 0 16px;
+  }
+  .season-toggle button{
+    flex:1; border:none; background:transparent; padding:8px 6px; border-radius:999px;
+    font-weight:700; font-size:.82rem; cursor:pointer; color:var(--ink-soft); transition:.25s;
+  }
+  .season-toggle button.active.summer{background:var(--monsoon); color:#fff;}
+  .season-toggle button.active.winter{background:var(--clay); color:#fff;}
+  svg#monsoonSvg{width:100%; height:auto; display:block;}
+  .arrow-set{transition:opacity .45s ease;}
+  .arrow-set.winter-arrows{opacity:0;}
+  .arrow-set.summer-arrows{opacity:1;}
+  .arrow-set.hide{opacity:0 !important;}
+  .wind-caption{font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--ink-soft); text-align:center; margin-top:6px;}
+  .wind-caption b{color:var(--ink); font-family:'Noto Sans TC',sans-serif;}
+
+  /* ===== Sections ===== */
+  main{max-width:1100px; margin:0 auto; padding:10px 24px 80px;}
+  .view{display:none; animation:fade .4s ease;}
+  .view.active{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  section.block{margin:52px 0;}
+  .block-head{display:flex; align-items:center; gap:14px; margin-bottom:18px;}
+  .block-head .num{
+    font-family:'JetBrains Mono',monospace; font-size:.75rem; color:var(--paper);
+    background:var(--ink); padding:4px 9px; border-radius:6px;
+  }
+  .block-head h2{font-size:1.5rem;}
+  .block-head .region-tag{
+    margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:.7rem;
+    padding:3px 10px; border-radius:999px; border:1px solid var(--line); color:var(--ink-soft);
+  }
+
+  .callout{
+    border-left:4px solid var(--turmeric); background:rgba(200,155,60,0.08);
+    padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:.95rem;
+  }
+  .callout b{color:var(--clay);}
+  .mnemonic{
+    background:var(--ink); color:var(--paper); border-radius:12px; padding:16px 20px; margin:16px 0;
+    font-size:.95rem;
+  }
+  .mnemonic .tag{font-family:'JetBrains Mono',monospace; font-size:.68rem; letter-spacing:.1em; color:var(--turmeric); text-transform:uppercase; display:block; margin-bottom:6px;}
+  .mnemonic b{color:#fff; background:rgba(200,155,60,0.35); padding:0 3px; border-radius:3px;}
+
+  table{width:100%; border-collapse:collapse; margin:14px 0 20px; font-size:.92rem; background:rgba(255,255,255,.4); border-radius:10px; overflow:hidden;}
+  caption{caption-side:top; text-align:left; font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--ink-soft); margin-bottom:6px; text-transform:uppercase; letter-spacing:.06em;}
+  th,td{padding:10px 14px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top;}
+  thead th{background:var(--ink); color:var(--paper); font-family:'Noto Serif TC',serif; font-weight:700;}
+  tbody tr:nth-child(even){background:rgba(43,33,24,0.035);}
+  tbody tr:hover{background:rgba(200,155,60,0.09);}
+  td b, th b{color:var(--clay);}
+
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+  .climate-card{
+    border:1px solid var(--line); border-radius:14px; padding:18px; background:#fff;
+  }
+  .climate-card h4{font-size:1rem; display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:50%; display:inline-block;}
+  .climate-card ul{margin:8px 0 0; padding-left:1.1em; font-size:.9rem; color:var(--ink-soft);}
+  .climate-card ul li{margin-bottom:4px;}
+
+  .pyramid{display:flex; flex-direction:column; align-items:center; gap:4px; margin:18px 0;}
+  .pyramid .layer{
+    color:#fff; font-weight:700; text-align:center; padding:10px 0; font-size:.85rem;
+    font-family:'Noto Serif TC',serif; border-radius:4px;
+  }
+  .pyramid .layer.l1{width:40%; background:var(--clay);}
+  .pyramid .layer.l2{width:58%; background:var(--turmeric); color:var(--ink);}
+  .pyramid .layer.l3{width:76%; background:var(--jungle-2);}
+  .pyramid .layer.l4{width:94%; background:var(--monsoon);}
+  .pyramid .caption{font-size:.75rem; color:var(--ink-soft); font-family:'JetBrains Mono',monospace;}
+
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0;}
+  .chip{
+    font-family:'JetBrains Mono',monospace; font-size:.75rem; padding:5px 12px; border-radius:999px;
+    border:1px solid var(--line); background:#fff;
+  }
+
+  /* ===== Practice questions ===== */
+  .qmeta{display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;}
+  .qmeta .chip{cursor:pointer; user-select:none;}
+  .qmeta .chip.active{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+
+  details.qcard{
+    border:1px solid var(--line); border-radius:14px; margin-bottom:14px; background:#fff;
+    overflow:hidden;
+  }
+  details.qcard[open]{border-color:var(--monsoon-2);}
+  details.qcard summary{
+    list-style:none; cursor:pointer; padding:16px 20px; display:flex; gap:14px; align-items:flex-start;
+    font-weight:500;
+  }
+  details.qcard summary::-webkit-details-marker{display:none;}
+  details.qcard summary .qnum{
+    font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--paper);
+    background:var(--monsoon); min-width:30px; height:24px; border-radius:6px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px;
+  }
+  details.qcard summary .qtext{flex:1;}
+  details.qcard summary .qregion{
+    font-family:'JetBrains Mono',monospace; font-size:.65rem; color:var(--ink-soft);
+    border:1px solid var(--line); padding:2px 8px; border-radius:999px; white-space:nowrap; align-self:flex-start;
+  }
+  details.qcard summary .chev{
+    flex-shrink:0; width:20px; height:20px; margin-top:2px;
+    border-radius:50%; border:1px solid var(--line); position:relative;
+  }
+  details.qcard summary .chev::before, details.qcard summary .chev::after{
+    content:''; position:absolute; background:var(--ink-soft); top:50%; left:50%;
+  }
+  details.qcard summary .chev::before{width:8px; height:1.5px; transform:translate(-50%,-50%);}
+  details.qcard summary .chev::after{height:8px; width:1.5px; transform:translate(-50%,-50%); transition:.2s;}
+  details.qcard[open] summary .chev::after{opacity:0;}
+
+  .options{padding:0 20px 14px 64px; font-size:.9rem; color:var(--ink-soft); display:flex; flex-direction:column; gap:8px;}
+  .opt-btn{
+    text-align:left; border:1px solid var(--line); background:#fff; border-radius:10px;
+    padding:9px 14px; font-family:'Noto Sans TC',sans-serif; font-size:.9rem; color:var(--ink);
+    cursor:pointer; transition:.18s;
+  }
+  .opt-btn:hover{border-color:var(--monsoon-2); background:rgba(36,66,95,0.05);}
+  .qcard.answered .opt-btn{cursor:default;}
+  .qcard.answered .opt-btn:hover{background:#fff; border-color:var(--line);}
+  .opt-btn.correct{background:rgba(47,79,62,0.12); border-color:var(--jungle-2); color:var(--jungle); font-weight:700;}
+  .opt-btn.wrong{background:rgba(156,74,58,0.1); border-color:var(--clay); color:var(--clay); font-weight:700;}
+  .answer-box{
+    margin:0 20px 18px 64px; padding:14px 16px; border-radius:10px;
+    background:rgba(47,79,62,0.07); border-left:4px solid var(--jungle-2); font-size:.9rem;
+    display:none;
+  }
+  .qcard.answered .answer-box{display:block; animation:fade .35s ease;}
+  .answer-box .ans-line{font-weight:700; color:var(--jungle); margin-bottom:6px; font-family:'Noto Serif TC',serif;}
+  .answer-box .ans-line .mono{background:var(--jungle); color:#fff; padding:1px 8px; border-radius:5px; margin-right:8px;}
+
+  /* ===== Monsoon mini-game ===== */
+  .game-card{
+    background:#fff8ea; border:1px solid var(--line); border-radius:18px; padding:22px;
+    box-shadow:0 18px 40px -22px rgba(43,33,24,0.35);
+  }
+  .game-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;}
+  .game-question{
+    font-family:'Noto Serif TC',serif; font-size:1.15rem; font-weight:700; color:var(--ink);
+    background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 20px; min-height:70px;
+    display:flex; align-items:center; margin-bottom:16px;
+  }
+  .game-btns{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .game-btn{
+    border:2px solid var(--line); background:#fff; border-radius:12px; padding:14px 10px; cursor:pointer;
+    font-family:'Noto Sans TC',sans-serif; font-weight:700; font-size:.95rem; color:var(--ink); text-align:center;
+    transition:.18s; line-height:1.6;
+  }
+  .game-btn.summer:hover{border-color:var(--monsoon); background:rgba(36,66,95,0.06);}
+  .game-btn.winter:hover{border-color:var(--clay); background:rgba(156,74,58,0.06);}
+  .game-btn:disabled{cursor:default; opacity:.55;}
+  .game-btn.correct-pick{border-color:var(--jungle-2); background:rgba(47,79,62,0.14); color:var(--jungle);}
+  .game-btn.wrong-pick{border-color:var(--clay); background:rgba(156,74,58,0.14); color:var(--clay);}
+  .game-feedback{
+    margin-top:14px; font-size:.9rem; color:var(--ink-soft); min-height:1.2em;
+  }
+  .game-feedback.show{animation:fade .3s ease;}
+  .game-actions{margin-top:12px; display:flex; gap:10px;}
+  .game-actions .opt-btn{border-color:var(--monsoon-2);}
+
+  footer{
+    max-width:1100px; margin:0 auto; padding:30px 24px 60px; color:var(--ink-soft); font-size:.8rem;
+    font-family:'JetBrains Mono',monospace; text-align:center;
+  }
+
+  ::selection{background:var(--turmeric); color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="nav-wrap">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div>
+        <div class="brand-title">東南亞・南亞　重點地理站</div>
+        <div class="brand-sub">CH.1 東南亞 / CH.2 南亞 ｜ 國中地理（四）</div>
+      </div>
+    </div>
+    <nav class="tabs" id="tabNav">
+      <button data-view="overview" class="active">季風總覽</button>
+      <button data-view="sea">東南亞</button>
+      <button data-view="sa">南亞</button>
+      <button data-view="quiz">練習題</button>
+    </nav>
+  </div>
+  <div class="topo-rule"></div>
+</header>
+
+<!-- ===================== OVERVIEW / HERO ===================== -->
+<div class="view active" id="view-overview">
+  <div class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">● 同一套季風，兩種命運</span>
+        <h1>東南亞與南亞，<br>被<em>同一道季風</em>翻轉的兩個世界。</h1>
+        <p class="lede">夏天，風從印度洋、太平洋吹向陸地，帶來雨季；冬天，風從大陸吹回海上，留下乾季。這一來一回，決定了中南半島的夏雨冬乾、南亞的三季分明，也決定了誰種水稻、誰種棉花、誰的城市長在港口。</p>
+        <div class="chip-row">
+          <span class="chip">🌏 中南半島＋南洋群島</span>
+          <span class="chip">🏔️ 次大陸・喜馬拉雅山</span>
+          <span class="chip">🌾 稻米／黃麻／棉花</span>
+        </div>
+      </div>
+      <div class="monsoon-card">
+        <h3>互動圖解：季風翻轉 <span class="mono" style="font-size:.7rem;">click ↻</span></h3>
+        <div class="season-toggle">
+          <button class="active summer" data-season="summer">☀️ 夏季季風</button>
+          <button class="winter" data-season="winter">❄️ 冬季季風</button>
+        </div>
+        <svg id="monsoonSvg" viewBox="0 0 360 220">
+          <rect x="0" y="0" width="360" height="120" fill="#DCEBEF" rx="6"/>
+          <text x="10" y="18" font-size="11" fill="#24425F" font-family="JetBrains Mono, monospace">印度洋 / 太平洋（海洋）</text>
+          <rect x="0" y="120" width="360" height="100" fill="#E7DEC4" rx="6"/>
+          <text x="10" y="210" font-size="11" fill="#5A4C3B" font-family="JetBrains Mono, monospace">亞洲大陸（南亞・中南半島）</text>
+          <!-- 夏季：海洋(上)→陸地(下)，箭頭朝下；冬季：陸地(下)→海洋(上)，箭頭朝上 -->
+          <g id="arrowsGroup">
+            <g class="arrow-set summer-arrows">
+              <polygon class="arrow" points="60,145 50,110 70,110" fill="#24425F"/>
+              <rect class="arrow" x="55" y="65" width="10" height="45" fill="#24425F"/>
+              <polygon class="arrow" points="160,145 150,110 170,110" fill="#24425F"/>
+              <rect class="arrow" x="155" y="65" width="10" height="45" fill="#24425F"/>
+              <polygon class="arrow" points="260,145 250,110 270,110" fill="#24425F"/>
+              <rect class="arrow" x="255" y="65" width="10" height="45" fill="#24425F"/>
+            </g>
+            <g class="arrow-set winter-arrows">
+              <polygon class="arrow" points="60,95 50,130 70,130" fill="#9C4A3A"/>
+              <rect class="arrow" x="55" y="125" width="10" height="45" fill="#9C4A3A"/>
+              <polygon class="arrow" points="160,95 150,130 170,130" fill="#9C4A3A"/>
+              <rect class="arrow" x="155" y="125" width="10" height="45" fill="#9C4A3A"/>
+              <polygon class="arrow" points="260,95 250,130 270,130" fill="#9C4A3A"/>
+              <rect class="arrow" x="255" y="125" width="10" height="45" fill="#9C4A3A"/>
+            </g>
+          </g>
+        </svg>
+        <div class="wind-caption" id="windCaption">
+          <b>夏季（西南／夏季季風）：</b>海洋→陸地，帶來旺盛水氣 → <b>雨季</b>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main style="padding-top:6px;">
+    <section class="block">
+      <div class="block-head"><span class="num">00</span><h2>兩地一次看懂：對照速記表</h2></div>
+      <table>
+        <caption>Quick Compare — 東南亞 vs 南亞</caption>
+        <thead><tr><th>項目</th><th>東南亞</th><th>南亞</th></tr></thead>
+        <tbody>
+          <tr><td>地形組成</td><td>中南半島＋南洋群島</td><td>北部山地／中部平原／南部高原（三部制）</td></tr>
+          <tr><td>核心山脈</td><td>橫斷山脈延伸（縱谷地形）</td><td><b>喜馬拉雅山</b>（世界最高、新褶曲山脈）</td></tr>
+          <tr><td>板塊特徵</td><td>南洋群島居板塊擠壓帶，火山地震多</td><td>歐亞板塊 vs 印澳板塊擠壓抬升</td></tr>
+          <tr><td>氣候關鍵字</td><td>熱帶雨林（全年雨）／熱帶季風（夏雨冬乾）</td><td>特殊「三季」：涼季・熱季・雨季</td></tr>
+          <tr><td>主要宗教</td><td>佛教／伊斯蘭教／天主教／印度教（峇里島）</td><td>印度教／佛教（起源地）／伊斯蘭教</td></tr>
+          <tr><td>主要作物</td><td>稻米、橡膠、油棕、咖啡</td><td>黃麻、稻米、棉花、茶葉、甘蔗、小麥</td></tr>
+          <tr><td>經濟關鍵字</td><td>代工崛起、東協（ASEAN）、RCEP</td><td>人口紅利、IT外包（印度矽谷）、一帶一路</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><b>命題常客：</b>「殖民→港埠型都市」「廉價勞力→代工／成衣轉移」「宗教分布判斷距離擴散」這三種邏輯，東南亞、南亞都愛考，且常互相搭配比較。</div>
+    </section>
+  </main>
+</div>
+
+<!-- ===================== SOUTHEAST ASIA ===================== -->
+<div class="view" id="view-sea">
+<main>
+  <section class="block">
+    <div class="block-head"><span class="num">01</span><h2>東南亞的自然環境</h2><span class="region-tag">中南半島／南洋群島</span></div>
+    <table>
+      <caption>地形與氣候</caption>
+      <thead><tr><th>地區</th><th>地形</th><th>氣候</th></tr></thead>
+      <tbody>
+        <tr><td><b>中南半島</b></td><td>地形延伸自亞洲大陸（中國橫斷山脈），山脈河川南北縱走；上游縱谷、中游沖積平原、下游三角洲為精華區與稻作區</td><td>多屬熱帶季風氣候，夏雨冬乾，受地形與季風風向影響，多地形雨</td></tr>
+        <tr><td><b>南洋群島</b></td><td>居板塊擠壓帶，地形破碎、島嶼眾多、山多平原少（環太平洋火山地震帶一部分）</td><td>菲律賓群島：熱帶季風（夏雨冬乾）；東印度群島：熱帶雨林（全年有雨，多對流雨）</td></tr>
+      </tbody>
+    </table>
+
+    <div class="two-col">
+      <div class="climate-card">
+        <h4><span class="dot" style="background:#7FBF8F"></span>熱帶雨林氣候</h4>
+        <ul>
+          <li>分布：赤道～南北緯 10 度（馬來半島、東印度群島）</li>
+          <li>特徵：日照強烈、對流旺盛、全年高溫多雨</li>
+          <li>代表：新加坡（年均溫 26.7℃／年降水 2,150mm）</li>
+        </ul>
+      </div>
+      <div class="climate-card">
+        <h4><span class="dot" style="background:#E0B84B"></span>熱帶季風氣候</h4>
+        <ul>
+          <li>分布：北緯 10 度～北回歸線附近（中南半島、菲律賓群島）</li>
+          <li>特徵：夏雨冬乾，乾溼季分明；迎風面多地形雨</li>
+          <li>菲律賓因鄰近颱風生成地，成為<b>全球颱風侵襲最頻繁國家</b>（平均每年約 20 個）</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mnemonic">
+      <span class="tag">Mnemonic</span>
+      地勢像瀑布一樣「北高南低」：<b>縱谷 → 沖積平原 → 三角洲</b>，由北向南走一定會遇到這三個地形，也是水稻精華區出現的順序。
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head"><span class="num">02</span><h2>東南亞的宗教信仰</h2></div>
+    <table>
+      <caption>宗教分布</caption>
+      <thead><tr><th>宗教</th><th>主要分布區</th><th>成因</th></tr></thead>
+      <tbody>
+        <tr><td><b>佛教</b></td><td>緬甸、泰國、寮國、柬埔寨、越南、新加坡</td><td>宗教承襲自印度；語言文化與中國西南少數民族接近，越南受漢化最深</td></tr>
+        <tr><td><b>伊斯蘭教</b></td><td>印尼、馬來西亞、汶萊、菲律賓南部</td><td>十三世紀後阿拉伯人藉海上貿易傳入</td></tr>
+        <tr><td><b>天主教</b></td><td>菲律賓北部</td><td>十六世紀後受<b>西班牙</b>殖民影響；後受美國殖民，故以英語為主要語言</td></tr>
+        <tr><td><b>印度教</b></td><td>印尼峇里島</td><td>承襲印度古老神話（如柬埔寨吳哥窟結合印度教神話）</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><b>易混淆點：</b>峇里島＝<b>印度教</b>孤島（電影《享受吧！一個人的旅行》場景），但峇里島仍屬熱帶雨林氣候（終年高溫多雨），不要因為「印度教」就聯想到南亞氣候。</div>
+  </section>
+
+  <section class="block">
+    <div class="block-head"><span class="num">03</span><h2>東南亞的經濟發展</h2></div>
+    <table>
+      <caption>早期 vs 近年</caption>
+      <thead><tr><th></th><th>內容</th></tr></thead>
+      <tbody>
+        <tr><td><b>早期（殖民時期）</b></td><td>殖民者以低廉勞力發展熱帶栽培業（早期：橡膠；近代：油棕、咖啡）與採礦業（錫礦：昔馬來西亞、今印尼；石油天然氣：汶萊、印尼主要出口品）。農礦產品出口造就<b>港埠型都市</b>，如馬尼拉、新加坡、胡志明市、雅加達</td></tr>
+        <tr><td><b>獨立初期</b></td><td>仍以農礦輸出為主，但缺乏資金與技術，價格操控在已開發國家手中，利潤微薄，經濟陷入困境</td></tr>
+        <tr><td><b>近年</b></td><td>利用<b>廉價勞力</b>優勢成為海外代工地點（如寶成企業 2010 年起因中國工資上漲，將生產線移往東南亞），扮演「世界工廠」接班角色</td></tr>
+      </tbody>
+    </table>
+    <div class="chip-row">
+      <span class="chip">ASEAN 1967 成立・現 11 國</span>
+      <span class="chip">RCEP 2022/1 生效・全球最大自貿區</span>
+      <span class="chip">湄公河三角洲：世界重要稻米產地</span>
+      <span class="chip">印尼：世界主要錫礦出口國</span>
+      <span class="chip">汶萊：油氣占出口九成以上</span>
+    </div>
+    <div class="callout"><b>概念釐清：</b>東協十國為提升國際競爭力，於 2011 年提出「區域全面經濟夥伴協定（RCEP）」，2022 年 1 月生效，並與中國、日本、南韓、澳洲、紐西蘭等簽署，是目前全球規模最大的自由貿易市場。</div>
+  </section>
+</main>
+</div>
+
+<!-- ===================== SOUTH ASIA ===================== -->
+<div class="view" id="view-sa">
+<main>
+  <section class="block">
+    <div class="block-head"><span class="num">01</span><h2>南亞的自然環境</h2><span class="region-tag">次大陸</span></div>
+    <p>南亞以<b>印度半島</b>為主體，北有高山與亞洲其他地區隔絕，形勢封閉，因此有「<b>次大陸</b>」之稱。印度半島由北而南可分三個地形區：</p>
+    <table>
+      <caption>三部地形</caption>
+      <thead><tr><th>分區</th><th>地形</th><th>說明</th></tr></thead>
+      <tbody>
+        <tr><td><b>北部</b></td><td>喜馬拉雅山</td><td>歐亞板塊受印澳板塊推擠抬升而成，屬新褶曲山脈，也是世界最高山脈</td></tr>
+        <tr><td><b>中部</b></td><td>印度大平原</td><td>源自北方高山的恆河與印度河沖積而成，土壤肥沃</td></tr>
+        <tr><td><b>南部</b></td><td>德干高原</td><td>屬印澳板塊古老的一部分，地勢大致西高東低</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05rem;">特殊的三季氣候</h3>
+    <table>
+      <caption>涼季・熱季・雨季</caption>
+      <thead><tr><th>分季</th><th>時間</th><th>說明</th></tr></thead>
+      <tbody>
+        <tr><td><b>涼季</b></td><td>11月～隔年2月</td><td>東北季風受喜馬拉雅山阻擋，涼爽乾燥，是一年中<b>最舒適</b>的季節</td></tr>
+        <tr><td><b>熱季</b></td><td>3～5月</td><td>季風轉換期，缺乏水氣，加上太陽接近直射，溫度可達 50℃</td></tr>
+        <tr><td><b>雨季</b></td><td>6～10月</td><td>西南季風從印度洋帶來旺盛水氣，是本區主要降水季節</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><b>降水规律：</b>印度大平原降水由<b>東向西遞減</b>（恆河三角洲多雨→印度河中下游形成塔爾沙漠）；乞拉朋吉因多丘陵且夏季迎西南季風，為全球降水量最多地區之一。</div>
+  </section>
+
+  <section class="block">
+    <div class="block-head"><span class="num">02</span><h2>南亞的農業與宗教</h2></div>
+    <table>
+      <caption>農業分布（隨降水量遞減）</caption>
+      <thead><tr><th>地區</th><th>主要作物</th><th>原因</th></tr></thead>
+      <tbody>
+        <tr><td>印度大平原（東→西）</td><td>黃麻 → 水稻 → 甘蔗 → 小麥</td><td>降水由東向西遞減</td></tr>
+        <tr><td>德干高原西北部</td><td>棉花</td><td>土壤肥沃、高溫少雨</td></tr>
+        <tr><td>喜馬拉雅山山麓、斯里蘭卡丘陵區</td><td>茶葉</td><td>丘陵地形＋降水充沛</td></tr>
+      </tbody>
+    </table>
+
+    <table>
+      <caption>宗教分布</caption>
+      <thead><tr><th>宗教</th><th>主要分布</th></tr></thead>
+      <tbody>
+        <tr><td><b>印度教</b></td><td>印度（宗教起源地）</td></tr>
+        <tr><td><b>佛教</b></td><td>不丹、斯里蘭卡（雖起源於南亞，但印度當地信徒已較少）</td></tr>
+        <tr><td><b>伊斯蘭教</b></td><td>巴基斯坦、孟加拉</td></tr>
+      </tbody>
+    </table>
+    <div class="mnemonic"><span class="tag">世界四大宗教起源地</span>佛教、印度教 → <b>南亞印度半島</b>；基督教、伊斯蘭教 → <b>西亞阿拉伯半島</b>。「南南佛印、西西基伊」。</div>
+
+    <h3 style="font-size:1.05rem;">種姓制度（印度教社會階級）</h3>
+    <div class="pyramid">
+      <div class="layer l1">婆羅門（祭司）</div>
+      <div class="layer l2">剎帝利（貴族與武士）</div>
+      <div class="layer l3">吠舍（平民）</div>
+      <div class="layer l4">首陀羅（奴隸）</div>
+      <div class="caption">＋四大種姓之外：賤民「達利特」／「不可接觸者」</div>
+    </div>
+    <p style="font-size:.9rem; color:var(--ink-soft);">1947 年甘地領導印度獨立後宣布廢除此制度，但迄今在農村地區仍有深刻影響力（禁止跨階級通婚、同桌而食）。印巴喀什米爾領土爭議亦與宗教差異密切相關。</p>
+  </section>
+
+  <section class="block">
+    <div class="block-head"><span class="num">03</span><h2>南亞如何提升區域競爭力？</h2></div>
+    <table>
+      <caption>產業與人口</caption>
+      <thead><tr><th>國家</th><th>發展重點</th></tr></thead>
+      <tbody>
+        <tr><td><b>印度</b></td><td>人口逾 14 億，壯年與幼年人口比例高＋高等教育發達、理工人才眾多＋工資低廉＋普遍使用英語 → 邦加羅爾為「<b>印度矽谷</b>」，利用與美國約 12 小時時差發展 IT／軟體／海外客服中心</td></tr>
+        <tr><td><b>孟加拉、巴基斯坦、斯里蘭卡</b></td><td>以眾多廉價勞力為基礎，發展成衣、紡織等勞力密集產業</td></tr>
+      </tbody>
+    </table>
+
+    <table>
+      <caption>區域合作與競爭關係</caption>
+      <thead><tr><th>國家</th><th>說明</th></tr></thead>
+      <tbody>
+        <tr><td><b>斯里蘭卡、巴基斯坦</b></td><td>位居東亞與西亞、歐洲間的海陸中繼位置 → 中國「<b>一帶一路</b>」積極拉攏對象</td></tr>
+        <tr><td><b>印度</b></td><td>與巴基斯坦、中國有領土爭議（喀什米爾）→ 積極與東協、日本簽自由貿易協定；並參與美國主導的「<b>印太戰略</b>」，與美、日、澳結合為戰略夥伴</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><b>概念釐清：中巴經濟走廊</b>連接中國新疆喀什與巴基斯坦<b>瓜達爾港</b>的公路、鐵路、油氣管道；完工後中國可不經<b>麻六甲海峽</b>直達印度洋，縮短航程並分散風險。</div>
+  </section>
+</main>
+</div>
+
+<!-- ===================== QUIZ ===================== -->
+<div class="view" id="view-quiz">
+<main>
+  <section class="block" style="margin-top:24px;">
+    <div class="block-head"><span class="num">🎮</span><h2>快問快答：季風方向大挑戰</h2></div>
+    <p style="color:var(--ink-soft); font-size:.9rem;">看情境敘述，判斷這是「夏季季風」還是「冬季季風」在作用！限時直覺反應，答完馬上看解析。</p>
+    <div class="game-card" id="gameCard">
+      <div class="game-top">
+        <span class="chip mono" id="gameProgress">第 1 / 8 題</span>
+        <span class="chip mono" id="gameScore">✅ 0　🔥 連對 0</span>
+      </div>
+      <div class="game-question" id="gameQuestion">載入中…</div>
+      <div class="game-btns">
+        <button type="button" class="game-btn summer" data-pick="summer">☀️ 夏季季風<br><span class="mono" style="font-size:.68rem;">海洋 → 陸地</span></button>
+        <button type="button" class="game-btn winter" data-pick="winter">❄️ 冬季季風<br><span class="mono" style="font-size:.68rem;">陸地 → 海洋</span></button>
+      </div>
+      <div class="game-feedback" id="gameFeedback"></div>
+      <div class="game-actions">
+        <button type="button" class="opt-btn" id="gameNextBtn" style="display:none;">下一題 →</button>
+        <button type="button" class="opt-btn" id="gameRestartBtn" style="display:none;">🔄 再玩一次</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head"><span class="num">Q</span><h2>練習題</h2></div>
+    <p style="color:var(--ink-soft); font-size:.9rem;">點題目展開選項，選完答案後才會顯示詳解。可用下方標籤篩選地區。</p>
+    <div class="qmeta" id="filterRow">
+      <span class="chip active" data-filter="all">全部</span>
+      <span class="chip" data-filter="sea">東南亞</span>
+      <span class="chip" data-filter="sa">南亞</span>
+    </div>
+
+    <div id="quizList"></div>
+  </section>
+</main>
+</div>
+
+<footer>
+  南亞・東南亞複習站 ｜ 資料整理自國中地理（四）第 1、2 課 ｜ 祝會考順利 🌏
+</footer>
+
+<script>
+// ---------- Tab navigation ----------
+const tabButtons = document.querySelectorAll('#tabNav button');
+const views = document.querySelectorAll('.view');
+tabButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabButtons.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const target = btn.dataset.view;
+    views.forEach(v=>v.classList.remove('active'));
+    document.getElementById('view-'+target).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+// ---------- Monsoon toggle ----------
+const seasonBtns = document.querySelectorAll('.season-toggle button');
+const summerArrows = document.querySelector('.summer-arrows');
+const winterArrows = document.querySelector('.winter-arrows');
+const windCaption = document.getElementById('windCaption');
+function setSeason(season){
+  if(season === 'summer'){
+    summerArrows.classList.remove('hide');
+    winterArrows.classList.add('hide');
+    windCaption.innerHTML = '<b>夏季（西南／夏季季風）：</b>海洋 → 陸地，帶來旺盛水氣 → <b>雨季</b>（南亞西南季風／東南亞夏雨）';
+  } else {
+    summerArrows.classList.add('hide');
+    winterArrows.classList.remove('hide');
+    windCaption.innerHTML = '<b>冬季（東北／冬季季風）：</b>陸地 → 海洋，水氣稀少 → <b>乾季</b>（南亞受喜馬拉雅山阻擋成涼季／東南亞冬乾）';
+  }
+}
+seasonBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    seasonBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    setSeason(btn.dataset.season);
+  });
+});
+setSeason('summer'); // 確保頁面載入時箭頭方向與「夏季」說明一致
+
+// ---------- Quiz data ----------
+const quizData = [
+  {region:'sea', q:'中南半島的地形由中國西南方延伸而來，若沿河川由北向南走，沿途地形景觀變化依序最可能為何？',
+   options:['(A) 三角洲→沖積平原→縱谷','(B) 縱谷→沖積平原→三角洲','(C) 沖積平原→縱谷→三角洲','(D) 三角洲→縱谷→沖積平原'],
+   ans:'B', explain:'中南半島地勢北高南低，上游為山高谷深的縱谷地形，中游進入地勢平坦的沖積平原，下游出海口則為三角洲，故由北向南依序為「縱谷→沖積平原→三角洲」。'},
+
+  {region:'sea', q:'南洋群島陸地極為破碎、島嶼數量眾多（菲律賓逾 7,000 個、印尼逾 13,000 個），造成此現象的主要因素為何？',
+   options:['(A) 地處低緯度地區','(B) 居板塊交接帶','(C) 河川侵蝕形成','(D) 全球暖化導致'],
+   ans:'B', explain:'南洋群島位於環太平洋火山地震帶（板塊擠壓帶）上，板塊擠壓使地形破碎、島嶼散布，火山地震活動也十分頻繁，並非單純的低緯或河蝕造成。'},
+
+  {region:'sea', q:'電影《享受吧！一個人的旅行》主角在峇里島感受到的氣候特徵最可能為何？',
+   options:['(A) 終年高溫多雨','(B) 終年乾燥少雨','(C) 夏乾熱冬暖溼','(D) 夏溼熱冬乾冷'],
+   ans:'A', explain:'峇里島屬於東印度群島，位於赤道附近，為熱帶雨林氣候，終年高溫多雨、對流旺盛，並非季風型的乾溼分明氣候。'},
+
+  {region:'sea', q:'近年來臺灣有許多適婚男子與東南亞女性跨國婚姻，其中因文化風俗與中國漢文化最接近，而成為嫁入臺灣人數最多的東南亞國家最可能是？',
+   options:['(A) 緬甸','(B) 越南','(C) 菲律賓','(D) 印尼'],
+   ans:'B', explain:'中南半島各國歷史上深受中國文化影響，其中以越南受漢化最深，語言、生活習慣與中國西南部少數民族最為接近，因此成為嫁入臺灣人數最多的東南亞國家。'},
+
+  {region:'sea', q:'臺灣寶成企業為全球知名鞋類代工廠，2010 年起因中國「投資環境改變」而將生產線轉移到東南亞國家，此處「投資環境改變」最可能指什麼？',
+   options:['(A) 原料枯竭','(B) 工資上揚','(C) 市場萎縮','(D) 動力缺乏'],
+   ans:'B', explain:'東南亞近年利用眾多廉價勞力優勢吸引外資，正是因為中國隨經濟成長而工資上揚，喪失廉價勞力優勢，跨國代工廠因此將生產線移往工資更低廉的東南亞。'},
+
+  {region:'sea', q:'「東南亞地區在西方國家殖民後，農礦產品大量出口，造就了許多國家的大都市皆是港埠型都市。」下列何者與此類型都市最不相符？',
+   options:['(A) 越南胡志明市','(B) 寮國永珍','(C) 印尼雅加達','(D) 菲律賓馬尼拉'],
+   ans:'B', explain:'港埠型都市須位於港口以利農礦產品出口，寮國為東南亞唯一的內陸國，永珍雖臨湄公河但並非港埠型的第一大都市典型，其餘三者皆為濱海／河口的重要港口都市。'},
+
+  {region:'sea', q:'2017 年羅興亞穆斯林難民危機中，東南亞某國因「超過 85% 人口信奉伊斯蘭教」而四處奔走協助，該國最可能是？',
+   options:['(A) 泰國','(B) 印尼','(C) 柬埔寨','(D) 菲律賓'],
+   ans:'B', explain:'印尼是全球穆斯林人口最多的國家之一，伊斯蘭教信徒占全國人口 85% 以上，符合題目描述；泰、柬以佛教為主，菲律賓則以天主教與南部部分伊斯蘭教為主。'},
+
+  {region:'sea', q:'婆羅門洲原始森林面積自 1950 年至 2005 年持續縮減，此變化趨勢與該島何種變化趨勢最為相似？',
+   options:['(A) 油田開採的面積','(B) 都市聚落的範圍','(C) 野生動物的棲地範圍','(D) 熱帶作物的種植面積'],
+   ans:'C', explain:'原始森林面積縮減，代表棲息其中的野生動物棲地範圍也隨之減少，兩者呈同向縮減關係；都市範圍、熱帶作物種植面積與油田開採面積則多為隨開發而擴張，趨勢相反。'},
+
+  {region:'sea', q:'某海域「幾百年來是印度與中國之間最直接航道，也是溝通太平洋與印度洋航運的樞紐」，下列哪一港口都市因作為此海域門戶而快速發展？',
+   options:['(A) 香港','(B) 高雄','(C) 新加坡','(D) 馬尼拉'],
+   ans:'C', explain:'題目描述的是麻六甲海峽，新加坡正位於麻六甲海峽的必經位置，成為印度洋與太平洋間的重要航運樞紐，也是亞洲重要的金融、航運中心。'},
+
+  {region:'sa', q:'南亞北有高山與亞洲其他地區隔絕，形勢封閉，因此有什麼稱號？',
+   options:['(A) 大陸島','(B) 次大陸','(C) 半島國','(D) 內陸國'],
+   ans:'B', explain:'南亞以印度半島為主體，北方有喜馬拉雅山等高山阻隔，與亞洲其他地區區隔明顯，因此稱為「次大陸」。'},
+
+  {region:'sa', q:'妹尾河童由南到北造訪印度，依序經過的地形區最可能為何？',
+   options:['(A) 高山→平原→高原','(B) 高山→盆地→平原','(C) 高原→平原→高山','(D) 平原→高山→高原'],
+   ans:'C', explain:'印度由南到北的地形依序為：南部德干高原 → 中部印度大平原 → 北部喜馬拉雅山（高山），故答案為「高原→平原→高山」。'},
+
+  {region:'sa', q:'小文想在印度最舒適的季節前往當地旅遊，對應臺灣哪個假期出發較佳？',
+   options:['(A) 聖誕節（約12月）','(B) 清明節（約4月）','(C) 端午節（約6月）','(D) 中秋節（約9月）'],
+   ans:'A', explain:'南亞的涼季為 11 月至隔年 2 月，東北季風受喜馬拉雅山阻擋，涼爽乾燥，是一年中最舒適的季節；12 月的聖誕節恰落在涼季範圍內，其餘假期則落在酷熱的熱季或多雨的雨季。'},
+
+  {region:'sa', q:'「街道上常因朝聖人潮與神牛漫步而交通壅塞，每天可在恆河畔看到信徒進行聖浴。」文中提及地區聚集的應為下列何種宗教信徒？',
+   options:['(A) 佛教','(B) 天主教','(C) 印度教','(D) 伊斯蘭教'],
+   ans:'C', explain:'恆河是印度教中的聖河，信徒視在恆河沐浴為潔淨儀式（聖浴），神牛在印度教中亦被視為神聖動物，兩項線索皆指向印度教。'},
+
+  {region:'sa', q:'1970 年恆河出海口附近曾出現一座長 3.5 公里、最高點僅 2 公尺的沙洲島，該島嶼形成的原因最可能為何？',
+   options:['(A) 位處板塊接觸帶，海底火山噴發','(B) 恆河集水區的水土保持持續改善','(C) 恆河河口附近的海平面持續上升','(D) 豪雨侵襲，河流帶來大量堆積物'],
+   ans:'D', explain:'恆河出海口一帶為三角洲地形，主要由河流搬運與堆積作用形成；豪雨侵襲使上游大量泥沙堆積物隨河水沖刷至出海口堆積，才會形成新生沙洲島，而非火山活動或海平面上升所致。'},
+
+  {region:'sa', q:'印度與巴基斯坦長期因喀什米爾領土爭議及宗教差異而有衝突，此爭議地區主要地形屬於下列何者？',
+   options:['(A) 德干高原','(B) 喜馬拉雅山','(C) 印度河平原','(D) 恆河三角洲'],
+   ans:'B', explain:'喀什米爾位於南亞北部，屬喜馬拉雅山區，目前由印度、巴基斯坦、中國三方占領控制，是南亞重要的地緣政治熱點。'},
+
+  {region:'sa', q:'中國推動「一帶一路」政策，在南亞某國興建聯繫新疆喀什的鐵路，並投資該國境內的瓜達爾港，此即為「中巴經濟走廊」，文中的甲國應為？',
+   options:['(A) 尼泊爾','(B) 孟加拉','(C) 斯里蘭卡','(D) 巴基斯坦'],
+   ans:'D', explain:'瓜達爾港位於巴基斯坦，中巴經濟走廊連接中國新疆喀什與巴基斯坦瓜達爾港，讓中國可不經麻六甲海峽直達印度洋，縮短航程並分散地緣政治風險。'},
+
+  {region:'sa', q:'德干高原西北部因高溫少雨、土壤肥沃，適合種植下列哪一作物？',
+   options:['(A) 稻米','(B) 棉花','(C) 茶葉','(D) 黃麻'],
+   ans:'B', explain:'德干高原西北部土壤肥沃、高溫且降水量較少，環境條件適合種植耐旱的棉花；稻米與黃麻多分布於降水較多的印度大平原東部，茶葉則多產於丘陵地形且降水充沛的山麓地區。'},
+
+  {region:'sa', q:'印度吸引外資發展 IT 產業的優勢中，下列何者「不」屬於其人力資源優勢？',
+   options:['(A) 高等教育發達、理工人才眾多','(B) 工資低廉','(C) 普遍使用英語','(D) 礦產資源豐富'],
+   ans:'D', explain:'印度發展 IT 與客服中心產業，主要依靠豐沛的人力資源（高等教育發達、理工人才多、工資低廉、普遍使用英語），而非礦產資源；邦加羅爾更因此有「印度矽谷」之稱，並利用與美國約12小時的時差發展IT產業。'},
+
+  {region:'sea', q:'東南亞各國於 1967 年成立的區域組織，其英文簡稱為何？',
+   options:['(A) APEC','(B) RCEP','(C) ASEAN','(D) EU'],
+   ans:'C', explain:'東南亞國家於獨立後，意識到需團結對抗外侮並發展經濟，於 1967 年成立「東南亞國家協會」，英文簡稱為 ASEAN（東協），目前共有 11 個會員國。'},
+
+  {region:'sa', q:'南亞地區人口最多的國家為何，其總人口已超過14億？',
+   options:['(A) 巴基斯坦','(B) 孟加拉','(C) 印度','(D) 斯里蘭卡'],
+   ans:'C', explain:'南亞人口眾多，其中印度人口已超過14億，是南亞人口最多的國家，且壯年與幼年人口比例高，構成其發展IT等新興產業的重要人力資源優勢。'}
+];
+
+const quizList = document.getElementById('quizList');
+function renderQuiz(filter){
+  quizList.innerHTML = '';
+  quizData.forEach((item, idx)=>{
+    if(filter !== 'all' && item.region !== filter) return;
+    const details = document.createElement('details');
+    details.className = 'qcard';
+    const regionLabel = item.region === 'sea' ? '東南亞' : '南亞';
+    details.innerHTML = `
+      <summary>
+        <span class="qnum">${String(idx+1).padStart(2,'0')}</span>
+        <span class="qtext">${item.q}</span>
+        <span class="qregion">${regionLabel}</span>
+        <span class="chev"></span>
+      </summary>
+      <div class="options">
+        ${item.options.map(o=>{
+          const letter = o.match(/\(([A-D])\)/)[1];
+          return `<button type="button" class="opt-btn" data-letter="${letter}">${o}</button>`;
+        }).join('')}
+      </div>
+      <div class="answer-box">
+        <div class="ans-line"><span class="mono">${item.ans}</span>正確答案</div>
+        <div>${item.explain}</div>
+      </div>
+    `;
+    // click handling: reveal answer only after an option is chosen
+    details.querySelectorAll('.opt-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(details.classList.contains('answered')) return;
+        details.classList.add('answered');
+        const chosen = btn.dataset.letter;
+        details.querySelectorAll('.opt-btn').forEach(b=>{
+          if(b.dataset.letter === item.ans) b.classList.add('correct');
+          else if(b.dataset.letter === chosen) b.classList.add('wrong');
+        });
+      });
+    });
+    quizList.appendChild(details);
+  });
+}
+renderQuiz('all');
+
+document.getElementById('filterRow').addEventListener('click', (e)=>{
+  const chip = e.target.closest('.chip');
+  if(!chip) return;
+  document.querySelectorAll('#filterRow .chip').forEach(c=>c.classList.remove('active'));
+  chip.classList.add('active');
+  renderQuiz(chip.dataset.filter);
+});
+
+// ---------- Mini game: 季風方向搶答挑戰 ----------
+const gameData = [
+  {text:'風從印度洋、太平洋吹向陸地，帶來旺盛水氣。', ans:'summer', explain:'海洋 → 陸地，正是夏季（西南）季風的特徵，為雨季揭開序幕。'},
+  {text:'陸地降溫速度比海洋快，陸地形成高氣壓，風由陸地吹向海洋。', ans:'winter', explain:'冬季陸地比海洋更冷、氣壓更高，空氣由陸地流向海洋，帶來乾燥的冬季季風。'},
+  {text:'東北季風被喜馬拉雅山阻擋，南亞出現一年中最舒適的「涼季」。', ans:'winter', explain:'涼季（11月～隔年2月）正是冬季季風受地形阻擋、乾冷少雨的時期。'},
+  {text:'印度大平原迎來全年最主要的降水，恆河水位明顯上漲。', ans:'summer', explain:'雨季（6～10月）由西南季風從印度洋帶來大量水氣，是南亞最主要的降水來源。'},
+  {text:'曼谷、仰光一帶稻田正忙著插秧，需要大量灌溉用水。', ans:'summer', explain:'中南半島「夏雨冬乾」，夏季季風帶來的雨水正是插秧期最需要的水源。'},
+  {text:'乞拉朋吉的迎風坡在此時出現全球數一數二的驚人雨量。', ans:'summer', explain:'夏季西南季風吹向丘陵迎風面，被迫抬升形成地形雨，造就乞拉朋吉的驚人降雨紀錄。'},
+  {text:'中南半島與菲律賓群島進入乾燥少雨、乾溼分明中的「乾」季。', ans:'winter', explain:'冬季季風水氣稀少，正是熱帶季風氣候「夏雨冬乾」中乾季的成因。'},
+  {text:'南亞的「熱季」剛結束，人們望穿秋水終於等到第一場季風雨。', ans:'summer', explain:'熱季（3～5月）過後緊接著雨季（6～10月），西南季風的到來為酷熱大地帶來降雨。'}
+];
+let gameOrder = [], gameIdx = 0, gameScore = 0, gameStreak = 0;
+const gameQuestionEl = document.getElementById('gameQuestion');
+const gameProgressEl = document.getElementById('gameProgress');
+const gameScoreEl = document.getElementById('gameScore');
+const gameFeedbackEl = document.getElementById('gameFeedback');
+const gameBtns = document.querySelectorAll('.game-btn');
+const gameNextBtn = document.getElementById('gameNextBtn');
+const gameRestartBtn = document.getElementById('gameRestartBtn');
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function updateScoreDisplay(){
+  gameScoreEl.textContent = `✅ ${gameScore}　🔥 連對 ${gameStreak}`;
+}
+
+function loadGameQuestion(){
+  gameBtns.forEach(b=>{ b.disabled=false; b.classList.remove('correct-pick','wrong-pick'); });
+  gameFeedbackEl.textContent = '';
+  gameFeedbackEl.classList.remove('show');
+  gameNextBtn.style.display = 'none';
+  gameRestartBtn.style.display = 'none';
+  if(gameIdx >= gameOrder.length){
+    gameQuestionEl.textContent = `🎉 挑戰完成！總分 ${gameScore} / ${gameOrder.length}，最高連對 ${gameStreak} 題。`;
+    gameProgressEl.textContent = '已完成';
+    gameBtns.forEach(b=>b.disabled=true);
+    gameRestartBtn.style.display = 'inline-block';
+    return;
+  }
+  gameProgressEl.textContent = `第 ${gameIdx+1} / ${gameOrder.length} 題`;
+  gameQuestionEl.textContent = gameOrder[gameIdx].text;
+}
+
+function startGame(){
+  gameOrder = shuffle(gameData);
+  gameIdx = 0; gameScore = 0; gameStreak = 0;
+  updateScoreDisplay();
+  loadGameQuestion();
+}
+
+gameBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    if(gameIdx >= gameOrder.length) return;
+    const item = gameOrder[gameIdx];
+    const pick = btn.dataset.pick;
+    gameBtns.forEach(b=>b.disabled=true);
+    if(pick === item.ans){
+      btn.classList.add('correct-pick');
+      gameScore++; gameStreak++;
+      gameFeedbackEl.innerHTML = `<b style="color:var(--jungle);">答對了！</b> ${item.explain}`;
+    } else {
+      btn.classList.add('wrong-pick');
+      gameBtns.forEach(b=>{ if(b.dataset.pick===item.ans) b.classList.add('correct-pick'); });
+      gameStreak = 0;
+      gameFeedbackEl.innerHTML = `<b style="color:var(--clay);">再想想～</b> ${item.explain}`;
+    }
+    gameFeedbackEl.classList.add('show');
+    updateScoreDisplay();
+    gameIdx++;
+    gameNextBtn.style.display = 'inline-block';
+  });
+});
+gameNextBtn.addEventListener('click', loadGameQuestion);
+gameRestartBtn.addEventListener('click', startGame);
+startGame();
+</script>
+</body>
+</html>

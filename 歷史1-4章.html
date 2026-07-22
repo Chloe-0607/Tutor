@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>從帝國崩解到政府遷臺（第1～4章）｜歷史重點整理與練習</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@400;500;700&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDE6D3;
+    --paper-card:#F8F3E6;
+    --ink:#2B2620;
+    --ink-soft:#5B5346;
+    --seal:#A3231F;
+    --seal-dark:#7C1917;
+    --jade:#2F6F62;
+    --jade-dark:#1F4B41;
+    --brass:#B08D4F;
+    --line:#D8CDAE;
+    --shadow: 0 6px 18px rgba(43,38,32,0.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 10% 5%, rgba(160,140,90,0.08), transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(160,140,90,0.08), transparent 40%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans TC", sans-serif;
+    line-height:1.75;
+  }
+  h1,h2,h3,h4{ font-family:"Noto Serif TC", serif; margin:0; }
+  p{margin:0 0 .6em 0;}
+  a{color:inherit;}
+
+  /* ===== texture overlay ===== */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:999;
+    opacity:.05; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ===== nav ===== */
+  nav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(237,230,211,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    display:flex; align-items:center; gap:4px;
+    padding:10px 18px; overflow-x:auto;
+  }
+  nav .brand{
+    font-family:"Zhi Mang Xing", cursive;
+    color:var(--seal); font-size:1.3rem; margin-right:14px; white-space:nowrap;
+  }
+  nav button{
+    font-family:"Noto Serif TC",serif; font-size:.82rem; font-weight:600;
+    background:transparent; border:1px solid transparent; color:var(--ink-soft);
+    padding:6px 12px; border-radius:20px; cursor:pointer; white-space:nowrap;
+    transition:all .2s;
+  }
+  nav button:hover, nav button.active{
+    border-color:var(--seal); color:var(--seal); background:rgba(163,35,31,0.06);
+  }
+
+  /* ===== hero ===== */
+  header.hero{
+    position:relative;
+    padding:64px 20px 40px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero-eyebrow{
+    color:var(--jade); font-weight:700; letter-spacing:.35em; font-size:.72rem;
+    text-transform:uppercase;
+  }
+  .hero h1{
+    font-size:clamp(2rem, 5vw, 3.4rem); font-weight:900; margin:14px 0 10px;
+    letter-spacing:.06em;
+  }
+  .hero h1 span{color:var(--seal);}
+  .hero p.sub{ color:var(--ink-soft); max-width:560px; margin:0 auto; font-size:.98rem;}
+
+  .timeline-strip{
+    margin:38px auto 0; max-width:920px; position:relative;
+    display:flex; justify-content:space-between; align-items:flex-start; gap:6px; padding:0 4px;
+  }
+  .timeline-strip::before{
+    content:""; position:absolute; top:7px; left:0; right:0; height:2px;
+    background:repeating-linear-gradient(to right, var(--brass) 0 6px, transparent 6px 11px);
+    z-index:0;
+  }
+  .t-node{ position:relative; text-align:center; flex:1; min-width:0;}
+  .t-node .dot{
+    width:14px; height:14px; border-radius:50%; background:var(--seal);
+    border:2px solid var(--paper-card); margin:0 auto 10px; position:relative; z-index:2;
+    box-shadow:0 0 0 2px var(--seal);
+  }
+  .t-node .yr{ font-family:"Noto Serif TC",serif; font-weight:700; font-size:.82rem; color:var(--seal-dark);}
+  .t-node .evt{ font-size:.7rem; color:var(--ink); font-weight:700; margin-top:2px;}
+  .t-node .lbl{ font-size:.66rem; color:var(--ink-soft); margin-top:2px; line-height:1.4; word-break:break-word;}
+
+  /* ===== seal stamp signature element ===== */
+  .seal{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:54px; height:54px; border-radius:50%;
+    border:3px solid var(--seal); color:var(--seal);
+    font-family:"Zhi Mang Xing", cursive; font-size:1.5rem;
+    transform:rotate(-8deg);
+    box-shadow: 0 0 0 1px rgba(163,35,31,0.15) inset;
+    flex-shrink:0;
+    background: rgba(163,35,31,0.03);
+  }
+  .seal.big{ width:74px; height:74px; font-size:2rem;}
+
+  /* ===== chapter sections ===== */
+  section.chapter{ max-width:980px; margin:0 auto; padding:70px 20px 20px; scroll-margin-top:70px;}
+  .chapter-head{ display:flex; align-items:center; gap:20px; margin-bottom:8px;}
+  .chapter-head .num{ font-family:"Noto Serif TC",serif; font-weight:900; font-size:3rem; color:var(--line); line-height:1;}
+  .chapter-head h2{ font-size:1.7rem; font-weight:900;}
+  .chapter-head .period{ color:var(--jade); font-weight:700; font-size:.85rem; letter-spacing:.08em;}
+  .chapter-intro{ color:var(--ink-soft); border-left:3px solid var(--jade); padding-left:16px; margin:18px 0 34px;}
+
+  .subhead{
+    display:flex; align-items:center; gap:12px; margin:34px 0 14px;
+    font-size:1.15rem; font-weight:700; color:var(--jade-dark);
+    padding-left:14px; border-left:4px solid var(--jade);
+  }
+
+  .card{
+    background:var(--paper-card); border:1px solid var(--line); border-radius:6px;
+    padding:20px 22px; margin-bottom:16px; box-shadow:var(--shadow);
+    position:relative;
+  }
+  .card h4{ font-size:1.02rem; color:var(--ink); margin-bottom:8px; display:flex; gap:8px; align-items:baseline;}
+  .card h4 .tag{ font-size:.68rem; background:var(--jade); color:#fff; padding:2px 8px; border-radius:10px; font-family:"Noto Sans TC",sans-serif; font-weight:500;}
+  .card ul{ margin:6px 0 0 0; padding-left:20px;}
+  .card li{ margin-bottom:5px;}
+  .highlight{ background:linear-gradient(transparent 60%, rgba(176,141,79,.35) 60%); font-weight:700;}
+
+  /* accordion */
+  details.acc{
+    background:var(--paper-card); border:1px solid var(--line); border-radius:6px;
+    margin-bottom:12px; overflow:hidden; box-shadow:var(--shadow);
+  }
+  details.acc > summary{
+    cursor:pointer; padding:14px 20px; font-weight:700; list-style:none;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:"Noto Serif TC",serif; color:var(--ink);
+  }
+  details.acc > summary::-webkit-details-marker{ display:none;}
+  details.acc > summary::after{
+    content:"＋"; color:var(--seal); font-size:1.1rem; transition:transform .25s;
+  }
+  details.acc[open] > summary::after{ content:"－";}
+  details.acc .acc-body{ padding:0 20px 18px; color:var(--ink-soft);}
+  details.acc .acc-body ul{padding-left:20px;}
+  details.acc .acc-body li{margin-bottom:6px;}
+
+  /* comparison table */
+  table.cmp{
+    width:100%; border-collapse:collapse; margin:14px 0 20px; font-size:.92rem;
+    background:var(--paper-card); box-shadow:var(--shadow); border-radius:6px; overflow:hidden;
+  }
+  table.cmp th{
+    background:var(--jade); color:#fff; padding:10px 12px; text-align:left; font-weight:700;
+  }
+  table.cmp td{ padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top;}
+  table.cmp tr:last-child td{border-bottom:none;}
+  table.cmp tr:nth-child(even) td{ background:rgba(176,141,79,.06);}
+
+  /* clarify box - 講解釐清框 */
+  .clarify{
+    display:flex; gap:16px; align-items:flex-start;
+    background:linear-gradient(135deg, rgba(163,35,31,.05), rgba(47,111,98,.05));
+    border:1px solid var(--brass); border-left:4px solid var(--jade); border-radius:8px; padding:16px 20px; margin:18px 0;
+  }
+  .clarify .icon{ font-size:1.6rem; flex-shrink:0;}
+  .clarify b{ color:var(--seal);}
+  .clarify .ctitle{ display:block; color:var(--jade-dark); font-weight:700; margin-bottom:4px; font-family:"Noto Serif TC",serif;}
+
+  /* timeline for chapter4 currency */
+  .mini-flow{ display:flex; flex-wrap:wrap; gap:10px; margin:14px 0;}
+  .mini-flow .step{
+    background:var(--paper-card); border:1px solid var(--brass); border-radius:20px;
+    padding:6px 14px; font-size:.82rem; font-weight:700; color:var(--seal-dark);
+  }
+  .mini-flow .arrow{ align-self:center; color:var(--brass);}
+
+  /* ===== quiz section ===== */
+  section.quiz{ max-width:980px; margin:60px auto; padding:0 20px 80px;}
+  .quiz-hero{ text-align:center; margin-bottom:36px;}
+  .quiz-hero h2{ font-size:1.9rem; font-weight:900;}
+  .quiz-hero p{ color:var(--ink-soft); max-width:500px; margin:8px auto 0;}
+
+  .quiz-filters{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:30px;}
+  .quiz-filters button{
+    font-size:.82rem; font-weight:700; padding:6px 16px; border-radius:20px;
+    border:1px solid var(--jade); background:transparent; color:var(--jade-dark); cursor:pointer;
+  }
+  .quiz-filters button.active{ background:var(--jade); color:#fff;}
+
+  .qcard{
+    background:var(--paper-card); border:1px solid var(--line); border-radius:8px;
+    padding:22px 24px; margin-bottom:18px; box-shadow:var(--shadow); display:none;
+  }
+  .qcard.show{ display:block; }
+  .qcard .qmeta{ font-size:.72rem; color:var(--jade); font-weight:700; letter-spacing:.05em; margin-bottom:6px;}
+  .qcard .qtext{ font-weight:700; margin-bottom:12px; font-size:1rem;}
+  .opts{ display:grid; gap:8px; margin-bottom:6px;}
+  .opt{
+    border:1px solid var(--line); border-radius:6px; padding:9px 14px; cursor:pointer;
+    font-size:.92rem; transition:all .15s; background:#fff;
+  }
+  .opt:hover{ border-color:var(--jade); }
+  .opt.correct{ background:rgba(47,111,98,.12); border-color:var(--jade); font-weight:700;}
+  .opt.wrong{ background:rgba(163,35,31,.10); border-color:var(--seal); }
+  .opt.disabled{ pointer-events:none; opacity:.85;}
+
+  .reveal-wrap{ margin-top:14px; }
+  .stamp-btn{
+    background:none; border:2px solid var(--seal); color:var(--seal); border-radius:20px;
+    padding:6px 16px; font-weight:700; font-size:.8rem; cursor:pointer; font-family:"Noto Serif TC",serif;
+  }
+  .stamp-btn:hover{ background:var(--seal); color:#fff;}
+  .explain{
+    display:none; margin-top:12px; padding:14px 16px; border-radius:6px;
+    background:rgba(163,35,31,.05); border-left:4px solid var(--seal); font-size:.9rem; color:var(--ink-soft);
+    position:relative;
+  }
+  .explain.show{ display:block; animation:stampIn .35s ease; }
+  .explain b{color:var(--ink);}
+  @keyframes stampIn{
+    0%{ transform:scale(1.4) rotate(-6deg); opacity:0;}
+    60%{ transform:scale(0.95) rotate(-6deg); opacity:1;}
+    100%{ transform:scale(1) rotate(0); opacity:1;}
+  }
+
+  .score-bar{
+    position:sticky; bottom:16px; margin-top:30px; text-align:center;
+  }
+  .score-bar span{
+    background:var(--ink); color:var(--paper); padding:8px 20px; border-radius:20px;
+    font-family:"Noto Serif TC",serif; font-weight:700; font-size:.9rem; box-shadow:var(--shadow);
+  }
+
+  footer{ text-align:center; padding:30px 20px 50px; color:var(--ink-soft); font-size:.78rem;}
+
+  @media (max-width:640px){
+    .timeline-strip{ flex-wrap:wrap; gap:18px 4px; }
+    .timeline-strip::before{ display:none;}
+    .t-node{ flex:0 0 28%;}
+    .chapter-head .num{ font-size:2.2rem;}
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav id="nav">
+  <button onclick="jump('ch1')">第1章 中華民國的建立</button>
+  <button onclick="jump('ch2')">第2章 舊傳統與新思潮</button>
+  <button onclick="jump('ch3')">第3章 現代國家的挑戰</button>
+  <button onclick="jump('ch4')">第4章 現代國家的變局</button>
+  <button onclick="jump('quiz')">✎ 練習題</button>
+</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">會考歷史・重點整理與互動練習</div>
+  <h1>從帝國崩解到<span>政府遷臺</span></h1>
+  <p class="sub">1911～1949，三十八年間，中國從帝制走向共和、從內憂走向外患，最終山河變色、政府遷臺。點選上方章節或直接捲動瀏覽。</p>
+
+  <div class="timeline-strip">
+    <div class="t-node"><div class="dot"></div><div class="yr">1911</div><div class="evt">辛亥革命</div><div class="lbl">武昌起事</div></div>
+    <div class="t-node"><div class="dot"></div><div class="yr">1919</div><div class="evt">五四運動</div><div class="lbl">巴黎和會</div></div>
+    <div class="t-node"><div class="dot"></div><div class="yr">1926</div><div class="evt">北伐</div><div class="lbl">北伐統一</div></div>
+    <div class="t-node"><div class="dot"></div><div class="yr">1931</div><div class="evt">九一八</div><div class="lbl">日軍侵東北</div></div>
+    <div class="t-node"><div class="dot"></div><div class="yr">1937</div><div class="evt">盧溝橋</div><div class="lbl">全面抗戰</div></div>
+    <div class="t-node"><div class="dot"></div><div class="yr">1945</div><div class="evt">終戰</div><div class="lbl">日本投降</div></div>
+    <div class="t-node"><div class="dot"></div><div class="yr">1949</div><div class="evt">遷臺</div><div class="lbl">政府遷臺</div></div>
+  </div>
+</header>
+
+<!-- ============ CHAPTER 1 ============ -->
+<section class="chapter" id="ch1">
+  <div class="chapter-head">
+    <span class="num">01</span>
+    <div>
+      <h2>中華民國的建立</h2>
+      <div class="period">1-1 帝國崩解｜1-2 民初政治｜1-3 民初外交</div>
+    </div>
+  </div>
+  <p class="chapter-intro">清末革命運動終結兩千多年帝制，但民主共和的理想並未立即實現——袁世凱稱帝、軍閥割據、列強侵逼接踵而至，「建國」與「護國」成為這個時期的主旋律。</p>
+
+  <div class="subhead">重點一：從「興中會」到「辛亥革命」的關鍵節點</div>
+  <div class="card">
+    <h4>時序不要背錯！<span class="tag">易混淆</span></h4>
+    <ul>
+      <li><b>1894年</b>（光緒20年）孫中山受<span class="highlight">甲午戰敗</span>刺激，於<span class="highlight">夏威夷檀香山</span>成立<b>興中會</b>。</li>
+      <li><b>1905年</b>（光緒31年）結合各革命團體，於<span class="highlight">日本東京</span>成立<b>中國革命同盟會</b>（同盟會），綱領為<b>三民主義</b>：民族（驅除韃虜、恢復中華）、民權（創立民國）、民生（平均地權）。</li>
+      <li><b>1911年</b>清廷宣布<span class="highlight">鐵路收歸國有</span>，引發<b>保路運動</b>（四川最烈）→ 10月10日<b>武昌起事</b>成功 → 各省宣告獨立，史稱<b>辛亥革命</b>。</li>
+      <li><b>民國元年元旦</b>，中華民國臨時政府在<span class="highlight">南京</span>成立，孫中山就任臨時大總統。</li>
+    </ul>
+  </div>
+
+  <div class="clarify">
+    <div class="icon">🔍</div>
+    <div>
+      <span class="ctitle">為什麼會這樣發展？</span>
+      這四件事其實是一條清楚的因果鏈：孫中山先在<b>海外</b>（檀香山）號召同志成立興中會，十一年後才把各地分散的革命團體整合成規模更大的同盟會（東京），並提出完整的三民主義綱領。真正引爆革命的導火線，其實不是同盟會刻意策劃的行動，而是<b>清廷自己的鐵路國有政策</b>——這項政策先引發保路運動，武昌起事才趁著地方兵力空虛而倉促發動，卻意外一舉成功。也因為起事本身帶有臨時應變的性質，才會有課本後面所說「起事倉促、未能鞏固主權在民的立國宏規」的評語。
+    </div>
+  </div>
+
+  <div class="subhead">重點二：民初政治為何動盪十七年？</div>
+  <p style="color:var(--ink-soft); margin-bottom:16px;">民國成立後的十七年間，先後經歷「袁世凱統治」與「軍閥割據」兩個階段，共同特徵是<b>軍人掌權</b>，民主共和的立國理想都沒有真正落實。</p>
+
+  <div class="card">
+    <h4>① 袁世凱時期（民國元年～5年）——獨裁是怎麼一步步形成的？</h4>
+    <ul>
+      <li><b>第一步・掌權：</b>清末軍隊私有化明顯，袁世凱藉編練新式軍隊崛起；民國成立後，他成功逼使宣統皇帝溥儀退位，臨時政府依約推選他為臨時大總統。</li>
+      <li><b>第二步・制衡失敗：</b>臨時政府制定《中華民國臨時約法》想要制衡袁世凱，但袁世凱藉口北京兵變不願南下就職，臨時政府反而被迫遷往北京。</li>
+      <li><b>第三步・鎮壓反對勢力：</b>民國2年，孫中山等人號召南方數省獨立、討伐袁世凱，即「二次革命」，但以失敗收場，袁世凱作風更加獨裁。</li>
+      <li><b>第四步・獨攬大權：</b>袁世凱先逼迫國會選他為正式大總統，接著解散國會、廢止臨時約法。</li>
+      <li><b>第五步・稱帝與敗亡：</b>民國5年，袁世凱宣布將該年訂為「洪憲」元年，改國號為「中華帝國」。各方立刻起兵聲討，袁世凱因未獲列強與親信將領支持，被迫撤銷帝制，不久病逝。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4>② 軍閥割據（民國5年～17年）——為什麼會出現這種局面？</h4>
+    <ul>
+      <li><b>成因：</b>袁世凱死後，原本聽命於他的各路人馬失去共主，其部屬與各地軍閥便各自割據一方、互爭地盤。</li>
+      <li><b>特徵：</b>軍閥依附列強、擴充軍備，常以武力解決政治糾紛；實力較強的派系更以奪取象徵中央的「北京政府」為目標，彼此爭戰不休。</li>
+      <li><b>影響：</b>政局長期不穩，各地戰禍不斷，人民生活困苦，這個局面一直持續到北伐完成、全國統一（見第3章）才告一段落。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4>易錯辨析：中華民國臨時約法 vs. 訓政時期約法（見第3章）</h4>
+    <p>兩者名稱相似，制定的背景與目的卻完全不同：《中華民國臨時約法》是<b>民國元年</b>為了防止袁世凱專權而制定，採內閣制精神（實權在內閣而非大總統）；《中華民國訓政時期約法》則是<b>北伐完成後</b>，國民政府宣布進入訓政時期時所依據的根本大法，目的是讓國民黨訓練人民行使選舉、罷免等權利。作答時只要記住「誰在位、為了防誰、發生在北伐前還是後」，就不會混淆。</p>
+  </div>
+
+  <div class="subhead">重點三：民初外交——從二十一條到五四運動</div>
+  <p style="color:var(--ink-soft); margin-bottom:16px;">這段外交史最容易搞混的地方，是「二十一條要求」與「巴黎和會」<b>雖然都跟山東有關，性質卻完全不同</b>：前者是日本單獨向中國施壓的雙邊交涉，後者是戰後多國會議做出的決議。</p>
+
+  <table class="cmp">
+    <tr><th>事件</th><th>性質</th><th>結果</th></tr>
+    <tr>
+      <td><b>二十一條要求</b>（民國4年）</td>
+      <td>日本趁一戰爆發、歐美列強無暇東顧，<b>單獨</b>向袁世凱提出的要求，企圖取得山東等地特權</td>
+      <td>袁世凱被迫接受部分條款；全國反日聲浪中，將簽約日5月9日訂為國恥紀念日，即「五九國恥」</td>
+    </tr>
+    <tr>
+      <td><b>巴黎和會</b>（民國8年）</td>
+      <td>第一次世界大戰結束後，<b>多國</b>共同召開的和會，中國以戰勝國身分參加，提出收回山東權益的主張</td>
+      <td>和會卻將德國在山東的權益<b>轉交日本</b>繼承，引爆五四運動</td>
+    </tr>
+  </table>
+
+  <div class="mini-flow">
+    <div class="step">民3 一戰爆發，日本對德宣戰奪山東膠州灣</div><div class="arrow">→</div>
+    <div class="step">民4 二十一條要求（5/9簽約，訂為「五九國恥」）</div><div class="arrow">→</div>
+    <div class="step">民6 中國加入英美陣營參戰</div><div class="arrow">→</div>
+    <div class="step">民8 巴黎和會：山東權益轉交日本</div><div class="arrow">→</div>
+    <div class="step">5月4日 北京學生遊行「外爭主權，內除國賊」</div><div class="arrow">→</div>
+    <div class="step">北京政府拒簽對德和約</div>
+  </div>
+
+  <details class="acc">
+    <summary>展開：五四運動的意義與影響</summary>
+    <div class="acc-body">
+      <ul>
+        <li>直接導火線：巴黎和會將德國在山東的權益轉交日本，而非歸還中國。</li>
+        <li>發展：北京各校學生5月4日遊行示威 → 各地罷課、罷工、罷市響應。</li>
+        <li>結果：北京政府在輿論壓力下拒簽對德和約。</li>
+        <li>深遠意義：促成社會各階層普遍覺醒，加深對國家和民族的認同，也開啟新文化運動與思想解放的社會土壤（銜接第2章）。</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- ============ CHAPTER 2 ============ -->
+<section class="chapter" id="ch2">
+  <div class="chapter-head">
+    <span class="num">02</span>
+    <div>
+      <h2>舊傳統與新思潮</h2>
+      <div class="period">2-1 新文化運動｜2-2 社會變遷</div>
+    </div>
+  </div>
+  <p class="chapter-intro">五四運動不只是外交抗議，更是一場思想革命的縮影。新知識分子相信：唯有從「思想文化」徹底改造，中國才能真正現代化。</p>
+
+  <div class="subhead">重點一：新文化運動兩大主軸</div>
+  <table class="cmp">
+    <tr><th>主軸</th><th>代表人物／刊物</th><th>核心內容</th></tr>
+    <tr>
+      <td><b>提倡白話文</b></td>
+      <td>陳獨秀（《青年雜誌》後改《新青年》，民4創刊）、胡適、魯迅（《狂人日記》，第一篇白話文小說）</td>
+      <td>以白話文取代文言文，求通俗易懂；新式標點符號流行，助教育普及</td>
+    </tr>
+    <tr>
+      <td><b>思想的解放</b></td>
+      <td>蔡元培（北大校長，倡自由學風，北大成為重鎮）</td>
+      <td>引進「德先生」（Democracy 民主）與「賽先生」（Science 科學），挑戰儒家思想權威地位；共產主義也隨之傳入，民國10年<b>中國共產黨</b>成立</td>
+    </tr>
+  </table>
+
+  <div class="clarify">
+    <div class="icon">🔍</div>
+    <div>
+      <span class="ctitle">兩大主軸其實是「工具」與「內容」的關係</span>
+      白話文只是<b>表達的工具</b>——把原本艱澀的文言文換成人人看得懂的白話文，目的是讓知識傳播得更快、更廣；而真正要傳播的<b>內容</b>，就是民主與科學等西方思想。也因此陳獨秀創辦《新青年》、蔡元培開放北大學風，等於是先打造好「發表園地」與「自由環境」，胡適、魯迅等人再用白話文把民主、科學的新觀念寫出來、傳出去，兩者相輔相成，缺一不可。
+    </div>
+  </div>
+
+  <div class="subhead">重點二：社會變遷──婦女解放的三個面向</div>
+  <div class="card">
+    <h4>婦女解放的考題重點：分清「身體、教育、社會」三個層次</h4>
+    <ul>
+      <li><b>身體自主：</b>「剪髮」「節育」等新觀念推行。</li>
+      <li><b>男女共學：</b>女性得以與男性同校（如燕京大學），打破「男女授受不親」。</li>
+      <li><b>投入社會：</b>①進入就業市場（接線生、警察、女性教授、自行創業）；②參與政治活動（爭取參政權、投入五四運動遊行隊伍）。</li>
+    </ul>
+  </div>
+
+  <details class="acc">
+    <summary>展開：兒童地位的轉變</summary>
+    <div class="acc-body">
+      <ul>
+        <li>傳統社會視兒童為「小大人」，忽視其發展需求。</li>
+        <li>新文化運動時，<b>魯迅、周作人</b>主張建立新兒童觀，尊重兒童意志與自由，視為「完全的人」。</li>
+        <li>具體成果：兒童心理與教育開始被科學研究；兒童報刊（如《小朋友》，民國11年創刊）、兒童文學（如《兔子的故事》）興起；<b>中國的兒童節始於民國21年4月4日</b>。</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- ============ CHAPTER 3 ============ -->
+<section class="chapter" id="ch3">
+  <div class="chapter-head">
+    <span class="num">03</span>
+    <div>
+      <h2>現代國家的挑戰</h2>
+      <div class="period">3-1 國民政府的建立｜3-2 日本勢力的擴張</div>
+    </div>
+  </div>
+  <p class="chapter-intro">國民政府在完成統一、推動建設的同時，內有中共坐大、外有日本步步進逼——「攘外必先安內」與「停止內戰、一致抗日」的路線之爭，最終在西安事變後翻轉。</p>
+
+  <div class="subhead">重點一：北伐與訓政——「以黨治國」的邏輯</div>
+  <div class="card">
+    <h4>孫中山建國三時期示意<span class="tag">必考架構</span></h4>
+    <ul>
+      <li><b>軍政</b>：以軍領政（中華民國臨時約法）→ 北伐完成、全國統一。</li>
+      <li><b>訓政</b>：以黨領政（中華民國訓政時期約法）→ 國民黨一黨執政，訓練人民行使選舉、罷免等權利，為地方自治定憲法作準備。</li>
+      <li><b>憲政</b>：實施憲政（中華民國憲法）→ 還政於民。</li>
+    </ul>
+  </div>
+  <table class="cmp">
+    <tr><th>事件</th><th>時間</th><th>重點</th></tr>
+    <tr><td>聯俄容共</td><td>民國12年</td><td>孫中山改組國民黨，接受蘇聯援助，同意中共黨員以個人身分加入國民黨</td></tr>
+    <tr><td>黃埔軍校</td><td>民國13年</td><td>蔣中正任校長，培養忠於國民黨的革命武力</td></tr>
+    <tr><td>北伐</td><td>民國15～17年</td><td>蔣中正率軍北伐；民16國共決裂，另於南京組國民政府；民17張學良東北易幟，完成統一</td></tr>
+    <tr><td>十年建設</td><td>民國17～26年</td><td>財政（發行法幣，統一幣制）、教育（廣設中小學，晏陽初推動平民教育）、交通（廣築鐵路公路）</td></tr>
+    <tr><td>中共長征</td><td>民國23～24年</td><td>中共不敵國軍五次圍剿，突圍輾轉抵達陝西北部（延安）</td></tr>
+  </table>
+
+  <div class="clarify">
+    <div class="icon">🔍</div>
+    <div>
+      <span class="ctitle">這五件事其實是一條「先軍後政」的主線</span>
+      國民黨先靠「聯俄容共」取得蘇聯資源、再辦黃埔軍校培養<b>忠於黨的武力</b>，這是「軍」的準備；有了軍隊之後才能北伐、完成統一，統一之後進入訓政時期，等於從「打天下」轉為「治天下」——這是「政」的階段。十年建設就是「治天下」十年間具體做出的成果。至於中共長征，是在同一段時間裡<b>被國民政府圍剿、被迫西遷</b>的另一條支線，兩條線同時發生、卻方向相反，考題常要求分辨兩者的因果與先後，不要把「國民政府的建設」和「中共的長征」誤植到同一個陣營的敘事裡。
+    </div>
+  </div>
+
+  <div class="subhead">重點二：日本步步進逼——事變時間軸別搞混</div>
+  <table class="cmp">
+    <tr><th>事變</th><th>時間</th><th>地點</th><th>結果</th></tr>
+    <tr><td><b>九一八事變</b></td><td>民國20年9月18日</td><td>瀋陽</td><td>日軍藉故占領中國東北</td></tr>
+    <tr><td><b>一二八事變</b></td><td>民國21年1月28日</td><td>上海</td><td>日軍進攻上海</td></tr>
+    <tr><td>滿洲國成立</td><td>民國21年</td><td>東北</td><td>日本扶植溥儀，並策動華北各省「自治」，企圖分裂國民政府</td></tr>
+    <tr><td><b>西安事變</b></td><td>民國25年</td><td>陝西西安</td><td>張學良挾持蔣中正，要求「停止內戰，一致抗日」；事變落幕後國民政府停止剿共</td></tr>
+  </table>
+
+  <div class="card">
+    <h4>因果別倒果為因<span class="tag">易錯</span></h4>
+    <p>國民政府原採「攘外必先安內」政策加緊圍剿中共；但因<b>民間反日情緒升高</b>、中共又趁勢宣傳全國團結抗日，才促成張學良發動西安事變，<b>而非中共的宣傳直接導致日本侵略</b>——考題常考「先後順序」與「因果關係」，作答時要分清楚誰是因、誰是果。</p>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 4 ============ -->
+<section class="chapter" id="ch4">
+  <div class="chapter-head">
+    <span class="num">04</span>
+    <div>
+      <h2>現代國家的變局</h2>
+      <div class="period">4-1 八年抗戰與太平洋戰爭｜4-2 東亞人民的苦難｜4-3 從國共內戰到中華民國政府遷臺</div>
+    </div>
+  </div>
+  <p class="chapter-intro">從盧溝橋的槍聲到政府遷臺的船影，短短十二年間，中國經歷了對外的浴血抗戰，卻又迅速捲入對內的國共內戰，最終山河變色。</p>
+
+  <div class="subhead">重點一：抗戰與太平洋戰爭——誰先誰後？</div>
+  <div class="mini-flow">
+    <div class="step">民26/7/7 盧溝橋事變（全面抗戰序幕）</div><div class="arrow">→</div>
+    <div class="step">民26/12 南京大屠殺</div><div class="arrow">→</div>
+    <div class="step">民28 二戰於歐洲爆發</div><div class="arrow">→</div>
+    <div class="step">民30/12 日本偷襲珍珠港，美國對日宣戰（太平洋戰爭開啟）</div><div class="arrow">→</div>
+    <div class="step">民32 開羅會議／開羅宣言</div><div class="arrow">→</div>
+    <div class="step">民34/8 美國原子彈轟炸廣島、長崎，日本無條件投降</div>
+  </div>
+  <div class="card">
+    <h4>易混淆：中國抗戰 vs. 太平洋戰爭<span class="tag">易錯</span></h4>
+    <p>中國的抗日戰爭<b>早於</b>太平洋戰爭爆發（民26 vs. 民30），中國原本獨自對日作戰，直到珍珠港事變後，才與美、英等盟國並肩作戰。切勿誤以為「八年抗戰」是因太平洋戰爭而起。</p>
+  </div>
+
+  <div class="subhead">重點二：戰時中國的外交成就</div>
+  <table class="cmp">
+    <tr><th>項目</th><th>內容</th></tr>
+    <tr><td>平等新約</td><td>美、英等國與中華民國簽訂，放棄在華特權，解除百年不平等條約束縛</td></tr>
+    <tr><td><b>開羅宣言</b>（民32）</td><td>中、美、英三國領袖聲明：日本應將<span class="highlight">東北、臺灣、澎湖歸還中華民國</span></td></tr>
+    <tr><td>雅爾達密約（民34）</td><td>美英為爭取蘇聯對日宣戰，<b>犧牲中國權益</b>，同意蘇聯取得中國東北特殊權益——與開羅宣言立場矛盾，是考題常設陷阱</td></tr>
+    <tr><td>聯合國創建</td><td>中華民國參與創建，成為安全理事會五個<b>常任理事國</b>之一（中美英法蘇，均擁有否決權）</td></tr>
+  </table>
+
+  <div class="subhead">重點三：東亞人民的苦難——四種傷害類型</div>
+  <div class="card">
+    <ul>
+      <li><b>平民傷亡：</b>作戰部隊濫殺平民（南京、馬來亞、菲律賓等地）；空中轟炸波及市街，造成集體傷亡與財產損失。</li>
+      <li><b>人身摧殘：</b>日軍進行活體實驗（如滿洲國哈爾濱<b>731部隊</b>，造成中國人、蘇聯人、朝鮮人死亡）；徵召殖民地人民補充勞動力（如<b>端島／軍艦島</b>徵用朝鮮人開採煤礦）；誘騙或強迫婦女充當「慰安婦」。</li>
+      <li><b>民生困苦：</b>戰爭破壞生產交通，糧食物資短缺，物價攀升。</li>
+      <li><b>流離失所：</b>民眾投奔大後方或逃往鄉村避難，天然災荒因戰爭擴大，難民大增。</li>
+    </ul>
+  </div>
+
+  <div class="subhead">重點四：國共內戰到政府遷臺——通貨膨脹是重點</div>
+  <div class="card">
+    <h4>100元法幣購買力崩跌示意<span class="tag">圖表題必考</span></h4>
+    <div class="mini-flow">
+      <div class="step">民26：兩頭牛</div><div class="arrow">→</div>
+      <div class="step">民30：一袋麵粉</div><div class="arrow">→</div>
+      <div class="step">民34：兩顆雞蛋</div><div class="arrow">→</div>
+      <div class="step">民38：一張紙</div>
+    </div>
+    <p>抗戰勝利後國共內戰全面爆發（民36國民政府宣布全國「動員戡亂」），國民政府雖初期軍事占優，卻因<b>官員貪汙腐化</b>加上<b>未能解決通貨膨脹</b>，民怨四起，統治陷入危機。民37年再發行「金圓券」欲取代崩跌的法幣，卻因內戰持續失利，崩潰得更快。</p>
+  </div>
+
+  <table class="cmp">
+    <tr><th>時間</th><th>事件</th></tr>
+    <tr><td>民國36年12月25日</td><td>《中華民國憲法》正式實行憲政</td></tr>
+    <tr><td>民國37年</td><td>國民大會選出<b>蔣中正</b>為行憲後第一任總統；發行「金圓券」失敗</td></tr>
+    <tr><td>民國38年底前</td><td>中共幾乎控制整個中國大陸</td></tr>
+    <tr><td>民國38年</td><td><b>中華民國政府遷往臺灣</b></td></tr>
+  </table>
+
+  <div class="clarify">
+    <div class="icon">🔍</div>
+    <div>
+      <span class="ctitle">短短三年，局勢為何急轉直下？</span>
+      這幾個年分之所以容易搞混，是因為它們<b>環環相扣、一年接一年</b>：民國36年底憲法先實行，是政治體制上「還政於民」的宣示；隔一年（37年）國民大會照著新憲法選出行憲後第一任總統，看似政治走上正軌，但同一年財政卻已經撐不住，才會發行金圓券來救急。然而軍事上國共內戰持續失利，通貨膨脹的根本問題並未解決，金圓券反而崩潰得比法幣更快——政治制度雖然完備，卻趕不上經濟與軍事同時崩壞的速度，最終在38年底演變成中共控制大陸、政府遷往臺灣的結果。記住這個順序時，重點不是背年分本身，而是理解「政治上軌道」與「經濟、軍事同時失控」是同時在發生的兩件事。
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="quiz" id="quiz">
+  <div class="quiz-hero">
+    <span class="seal big" style="margin-bottom:14px;">驗</span>
+    <h2>自我檢測・課後補充練習題</h2>
+    <p>共 24 題，涵蓋第1～4章重點與課本延伸內容。點選答案後按「蓋章看詳解」查看完整解析。</p>
+  </div>
+
+  <div class="quiz-filters" id="filters">
+    <button class="active" data-f="all">全部</button>
+    <button data-f="1">第1章</button>
+    <button data-f="2">第2章</button>
+    <button data-f="3">第3章</button>
+    <button data-f="4">第4章</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <div class="score-bar"><span id="scoreText">已作答 0／24</span></div>
+</section>
+
+<footer>歷史第1～4章重點整理 · 內容依課本圖文彙整，僅供複習使用</footer>
+
+<script>
+function jump(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+
+const questions = [
+{ch:1, q:"孫中山於1905年在東京成立的革命團體，其綱領後來被稱為什麼？", opts:["三民主義","建國大綱","臨時約法","訓政方略"], a:0,
+  e:"1905年孫中山結合各革命團體於東京成立中國革命同盟會（同盟會），其綱領即後世所稱的<b>三民主義</b>：民族主義（驅除韃虜、恢復中華）、民權主義（創立民國）、民生主義（平均地權）。臨時約法是民國元年為制衡袁世凱而制定，建國大綱與訓政方略則是孫中山對建國三時期（軍政、訓政、憲政）的規劃，時間點皆晚於同盟會成立。"},
+{ch:1, q:"清廷宣布「鐵路收歸國有」政策後，直接引發了下列何者？", opts:["二次革命","保路運動","西安事變","五四運動"], a:1,
+  e:"1911年清廷宣布鐵路收歸國有，傷害民間投資人權益，導致各省（尤其四川）掀起「保路運動」抗爭，間接促成武昌起事一舉成功，開啟辛亥革命。二次革命是民國2年孫中山討伐袁世凱失敗的事件；西安事變、五四運動則分別發生於北伐後及巴黎和會後，時間點皆不同。"},
+{ch:1, q:"袁世凱在民國5年宣布將國號改為「中華帝國」，改元哪一年號？", opts:["宣統","洪憲","民國","天運"], a:1,
+  e:"袁世凱缺乏維護共和體制的信念，順勢接受擁戴稱帝，宣布將民國5年訂為<b>洪憲</b>元年，國號改為中華帝國。各方隨即起兵聲討，袁世凱因未獲列強與親信將領支持，被迫撤銷帝制，不久病逝。「宣統」是末代皇帝溥儀在位時的年號，屬清朝，並非袁世凱所改。"},
+{ch:1, q:"「五九國恥」是為了紀念下列哪一事件的簽約日？", opts:["巴黎和會山東權益轉讓","二十一條要求簽約","九一八事變","開羅宣言發表"], a:1,
+  e:"民國4年，袁世凱在日本多方施壓下被迫接受「二十一條要求」的部分條款，全國反日聲浪中，將簽約日（5月9日）訂為國恥紀念日，即「五九國恥」。巴黎和會（民8）雖然也涉及山東權益，但那是轉交日本繼承的決議，並非「五九國恥」的由來；九一八事變與開羅宣言則發生在更晚的年代。"},
+{ch:1, q:"五四運動最主要的直接導火線為何？", opts:["袁世凱稱帝","巴黎和會將山東權益轉交日本","九一八事變爆發","北伐軍進入北京"], a:1,
+  e:"民國8年巴黎和會上，中國雖以戰勝國身分參加，提出收回山東權益的主張，和會卻決議將德國在山東的權益轉交日本繼承。消息傳回中國後，引起北京學生於5月4日發起遊行示威，主張「外爭主權，內除國賊」，各地以罷課、罷工、罷市響應，史稱五四運動。"},
+{ch:2, q:"提倡以白話文取代文言文，並發表第一篇白話文小說〈狂人日記〉的作家是誰？", opts:["胡適","陳獨秀","魯迅","蔡元培"], a:2,
+  e:"胡適與陳獨秀主張以白話文取代文言文，但真正發表〈狂人日記〉——中國第一篇白話文小說，引起廣大迴響的是<b>魯迅</b>。蔡元培則是擔任北京大學校長，提倡自由學風，讓北大成為推動新文化運動的重鎮，並非小說作者。"},
+{ch:2, q:"新文化運動時期，知識分子大力鼓吹的「德先生」與「賽先生」分別代表什麼？", opts:["道德與科舉","民主與科學","德國與塞爾維亞","德育與體育"], a:1,
+  e:"新文化運動時期，新知識分子將西方流行學說引入中國，大力鼓吹「德先生」（Democracy，民主）與「賽先生」（Science，科學）的價值，藉此挑戰儒家思想的權威地位，使學術思想呈現百家爭鳴的局面。"},
+{ch:2, q:"中國共產黨成立於民國幾年？", opts:["民國4年","民國8年","民國10年","民國12年"], a:2,
+  e:"新文化運動期間，西方學說（包括共產主義）大量引入中國，部分信奉者於<b>民國10年</b>成立中國共產黨（簡稱中共）。民國4年是《青年雜誌》創刊、新文化運動揭幕的年分；民國8年是五四運動爆發的年分；民國12年則是國民黨採行「聯俄容共」政策的年分。"},
+{ch:2, q:"下列何者不屬於新文化運動時期「婦女解放」的具體表現？", opts:["女性得以進入大學就讀","公營機關開始聘用女性擔任接線生、警察","女性開始出現在五四運動遊行隊伍中","政府訂定4月4日為兒童節"], a:3,
+  e:"訂定兒童節（民國21年4月4日）屬於「關注兒童地位」的具體成果，與婦女解放無直接關係。女性進入大學共學、投入就業市場、參與政治活動（如五四遊行）皆屬於婦女解放在「身體自主、男女共學、投入社會」三層面的具體表現。"},
+{ch:3, q:"孫中山「建國大綱」將國家建設分為哪三個時期？", opts:["軍政、訓政、憲政","北伐、統一、建設","容共、清黨、行憲","軍閥、國民政府、共和"], a:0,
+  e:"孫中山的建國大綱將國家建設分為<b>軍政（以軍領政）、訓政（以黨領政）、憲政（實施憲政）</b>三個時期。北伐完成後，南京國民政府宣布全國進入「訓政時期」，由國民黨一黨執政，目的是訓練國民行使選舉、罷免等權利，為將來實施憲政預作準備。"},
+{ch:3, q:"下列關於「聯俄容共」政策的敘述，何者正確？", opts:["由蔣中正於北伐時期提出","接受蘇聯援助，並同意中共黨員以個人身分加入國民黨","是國民政府遷臺後的外交政策","目的在於對抗日本軍國主義"], a:1,
+  e:"聯俄容共是民國12年由孫中山領導的中國國民黨所採行的政策，接受蘇聯的援助，並同意中共黨員以個人身分加入國民黨，希望合力打倒軍閥。這與蔣中正、日本軍國主義或遷臺後的外交政策皆無直接關聯，時間也早於北伐（民15）。"},
+{ch:3, q:"張學良宣布東北歸順國民政府（東北易幟），象徵中國完成統一，發生於民國幾年？", opts:["民國15年","民國16年","民國17年","民國20年"], a:2,
+  e:"民國15年國民政府命蔣中正揮兵北伐，隔年（民16）蔣中正在國共決裂後於南京另組國民政府；<b>民國17年</b>東北軍閥張學良宣布東北歸順國民政府，中國完成統一。民國20年則是九一八事變爆發的年分，此時張學良已歸順國民政府多年。"},
+{ch:3, q:"「十年建設」期間，統一清末以來混亂幣制、屬於財政方面的重要措施是？", opts:["發行法幣","推動平民教育","廣築鐵路、公路","實施訓政"], a:0,
+  e:"十年建設（民國17～26年）財政方面的重要措施是重整稅收並發行「法幣」（國家的法定貨幣），統一清末以來混亂的幣制。推動平民教育（晏陽初）屬於教育方面的成果；廣築鐵路公路屬於交通方面；訓政則是政治體制安排，不屬於十年建設的具體施政內容分類。"},
+{ch:3, q:"下列哪一事變的結果是「日本在中國東北扶植溥儀成立滿洲國」？", opts:["九一八事變","一二八事變","西安事變","盧溝橋事變"], a:0,
+  e:"民國20年9月18日，日軍在瀋陽藉故發動<b>九一八事變</b>，進而占領中國東北，隨後便在東北扶植溥儀成立「滿洲國」。一二八事變（民21）發生於上海；西安事變（民25）促成國共停止內戰、一致抗日；盧溝橋事變（民26）則揭開中國全面抗日戰爭的序幕。"},
+{ch:3, q:"西安事變後，國民政府採取了什麼樣的政策轉變？", opts:["加緊圍剿中共","停止剿共，聯合各黨派抗日","對日本宣布無條件投降","遷都重慶準備長期抗戰"], a:1,
+  e:"民國25年張學良在西安挾持蔣中正，要求「停止內戰，一致抗日」，史稱西安事變。事變落幕後，國民政府停止剿共行動，隔年中日全面爆發戰爭，國民政府並聯合全國各黨派共同抗日，中共也因而重獲生機。遷都重慶則是隔年（民26）抗戰全面爆發後才發生的措施，屬於另一階段的因應策略。"},
+{ch:4, q:"揭開中國全面抗日戰爭序幕的事變是？", opts:["九一八事變","一二八事變","盧溝橋事變","珍珠港事變"], a:2,
+  e:"民國26年7月7日，中日兩國軍隊在河北省宛平縣盧溝橋爆發衝突，史稱「盧溝橋事變」，揭開了中國全面抗日戰爭的序幕。九一八、一二八事變皆發生於民國20、21年，屬於九一八事變後日本擴張勢力的一連串行動，尚未演變為全面戰爭；珍珠港事變（民30）則是太平洋戰爭的起點。"},
+{ch:4, q:"下列有關「中國抗戰」與「太平洋戰爭」關係的敘述，何者正確？", opts:["兩者同時爆發","中國抗戰早於太平洋戰爭爆發","太平洋戰爭爆發後中國才開始抗日","太平洋戰爭導致盧溝橋事變發生"], a:1,
+  e:"中國自民國26年（1937年）盧溝橋事變後即獨自對日作戰，直到民國30年（1941年）12月日本偷襲珍珠港、美國對日宣戰後，太平洋戰爭才開啟，中國此後才與美、英等盟國並肩作戰。因此中國抗戰明顯<b>早於</b>太平洋戰爭爆發，兩者並非同時發生，也不是太平洋戰爭導致盧溝橋事變。"},
+{ch:4, q:"民國32年，中、美、英三國領袖在開羅舉行會議並發表「開羅宣言」，聲明日本應將哪些領土歸還中華民國？", opts:["東北、臺灣、澎湖","香港、澳門、山東","滿洲、朝鮮、琉球","西藏、新疆、蒙古"], a:0,
+  e:"民國32年，中、美、英三國領袖在開羅舉行會議，聲明日本應將<b>東北、臺灣、澎湖</b>歸還中華民國，是為「開羅宣言」。此舉展現中國國際地位的提升，也是戰後臺灣回歸中華民國的重要法理依據之一。"},
+{ch:4, q:"下列關於「雅爾達密約」的敘述，何者正確？", opts:["由中、美、英三國共同簽訂","犧牲中國權益，同意蘇聯取得中國東北特殊權益","內容與開羅宣言完全一致","是二次大戰結束後才簽訂的條約"], a:1,
+  e:"民國34年，美、英兩國為了爭取蘇聯對日宣戰，在中國未參與的情況下與蘇聯訂立雅爾達密約，<b>犧牲中國權益</b>，同意蘇聯取得在中國東北之特殊權益等內容。此密約與開羅宣言中「日本應將東北歸還中華民國」的立場明顯矛盾，是考試中容易混淆兩者的重點，且簽訂時間早於日本投降（同年8月）。"},
+{ch:4, q:"日軍在滿洲國哈爾濱進行人體實驗、造成中國人、蘇聯人、朝鮮人死亡的部隊是？", opts:["731部隊","關東軍司令部","慰安婦管理處","華北駐屯軍"], a:0,
+  e:"在滿洲國哈爾濱，日軍<b>731部隊</b>長期執行活體（人體）實驗，至少造成數千名中國人、蘇聯人、朝鮮人死亡，是二次大戰期間日軍非人道手段的重要例證之一。"},
+{ch:4, q:"二次大戰結束後，中華民國參與聯合國的創建，並成為安全理事會的什麼身分？", opts:["非常任理事國，須定期改選","常任理事國之一，擁有否決權","觀察員國，無投票權","秘書處成員國"], a:1,
+  e:"二次大戰結束後，中華民國參與聯合國的創建，並成為安全理事會五個<b>常任理事國</b>之一（中、美、英、法、蘇），常任理事國不必改選，且均擁有否決權，這展現了中國國際地位的提升。非常任理事國才需要定期改選。"},
+{ch:4, q:"民國36年，國民政府因國共關係緊張，「制定中華民國憲法」的主要目的是為了回應什麼呼聲？", opts:["還政於民","攘外必先安內","平均地權","聯俄容共"], a:0,
+  e:"國民政府原本將實施憲政列為國家長程目標。但在國共關係緊張之際，為順應各界「<b>還政於民</b>」的呼聲，乃制定中華民國憲法，於民國36年12月25日正式實行憲政，次年國民大會選出蔣中正為行憲後第一任總統。"},
+{ch:4, q:"民國37年，國民政府發行「金圓券」的主要目的是什麼？", opts:["取代已急遽貶值的法幣","作為行憲後的紀念貨幣","支付對日抗戰的軍費","做為與美元掛鉤的新制度"], a:0,
+  e:"民國37年，中華民國政府發行新貨幣「金圓券」，藉以取代已急遽貶值的「法幣」。但隨著國共內戰一再失利，金圓券卻以更快的速度崩潰，最小面額原為「壹角」，最後面額卻高達伍佰萬，反映當時惡性通貨膨脹的嚴重程度。"},
+{ch:4, q:"依據課本「100元法幣購買力示意圖」，民國38年時，100元法幣大約只能買到什麼？", opts:["兩頭牛","一袋麵粉","兩顆雞蛋","一張紙"], a:3,
+  e:"依課本示意圖，100元法幣的購買力隨著抗戰與國共內戰持續惡化：民國26年可買兩頭牛、民國30年僅剩一袋麵粉、民國34年只剩兩顆雞蛋、到了民國38年，100元法幣的購買力已幾乎等同於<b>一張紙</b>，凸顯惡性通貨膨脹對人民生活的巨大衝擊。"},
+{ch:4, q:"中華民國政府遷往臺灣，發生於民國幾年？", opts:["民國36年","民國37年","民國38年","民國39年"], a:2,
+  e:"民國38年底前，中共幾乎控制了整個中國大陸，中華民國政府則遷往臺灣。此前一年（民37）國民大會才剛選出蔣中正為行憲後第一任總統，短短一年間局勢便急轉直下，因此「行憲（36年底）→選總統（37年）→遷臺（38年）」的時間序，是常考的易混淆重點。"}
+];
+
+const qlist = document.getElementById('qlist');
+questions.forEach((item,idx)=>{
+  const card = document.createElement('div');
+  card.className='qcard show';
+  card.dataset.ch = item.ch;
+  card.innerHTML = `
+    <div class="qmeta">第${item.ch}章 · 第${idx+1}題</div>
+    <div class="qtext">${item.q}</div>
+    <div class="opts">
+      ${item.opts.map((o,i)=>`<div class="opt" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</div>`).join('')}
+    </div>
+    <div class="reveal-wrap">
+      <button class="stamp-btn">🖋 蓋章看詳解</button>
+      <div class="explain"><b>詳解：</b>${item.e}</div>
+    </div>
+  `;
+  const opts = card.querySelectorAll('.opt');
+  let answered = false;
+  opts.forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      if(answered) return;
+      answered = true;
+      updateScore();
+      opts.forEach(o=>o.classList.add('disabled'));
+      if(parseInt(opt.dataset.i)===item.a){
+        opt.classList.add('correct');
+      } else {
+        opt.classList.add('wrong');
+        opts[item.a].classList.add('correct');
+      }
+    });
+  });
+  card.querySelector('.stamp-btn').addEventListener('click', ()=>{
+    card.querySelector('.explain').classList.toggle('show');
+  });
+  qlist.appendChild(card);
+});
+
+let answeredCount = 0;
+let countedCards = new Set();
+function updateScore(){
+  // count unique answered cards
+  answeredCount = document.querySelectorAll('.opt.disabled').length ? new Set([...document.querySelectorAll('.qcard')].filter(c=>c.querySelector('.opt.disabled'))).size : 0;
+  document.getElementById('scoreText').textContent = `已作答 ${answeredCount}／${questions.length}`;
+}
+
+document.getElementById('filters').addEventListener('click', (e)=>{
+  if(e.target.tagName!=='BUTTON') return;
+  document.querySelectorAll('#filters button').forEach(b=>b.classList.remove('active'));
+  e.target.classList.add('active');
+  const f = e.target.dataset.f;
+  document.querySelectorAll('.qcard').forEach(c=>{
+    c.classList.toggle('show', f==='all' || c.dataset.ch===f);
+  });
+});
+</script>
+</body>
+</html>

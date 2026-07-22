@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>理解詞語</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f3e6;
+  --panel:#efe5c8;
+  --panel-2:#e3d5a9;
+  --paper:#fffcf5;
+  --paper-2:#f3ead4;
+  --paper-line:#e0d3ab;
+  --seal:#a3311d;
+  --seal-2:#c14a33;
+  --seal-soft:#e9cfc5;
+  --indigo:#3a5a78;
+  --gold:#b6862a;
+  --gold-2:#dba53e;
+  --text:#2a2622;
+  --muted:#8a7c62;
+  --radius:14px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(182,134,42,.10), transparent 40%),
+    radial-gradient(circle at 90% 10%, rgba(163,49,29,.07), transparent 45%),
+    var(--bg);
+  color:var(--text);
+  font-family:'Noto Sans TC', sans-serif;
+  line-height:1.7;
+}
+h1,h2,h3,.serif{ font-family:'Noto Serif TC', serif; }
+.mono{ font-family:'JetBrains Mono', monospace; letter-spacing:.04em; }
+
+/* ---------- layout shell ---------- */
+.app{ display:flex; max-width:1280px; margin:0 auto; align-items:flex-start; }
+.railwrap{ position:sticky; top:0; height:100vh; flex:0 0 220px; padding:26px 10px 26px 22px; display:flex; flex-direction:column; }
+.rail{ display:flex; flex-direction:column; gap:6px; margin-top:18px; overflow-y:auto; }
+.rail-title{ font-size:12px; color:var(--muted); letter-spacing:.15em; }
+.tab{
+  display:flex; align-items:center; gap:10px;
+  background:var(--panel); border:1px solid var(--paper-line);
+  border-left:4px solid var(--tab-c, var(--gold));
+  border-radius:0 8px 8px 0;
+  padding:10px 12px; cursor:pointer; text-align:left;
+  color:var(--text); font-size:14px; transition:.2s;
+}
+.tab:hover{ background:var(--panel-2); transform:translateX(2px); }
+.tab.active{ background:linear-gradient(90deg, rgba(182,134,42,.20), var(--panel)); border-left-width:6px; }
+.tab small{ display:block; color:var(--muted); font-size:11px; }
+
+.score-badge{
+  margin-top:auto; background:var(--seal); color:#fbeee7; border-radius:50%;
+  width:96px; height:96px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  border:3px solid rgba(251,238,231,.7); transform:rotate(-6deg);
+  box-shadow:0 6px 18px rgba(0,0,0,.15);
+  font-family:'Noto Serif TC',serif;
+}
+.score-badge .n{ font-size:22px; font-weight:900; }
+.score-badge .l{ font-size:10px; letter-spacing:.15em; }
+
+main{ flex:1; min-width:0; padding:40px 28px 120px; }
+
+/* ---------- hero ---------- */
+.hero{ position:relative; padding:44px 40px; margin-bottom:56px; border-radius:20px;
+  background:
+    radial-gradient(ellipse 420px 260px at 82% 15%, rgba(74,69,58,.10), transparent 70%),
+    radial-gradient(ellipse 300px 200px at 95% 85%, rgba(74,69,58,.07), transparent 70%),
+    radial-gradient(ellipse 260px 180px at 10% 90%, rgba(74,69,58,.06), transparent 70%),
+    linear-gradient(155deg, #f3ead4, #ece0bf);
+  border:1px solid var(--paper-line); overflow:hidden;
+}
+.hero::before{ content:"印"; position:absolute; right:10px; bottom:-14px;
+  font-family:'Noto Serif TC',serif; font-weight:900; font-size:120px; line-height:1;
+  color:var(--seal); opacity:.85; pointer-events:none;
+  -webkit-text-stroke:0; mix-blend-mode:multiply; opacity:.10;
+}
+.eyebrow{ display:inline-flex; align-items:center; gap:8px; color:var(--seal); font-size:12px; letter-spacing:.2em; margin-bottom:14px;}
+.eyebrow::before{ content:""; width:22px; height:1px; background:var(--seal); }
+.hero h1{ font-size:clamp(40px,6vw,64px); margin:0 0 12px; font-weight:900;
+  background:linear-gradient(100deg, #2a2622 0%, #4a453c 55%, #6b6353 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  position:relative; z-index:1;
+}
+.hero p{ max-width:620px; color:var(--muted); font-size:15px; margin:0 0 22px;}
+.hero-stats{ display:flex; gap:14px; flex-wrap:wrap; }
+.hstat{ background:var(--paper); border:1px solid var(--paper-line); padding:10px 16px; border-radius:10px; font-size:13px; }
+.hstat b{ color:var(--seal); display:block; font-size:20px; font-family:'Noto Serif TC',serif; }
+
+/* ---------- section (page) ---------- */
+.station{ scroll-margin-top:24px; margin-bottom:64px; }
+.station-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:6px; }
+.station-num{ font-size:13px; color:var(--tab-c,var(--seal)); }
+.station h2{ font-size:26px; margin:0; color:var(--text); }
+.station-desc{ color:var(--muted); font-size:14px; max-width:720px; margin-bottom:20px; }
+
+.page{
+  background:var(--paper); color:var(--text); border-radius:var(--radius);
+  padding:26px 28px; box-shadow:0 10px 24px rgba(58,45,20,.08), 0 0 0 1px var(--paper-line);
+  position:relative;
+}
+.page + .page{ margin-top:18px; }
+.page::after{ content:""; position:absolute; left:14px; right:14px; bottom:-8px; height:8px;
+  background:var(--paper-2); border-radius:0 0 10px 10px; z-index:-1; opacity:.8; }
+
+details.ref{ margin-bottom:4px; }
+details.ref > summary{
+  cursor:pointer; list-style:none; display:flex; align-items:center; gap:10px;
+  font-family:'Noto Serif TC',serif; font-weight:700; font-size:15px; color:var(--text);
+  padding:6px 0; border-bottom:1px dashed var(--paper-line);
+}
+details.ref > summary::-webkit-details-marker{ display:none; }
+details.ref > summary::before{ content:"▸"; color:var(--seal); transition:.2s; }
+details.ref[open] > summary::before{ transform:rotate(90deg); }
+
+.tbl-wrap{ overflow-x:auto; margin:14px 0 6px; }
+table.ref-table{ width:100%; border-collapse:collapse; font-size:13.5px; }
+table.ref-table th{ text-align:left; background:var(--paper-2); padding:8px 10px; color:var(--text); font-family:'Noto Serif TC',serif; border-bottom:2px solid var(--seal); }
+table.ref-table td{ padding:7px 10px; border-bottom:1px solid var(--paper-line); vertical-align:top; }
+table.ref-table tr:hover td{ background:rgba(163,49,29,.05); }
+.term{ color:var(--seal); font-weight:700; white-space:nowrap; }
+
+.note{ background:rgba(58,90,120,.08); border-left:3px solid var(--indigo); padding:10px 14px; border-radius:0 8px 8px 0; font-size:13.5px; margin:14px 0; }
+
+/* ---------- quiz ---------- */
+.quiz-box{ margin-top:22px; }
+.quiz-box h3{ font-size:17px; margin:0 0 4px; color:var(--text); display:flex; align-items:center; gap:8px;}
+.quiz-box h3::before{ content:"筆"; font-family:'Noto Serif TC',serif; background:var(--seal); color:#fff; width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:13px; }
+.qcount{ font-size:12px; color:var(--muted); margin-bottom:14px; }
+
+.q-card{ border:1px solid var(--paper-line); border-radius:10px; padding:14px 16px; margin-bottom:12px; background:#fffdf9; }
+.q-text{ font-weight:500; margin-bottom:10px; font-size:14.5px; }
+.q-text .blank{ color:var(--seal); font-weight:700; border-bottom:1px dotted var(--seal); padding:0 2px;}
+.opts{ display:grid; gap:8px; }
+.opt{
+  text-align:left; background:#fff; border:1px solid var(--paper-line); border-radius:8px;
+  padding:9px 12px; cursor:pointer; font-size:13.5px; color:var(--text); transition:.15s;
+  display:flex; gap:8px; align-items:flex-start;
+}
+.opt:hover{ border-color:var(--seal); background:#fff7ef; }
+.opt.correct{ background:#fbeee6; border-color:var(--seal); color:#7a2417; }
+.opt.wrong{ background:#efece4; border-color:#57514a; color:#4a453c; }
+.opt.disabled{ pointer-events:none; opacity:.85; }
+.stamp{ font-size:12px; font-weight:900; border-radius:50%; width:20px; height:20px; flex:0 0 20px; display:flex; align-items:center; justify-content:center;}
+.stamp.c{ background:var(--seal); color:#fff; }
+.stamp.w{ background:#57514a; color:#fff; }
+.feedback{ margin-top:8px; font-size:12.5px; color:#6b6045; display:none; }
+.feedback.show{ display:block; }
+
+.station-score{ font-size:12.5px; color:var(--muted); margin-top:10px; display:flex; align-items:center; gap:8px; }
+.mini-seal{ width:22px; height:22px; border-radius:4px; background:var(--seal); color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:10px; transform:rotate(-8deg); font-family:'Noto Serif TC',serif; }
+
+footer{ text-align:center; padding:40px 20px 60px; color:var(--muted); font-size:12.5px; }
+.reset-btn{ background:var(--seal); color:#fff; border:none; padding:10px 22px; border-radius:30px; font-size:13px; cursor:pointer; font-family:'Noto Sans TC',sans-serif; margin-top:14px; }
+.reset-btn:hover{ background:var(--seal-2); }
+
+@media (max-width: 900px){
+  .app{ flex-direction:column; }
+  .railwrap{ position:sticky; top:0; z-index:20; height:auto; width:100%; padding:14px 14px 10px; background:var(--bg); flex-direction:row; align-items:center; }
+  .rail{ flex-direction:row; overflow-x:auto; margin-top:0; padding-bottom:4px; }
+  .rail-title{ display:none; }
+  .tab{ flex:0 0 auto; border-left:none; border-bottom:4px solid var(--tab-c,var(--gold)); border-radius:8px 8px 0 0; }
+  .tab small{ display:none; }
+  .score-badge{ display:none; }
+  main{ padding:24px 16px 100px; }
+  .hero{ padding:28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="railwrap">
+    <div class="rail-title mono">單元伍 導覽</div>
+    <div class="rail" id="rail"></div>
+    <div class="score-badge" id="scoreBadge">
+      <div class="n" id="scoreN">0/0</div>
+      <div class="l">戰績</div>
+    </div>
+  </div>
+
+  <main>
+    <div class="hero">
+      <div class="eyebrow mono">會考實力養成</div>
+      <h1>理解詞語</h1>
+      <p>依照講義內容整理成七個練習站：狀聲詞、敬詞謙詞、慣用語、一詞多義、容易混淆的詞語、偏義複詞、一般常用詞語。每站先看懂概念與對照表，再動手做題，答對蓋章、答錯留下墨痕，練到熟練為止。</p>
+      <div class="hero-stats">
+        <div class="hstat"><b>7</b>練習站</div>
+        <div class="hstat"><b id="totalQ">0</b>題互動測驗</div>
+        <div class="hstat"><b>200+</b>詞語對照</div>
+      </div>
+    </div>
+
+    <div id="stations"></div>
+
+    <footer>
+      依你的講義內容製作・答錯不要緊，蓋章蓋滿再走。
+      <br><button class="reset-btn" onclick="resetAll()">重新測驗全部</button>
+    </footer>
+  </main>
+</div>
+
+<script>
+/* =========================================================
+   DATA
+   ========================================================= */
+const STATIONS = [
+{
+  id:"s1", num:"第1站", color:"#3a5a78", title:"狀聲詞",
+  desc:"判斷原則：①主詞是會發出聲音的人或物　②從上下文詞義判斷是否真的在描述「聲音」。",
+  refs:[
+    {
+      title:"常見狀聲詞分類",
+      cols:["類別","狀聲詞","舉例"],
+      rows:[
+        ["風聲","颼颼／蕭蕭／撲簌簌／颯颯","冷風颼颼；風蕭蕭兮易水寒"],
+        ["雨聲","淅瀝","雨淅淅瀝瀝下個不停"],
+        ["流水聲","潺潺／淙淙／潑潑","但聞黃河流水鳴濺濺"],
+        ["波濤聲","澎湃","怒濤澎湃"],
+        ["打雷聲","隆隆","雷聲隆隆"],
+        ["鳥鳴聲","關關／啞啞／吱吱喳喳","關關雎鳩，在河之洲"],
+        ["馬蹄聲／群馬鳴叫聲","達達／啾啾","我達達的馬蹄是美麗的錯誤"],
+        ["讀書聲","琅琅","琅琅上口"],
+        ["讚美聲","嘖嘖","嘖嘖稱奇"],
+        ["哀號聲","嗷嗷","嗷嗷待哺"],
+        ["小孩哭聲","呱呱","呱呱墜地"],
+        ["幼兒學語聲","牙牙","牙牙學語"],
+        ["空腹鳴叫聲","轆轆","飢腸轆轆"],
+        ["織布聲","唧唧","唧唧復唧唧"],
+        ["磨刀聲","霍霍","磨刀霍霍向豬羊"],
+        ["金屬撞擊聲","鏗鏘／鏦鏦","鏗鏘有力"],
+        ["火燒爆裂聲","必必剝剝","必必剝剝的爐火"],
+        ["細碎斷續聲","窸窣","草叢裡傳來窸窣的聲響"]
+      ]
+    },
+    {
+      title:"迷思澄清：這些疊字都「不是」狀聲詞",
+      cols:["詞語","實際意思"],
+      rows:[
+        ["翩翩起舞","動作輕盈"],
+        ["冉冉上升","緩慢地移動"],
+        ["滔滔不絕","話多而連續不斷"],
+        ["涓涓細流","細水慢流的樣子"],
+        ["裊裊炊煙","縈迴繚繞的樣子"],
+        ["淚流潸潸","淚流不止的樣子"],
+        ["殺氣騰騰","旺盛的樣子"],
+        ["熙熙攘攘","人多而喧鬧紛雜的樣子"]
+      ]
+    }
+  ],
+  quiz:[
+    q("下列「　」中的疊字，何者是描摹聲音的狀聲詞？",
+      ["溪水「潺潺」流過山谷","炊煙「裊裊」升起","他「翩翩」起舞，姿態優雅","人群「熙熙攘攘」，十分熱鬧"], 0,
+      "「潺潺」形容流水聲，其餘皆非狀聲詞：裊裊形容縈繞樣、翩翩形容輕盈動作、熙熙攘攘形容人多喧鬧。"),
+    q("下列「　」中的詞語，何者不是狀聲詞？",
+      ["雷聲「隆隆」","「牙牙」學語","「冉冉」上升","飢腸「轆轆」"], 2,
+      "「冉冉」形容緩慢移動，不是聲音；其餘皆為狀聲詞。"),
+    q("「淚流『　』」要表示哭泣不止，且是狀聲詞，應填入？",
+      ["潸潸","涓涓","淅瀝","琅琅"], 2,
+      "淅瀝可形容哭泣抽噎或雨聲，屬狀聲詞；潸潸雖形容淚流不止，但不是描摹聲音的疊字，是描寫樣態。"),
+    q("下列何組「　」中的疊字，皆為狀聲詞？",
+      ["「達達」馬蹄／「唧唧」織布聲","「滔滔」不絕／「涓涓」細流","「熙熙」攘攘／「翩翩」起舞","「殺氣」騰騰／淚流「潸潸」"], 0,
+      "達達（馬蹄聲）與唧唧（織布聲）皆為狀聲詞；其餘選項皆非狀聲詞。"),
+    q("形容磨刀聲的狀聲詞是？",
+      ["霍霍","轆轆","琅琅","嗷嗷"], 0,
+      "「磨刀霍霍向豬羊」，霍霍為磨刀聲。"),
+    q("「關關雎鳩，在河之洲」中的「關關」是描摹何種聲音？",
+      ["流水聲","鳥鳴聲","雷聲","風聲"], 1,
+      "關關為雎鳩鳥的鳴叫聲，屬鳥鳴聲類狀聲詞。"),
+    q("下列何者是「空腹鳴叫聲」的狀聲詞？",
+      ["轆轆","唧唧","嗷嗷","窸窣"], 0,
+      "「飢腸轆轆」，轆轆形容肚子餓時發出的聲音。"),
+    q("下列「　」中何者不是狀聲詞？",
+      ["「窸窣」作響","話「滔滔」不絕","流水「淙淙」","雷聲「隆隆」"], 1,
+      "「滔滔不絕」形容話多連續不斷，非狀聲詞；其餘皆為狀聲詞。")
+  ]
+},
+{
+  id:"s2", num:"第2站", color:"#b6862a", title:"敬詞、謙詞",
+  desc:"敬詞：稱呼對方，表示尊敬；謙詞：稱呼自己，表示謙虛；禮貌詞：交際場合中的客套用語。",
+  refs:[
+    { title:"敬詞（稱對方）", cols:["敬詞","釋義"],
+      rows:[["君","敬稱對方，相當於「您」"],["卿","君稱臣／同輩敬稱／夫妻情人親暱稱呼"],["大人","對有身分地位者的敬稱"],["閣下","對人的敬稱"],["陛下","對君王的敬稱"],["麾下","對將帥的敬稱"],["足下","對同輩的敬稱"],["兄臺","對朋友的敬稱"],["老爺","對有錢、有地位年長者的敬稱"],["相公","婦女對丈夫的敬稱，或對讀書人的敬稱"]]
+    },
+    { title:"謙詞（稱自己）", cols:["謙詞","釋義"],
+      rows:[["竊、不才","自謙才疏學淺"],["在下、敝人、鄙人","謙稱自己"],["妾","古代女子自稱的謙詞"],["孤","古代王侯的謙稱，同「寡人」"],["晚生","後進對前輩的謙稱"],["後學","對前輩學者的謙稱"],["小子","晚輩對尊長的自稱"],["老朽","老年人自謙的稱呼，同「老夫」"]]
+    },
+    { title:"常用禮貌詞語", cols:["禮貌詞","釋義"],
+      rows:[["賞光","請人光臨的敬語"],["光臨","稱賓客來訪的敬詞"],["奉陪","陪伴的敬詞"],["失陪","不能陪伴的客套話"],["失迎","對來訪客人表示失於迎候的客氣話"],["失敬","對人自責疏忽的客套話"],["叨擾","謝人款待的客套用語"],["久仰","初次見面時的客套話"],["留步","客人請主人不必遠送的謙詞"],["貴庚","詢問他人年齡的敬詞"],["貴幹","稱人所作之事的敬詞"],["獻醜","向人表露自己技能時的謙詞"],["承讓","將勝利歸因於承蒙輸家禮讓的謙詞"],["包涵","請人諒解的謙詞"],["笑納","餽贈禮物時，請人接受的客氣話"],["心領","婉拒別人好意的客套話"],["指教","請人指正教導"],["高見","尊稱別人的意見"],["冒昧","自謙言行鹵莽"],["勞駕","煩請別人做事的客套話"]]
+    }
+  ],
+  quiz:[
+    q("「陛下」是用來稱呼？",["君王","將帥","朋友","同輩"],0,"陛下為對君王的敬稱。"),
+    q("下列何者是「謙詞」，而非「敬詞」？",["閣下","足下","在下","兄臺"],2,"在下是謙稱自己的謙詞；閣下、足下、兄臺皆為敬詞，用來稱呼對方。"),
+    q("初次見面想表達仰慕已久，應說？",["久仰","久違","留步","失陪"],0,"久仰是初次見面時表達仰慕已久的客套話；久違則是好久不見的客套話。"),
+    q("送禮物給對方，請對方收下，該說？",["笑納","心領","包涵","獻醜"],0,"笑納是餽贈禮物時，請人接受的客氣話。"),
+    q("婉拒別人的好意時，可以說？",["笑納","心領","賞光","高見"],1,"心領是婉拒別人好意的客套話。"),
+    q("「請問老爺有何吩咐？」中的「老爺」用來稱呼？",["對讀書人","對男主人／有地位年長者","對女性","對晚輩"],1,"老爺是對有錢、有地位年長者的敬稱，或僕人稱男主人。"),
+    q("展現自己的技藝前，謙虛地說「那我就……了」，應填入？",["獻醜","高見","賞光","貴幹"],0,"獻醜是向人表露自己技能時的謙詞。"),
+    q("下列何者用來詢問他人的年齡？",["貴庚","貴幹","久仰","留步"],0,"貴庚是詢問他人年齡的敬詞；貴幹是稱人所作之事的敬詞。"),
+    q("客人告辭，主人想相送，客人客氣地說：「您請__，不必送了！」",["留步","失陪","奉陪","失敬"],0,"留步是客人請主人不必遠送的謙詞。")
+  ]
+},
+{
+  id:"s3", num:"第3站", color:"#a3311d", title:"慣用語",
+  desc:"慣用語常從字面本義聯想、類推出延伸義，並帶有褒義或貶義色彩，需連結上下文判斷。",
+  refs:[
+    { title:"形容「人」的慣用語（節選）", cols:["慣用語","釋義"],
+      rows:[["火車頭","比喻起帶頭或領導作用的人"],["馬前卒","為他人奔走效力的人"],["東道主","接待或宴請賓客的主人"],["長舌婦","喜歡挑撥是非的女人"],["牆頭草","比喻毫無主見、唯利是圖的人"],["老油條","經驗老到、處事滑頭的人"],["眼中釘","比喻所痛恨的人"],["電燈泡","約會時破壞氣氛的第三者"],["門外漢","外行人"],["半吊子","學而未成、技藝不精的人"],["左右手","比喻得力的助手"],["應聲蟲","比喻胸無定見，隨聲附和的人"],["紙老虎","比喻空有威勢而沒有實力的人"],["笑面虎","比喻面善心惡的人"],["鐵公雞","指小氣吝嗇的人"],["落水狗","比喻失勢的壞人"],["變色龍","比喻擅長變化、偽裝的人"],["地頭蛇","地方上蠻橫無理的人"],["千里馬","比喻才能傑出的人"],["河東獅","指凶悍善妒的妻子"],["井底之蛙","比喻見識淺薄的人"],["無殼蝸牛","比喻無能力購屋的人"],["兩腳書櫥","比喻死讀書、不知活用的人"]]
+    },
+    { title:"形容「事、物」的慣用語（節選）", cols:["慣用語","釋義"],
+      rows:[["一言堂","專制不民主，一個人說了就定案"],["處女作","第一次發表的作品"],["碰釘子","遭遇挫折"],["爬格子","寫作文章"],["放鴿子","約定後被對方給遺忘、未達目的地就被趕下車"],["戴高帽","比喻用好聽的話奉承人"],["拍馬屁","比喻諂媚、阿諛、奉承"],["炒魷魚","被解僱，捲鋪蓋離開"],["炒冷飯","重複做過的事或說過的話"],["吃豆腐","多用於男對女的調戲、占便宜"],["揹黑鍋","指代人受過、頂罪"],["咬耳朵","靠近別人耳朵說悄悄話"],["扯後腿","對他人的行動加以阻撓、破壞"],["抱佛腳","比喻平時沒有準備，臨時應付"],["潑冷水","打消對方的熱情或興致"],["開天窗","泛指一般事情無法如期公開或交付成果"],["羅生門","因立場不同而說出不同事實的歧異情形"],["殺風景","比喻破壞雅興"],["空城計","比喻虛張聲勢嚇人；今多比喻人力空虛或肚子餓"],["鴻門宴","指不懷好意、居心不良的邀宴"],["放冷箭","暗中設計陷害他人"],["唱高調","高談不切實際的理想或言論"],["敲邊鼓","從旁幫腔、助勢"],["象牙塔","比喻脫離現實的理想生活"],["試金石","驗證是否準確的標準或方法"],["撕破臉","比喻感情或關係破裂"],["開倒車","比喻措施或言行違反時代潮流"],["踢皮球","比喻互相推卸責任"],["絆腳石","比喻阻礙進展的人或事物"],["導火線","比喻直接引起事件爆發的近因"],["馬後炮","事後才有所舉動的意見"]]
+    }
+  ],
+  quiz:[
+    q("「他這件事一直被大家『敲邊鼓』」中的「敲邊鼓」是指？",["主導事情","從旁幫腔、助勢","破壞氣氛","負責承擔責任"],1,"敲邊鼓比喻從旁幫腔、助勢。"),
+    q("開會時才說出早該提的意見，會被說是在放？",["馬後炮","冷箭","高調","鴿子"],0,"放馬後炮比喻事情或時機過後才有所舉動。"),
+    q("公司資遣員工，員工被稱為？",["炒魷魚","炒冷飯","揹黑鍋","踢皮球"],0,"炒魷魚是被解僱、捲鋪蓋離開的意思。"),
+    q("形容一個人「見識淺薄」的慣用語是？",["千里馬","井底之蛙","紙老虎","牆頭草"],1,"井底之蛙比喻見識淺薄的人。"),
+    q("「他只是喜歡『唱高調』」是指他？",["高談不切實際的理想","擅長唱歌","很會幫別人助勢","很懂得妥協"],0,"唱高調指高談不切實際的理想或言論。"),
+    q("約定見面卻被對方放棄不來，稱為被對方？",["放鴿子","放冷箭","放馬後炮","放下身段"],0,"放鴿子指約定後被對方遺忘或未依約前來。"),
+    q("「毫無主見、唯利是圖」的人常被稱為？",["牆頭草","老油條","電燈泡","左右手"],0,"牆頭草比喻毫無主見、唯利是圖的人。"),
+    q("因立場不同而各說各話、真相難辨，稱為？",["空城計","羅生門","鴻門宴","開天窗"],1,"羅生門比喻因立場不同而說出不同事實的歧異情形。"),
+    q("比喻脫離現實、活在理想世界的說法是？",["象牙塔","試金石","絆腳石","導火線"],0,"象牙塔比喻脫離現實的理想生活。")
+  ]
+},
+{
+  id:"s4", num:"第4站", color:"#8a6a3f", title:"一詞多義",
+  desc:"同一個詞語，因上下文不同而產生不同意思，須從語境推敲字義，也要留意古今義的差異。",
+  refs:[
+    { title:"常考一詞多義（節選）", cols:["詞語","義項一","義項二"],
+      rows:[
+        ["風光","光采、榮耀（十分風光）","風景（一片好風光）"],
+        ["翻身","翻轉身體（翻身下床）","脫離困厄、時來運轉（鹹魚翻身）"],
+        ["經濟","個人的收支狀況（經濟狀況）","較少的花費（經濟實惠）"],
+        ["門檻","條件（入學門檻）","門下所設的橫木（大門門檻）"],
+        ["老大","年紀大（老大不小）","排行第一的人（排行老大）"],
+        ["便宜","不應得到的利益（占人便宜）","物價低廉（價錢便宜）"],
+        ["雌雄","雌性及雄性（雌雄莫辨）","比喻勝敗高下（一決雌雄）"],
+        ["小姑","未出嫁的女子（小姑獨處）","丈夫的姐妹（先遣小姑嘗）"],
+        ["灌水","膨脹或虛偽不實（民調灌水）","注入水流（灌水把蟋蟀逼出來）"],
+        ["生氣","生動活潑而有朝氣（生氣蓬勃）","發怒（讓人生氣）"],
+        ["人家","住宅、民家（幾戶人家）","對他人稱呼自己／稱呼他人"],
+        ["出軌","行駛不慎脫離軌道（火車出軌）","言行超出常規"],
+        ["感冒","上呼吸道感染（請病假）","對人厭惡、敏感（大家對他很感冒）"],
+        ["大方","有名的大家（貽笑大方）","態度自然不拘束（沉穩大方）"],
+        ["手足","同胞兄弟（情同手足）","手和腳（手足無措）"],
+        ["眉目","事情的次序或頭緒（案情有了眉目）","眉毛和眼睛（眉目傳情）"],
+        ["耳目","耳朵和眼睛（耳目一新）","代人刺探消息的人（耳目眾多）"],
+        ["下臺","從臺上走下來（鞠躬下臺）","解除職務（失職下臺）"],
+        ["來電","男女間互相吸引（我們不來電）","打電話（請來電查詢）"],
+        ["泡湯","比喻落空、報廢（計畫泡湯）","泡溫泉（去北投泡湯）"],
+        ["左右","控制、指揮、影響（受人左右）","表示約略之數（兩小時左右）"],
+        ["顏色","色彩（七種顏色）","厲害的手段（給他一點顏色）"],
+        ["了了","清楚明白（不甚了了）","聰明慧黠（小時了了）"],
+        ["耽耽","不能懷開的樣子（耿耿於懷）","誠信正直的樣子（忠心耿耿）"],
+        ["旦旦","天天（旦旦而學之）","誠懇的樣子（信誓旦旦）"],
+        ["楚楚","鮮明的樣子（衣冠楚楚）","姿態嬌豔動人（楚楚可憐）"]
+      ]
+    }
+  ],
+  quiz:[
+    q("「他不用功讀書，日子過得『渾渾噩噩』」與「他經商失敗，家中『光景』一日不如一日」，句中「光景」意思是？",["風景","狀況、境況","時光","景色"],1,"光景在此指家中的經濟狀況，與「這條河寬約五十公尺光景」的「約略之數」義不同。"),
+    q("「鹹魚『翻身』」中的「翻身」是指？",["翻轉身體","脫離困厄、時來運轉","從床上起身","跌倒"],1,"鹹魚翻身比喻脫離困厄、時來運轉。"),
+    q("「他對於別人的批評『感冒』」中的「感冒」意思是？",["對人厭惡、敏感","身體不適","咳嗽","生病請假"],0,"此處感冒指對人厭惡、敏感，非疾病義。"),
+    q("「案情已經有了『眉目』」的「眉目」是指？",["眉毛和眼睛","事情的頭緒","外貌","次序不明"],1,"此處眉目指事情的次序、頭緒。"),
+    q("「他是媽媽的『左右』手」與「不要被旁人的意見『左右』」，兩個「左右」意思是否相同？",["相同，都指控制、影響","不同：前者指得力助手，後者指控制、影響","相同，都指約略之數","不同：前者指約略之數，後者指助手"],1,"「左右手」指得力的助手；「被意見左右」指受人控制、影響，兩者意義不同。"),
+    q("「民調『灌水』」中的「灌水」意思是？",["注入水流","膨脹、虛偽不實","洗澡","澆花"],1,"此處灌水指數據膨脹、虛偽不實。"),
+    q("「信誓『旦旦』」的「旦旦」意思是？",["天天","誠懇的樣子","早晨","不停歇"],1,"信誓旦旦形容誓言誠懇的樣子；「旦旦而學之」的旦旦則指天天。"),
+    q("「衣冠『楚楚』」與「『楚楚』可憐」中的「楚楚」意思是否相同？",["相同，皆指鮮明的樣子","不同：前者指鮮明，後者指姿態嬌豔動人","相同，皆指嬌豔動人","不同：前者指嬌豔，後者指鮮明"],1,"衣冠楚楚指衣著鮮明整潔；楚楚可憐則形容姿態嬌豔動人、惹人憐愛。"),
+    q("「請問貴店的商品，價錢會不會太『便宜』？」與「不可以占人『便宜』」，兩個「便宜」意思是？",["相同，皆指物價低廉","不同：前者指物價低廉，後者指不應得的利益","相同，皆指不應得的利益","不同：前者指利益，後者指低廉"],1,"物價低廉／不應得到的利益，是「便宜」常考的兩種意思。")
+  ]
+},
+{
+  id:"s5", num:"第5站", color:"#7a4a5c", title:"容易混淆的詞語",
+  desc:"字形、字義相近的詞語最容易混用，掌握關鍵差異，考試才不會被「陷阱組」誤導。",
+  refs:[
+    { title:"敬稱人死之年（依歲數）", cols:["詞語","釋義"],
+      rows:[["得年","敬稱人死之年在三十以下者"],["享年","敬稱人死之年不滿六十者"],["享壽","敬稱人死之年在六十以上者"]]
+    },
+    { title:"時間類：陽光", cols:["詞語","釋義"],
+      rows:[["朝暾／晨曦","早晨的陽光"],["曙色","早晨天快亮時微現亮的天色"],["餘暉","黃昏時的陽光"]]
+    },
+    { title:"程度、態度類（節選）", cols:["詞語","釋義"],
+      rows:[
+        ["不禁","控制不住，不由自主"],
+        ["不勝／不堪","承受不了"],
+        ["自許","自我期許"],
+        ["自詡","自誇、自耀"],
+        ["公益","社會公共的利益"],
+        ["公義","公平的義理"],
+        ["久違","睽違已久、好久不見的客套話"],
+        ["久仰","仰慕已久，初次見面的客套話"],
+        ["不齒","羞與為伍"],
+        ["不恥","不認為羞恥"],
+        ["不孝","子女對父母不孝順"],
+        ["不肖","行為不良或沒有出息"],
+        ["驀然","忽然"],
+        ["漠然","不關心、不相關或無知覺"],
+        ["默然","靜默不語的樣子"],
+        ["冒失","莽撞"],
+        ["冒昧","自謙言行鹵莽"],
+        ["假寐","閉目養神，非正式的小睡"],
+        ["假手","假借他人的力量以達到自己的目的"],
+        ["包庇","袒護不正當的行為"],
+        ["包涵","寬容"],
+        ["動容","臉色改變，多指感動之意"],
+        ["動怒","發怒、生氣"],
+        ["吃不消","受不了"],
+        ["吃不開","行不通，不受歡迎"]
+      ]
+    },
+    { title:"事理、狀態類（節選）", cols:["詞語","釋義"],
+      rows:[
+        ["放話","傳出訊息，多用於不正當的行為上"],
+        ["放水","故意通融，讓對方獲得較好的成績"],
+        ["放電","戲稱男女以行動對異性表露愛慕之意"],
+        ["作古","指人死了"],
+        ["作東","做主人或請客付帳"],
+        ["刻板","呆板不靈活"],
+        ["刻薄","待人嚴苛吝嗇"],
+        ["刻骨","比喻深切不能忘"],
+        ["刻苦","勤奮而辛苦；簡樸"],
+        ["出世","淡泊名利，超脫塵俗"],
+        ["入世","置身於紅塵俗世中"],
+        ["出仕","出來做官"],
+        ["在野","不做官而閒居、不當政"],
+        ["在朝","在朝廷當官、擔任職務"],
+        ["垂危","將近死亡"],
+        ["垂成","將要成功"],
+        ["告吹","事情失敗或希望破滅"],
+        ["告老","因年老辭職退休"],
+        ["告發","檢舉揭發"],
+        ["告急","宣告情況緊急而請求支援"],
+        ["徵召","徵求召集"],
+        ["徵兆","事情發生前所顯現的跡象"],
+        ["吃緊","情勢緊張、急切"],
+        ["吃虧","遭受損失或汙辱"],
+        ["吃癟","受挫或受窘"],
+        ["吃香","非常熱門，多指人受重用或物品受歡迎"],
+        ["何必／何須","反問語氣，表示不必"],
+        ["何妨","反問語氣，表示可以"],
+        ["何曾／何嘗","反問語氣，表示沒發生過／從來沒有"],
+        ["嘴軟","礙於情面不能秉公處理"],
+        ["嘴硬","說話強硬，不肯認輸或認錯"],
+        ["嘴雜","人多而主張不一致"],
+        ["嘴饞","貪吃"],
+        ["權力","可控制、管轄、支配等的職權或力量"],
+        ["權利","法律上人民應享有的利益"],
+        ["不利","不順利"],
+        ["不力","不盡力、不用心力"],
+        ["髮指","形容盛怒的樣子"],
+        ["染指","比喻沾取非分的利益"],
+        ["開張","商店開始營業"],
+        ["開鑼","事情的開始"],
+        ["開幕","事情的開始；節目開演時拉開戲臺前的布幕"]
+      ]
+    }
+  ],
+  quiz:[
+    q("報導寫道：「王校長春風化雨數十載，享壽五十二歲病逝」，這樣的用法正確嗎？",["正確，五十二歲本就該用享壽","錯誤，應改為享年，因為享壽須六十歲以上","錯誤，應改為得年，因為得年才用於敬稱死者","正確，享壽可用於任何年紀的敬稱"],1,"享壽專用於敬稱死者年紀在六十以上者，五十二歲未滿六十，應改用「享年」；得年則用於三十歲以下者。"),
+    q("「他從小立志行醫，＿＿將來要懸壺濟世；卻總愛在同學面前＿＿自己醫術過人」，依序應填入？",["自許／自詡","自詡／自許","自負／自許","自許／自負"],0,"自許指自我期許，語氣中性；自詡則帶有自誇、自耀的貶義，兩詞常在同一語境中對比出現。"),
+    q("「他的作為，令人不屑與之為伍」，應填入？",["不齒","不恥","不孝","不肖"],0,"不齒是羞與為伍之意；不恥則是不認為羞恥（如：不恥下問）。"),
+    q("「這場論辯中，他始終冷漠地在一旁觀看」符合下列哪個慣用語（易混淆的『沉默』類）？",["漠然","默然","驀然","茫然"],0,"漠然指不關心、不相關或無知覺，符合「冷漠旁觀」語意；默然則是靜默不語，強調不說話。"),
+    q("公司對員工的違法行為視而不見、加以縱容，稱為？",["包庇","包涵","包容","包紮"],0,"包庇指袒護不正當的行為。"),
+    q("比賽前的高強度練習讓人「＿＿」，應填入？",["吃不消","吃不開","吃緊","吃虧"],0,"吃不消指受不了；吃不開指行不通、不受歡迎。"),
+    q("「他在這個團體裡很不受歡迎，人緣很差」符合？",["吃不消","吃不開","吃香","吃虧"],1,"吃不開指行不通、不受歡迎。"),
+    q("公司對於財產覬覦已久，想從中謀取不當利益，稱為？",["髮指","染指","插手","插足"],1,"染指比喻沾取非分的利益。"),
+    q("「證據這麼明確，你還不肯認錯」符合？",["嘴軟","嘴硬","嘴雜","嘴饞"],1,"嘴硬指說話強硬，不肯認輸或認錯。"),
+    q("「這片土地是他私人所有，他有＿＿做任何處置」，應填入？",["權力","權利","權責","職權"],0,"權力指可控制、管轄、支配的職權或力量；權利則是法律上應享有的利益。"),
+    q("「他卸任部長後便退居鄉里、＿＿讀書，不料三年後又被總統延攬入閣，重新＿＿」，依序應填入？",["在野／在朝","出世／入世","垂危／垂成","告老／告急"],0,"在野指不做官而閒居、不當政；在朝指在朝廷當官、擔任職務，正好對應「卸任閒居」到「入閣任職」的轉變。")
+  ]
+},
+{
+  id:"s6", num:"第6站", color:"#c14a33", title:"偏義複詞",
+  desc:"偏義複詞：由兩個意義相關（同類詞或反義詞）的字組成，但整體只偏重其中一個字的意思，另一字只是陪襯。",
+  refs:[
+    { title:"由「同類詞」組成", cols:["例句","偏取"],
+      rows:[["法國是歐洲最浪漫的國家。","取「國」義（家為陪襯）"],["眼睛是靈魂的窗戶。","取「窗」義（戶為陪襯）"]]
+    },
+    { title:"由「反義詞」組成", cols:["例句","偏取"],
+      rows:[
+        ["幾位警察正監視著嫌犯的動靜。","取「動」義"],
+        ["小明忘記寫功課，不敢來上學。","取「忘」義"],
+        ["上司對待屬下的態度，不宜有異同。","取「異」義"],
+        ["阿宏不顧個人安危，協助警方緝拿現行犯。","取「危」義"],
+        ["生子不生男，緩急非所益。","取「急」義"],
+        ["士兵們不顧生命存亡的奮勇殺敵。","取「亡」義"],
+        ["既醉而退，曾不吝情去留。","取「去」義"],
+        ["那個音樂盒是妹妹的寶物，她哪裡捨得送人。","取「捨」義"],
+        ["天有不測風雲，人有旦夕禍福。","取「禍」義"],
+        ["那兩家的恩仇已經一筆勾消。","取「仇」義"]
+      ]
+    }
+  ],
+  quiz:[
+    q("「窗戶」在「眼睛是靈魂的窗戶」一句中，是偏義複詞，取哪個字的意思？",["窗","戶","窗戶皆重要","無偏重"],0,"取「窗」義，「戶」只是陪襯。"),
+    q("「天有不測風雲，人有旦夕『禍福』」中的「禍福」，偏取哪個字義？",["禍","福","禍福並重","皆非"],0,"取「禍」義，強調意外的災禍，「福」為陪襯。"),
+    q("下列何句中的「　」屬於偏義複詞？",["寒風中「明滅」的燈火，更顯淒涼","待我探探敵方「動靜」，再向將軍回報","「聚散」無常，我們只能把握眼前相聚的時刻","站在古蹟之前，我彷彿看見歷代王朝的「盛衰」興替"],1,"「動靜」偏取「動」義，指敵方的動向；明滅、聚散、盛衰皆非偏義複詞，兩字義並重。"),
+    q("「士兵們不顧生命『存亡』的奮勇殺敵」中的「存亡」偏取哪個字義？",["存","亡","存亡並重","皆非"],1,"取「亡」義，強調不顧死亡的危險。"),
+    q("下列何組詞語的構詞方式，與「恩仇」（偏取「仇」義）相同？",["「橫看成嶺側成峰，遠近高低皆不同」的「遠近」","「人跟人的相處，應有『彼此』容忍的雅量」的「彼此」","「在危急『存亡』的關鍵時刻，我們更應該同心協力」的「存亡」","「自從父親退休後，他在各縣市『來去』自如，享受旅行的樂趣」的「來去」"], -1,
+      "「遠近」「彼此」「來去」在原句中兩字義都保留，並非偏義複詞；「存亡」在此句中也是兩義並重（危急存亡之際），故本題重點在辨別：偏義複詞須看語境是否只取一字義，並非詞語本身固定為偏義複詞。",
+      true),
+    q("「幾位警察正監視著嫌犯的『動靜』」中的「動靜」，偏取哪個字義？",["動","靜","動靜並重","皆非"],0,"取「動」義，強調嫌犯的行動，「靜」為陪襯。"),
+    q("下列何者是由「反義詞」組成的偏義複詞？",["國家（取國義）","窗戶（取窗義）","去留（取去義）","以上皆非"],2,"去留（既醉而退，曾不吝情去留）由反義詞「去」「留」組成，偏取「去」義；國家、窗戶則是由同類詞組成的偏義複詞。")
+  ]
+},
+{
+  id:"s7", num:"第7站", color:"#a97c2f", title:"一般常用詞語",
+  desc:"會考常考的成語與書面語詞，掌握詞義與例句用法，才能在文句中正確使用。",
+  refs:[
+    { title:"常用詞語（節選一）", cols:["詞語","解釋"],
+      rows:[
+        ["溢美","過分的讚美"],["媲美","美好的程度彼此相當"],["桑榆","日落時陽光照在桑樹和榆樹間，借指傍晚或人的晚年"],
+        ["殷鑑","可供後人警惕借鏡的事"],["雞肋","比喻沒什麼價值，丟了卻又覺得可惜的事物"],["問鼎","覬覦王位、謀取政權；或指謀取最高榮譽、地位"],
+        ["蜚聲","揚名"],["奪魁","指得到冠軍或首位"],["告捷","取得勝利或報告得勝的消息"],["筆耕","依靠抄寫或寫文章過活"],
+        ["屬文","連綴字句而成文，指寫文章"],["割席","與朋友絕交"],["齟齬","彼此意見不合"],["杯葛","為集體抵制之意"],
+        ["倒戈","軍隊背叛，反戈相向"],["狼煙","軍隊遇緊急狀況燒狼糞成煙以示警，後比喻戰爭、兵亂"],["售罄","全部賣完"],["抑或","或者"],
+        ["前衛","站在時代尖端而最富革新性的"],["奇葩","比喻優秀傑出的人或事物"],["翹楚","特出的人才"],["提攜","對晚輩照顧與栽培"],
+        ["濫觴","比喻事物的開端、起源"],["苗頭","比喻事情的開端或起因"],["幡然","忽然改變的樣子"],["掛冠","比喻辭官"],
+        ["賦閒","辭官或沒有職業，閒居在家"],["寬貸","寬容饒恕"],["權宜","暫時變通的處置"]
+      ]
+    },
+    { title:"常用詞語（節選二）", cols:["詞語","解釋"],
+      rows:[
+        ["愜意","滿意、舒適"],["執掌","掌管、管理"],["樞紐","比喻重要的關鍵"],["奚落","譏笑嘲弄"],
+        ["抹煞","消除、勾消"],["招架","抵擋、接招"],["憧憬","嚮往"],["商榷","商量、討論"],
+        ["杜撰","沒有事實根據，憑空捏造"],["莞爾","微笑的樣子"],["噱頭","花招或引人發笑的言語或舉動"],["青眼","正視、重視他人，也作「青睞」"],
+        ["側目","斜眼看人，有敬畏、戒懼、憤怒等不同含意"],["謝絕","推辭、拒絕"],["微詞","用隱微方式批評的言詞"],["須臾","片刻、暫時"],
+        ["伏法","犯罪受到制裁，處以死刑"],["囹圄","監牢、監獄"],["俸祿","官吏每年或每月所受的財祿"],["爽約","失約"],
+        ["接風","設宴款待遠來或歸來的親友"],["洗塵","設宴歡迎遠來或遠歸的人"],["連袂","攜手同行，共同前往"],["唏噓","感慨悲嘆"],
+        ["歸咎","歸罪、委過"],["勸諫","規勸諫過"],["拮据","境況窘迫，多指經濟困難"],["襤褸","衣服破爛的樣子"],
+        ["恭維","奉承、稱頌"],["勾當","事情，通常指負面的事物"],["繾綣","情意深厚，不忍分離的樣子"],["服膺","牢記心中不忘"],
+        ["顢頇","不明事理，糊裡糊塗"],["迂腐","拘泥陳舊思想，無法順應潮流"]
+      ]
+    }
+  ],
+  quiz:[
+    q("形容一件事「沒什麼價值，丟了卻又覺得可惜」的詞語是？",["雞肋","殷鑑","桑榆","狼煙"],0,"雞肋比喻沒什麼價值，丟了卻又覺得可惜的事物。"),
+    q("「這位才子十五歲就擅長寫文章」，符合下列哪個詞語？",["屬文","割席","筆耕","齟齬"],0,"屬文指連綴字句而成文，即寫文章。"),
+    q("與朋友絕交，可以說「＿＿絕交」，應填入？",["割席","杯葛","倒戈","狼煙"],0,"割席指與朋友絕交，典出管寧割席。"),
+    q("形容比喻事物開端、起源的詞語是？",["濫觴","苗頭","前衛","翹楚"],0,"濫觴比喻事物的開端、起源；苗頭則指事情的開端或起因，兩者常混用需留意語境。"),
+    q("「他批評那種教學方式，主張更創新的教育方式」，說明對方思想？",["前衛","迂腐","顢頇","權宜"],1,"迂腐指拘泥陳舊思想，無法順應潮流。"),
+    q("犯人依法被處以死刑，稱為？",["伏法","囹圄","歸咎","勸諫"],0,"伏法指犯罪受到制裁，處以死刑。"),
+    q("設宴款待遠來的親友，稱為？",["接風","洗塵","恭維","唏噓"],0,"接風、洗塵皆指設宴款待遠來或歸來的人，兩詞意思相近。"),
+    q("最近工作不穩定，手頭經濟困難，可用哪個詞形容？",["拮据","襤褸","顢頇","繾綣"],0,"拮据指境況窘迫，多指經濟困難。"),
+    q("「他天資聰穎，卻從事不法的事情」中的「事情」，此處指負面的事，用哪個詞替換最貼切？",["勾當","勾勒","勾結","勾銷"],0,"勾當指事情，通常指負面的事物。"),
+    q("受到師長感化，忽然悔悟、痛改前非，可以說他？",["幡然悔悟","顢頇度日","杜撰其事","唏噓不已"],0,"幡然指忽然改變的樣子，符合悔悟的語境。")
+  ]
+}
+];
+
+/* helper to build question object */
+function q(text, options, answerIndex, explain, allowNoAnswer){
+  return { text, options, answerIndex, explain, allowNoAnswer: !!allowNoAnswer };
+}
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+const railEl = document.getElementById('rail');
+const stationsEl = document.getElementById('stations');
+let totalQuestions = 0;
+let totalAnswered = 0;
+let totalCorrect = 0;
+const stationState = {}; // id -> {answered, correct}
+
+STATIONS.forEach(st=>{
+  totalQuestions += st.quiz.length;
+  stationState[st.id] = {answered:0, correct:0};
+
+  // rail tab
+  const tab = document.createElement('button');
+  tab.className = 'tab';
+  tab.style.setProperty('--tab-c', st.color);
+  tab.innerHTML = `<div><div>${st.title}</div><small class="mono">${st.num}</small></div>`;
+  tab.onclick = ()=> document.getElementById(st.id).scrollIntoView({behavior:'smooth', block:'start'});
+  railEl.appendChild(tab);
+
+  // section
+  const section = document.createElement('section');
+  section.className = 'station';
+  section.id = st.id;
+  section.style.setProperty('--tab-c', st.color);
+
+  let refsHtml = '';
+  st.refs.forEach(ref=>{
+    const rows = ref.rows.map(r=>`<tr>${r.map((c,i)=> i===0? `<td class="term">${c}</td>` : `<td>${c}</td>`).join('')}</tr>`).join('');
+    refsHtml += `
+      <details class="ref">
+        <summary>${ref.title}</summary>
+        <div class="tbl-wrap">
+          <table class="ref-table">
+            <thead><tr>${ref.cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </details>`;
+  });
+
+  section.innerHTML = `
+    <div class="station-head">
+      <span class="station-num mono">${st.num}</span>
+      <h2>${st.title}</h2>
+    </div>
+    <p class="station-desc">${st.desc}</p>
+    <div class="page">${refsHtml}</div>
+    <div class="page quiz-box">
+      <h3>小測驗・${st.title}</h3>
+      <div class="qcount">共 ${st.quiz.length} 題，答對蓋章、答錯留墨痕，可重複作答其他題。</div>
+      <div class="q-list" id="qlist-${st.id}"></div>
+      <div class="station-score" id="score-${st.id}"><span class="mini-seal">印</span><span>本站戰績：<b id="scoretext-${st.id}">0 / 0</b></span></div>
+    </div>
+  `;
+  stationsEl.appendChild(section);
+
+  const qlist = section.querySelector(`#qlist-${st.id}`);
+  st.quiz.forEach((item, qi)=>{
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    const optsHtml = item.options.map((opt,oi)=>`<button class="opt" data-oi="${oi}">${opt}</button>`).join('');
+    card.innerHTML = `
+      <div class="q-text">${qi+1}. ${item.text}</div>
+      <div class="opts">${optsHtml}</div>
+      <div class="feedback"></div>
+    `;
+    const optBtns = card.querySelectorAll('.opt');
+    const feedback = card.querySelector('.feedback');
+    let answered = false;
+    optBtns.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(answered) return;
+        answered = true;
+        const chosen = parseInt(btn.dataset.oi,10);
+        const isCorrect = !item.allowNoAnswer && chosen === item.answerIndex;
+        optBtns.forEach(b=> b.classList.add('disabled'));
+        if(item.allowNoAnswer){
+          btn.classList.add('correct');
+          btn.insertAdjacentHTML('beforeend', ' <span class="stamp c">析</span>');
+        } else if(isCorrect){
+          btn.classList.add('correct');
+          btn.insertAdjacentHTML('beforeend', ' <span class="stamp c">✓</span>');
+        } else {
+          btn.classList.add('wrong');
+          btn.insertAdjacentHTML('beforeend', ' <span class="stamp w">✗</span>');
+          optBtns[item.answerIndex] && optBtns[item.answerIndex].classList.add('correct');
+        }
+        feedback.textContent = item.explain;
+        feedback.classList.add('show');
+
+        stationState[st.id].answered++;
+        totalAnswered++;
+        if(isCorrect || item.allowNoAnswer){
+          stationState[st.id].correct++;
+          totalCorrect++;
+        }
+        updateScores();
+      });
+    });
+    qlist.appendChild(card);
+  });
+});
+
+document.getElementById('totalQ').textContent = totalQuestions;
+
+function updateScores(){
+  STATIONS.forEach(st=>{
+    const s = stationState[st.id];
+    const el = document.getElementById(`scoretext-${st.id}`);
+    if(el) el.textContent = `${s.correct} / ${s.answered}`;
+  });
+  document.getElementById('scoreN').textContent = `${totalCorrect}/${totalAnswered}`;
+}
+
+function resetAll(){
+  location.reload();
+}
+
+/* highlight active tab on scroll */
+const tabs = Array.from(document.querySelectorAll('.tab'));
+const sectionsForScroll = STATIONS.map(s=>document.getElementById(s.id));
+window.addEventListener('scroll', ()=>{
+  let idx = 0;
+  sectionsForScroll.forEach((sec,i)=>{
+    if(sec.getBoundingClientRect().top - 100 <= 0) idx = i;
+  });
+  tabs.forEach((t,i)=> t.classList.toggle('active', i===idx));
+}, {passive:true});
+</script>
+</body>
+</html>
