@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>活用成語 · 互動複習站</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3ECDA;
+  --paper-deep:#EAE0C8;
+  --ink:#2A2420;
+  --ink-soft:#5C5245;
+  --seal:#AA3B32;
+  --seal-deep:#8A2E27;
+  --jade:#4C7860;
+  --jade-deep:#365747;
+  --indigo:#3C5A78;
+  --gold:#B8863A;
+  --line:#D8CBA9;
+  --card:#FBF8EF;
+  --shadow: 0 2px 0 rgba(42,36,32,0.06), 0 10px 24px -14px rgba(42,36,32,0.35);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #F8F1DE 0%, transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, #EFE4C8 0%, transparent 55%),
+    var(--paper);
+  color:var(--ink);
+  font-family:"Noto Sans TC", sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.serif{font-family:"Noto Serif TC", serif;}
+.texture{
+  position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 37px, rgba(42,36,32,0.035) 38px);
+}
+.wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 20px 100px;}
+
+header.hero{ padding:56px 0 34px; text-align:center; position:relative; }
+.stamp{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:56px; height:56px; border-radius:50%;
+  background:var(--seal); color:#fff;
+  font-family:"Noto Serif TC", serif; font-weight:900; font-size:17px;
+  box-shadow: var(--shadow);
+  transform: rotate(-6deg);
+  margin-bottom:14px;
+  letter-spacing:0px;
+}
+h1.title{ font-size:clamp(32px,6vw,54px); margin:0 0 10px; font-weight:900; letter-spacing:2px; }
+h1.title span{color:var(--seal);}
+p.subtitle{ color:var(--ink-soft); font-size:16px; margin:0 auto; max-width:560px; line-height:1.7; }
+
+nav.stations{
+  position:sticky; top:0; z-index:20;
+  display:flex; gap:8px; overflow-x:auto;
+  padding:12px 0; margin-bottom:28px;
+  background:linear-gradient(var(--paper) 78%, transparent);
+  backdrop-filter: blur(2px);
+  scrollbar-width:none;
+}
+nav.stations::-webkit-scrollbar{display:none;}
+.station-btn{
+  flex:0 0 auto; display:flex; align-items:center; gap:8px;
+  padding:10px 16px; border-radius:14px; border:1.5px solid var(--line);
+  background:var(--card); color:var(--ink-soft);
+  font-family:"Noto Sans TC"; font-weight:700; font-size:14px;
+  cursor:pointer; transition:.18s ease; white-space:nowrap;
+}
+.station-btn .num{
+  width:22px; height:22px; border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--paper-deep); color:var(--ink-soft);
+  font-size:12px; font-weight:900; font-family:"Noto Serif TC";
+}
+.station-btn:hover{ transform:translateY(-1px); border-color:var(--seal); color:var(--ink);}
+.station-btn.active{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.station-btn.active .num{ background:var(--seal); color:#fff; }
+
+section.panel{ display:none; animation:fade .35s ease; }
+section.panel.active{ display:block; }
+@keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.panel-head{
+  display:flex; align-items:flex-end; justify-content:space-between; gap:16px;
+  flex-wrap:wrap; margin-bottom:18px; border-bottom:2px solid var(--ink); padding-bottom:12px;
+}
+.panel-head h2{ font-size:clamp(22px,4vw,30px); margin:0; font-weight:900; display:flex; align-items:center; gap:10px; }
+
+.search-row{ margin-bottom:18px; }
+.search-row input{
+  width:100%; padding:12px 16px; border-radius:14px;
+  border:1.5px solid var(--line); background:var(--card);
+  font-family:"Noto Sans TC"; font-size:15px; color:var(--ink);
+}
+.search-row input:focus{ outline:2px solid var(--seal); outline-offset:1px; border-color:var(--seal); }
+
+/* ---- Station 1: category chips + two-column cards ---- */
+.cat-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+.cat-chip{
+  padding:8px 15px; border-radius:999px; border:1.5px solid var(--line);
+  background:var(--card); font-size:13px; font-weight:700; color:var(--ink-soft);
+  cursor:pointer; transition:.15s; display:flex; align-items:center; gap:7px;
+}
+.cat-chip .dot{ width:9px; height:9px; border-radius:50%; }
+.cat-chip.on{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.cat-chip.on .dot{ box-shadow:0 0 0 2px rgba(255,255,255,.5); }
+
+.pair-group{ margin-bottom:28px; }
+.pair-group-title{
+  display:flex; align-items:center; gap:8px; margin-bottom:12px;
+  font-family:"Noto Serif TC"; font-weight:700; font-size:16px; color:var(--ink);
+}
+.pair-group-title .dot{ width:11px; height:11px; border-radius:50%; }
+.pair-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.pair-card{
+  background:var(--card); border:1px solid var(--line); border-radius:16px;
+  padding:16px 18px; box-shadow:var(--shadow); border-top-width:4px; border-top-style:solid;
+}
+.pair-cols{ display:flex; align-items:stretch; gap:12px; }
+.pair-col{ flex:1; min-width:0; }
+.pair-col b{ font-family:"Noto Serif TC"; font-size:16.5px; }
+.pair-col p{ margin:5px 0 0; font-size:12.5px; color:var(--ink-soft); line-height:1.55; }
+.pair-vs{
+  flex:0 0 auto; align-self:center; font-size:11px; color:var(--ink-soft);
+  border-left:1px dashed var(--line); border-right:1px dashed var(--line); padding:0 8px;
+  writing-mode:vertical-rl; opacity:.6;
+}
+
+/* ---- Station 2 story cards ---- */
+.story-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+.story-card{
+  background:var(--card); border:1px solid var(--line); border-radius:16px;
+  padding:18px; box-shadow:var(--shadow); cursor:pointer;
+  transition:.2s ease; min-height:118px; position:relative; overflow:hidden;
+}
+.story-card:hover{ transform:translateY(-2px); border-color:var(--indigo); }
+.story-card h3{ margin:0 0 6px; font-size:18px; font-family:"Noto Serif TC"; font-weight:700; color:var(--indigo); }
+.story-card .meaning{ font-size:13.5px; color:var(--ink); line-height:1.6; }
+.story-card .story{ margin-top:10px; padding-top:10px; border-top:1px dashed var(--line); font-size:12.5px; color:var(--ink-soft); line-height:1.6; display:none; }
+.story-card.open .story{ display:block; }
+.story-card .flip-hint{ position:absolute; top:14px; right:16px; font-size:11px; color:var(--indigo); opacity:.6; }
+
+/* ---- Station 3 tag cloud ---- */
+.tag-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:10px; }
+.tag-card{ background:var(--card); border:1px solid var(--line); border-left:5px solid var(--seal); border-radius:10px; padding:12px 14px; cursor:pointer; }
+.tag-card b{ font-family:"Noto Serif TC"; font-size:16px; }
+.tag-card p{ margin:6px 0 0; font-size:12.5px; color:var(--ink-soft); line-height:1.55; display:none; }
+.tag-card.open p{ display:block; }
+
+/* ---- Station 4 synonym clusters ---- */
+.syn-list{ display:flex; flex-direction:column; gap:12px; }
+.syn-card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px 18px; box-shadow:var(--shadow); }
+.syn-top{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+.syn-top b{ font-family:"Noto Serif TC"; font-size:18px; color:var(--jade-deep); }
+.syn-top span.m{ font-size:13.5px; color:var(--ink-soft); }
+.syn-tags{ margin-top:10px; display:flex; flex-wrap:wrap; gap:6px; }
+.syn-tags em{ font-style:normal; font-size:12.5px; padding:4px 10px; border-radius:999px; background:var(--paper-deep); color:var(--ink); border:1px solid var(--line); }
+
+/* ---- Station 5 structure ---- */
+.struct-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:10px; }
+.struct-card{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; border-left:5px solid var(--gold); }
+.struct-card b{ font-family:"Noto Serif TC"; font-size:16px; }
+.struct-card p{ margin:5px 0 0; font-size:12.5px; color:var(--ink-soft); line-height:1.5; }
+
+/* ---- Station 6 quiz ---- */
+.unit-picker{ display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:12px; }
+.unit-card{
+  background:var(--card); border:1.5px solid var(--line); border-radius:16px;
+  padding:20px 16px; text-align:center; cursor:pointer; transition:.18s;
+}
+.unit-card:hover{ transform:translateY(-2px); border-color:var(--seal); }
+.unit-card .emoji{ font-size:34px; display:block; margin-bottom:8px; }
+.unit-card .name{ font-family:"Noto Serif TC"; font-weight:700; font-size:15px; }
+.unit-card .cnt{ font-size:12px; color:var(--ink-soft); margin-top:4px; }
+
+.quiz-shell{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; box-shadow:var(--shadow); }
+.quiz-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px;}
+.quiz-progress{ font-size:13px; color:var(--ink-soft); font-weight:700; }
+.quiz-score{ font-size:13px; color:var(--jade-deep); font-weight:700; }
+.progress-bar{ height:6px; border-radius:99px; background:var(--paper-deep); overflow:hidden; margin-bottom:22px; }
+.progress-fill{ height:100%; background:var(--seal); width:0%; transition:width .3s; }
+.quiz-q{ font-family:"Noto Serif TC"; font-size:clamp(18px,3vw,22px); font-weight:700; line-height:1.6; margin-bottom:20px; }
+.quiz-emoji-clue{ font-size:44px; text-align:center; margin:6px 0 20px; letter-spacing:6px; }
+.quiz-opts{ display:grid; gap:10px; margin-bottom:18px; }
+.quiz-opt{
+  text-align:left; padding:13px 16px; border-radius:12px; border:1.5px solid var(--line); background:var(--paper);
+  font-family:"Noto Sans TC"; font-size:15px; cursor:pointer; transition:.15s; display:flex; gap:10px; align-items:center;
+}
+.quiz-opt .letter{ width:24px;height:24px;border-radius:50%; background:var(--paper-deep); display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex:0 0 auto; }
+.quiz-opt:hover:not(.locked){ border-color:var(--indigo); }
+.quiz-opt.correct{ background:#E5EFE6; border-color:var(--jade); color:var(--jade-deep); font-weight:700;}
+.quiz-opt.correct .letter{ background:var(--jade); color:#fff;}
+.quiz-opt.wrong{ background:#F5E4E1; border-color:var(--seal); color:var(--seal-deep); font-weight:700;}
+.quiz-opt.wrong .letter{ background:var(--seal); color:#fff;}
+.quiz-explain{ font-size:13.5px; color:var(--ink-soft); background:var(--paper-deep); border-radius:12px; padding:12px 14px; line-height:1.6; display:none; margin-bottom:16px; }
+.quiz-explain.show{ display:block; }
+.quiz-nav{ display:flex; justify-content:space-between; gap:10px; }
+.btn{ padding:11px 22px; border-radius:12px; border:none; cursor:pointer; font-family:"Noto Sans TC"; font-weight:700; font-size:14px; background:var(--ink); color:var(--paper); transition:.15s; }
+.btn:hover{ opacity:.85; }
+.btn:disabled{ opacity:.35; cursor:not-allowed; }
+.btn.ghost{ background:transparent; color:var(--ink); border:1.5px solid var(--ink); }
+.quiz-done{ text-align:center; padding:20px 0; }
+.quiz-done .big{ font-family:"Noto Serif TC"; font-size:48px; font-weight:900; color:var(--seal); }
+.quiz-done p{ color:var(--ink-soft); font-size:15px; }
+.cat-pill{ display:inline-block; font-size:11.5px; padding:3px 10px; border-radius:999px; background:var(--indigo); color:#fff; margin-bottom:10px; font-weight:700; }
+
+footer{ text-align:center; padding:30px 0 10px; color:var(--ink-soft); font-size:12.5px; }
+
+@media (max-width:600px){
+  .wrap{padding:0 14px 80px;}
+  header.hero{padding:36px 0 24px;}
+  .pair-cols{ flex-direction:column; }
+  .pair-vs{ writing-mode:horizontal-tb; border-left:none; border-right:none; border-top:1px dashed var(--line); border-bottom:1px dashed var(--line); padding:4px 0; text-align:center; }
+}
+</style>
+</head>
+<body>
+<div class="texture"></div>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="stamp">成語</div>
+    <h1 class="title">活用<span>成語</span>複習站</h1>
+    <p class="subtitle">把講義裡的五個學習小站，變成可以點、可以找、可以考的互動版。先逛一逛卡片建立印象，再到「加碼挑戰」測試自己吧！</p>
+  </header>
+
+  <nav class="stations" id="stationNav"></nav>
+
+  <!-- ============ STATION 1 ============ -->
+  <section class="panel" data-panel="s1">
+    <div class="panel-head"><h2>第1站・容易混淆的成語</h2></div>
+    <div class="cat-chips" id="catChipsS1"></div>
+    <div class="search-row"><input type="text" id="searchS1" placeholder="搜尋成語或釋義…（例如：自食）"></div>
+    <div id="gridS1"></div>
+  </section>
+
+  <!-- ============ STATION 2 ============ -->
+  <section class="panel" data-panel="s2">
+    <div class="panel-head"><h2>第2站・成語中的人名、地名</h2></div>
+    <div class="search-row"><input type="text" id="searchS2" placeholder="搜尋成語或釋義…"></div>
+    <h3 class="serif" style="margin:6px 0 10px;color:var(--indigo);">☯ 人名篇</h3>
+    <div class="story-grid" id="gridS2names"></div>
+    <h3 class="serif" style="margin:24px 0 10px;color:var(--indigo);">🗺 地名篇</h3>
+    <div class="story-grid" id="gridS2places"></div>
+  </section>
+
+  <!-- ============ STATION 3 ============ -->
+  <section class="panel" data-panel="s3">
+    <div class="panel-head"><h2>第3站・貶義成語</h2></div>
+    <div class="search-row"><input type="text" id="searchS3" placeholder="搜尋成語或釋義…"></div>
+    <div class="tag-grid" id="gridS3"></div>
+  </section>
+
+  <!-- ============ STATION 4 ============ -->
+  <section class="panel" data-panel="s4">
+    <div class="panel-head"><h2>第4站・義近成語</h2></div>
+    <div class="search-row"><input type="text" id="searchS4" placeholder="搜尋成語或釋義…"></div>
+    <div class="syn-list" id="gridS4"></div>
+  </section>
+
+  <!-- ============ STATION 5 ============ -->
+  <section class="panel" data-panel="s5">
+    <div class="panel-head"><h2>第5站・成語的特殊結構</h2></div>
+    <div class="search-row"><input type="text" id="searchS5" placeholder="搜尋成語或釋義…"></div>
+    <div class="struct-grid" id="gridS5"></div>
+  </section>
+
+  <!-- ============ STATION 6: QUIZ ============ -->
+  <section class="panel" data-panel="s6">
+    <div class="panel-head"><h2>第6站・加碼挑戰</h2></div>
+    <div id="quizArea"></div>
+  </section>
+
+  <footer>依講義「單元陸．活用成語」整理製作，僅供個人複習使用 ✦</footer>
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+
+const CATS = {
+  opp:  {label:"反義對照",       color:"#AA3B32"},
+  eval: {label:"褒貶相對",       color:"#B8863A"},
+  ctx:  {label:"對象／情境不同", color:"#3C5A78"},
+  look: {label:"形近義異",       color:"#4C7860"},
+};
+
+// [idiomA, meaningA, idiomB, meaningB, category]
+const confused = [
+["自食其力","憑藉自己的力量養活自己。","自食其果","由自己承擔做壞事的後果。","eval"],
+["以身作則","用自己言行作他人榜樣。","以身試法","不顧法律而故意犯法。","eval"],
+["鴻鵠之志","比喻志向遠大。","心有鴻鵠","比喻不專心。","eval"],
+["所向披靡","力量所到之處，敵人紛紛潰退。","望風披靡","被敵人氣勢震懾，未戰先潰敗。","ctx"],
+["功成不居","建立了功勞而不歸功於自己。","功敗垂成","事情在即將成功時失敗了。","look"],
+["大勢所趨","整個局勢發展的趨向。","大勢已去","整個局勢已經無法挽回。","look"],
+["差強人意","大體上尚能令人勉強滿意。","強人所難","勉強別人做能力不及之事。","look"],
+["目不交睫","心情不安不能入眠，或工作緊張勞碌。","目不見睫","比喻人無自知之明，不能看見自己的過失。","look"],
+["急公好義","熱心公益，喜愛助人。","急功近利","急於求得，貪求利益。","eval"],
+["韞櫝藏珠","比喻懷才退隱。","買櫝還珠","比喻捨本逐末，取捨失當。","look"],
+["調虎離山","誘使對方離開據點，以便趁機行事。","縱虎歸山","放走敵人，後患無窮。","opp"],
+["春花秋月","美好的時光與景物。","鏡花水月","比喻空幻不實在。","eval"],
+["九牛一毛","極大數量中的一小部分。","一毛不拔","譏諷人非常吝嗇。","look"],
+["盲人瞎馬","比喻極為危險。","盲人摸象","以偏概全，未洞明真相。","ctx"],
+["兔死狐悲","比喻因同類的死亡而感到悲傷。","兔死狗烹","比喻事成之後，出力的人遭殺戮或見棄。","look"],
+["窮兵黷武","恣意運用兵力，發動戰爭。","厲兵秣馬","磨利兵器、餵飽馬匹，指完成作戰準備。","eval"],
+["妄自菲薄","過於自卑而不知自重。","妄自尊大","驕矜自大，自命不凡。","opp"],
+["少不更事","年紀輕，閱歷淺薄。","少年老成","比喻年紀雖輕，舉止卻成熟穩重。","opp"],
+["坐吃山空","只消費而不從事生產，以致把家產耗盡。","坐收漁利","指利用別人彼此間的衝突矛盾而獲利。","look"],
+["雪中送炭","在別人艱困之時，給予適時的援助。","抱薪救火","用錯方法，而致禍害加深。","opp"],
+["屈指可數","形容數量很少。","指不勝屈","形容數量很多。","opp"],
+["孺慕之情","小兒愛慕父母。","舐犢情深","比喻父母疼愛子女之深情。","ctx"],
+["望塵莫及","趕不上。","望其項背","趕得上。","opp"],
+["門可羅雀","賓客稀少，門庭冷落。","萬人空巷","形容擁擠、熱鬧的盛況。","opp"],
+["洛陽紙貴","比喻著作風行，流傳甚廣。","米珠薪桂","比喻物價昂貴。","ctx"],
+["重作馮婦","比喻重操舊業。","琵琶別抱","婦女改嫁或女子另結新歡。","ctx"],
+["如喪考妣","好像死了父母一般，比喻悲痛至極（不可形容父母死亡）。","恩同父母","如同父母對子女般的恩情（不可形容親父母）。","ctx"],
+["情同手足","情感如親兄弟般深厚（不可形容親兄弟）。","手足情深","形容兄弟姐妹間感情深厚（形容親兄弟）。","ctx"],
+["鬼斧神工","技藝精巧非人力所及（形容自然美景）。","巧奪天工","雖是人工製造，但精巧勝過天然（形容人造美景）。","ctx"],
+["曇花一現","比喻一出現便迅速消失（時間短暫）。","滄海一粟","比喻渺小，微不足道（空間渺小）。","ctx"],
+["如花似玉","形容女子姿容絕美。","如花似錦","形容風景或前程美好、光明。","ctx"],
+["魚雁往返","互通訊息。","雁杳魚沉","比喻音訊全無。","opp"],
+["胸無城府","為人坦率正直，沒有心機。","胸無點墨","比喻人毫無學識。","look"],
+["咬文嚼字","在詞句上斟酌推敲。","咬牙切齒","非常憤怒的樣子。","look"],
+["嘔心瀝血","比喻費盡心血、用盡心思。","七竅生煙","形容十分憤怒。","look"],
+["好整以暇","在紛亂中顯得從容不迫。","席不暇暖","奔走極為忙碌，沒有休息。","opp"],
+["敝帚自珍","東西雖不好，卻因是自己所擁有而珍視。","如數家珍","比喻敘述事物明晰熟練。","look"],
+["不可言喻","無法形容說明。","不言可喻","不需用言語解釋就能明白。","look"],
+["無庸置疑","不必懷疑。","不置可否","不表示任何意見。","opp"],
+["摩肩接踵","形容人多擁擠不堪。","摩頂放踵","比喻捨身救世，不辭勞苦。","look"],
+["不翼而飛","比喻物品無故遺失。","不脛而走","不用推廣，迅速傳播。","look"],
+["行不由徑","行事光明正大。","另闢蹊徑","尋求其他的方法或途徑。","look"],
+["一擲千金","形容不惜金錢的豪舉。","一字千金","比喻文辭精當，價值極高。","look"],
+["小姑獨處","指女子未出嫁。","小家碧玉","指平常人家的女兒。","look"],
+["不以為然","表示不同意。","不以為意","不注意、不在乎。","look"],
+["守口如瓶","比喻嚴守祕密。","守身如玉","潔身自愛，如玉般無瑕。","look"],
+["大腹便便","形容肚子很大的樣子。","腹笥便便","形容學問廣博。","look"],
+["破鏡重圓","夫妻失散或決裂後和好。","重修舊好","恢復已往的情誼。","ctx"],
+["一箭之地","不遠的路程、距離。","一箭雙鵰","比喻一舉兩得。","look"],
+["望洋興嘆","因眼界大開而驚奇，或因能力不及而無奈。","嘆為觀止","形容事物極好，令人讚嘆。","look"],
+["如虎添翼","比喻強有力者又增添生力軍，使之更強。","如魚得水","比喻得到相投合的人或很適合的環境。","ctx"],
+];
+
+const names = [
+["愚公移山","比喻努力不懈，不畏艱難，自能成事。","愚公家前有座山，擋住了他家的出入，他立志要移走大山，後感動天神，使其成功。"],
+["精衛填海","比喻心懷冤憤，立志報仇。亦比喻意志堅定，不懼艱苦。","精衛是鳥名，傳說黃帝幼女溺死東海，其魂魄變為精衛鳥，銜木石以填平東海。"],
+["夸父逐日","比喻不自量力，或有雄心壯志但未竟大業。","夸父是古代神話中的人物，與太陽追趕競走，還沒追到就渴死了。"],
+["助紂為虐","比喻協助惡人做壞事。","幫助商紂虐待百姓。紂，商代暴君。"],
+["太公釣魚","比喻心甘情願。","相傳西周的姜太公釣魚不用香餌，且釣鉤離水面三尺，並說：「負命者上釣來！」"],
+["孟母斷機","比喻母親教誡兒子勤學。","孟子年幼時逃學，孟母以刀割斷織布機上的布，訓他：「你求學半途而廢，就像我割斷這機上的布一樣。」"],
+["孟母三遷","形容家長為教育子女，選擇良好的學習環境所花的苦心。","孟母為選擇良好環境教育孩子，帶孟子三次遷徙。"],
+["曾參殺人","比喻流言可畏或誣枉的災禍。","許多人誤傳曾參殺人，曾母信以為真。"],
+["東施效顰","盲目模仿他人，反增其醜。","東施效仿西施捧心皺眉，然卻更見其醜。"],
+["毛遂自薦","比喻自告奮勇，自我推薦。","戰國趙人，為平原君食客。秦兵圍攻趙國，平原君至楚國求救，其門下食客毛遂自薦前往，並說服楚王同意趙楚合縱。"],
+["庖丁解牛","比喻對事物了解透澈，做事能得心應手，運用自如。","梁惠王時廚師庖丁善宰牛，且技巧極為熟練。"],
+["扁鵲復生","頌醫家之詞，謂醫術高明。","春秋戰國時名醫。姓秦，名越人。"],
+["班門弄斧","比喻在行家面前賣弄本事，不自量力。","在巧匠魯班的門前玩弄大斧。"],
+["伯樂相馬","比喻才能受人賞識、肯定。","伯樂即孫陽，春秋秦穆公時人，善相馬。"],
+["管鮑之交","比喻友情深厚。","管仲與鮑叔牙皆春秋齊人，兩人相交至深。"],
+["周郎顧曲","比喻精通音樂的人，欣賞音樂。","周瑜精通音樂，聽到別人奏曲有誤必顧（回頭看），時人為之語曰：「曲有誤，周郎顧。」"],
+["莊周夢蝶","比喻人生變幻無常。","莊周在夢中幻化為蝴蝶，在天地間遨遊，逍遙自在，不知何為莊周。"],
+["葉公好龍","比喻表裡不一，似是而非的假象。","春秋時，葉子高喜歡龍，家裡全用龍來雕飾。天上的龍知道此事，特到葉公家的窗口窺視。葉公見了真龍，卻嚇得面無人色。"],
+["伯牙絕弦","比喻知音難遇。","鍾子期死後，伯牙從此不彈琴。"],
+["吳下阿蒙","比喻人學識淺陋，或譏人無才學。","呂蒙才學平庸，孫權勸他力學，後有成。"],
+["項莊舞劍","在表面事物下隱藏了其他意圖。","項莊在鴻門宴時想藉表演舞劍刺殺劉邦。"],
+["司空見慣","比喻經常看到，不足為奇。","唐代司空（官職名）李紳隨手一擺，就是很大的場面，劉禹錫稱其見慣了盛宴。"],
+["蕭規曹隨","比喻後任的人依循前任所訂的規章行事。","曹參繼蕭何為漢相國，舉事無所變更。"],
+["環肥燕瘦","比喻美人不同的體態而各擅其美。","唐明皇寵妃楊玉環與漢成帝寵后趙飛燕，一肥一瘦，各以此擅勝而並美。"],
+["江郎才盡","比喻文思枯竭減退。","南朝江淹晚年文思枯竭，所作詩文皆無佳句。"],
+["阮囊羞澀","用以稱自己貧困窘乏，一無所有。","晉阮孚家貧，攜黑色囊遊會稽，人問囊中何物，孚曰：「但有一錢守囊，恐其羞澀。」"],
+["潘安再世","形容男人的美貌。","潘安，西晉時一位俊美的男人。"],
+["沆瀣一氣","比喻氣味相投。","唐僖宗時，有一主考官名叫崔沆，應試的人中，有一人名叫崔瀣，一經錄取，馬上就當官上任。有人戲稱：「座主門生，沆瀣一氣。」"],
+["名落孫山","比喻考試不中。","宋朝時，孫山是某次鄉試錄取人中的最後一名，名落孫山之後，意即沒有考上。"],
+["焦孟不離","比喻感情深厚，形影不離。","相傳北宋的焦贊與孟良二人交情很好，幾乎天天處在一起。"],
+];
+
+const places = [
+["四面楚歌","比喻四面受敵，孤立無援。","楚漢相爭時，項羽聽到漢營傳來的故鄉歌謠，以為漢軍已占領楚地，便連夜奔逃。"],
+["楚材晉用","比喻人才外流。","楚國的人才為晉國所用。"],
+["朝秦暮楚","比喻人心反覆無常。","夾在秦、楚間的韓、趙、魏等國，時而事秦，時而事楚，反覆變化。"],
+["河東獅吼","比喻妻子凶悍發威。","宋代陳慥之妻柳氏（河東是柳姓的郡望）凶悍善妒，常使其夫懼怕。"],
+["邯鄲學步","比喻仿效他人，未能成就，反而失卻自己本來的面目。","有個燕國人看到邯鄲人走路姿勢很美就跟著學。結果沒學好，還忘了原本怎麼走路。"],
+["涇渭分明","是非好壞區別得非常清楚。","涇水流入渭水時，清濁不混，界限分明。"],
+["終南捷徑","求官、求名利的便捷途徑。","終南山距長安很近，常有朝中顯要入山尋幽訪勝，隱居在此的居士因此有入朝為官的機緣。"],
+["南柯一夢","比喻人生如夢，富貴得失無常。（意同「黃粱一夢」）","淳于棼夢中出任南柯郡太守，歷盡人生窮通榮辱，醒來才知道是一場夢。"],
+["得隴望蜀","比喻貪得無厭，不知滿足。","平定隴西之後，又想進軍蜀地。"],
+["樂不思蜀","留戀異地而不想返鄉，或因快樂而忘歸。","蜀國亡國之君劉禪在魏國吃喝玩樂，快樂到一點也不想回去蜀國。"],
+["蜀犬吠日","形容人少見多怪。","蜀地的狗看見了日出，便對著太陽狂叫。"],
+["杞人憂天","缺乏根據且不必要的憂慮。","杞國有個人，因為擔心天會塌下來而憂慮不安。"],
+["黔驢技窮","人拙劣的技能已經用完，無計可施。","有人從外地帶了一隻驢子到貴州（簡稱黔），老虎了解驢子只會叫，沒有其他技能後，立刻撲上去吃了牠。"],
+["暗渡陳倉","暗中進行的活動，或比喻男女私通。","劉邦聽從韓信建議，表面上公開派人修築棧道，暗中卻由陳倉出兵，進而平定三秦。"],
+["東山再起","退隱後再任官，或比喻失敗後重新崛起。","謝安退職隱居東山，後來又入朝擔任要職。"],
+];
+
+const derog = [
+["不過爾爾","不過如此罷了。"],["抱殘守缺","指過於守舊，不接受新思想。"],["變本加厲","改變原有的狀況而更加嚴重。"],
+["抱頭鼠竄","形容像鼠懼人一般，狼狽逃走的樣子。"],["閉門造車","比喻自作主張，不切實際。"],["捕風捉影","所做之事或說話沒有根據。"],
+["杯弓蛇影","比喻為不存在的事情枉自驚惶。"],["暴殄天物","糟蹋物力，不知珍惜。"],["半斤八兩","比喻彼此不相上下。"],
+["憑空杜撰","私自設想，完全沒有依據。"],["明日黃花","比喻為過時的事物。"],["靡靡之音","令人頹廢、喪志的音樂。"],
+["飛揚跋扈","態度蠻橫放縱，不受約束。"],["翻雲覆雨","比喻反覆無常。"],["大放厥詞","發表誇張的言詞。"],
+["疊床架屋","比喻重複累贅。"],["東窗事發","比喻陰謀敗露，將被懲治。"],["對牛彈琴","比喻對不懂道理的人講道理或講話不看對象。"],
+["斷章取義","不管作者原意，僅截取某段話以為己用。"],["拈花惹草","比喻挑逗、勾引異性，到處留情。"],["離經叛道","形容人言行違背正道。"],
+["狼狽為奸","比喻互相勾結做壞事。"],["故態復萌","指壞習慣或老毛病又出現了。"],["過河拆橋","比喻不念舊情，忘恩負義。"],
+["畫蛇添足","比喻多此一舉而於事無補。"],["好高騖遠","比喻理想高遠而不切實際。"],["囫圇吞棗","做事含糊籠統，不求甚解。"],
+["畫餅充飢","比喻徒具虛名而無益於實際。亦比喻聊以空想安慰自己。"],["諱疾忌醫","比喻掩飾過失而不願聽人規勸。"],["譁眾取寵","以新奇的言論，博取尊崇。"],
+["江河日下","情況愈來愈壞。"],["居心叵測","心存險詐，難以預測。"],["積重難返","形容積習很深，不易革除。"],
+["桀驁不馴","佩強凶悍，傲慢不順從。"],["秋扇見捐","女子不再年輕貌美而遭受冷落。"],["其貌不揚","形容人面貌醜陋、難看。"],
+["巧言令色","話說得很動聽，臉色裝得很和善，可是一點也不誠懇。"],["群起效尤","眾人紛紛仿效錯誤的行為。"],["牽強附會","硬把不相干的事物湊在一起，勉強比附。"],
+["笑裡藏刀","比喻外貌和善，內心卻陰險。"],["虛有其表","空有華麗外表，卻無實際內涵。"],["虛與委蛇","指假意殷勤，敷衍應付。"],
+["張冠李戴","比喻名實不符或弄錯了對象。"],["照本宣科","形容死板地照著文稿宣讀。"],["獐頭鼠目","形容人相貌鄙陋，令人生厭。"],
+["指鹿為馬","比喻顛倒黑白，混淆是非。"],["紙醉金迷","比喻奢侈浮華的享樂生活。"],["嗤之以鼻","表示不屑、鄙視。"],
+["首當其衝","最先受到攻擊，或遭遇災難。"],["始作俑者","比喻首創惡例的人。"],["拾人牙慧","比喻蹈襲他人的言論或主張。"],
+["數典忘祖","比喻忘本。"],["上下其手","比喻玩弄手法，暗中作弊。"],["人云亦云","形容沒有獨立的見解，只會盲從跟隨。"],
+["自圓其說","自己解釋自己牽強矛盾的說法。"],["草菅人命","比喻輕視人命，濫殺無辜。"],["斯文掃地","文人不顧操守，毫無廉恥。"],
+["爾虞我詐","形容人際間的鉤心鬥角。"],["一丘之貉","比喻彼此同樣低劣，並無差異。"],["仰人鼻息","比喻依靠他人生活或看別人臉色行事，不能自主。"],
+["掩耳盜鈴","比喻自欺欺人。"],["優柔寡斷","猶豫不決，不能當機立斷。"],["頤指氣使","形容以高傲的態度指使屬下。"],
+["飲鴆止渴","比喻只顧眼前，不管後患。"],["以鄰為壑","比喻損人利己。"],["一手遮天","比喻玩弄權術，瞞上欺下。"],
+["揠苗助長","比喻為求速成而未循序漸進，結果不但無益，反而有害。"],["揚湯止沸","無濟於事。"],["味同嚼蠟","形容沒有趣味，多指心境、文章或說話枯燥乏味。"],
+["萬劫不復","指無法挽救的行為或命運。"],["烏合之眾","比喻暫時湊合，無組織、無紀律的一群人。"],["唯唯諾諾","順從而無所違逆。"],
+["舞文弄墨","玩弄法條作弊，敗壞法紀。後比喻賣弄筆墨文辭。"],["為虎作倀","比喻助人為虐。"],["越俎代庖","踰越自己的職分而代人做事。"],
+["魚目混珠","比喻以假亂真。"],["欲蓋彌彰","想要掩飾過失，反而使過失更加明顯。"],
+];
+
+const synonym = [
+["奔車朽索","用腐朽的繩子去駕馭狂奔的馬車。比喻隨時有危險。","危如累卵、千鈞一髮、岌岌可危、魚游沸鼎、虎尾春冰、泥船渡河、盲人瞎馬、燕巢於幕"],
+["閉月羞花","形容女子容貌姣好，足使花、月為之退掩、失色。","天香國色、風華絕代、冠絕群芳、傾國傾城、沉魚落雁、明眸皓齒、花容月貌、風姿綽約"],
+["披星戴月","形容早出晚歸，旅途勞累。","櫛風沐雨、風塵僕僕、舟車勞頓、餐風露宿"],
+["否極泰來","情況壞到極點後逐漸好轉。","撥雲見日、柳暗花明、峰迴路轉、枯木逢春、時來運轉、化險為夷"],
+["蚍蜉撼樹","比喻不自量力。","班門弄斧、以卵擊石、螳臂當車、夸父逐日"],
+["目光如豆","目光短淺，器識狹隘。","井底之蛙、鼠目寸光、盲人摸象、扣槃捫燭、管窺蠡測"],
+["滿腹經綸","形容人才識豐富，具有處理大事的才能。","才高八斗、學富五車、七步之才、腹笥便便"],
+["目不識丁","不識字或毫無學問。","不學無術、不識之無、胸無點墨、腹笥甚儉、吳下阿蒙、酒囊飯袋、朽木糞牆"],
+["梅妻鶴子","比喻清高或隱居。","閒雲野鶴、高臥東山、枕流漱石、泥塗軒冕"],
+["莫逆之交","心意相投、至好無嫌的好朋友。","管鮑之交、金石之交、八拜之交（結義兄弟）、忘年之交（不拘年齡）、刎頸之交（以性命相許）、金蘭之交、布衣之交"],
+["名垂竹帛","名聲傳垂於史籍。","垂名千古、名垂不朽、流芳百世、日月同昭"],
+["摩肩接踵","形容人多擁擠不堪。","人山人海、水泄不通、比肩繼踵、萬人空巷、車水馬龍、過江之鯽、萬頭攢動"],
+["焚膏繼晷","夜以繼日地勤讀不怠。","夙夜匪懈、鍥而不捨、韋編三絕、口舌成瘡、牛角掛書、懸梁刺股、鑿壁偷光、囊螢映雪"],
+["飛黃騰達","比喻得意於仕途。","一帆風順、一步登天、平步青雲、扶搖直上、青雲直上、鳶飛戾天、官運亨通、春風得意"],
+["得隴望蜀","貪得無厭，不知滿足。（貶）","求索無厭、得寸進尺、利慾薰心、利令智昏"],
+["簞瓢屢空","形容生活極為貧窮，缺乏食物。","簞食瓢飲、寅吃卯糧、捉襟見肘、短褐穿結、環堵蕭然、左支右絀、身無長物、阮囊羞澀"],
+["滴水穿石","有志者事竟成。","愚公移山、磨石作鍼、駑馬十駕"],
+["彈丸之地","比喻很小的地方。","尺寸之地、立錐之地、區區之地"],
+["探囊取物","比喻事情極容易辦到。","一蹴可幾、唾手可得、反掌折枝、甕中捉鱉、摧枯拉朽"],
+["天壤之別","比喻差別極大。","天淵之別、霄壤之別、判若雲泥、大相逕庭"],
+["頭角崢嶸","形容才華洋溢，能力出眾的年輕人。","一時之選、出類拔萃、鶴立雞群、冠絕群倫"],
+["難分軒輊","難分高下。","勢均力敵、旗鼓相當、並駕齊驅、伯仲之間、一時瑜亮、分庭抗禮、相提並論、平分秋色"],
+["臨渴掘井","事到臨頭才想法子。","臨陣磨槍、江心補漏"],
+["濫竽充數","比喻沒有真才實學的人，混在行家中充數。（貶）","坐領乾薪、尸位素餐"],
+["爐火純青","比喻學問、技術、功夫等到達精純完美的境地。","出神入化、維妙維肖、栩栩如生、入木三分、力透紙背、登峰造極、鞭辟入裡、目無全牛"],
+["寥若晨星","形容數量稀少。","屈指可數、區區之數、微乎其微、九牛一毛"],
+["光陰荏苒","光陰易逝。","日月如梭、白駒過隙、歲月不居、歲不我與"],
+["刻舟求劍","拘泥固執，不知變通。（貶）","墨守成規、食古不化、膠柱鼓瑟、削足適履"],
+["口碑載道","到處都是稱頌的聲音。","有口皆碑、名噪一時、膾炙人口、如雷貫耳"],
+["戶限為穿","形容來訪的人數眾多。","高朋滿座、門庭若市"],
+["浩如煙海","廣大繁多。形容書籍、文獻資料等非常豐富。","不可勝數、不勝枚舉、指不勝屈、車載斗量、多如牛毛、多如繁星、汗牛充棟"],
+["近朱者赤","環境對人的正面影響。","麻中蓬直"],
+["近墨者黑","環境對人的負面影響。（貶）","白沙在涅、橘化為枳、一傅眾咻"],
+["見微知著","因小見大，明於辨識。","明察秋毫、洞若觀火、一葉知秋、目光如炬"],
+["咎由自取","所有的責難、災禍都是自己找來的。（貶）","自作自受、自掘墳墓、自食惡果、作繭自縛、作法自斃、自毀長城"],
+["疾風勁草","堅守節操。","嚴霜識木、松柏後凋、雞鳴不已"],
+["鏡花水月","比喻空幻不實在。（貶）","空中樓閣、海市蜃樓、黃粱一夢、南柯一夢"],
+["劍拔弩張","情勢緊張或聲勢逼人。","一觸即發、如箭在弦"],
+["集腋成裘","比喻積少成多。","積土成山、積水成淵、聚沙成塔、聚川成海"],
+["雞皮鶴髮","形容老人的形貌。","老態龍鍾、蒼顏皓首、齒危髮秃、頭童齒豁"],
+["舉案齊眉","比喻夫妻相敬如賓。","比翼連理、伉儷情深、鶼鰈情深、琴瑟和鳴、相敬如賓、鳳凰于飛、鸞鳳和鳴、魚水和諧"],
+["黔驢技窮","人拙劣的技能已經使完，而終露出虛弱的本質。（貶）","一籌莫展、束手無策、捉襟見肘、左支右絀"],
+["罄竹難書","罪狀之多，難以寫盡。（貶）","擢髮難數、惡貫滿盈"],
+["心無旁騖","專一心思。","念茲在茲、用志不分、心無鴻鵠、專心致志"],
+["行不由徑","比喻行事光明正大，不投機取巧。","高風亮節、冰清玉潔、光風霽月、俯仰無愧、嶔崎磊落、守身如玉、一介不取、兩袖清風"],
+["兄弟閱牆","比喻內部不和睦。（貶）","同室操戈、煮豆燃萁"],
+["信口雌黃","比喻不顧事情真相，隨意批評。（貶）","挑撥離間、撥弄是非、信口開河、信口胡謅、無稽之談、含血噴人、大放厥詞、流言蜚語"],
+["行將就木","比喻年紀已大，壽命將盡。","奄奄一息、命若遊絲、彌留之際、沉痾難起、日薄西山、殘生將盡、風中之燭"],
+["支支吾吾","說話含混不清，搪塞了事。（貶）","支吾其詞、含糊其詞、閃爍其詞、吞吞吐吐"],
+["眾口鑠金","眾口同聲，積非成是。（貶）","三人成虎、曾參殺人、人言可畏"],
+["枝葉扶疏","形容樹木茂盛。","蓊蓊鬱鬱、鬱鬱蔥蔥"],
+["師心自用","剛愎任性，自以為是。（貶）","剛愎自用、目空一切、夜郎自大、恃才傲物"],
+["舌粲蓮花","形容口才好。","口若懸河、天花亂墜、侃侃而談、滔滔不絕、談吐風生、伶牙俐齒、口沫橫飛"],
+["食言而肥","說話不守信用。（貶）","出爾反爾、言而無信"],
+["如火如荼","形容氣勢蓬勃、熱烈。","方興未艾、風起雲湧、旭日升天、如日中天"],
+["自出機杼","獨創新意，不同流俗。","匠心獨運、別出心裁、另闢蹊徑、別開生面"],
+["寸陰尺璧","光陰可貴。","一刻千金、寸陰是競"],
+];
+
+const structure = [
+["追本溯源","追溯事物的根本源頭。"],["花言巧語","形容虛假而動聽的言語。（貶）"],["作姦犯科","為非作歹，違法亂紀。（貶）"],
+["狐群狗黨","相互勾結，為非作歹的人。（貶）"],["為非作歹","做壞事。（貶）"],["含英咀華","品味詩文的精華。"],
+["畫棟雕梁","建築富麗堂皇。"],["鳳毛麟角","比喻稀罕珍貴的人、物。"],["臥虎藏龍","比喻潛藏著人才。"],
+["龍飛鳳舞","筆勢生動活潑。"],["魂飛魄散","比喻非常恐懼害怕。"],["延年益壽","延長壽命，多用在頌祝人長壽。"],
+["形單影隻","形容孤單無依。"],["摩拳擦掌","形容振奮、躍躍欲試的樣子。"],["追根究柢","追查探究事物的根本。"],
+["銷聲匿跡","隱藏形跡，不公開出現。"],["赤手空拳","手中空無一物，沒有一點憑藉。"],["攀龍附鳳","比喻巴結權貴，以求晉升。（貶）"],
+["推波助瀾","不能消弭事情，反而助長它。（貶）"],["南征北討","形容經歷許多戰爭。"],
+];
+
+/* ============================================================
+   QUIZ UNITS — 5 units, 10 questions each. Unit 5 uses emoji clues.
+   ============================================================ */
+const quizUnits = [
+{
+  key:"u1", title:"易混淆成語", icon:"⚖️", type:"text",
+  qs:[
+    {q:"他上大學後靠打工養活自己，不再向父母拿錢，這是「＿＿＿」。",opts:["自食其力","自食其果","坐吃山空","抱薪救火"],ans:0,ex:"「自食其力」指憑自己的力量養活自己；「自食其果」是自己承擔壞事的後果，不能混用。"},
+    {q:"敵軍看到我方氣勢驚人，還沒開戰就潰散逃跑，屬於「＿＿＿」。",opts:["所向披靡","望風披靡","四面楚歌","兔死狗烹"],ans:1,ex:"「望風披靡」是被對方氣勢震懾、未戰先敗；「所向披靡」則是我方力量所到之處敵人潰退，主詞方向不同。"},
+    {q:"「他年紀輕輕卻辦事老練圓熟」，應用哪個成語？",opts:["少不更事","少年老成","妄自尊大","小時了了"],ans:1,ex:"「少年老成」比喻年紀雖輕、舉止卻成熟穩重；「少不更事」是年紀輕、閱歷淺薄，語意相反。"},
+    {q:"形容「趕不上」用哪個成語？",opts:["望塵莫及","望其項背","門可羅雀","雪中送炭"],ans:0,ex:"「望塵莫及」是趕不上；「望其項背」是趕得上，兩者意思恰好相反，是常見的成對考題。"},
+    {q:"他明明能力不足，卻硬要別人做超出能力範圍的事，這叫「＿＿＿」。",opts:["差強人意","強人所難","好整以暇","席不暇暖"],ans:1,ex:"「強人所難」指勉強別人做能力不及之事；「差強人意」則是大體上還算令人滿意，兩者字面相近但意思不同。"},
+    {q:"在別人艱困時及時伸出援手，是「＿＿＿」。",opts:["雪中送炭","抱薪救火","坐收漁利","坐吃山空"],ans:0,ex:"「雪中送炭」是適時給予援助；「抱薪救火」則是用錯方法反而使禍害加深，意思相反。"},
+    {q:"「這次比賽得獎的人非常多，多到＿＿＿」，空格該填？",opts:["屈指可數","指不勝屈","望塵莫及","望其項背"],ans:1,ex:"「指不勝屈」形容數量很多；「屈指可數」則是數量很少，兩者恰好相反。"},
+    {q:"形容一個人奔走忙碌、毫無休息，用「＿＿＿」。",opts:["好整以暇","席不暇暖","坐吃山空","守口如瓶"],ans:1,ex:"「席不暇暖」形容奔走忙碌、沒有休息；「好整以暇」則是在紛亂中仍從容不迫，意思相反。"},
+    {q:"「這道理淺顯到不需要說明，大家都懂」用「＿＿＿」。",opts:["不可言喻","不言可喻","不以為然","不以為意"],ans:1,ex:"「不言可喻」指不需言語解釋就能明白；「不可言喻」則是無法形容說明，兩者字面相近但方向不同。"},
+    {q:"形容豪擲金錢、毫不吝惜，用「＿＿＿」。",opts:["一擲千金","一字千金","一箭雙鵰","一箭之地"],ans:0,ex:"「一擲千金」形容不惜金錢的豪舉；「一字千金」是比喻文辭精當、價值極高，兩者用途完全不同。"},
+  ]
+},
+{
+  key:"u2", title:"人名地名", icon:"📜", type:"text",
+  qs:[
+    {q:"「曲有誤，周郎顧」的典故，後來衍生出哪一個成語？",opts:["莊周夢蝶","周郎顧曲","伯牙絕弦","司空見慣"],ans:1,ex:"周瑜精通音樂，聽到奏曲有誤必回頭看，後人以「周郎顧曲」比喻精通音樂、擅長欣賞音樂的人。"},
+    {q:"「淳于棼夢中出任南柯郡太守，醒來才知是一場夢」，對應哪個成語？",opts:["黔驢技窮","南柯一夢","樂不思蜀","終南捷徑"],ans:1,ex:"「南柯一夢」比喻人生如夢、富貴得失無常，意思等同「黃粱一夢」。"},
+    {q:"「潘安再世」用來形容什麼？",opts:["文思枯竭","男子容貌俊美","知音難遇","為官清廉"],ans:1,ex:"潘安是西晉時的美男子，「潘安再世」因此用來形容男人容貌俊美。"},
+    {q:"「才學平庸，經勸學後才有所成」的典故，講的是誰？",opts:["呂蒙（吳下阿蒙）","江淹（江郎才盡）","阮孚（阮囊羞澀）","崔沆（沆瀣一氣）"],ans:0,ex:"呂蒙本學識淺陋，孫權勸他力學後才有所成，後用「吳下阿蒙」譏人學識淺陋、或稱人已非昔日。"},
+    {q:"比喻努力不懈、不畏艱難，終能感動天神成事的成語是？",opts:["愚公移山","夸父逐日","精衛填海","杞人憂天"],ans:0,ex:"愚公立志移走擋路的大山，後感動天神使其成功，比喻努力不懈、自能成事。"},
+    {q:"東施模仿西施捧心皺眉，反而更顯得醜，這個故事衍生出的成語比喻什麼？",opts:["盲目模仿反增其醜","模仿失敗又忘本","技窮無計可施","表裡不一"],ans:0,ex:"「東施效顰」正是形容盲目模仿他人，結果反而更顯得醜。"},
+    {q:"戰國時自告奮勇、跟隨平原君出使楚國並促成合縱的食客，後人稱他的行為為？",opts:["毛遂自薦","庖丁解牛","班門弄斧","伯樂相馬"],ans:0,ex:"毛遂在平原君門下自我推薦前往楚國求救，比喻自告奮勇、自我推薦。"},
+    {q:"燕國人模仿邯鄲人走路，結果沒學好還忘記原本怎麼走，比喻仿效他人卻失去本色，這是？",opts:["終南捷徑","邯鄲學步","涇渭分明","朝秦暮楚"],ans:1,ex:"「邯鄲學步」比喻仿效他人未能成就，反而失卻自己本來的面目。"},
+    {q:"老虎發現驢子的技能只有叫聲，便撲上去吃掉牠，比喻人的拙劣技能已經用完、無計可施，這是？",opts:["黔驢技窮","蜀犬吠日","河東獅吼","得隴望蜀"],ans:0,ex:"「黔驢技窮」正是描述這則故事，比喻技能已經用完，毫無辦法。"},
+    {q:"蜀漢後主劉禪在魏國吃喝玩樂，快樂到不想返回蜀地，此典故是？",opts:["樂不思蜀","東山再起","暗渡陳倉","南柯一夢"],ans:0,ex:"「樂不思蜀」比喻留戀異地而不想返鄉，或因快樂而忘歸。"},
+  ]
+},
+{
+  key:"u3", title:"貶義成語", icon:"⚠️", type:"text",
+  qs:[
+    {q:"下列成語何者「不是」貶義成語？",opts:["紙醉金迷","舞文弄墨","舉案齊眉","為虎作倀"],ans:2,ex:"「舉案齊眉」比喻夫妻相敬如賓，是正面成語；其餘三者皆帶有負面批評意味。"},
+    {q:"形容「話說得動聽，但一點也不誠懇」的成語是？",opts:["巧言令色","舌粲蓮花","口若懸河","出口成章"],ans:0,ex:"「巧言令色」帶貶義，指言語動聽、臉色和善卻毫不誠懇；「舌粲蓮花」「口若懸河」單純形容口才好，是中性成語。"},
+    {q:"「越俎代庖」的意思最接近下列何者？",opts:["謙虛禮讓","踰越職分代人做事","彼此互助合作","按部就班做事"],ans:1,ex:"「越俎代庖」比喻踰越自己的職分而插手代替別人做事，帶有不恰當之意。"},
+    {q:"「他一開會就支支吾吾，說話含混不清」，這句話中的成語屬於？",opts:["褒義成語","貶義成語","中性成語","無法判斷"],ans:1,ex:"「支支吾吾」形容說話含混、搪塞了事，帶有負面評價，是貶義成語。"},
+    {q:"比喻自己欺騙自己的成語是？",opts:["掩耳盜鈴","杯弓蛇影","對牛彈琴","囫圇吞棗"],ans:0,ex:"「掩耳盜鈴」比喻自欺欺人；其餘三者分別形容枉自驚惶、講話不看對象、做事含糊籠統。"},
+    {q:"「他一朝得志就對下屬頤指氣使」，這句話中成語的意思是？",opts:["態度謙和有禮","以高傲態度指使他人","做事按部就班","說話含糊不清"],ans:1,ex:"「頤指氣使」形容以高傲的態度指使屬下，是貶義成語。"},
+    {q:"比喻只顧眼前、不顧後患的成語是？",opts:["飲鴆止渴","畫餅充飢","揠苗助長","揚湯止沸"],ans:0,ex:"「飲鴆止渴」比喻只顧眼前，不管後患；其餘選項各有不同的貶義用法。"},
+    {q:"下列何者用來形容「彼此同樣低劣、並無差異」？",opts:["一丘之貉","莫逆之交","管鮑之交","忘年之交"],ans:0,ex:"「一丘之貉」比喻彼此同樣低劣、並無差異，是貶義成語；其餘三者皆形容深厚的友情。"},
+    {q:"形容做事違背正道、行為不檢的成語是？",opts:["離經叛道","行不由徑","守身如玉","一介不取"],ans:0,ex:"「離經叛道」形容人言行違背正道，是貶義成語；其餘三者則是形容行事光明正大、潔身自愛的褒義成語。"},
+    {q:"形容首創惡例的人，成語是？",opts:["始作俑者","拾人牙慧","數典忘祖","上下其手"],ans:0,ex:"「始作俑者」比喻首創惡例的人；其餘三者分別指蹈襲他人言論、忘本、玩弄手法作弊。"},
+  ]
+},
+{
+  key:"u4", title:"義近成語", icon:"🌿", type:"text",
+  qs:[
+    {q:"「爐火純青」形容技藝達到精純完美境地，下列何者「不是」它的近義詞？",opts:["出神入化","登峰造極","半斤八兩","鞭辟入裡"],ans:2,ex:"「半斤八兩」是比喻彼此不相上下，語意是「差不多」，與「技藝精湛」無關，是常見的混淆選項。"},
+    {q:"「莫逆之交」形容至好無嫌的好友，下列何者「專指結義兄弟」？",opts:["刎頸之交","八拜之交","忘年之交","布衣之交"],ans:1,ex:"「八拜之交」專指結義兄弟；「刎頸之交」指以性命相許之交；「忘年之交」指不拘年齡的友誼；「布衣之交」指貧賤時的老朋友。"},
+    {q:"下列成語何組「意思最相近」？",opts:["浩如煙海／汗牛充棟","門可羅雀／萬人空巷","洛陽紙貴／米珠薪桂","望塵莫及／望其項背"],ans:0,ex:"「浩如煙海」與「汗牛充棟」都形容書籍文獻極為豐富；其餘三組意思恰好相反或情境不同，是常見混淆組合。"},
+    {q:"「見微知著」意指因小見大、明於辨識，下列哪個「不是」它的近義詞？",opts:["明察秋毫","一葉知秋","目光如豆","洞若觀火"],ans:2,ex:"「目光如豆」是貶義，指目光短淺、器識狹隘，恰好與「見微知著」的意涵相反，是常見的陷阱選項。"},
+    {q:"形容女子容貌美麗、足使花月失色，下列何者「不是」它的近義詞？",opts:["閉月羞花","沉魚落雁","天香國色","獐頭鼠目"],ans:3,ex:"「獐頭鼠目」形容人相貌鄙陋，是貶義成語，與其餘三個形容女子貌美的成語完全不同。"},
+    {q:"「他早出晚歸、風塵僕僕地趕路」符合下列哪一個成語？",opts:["披星戴月","飛黃騰達","焚膏繼晷","滴水穿石"],ans:0,ex:"「披星戴月」形容早出晚歸、旅途勞累；其餘選項分別形容仕途得意、勤讀不怠、有志者事竟成。"},
+    {q:"比喻情況壞到極點後逐漸好轉，用「＿＿＿」。",opts:["否極泰來","每況愈下","每下愈況","江河日下"],ans:0,ex:"「否極泰來」比喻情況壞到極點後逐漸好轉；其餘三者都是形容情況愈來愈壞，意思相反。"},
+    {q:"形容人才識豐富，具有處理大事才能的成語是？",opts:["滿腹經綸","目不識丁","胸無點墨","才疏學淺"],ans:0,ex:"「滿腹經綸」形容人才識豐富，具有處理大事的才能；其餘三者都是形容毫無學識，意思相反。"},
+    {q:"下列哪一組「意思最相近」？",opts:["飛黃騰達／平步青雲","門可羅雀／萬人空巷","望塵莫及／望其項背","屈指可數／指不勝屈"],ans:0,ex:"「飛黃騰達」與「平步青雲」都比喻得意於仕途；其餘三組成語意思恰好相反。"},
+    {q:"比喻事情極容易辦到，用「＿＿＿」。",opts:["探囊取物","臨渴掘井","刻舟求劍","濫竽充數"],ans:0,ex:"「探囊取物」比喻事情極容易辦到；其餘選項分別指事到臨頭才想辦法、拘泥不知變通、沒有真才實學混在行家中充數，均帶貶義。"},
+  ]
+},
+{
+  key:"u5", title:"特殊結構", icon:"🎴", type:"emoji",
+  qs:[
+    {clue:"🌸🗣️✨",opts:["花言巧語","含英咀華","畫棟雕梁","南征北討"],ans:0,ex:"花＋言＝虛假動聽的話語，對應「花言巧語」，形容虛假而動聽的言語。"},
+    {clue:"🦊🐺🐕",opts:["臥虎藏龍","狐群狗黨","龍飛鳳舞","形單影隻"],ans:1,ex:"狐＋狗＝相互勾結的壞人，對應「狐群狗黨」，比喻相互勾結、為非作歹的人。"},
+    {clue:"🪶🦄",opts:["鳳毛麟角","攀龍附鳳","赤手空拳","延年益壽"],ans:0,ex:"鳳的羽毛＋麟的角＝極稀罕珍貴，對應「鳳毛麟角」，比喻稀罕珍貴的人或物。"},
+    {clue:"🐅🙈🐉🙈",opts:["龍飛鳳舞","魂飛魄散","臥虎藏龍","摩拳擦掌"],ans:2,ex:"虎＋龍都隱藏未現＝潛藏著人才，對應「臥虎藏龍」，比喻潛藏著人才。"},
+    {clue:"🐉💃🦅🕺",opts:["龍飛鳳舞","銷聲匿跡","追本溯源","為非作歹"],ans:0,ex:"龍在飛＋鳳在舞＝筆勢生動活潑，對應「龍飛鳳舞」，形容字跡筆勢生動活潑。"},
+    {clue:"👻💨😱",opts:["形單影隻","魂飛魄散","作姦犯科","摩拳擦掌"],ans:1,ex:"魂飛走＋魄散去＝非常害怕，對應「魂飛魄散」，比喻非常恐懼害怕。"},
+    {clue:"🎂➕♾️",opts:["延年益壽","含英咀華","畫棟雕梁","推波助瀾"],ans:0,ex:"延長歲月＋增益壽命＝祝人長壽，對應「延年益壽」，多用在頌祝人長壽。"},
+    {clue:"🧍🌑",opts:["形單影隻","赤手空拳","狐群狗黨","南征北討"],ans:0,ex:"形只有一個＋影只有一道＝孤單無依，對應「形單影隻」，形容孤單無依。"},
+    {clue:"👊🤲✨",opts:["追根究柢","摩拳擦掌","銷聲匿跡","攀龍附鳳"],ans:1,ex:"摩拳＋擦掌＝準備大展身手、躍躍欲試，對應「摩拳擦掌」。"},
+    {clue:"🔇👤❌",opts:["銷聲匿跡","追本溯源","赤手空拳","為非作歹"],ans:0,ex:"聲音消失＋行跡隱藏＝不公開出現，對應「銷聲匿跡」，隱藏形跡、不公開出現。"},
+  ]
+},
+];
+
+/* ============================================================
+   RENDER HELPERS
+   ============================================================ */
+
+const stations = [
+  {id:"s1", label:"易混淆成語"},
+  {id:"s2", label:"人名地名"},
+  {id:"s3", label:"貶義成語"},
+  {id:"s4", label:"義近成語"},
+  {id:"s5", label:"特殊結構"},
+  {id:"s6", label:"加碼挑戰"},
+];
+
+const navEl = document.getElementById('stationNav');
+stations.forEach((s,i)=>{
+  const b = document.createElement('button');
+  b.className = 'station-btn' + (i===0?' active':'');
+  b.dataset.target = s.id;
+  b.innerHTML = `<span class="num">${i+1}</span>${s.label}`;
+  b.onclick = ()=>switchStation(s.id);
+  navEl.appendChild(b);
+});
+function switchStation(id){
+  document.querySelectorAll('.station-btn').forEach(b=>b.classList.toggle('active', b.dataset.target===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.dataset.panel===id));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+document.querySelector('.panel[data-panel="s1"]').classList.add('active');
+
+/* ---------- Station 1 render (category-based) ---------- */
+let activeCats = new Set(Object.keys(CATS));
+(function buildCatChips(){
+  const bar = document.getElementById('catChipsS1');
+  Object.entries(CATS).forEach(([key,c])=>{
+    const chip = document.createElement('button');
+    chip.className = 'cat-chip on';
+    chip.innerHTML = `<span class="dot" style="background:${c.color}"></span>${c.label}`;
+    chip.onclick = ()=>{
+      if(activeCats.has(key)){ activeCats.delete(key); chip.classList.remove('on'); }
+      else { activeCats.add(key); chip.classList.add('on'); }
+      renderS1(document.getElementById('searchS1').value);
+    };
+    bar.appendChild(chip);
+  });
+})();
+
+function renderS1(searchTerm){
+  const grid = document.getElementById('gridS1');
+  grid.innerHTML = '';
+  const term = (searchTerm||'').trim();
+  Object.entries(CATS).forEach(([key,c])=>{
+    if(!activeCats.has(key)) return;
+    const items = confused.filter(p=>p[4]===key && (!term || p[0].includes(term)||p[1].includes(term)||p[2].includes(term)||p[3].includes(term)));
+    if(!items.length) return;
+    const group = document.createElement('div');
+    group.className = 'pair-group';
+    group.innerHTML = `<div class="pair-group-title"><span class="dot" style="background:${c.color}"></span>${c.label}<span style="font-weight:400;color:var(--ink-soft);font-size:13px;">（${items.length} 組）</span></div>`;
+    const g = document.createElement('div');
+    g.className = 'pair-grid';
+    items.forEach(([a,am,b,bm])=>{
+      const card = document.createElement('div');
+      card.className = 'pair-card';
+      card.style.borderTopColor = c.color;
+      card.innerHTML = `
+        <div class="pair-cols">
+          <div class="pair-col"><b>${a}</b><p>${am}</p></div>
+          <div class="pair-vs">對照</div>
+          <div class="pair-col"><b>${b}</b><p>${bm}</p></div>
+        </div>`;
+      g.appendChild(card);
+    });
+    group.appendChild(g);
+    grid.appendChild(group);
+  });
+  if(!grid.children.length){ grid.innerHTML = '<p style="color:var(--ink-soft);">沒有符合的結果，換個關鍵字或分類試試。</p>'; }
+}
+document.getElementById('searchS1').addEventListener('input', e=>renderS1(e.target.value));
+renderS1();
+
+/* ---------- Station 2 render ---------- */
+function renderS2(term){
+  const t = (term||'').trim();
+  const gN = document.getElementById('gridS2names');
+  const gP = document.getElementById('gridS2places');
+  gN.innerHTML=''; gP.innerHTML='';
+  function makeCard(arr){
+    const [idiom, meaning, story] = arr;
+    const c = document.createElement('div');
+    c.className='story-card';
+    c.innerHTML = `<span class="flip-hint">點我 ↺</span><h3>${idiom}</h3><div class="meaning">${meaning}</div><div class="story">📖 ${story}</div>`;
+    c.onclick = ()=>c.classList.toggle('open');
+    return c;
+  }
+  names.forEach(arr=>{
+    if(t && !(arr[0].includes(t)||arr[1].includes(t)||arr[2].includes(t))) return;
+    gN.appendChild(makeCard(arr));
+  });
+  places.forEach(arr=>{
+    if(t && !(arr[0].includes(t)||arr[1].includes(t)||arr[2].includes(t))) return;
+    gP.appendChild(makeCard(arr));
+  });
+}
+document.getElementById('searchS2').addEventListener('input', e=>renderS2(e.target.value));
+renderS2();
+
+/* ---------- Station 3 render ---------- */
+function renderS3(term){
+  const t = (term||'').trim();
+  const grid = document.getElementById('gridS3');
+  grid.innerHTML='';
+  derog.forEach(([idiom, meaning])=>{
+    if(t && !(idiom.includes(t)||meaning.includes(t))) return;
+    const c = document.createElement('div');
+    c.className='tag-card';
+    c.innerHTML = `<b>${idiom}</b><p>${meaning}</p>`;
+    c.onclick = ()=>c.classList.toggle('open');
+    grid.appendChild(c);
+  });
+}
+document.getElementById('searchS3').addEventListener('input', e=>renderS3(e.target.value));
+renderS3();
+
+/* ---------- Station 4 render ---------- */
+function renderS4(term){
+  const t = (term||'').trim();
+  const list = document.getElementById('gridS4');
+  list.innerHTML='';
+  synonym.forEach(([idiom, meaning, syn])=>{
+    if(t && !(idiom.includes(t)||meaning.includes(t)||syn.includes(t))) return;
+    const c = document.createElement('div');
+    c.className='syn-card';
+    const tags = syn.split('、').map(s=>`<em>${s}</em>`).join('');
+    c.innerHTML = `<div class="syn-top"><b>${idiom}</b><span class="m">${meaning}</span></div><div class="syn-tags">${tags}</div>`;
+    list.appendChild(c);
+  });
+}
+document.getElementById('searchS4').addEventListener('input', e=>renderS4(e.target.value));
+renderS4();
+
+/* ---------- Station 5 render ---------- */
+function renderS5(term){
+  const t = (term||'').trim();
+  const grid = document.getElementById('gridS5');
+  grid.innerHTML='';
+  structure.forEach(([idiom, meaning])=>{
+    if(t && !(idiom.includes(t)||meaning.includes(t))) return;
+    const c = document.createElement('div');
+    c.className='struct-card';
+    c.innerHTML = `<b>${idiom}</b><p>${meaning}</p>`;
+    grid.appendChild(c);
+  });
+}
+document.getElementById('searchS5').addEventListener('input', e=>renderS5(e.target.value));
+renderS5();
+
+/* ============================================================
+   QUIZ ENGINE (Station 6) — unit picker + per-unit quiz
+   ============================================================ */
+let curUnit = null;
+let quizOrder = [];
+let qi = 0;
+let score = 0;
+let answered = false;
+
+function shuffle(arr){
+  const a = [...arr];
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+function renderUnitPicker(){
+  const area = document.getElementById('quizArea');
+  const grid = document.createElement('div');
+  grid.className = 'unit-picker';
+  quizUnits.forEach(u=>{
+    const c = document.createElement('div');
+    c.className = 'unit-card';
+    c.innerHTML = `<span class="emoji">${u.icon}</span><div class="name">${u.title}</div><div class="cnt">共 ${u.qs.length} 題</div>`;
+    c.onclick = ()=>{ curUnit = u; startQuiz(); };
+    grid.appendChild(c);
+  });
+  area.innerHTML = '';
+  area.appendChild(grid);
+}
+
+function startQuiz(){
+  quizOrder = shuffle(curUnit.qs.map((_,i)=>i));
+  qi = 0; score = 0; answered = false;
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion(){
+  const area = document.getElementById('quizArea');
+  if(qi >= quizOrder.length){
+    area.innerHTML = `
+      <div class="quiz-shell">
+        <div class="quiz-done">
+          <div class="big">${score} / ${quizOrder.length}</div>
+          <p>${score===quizOrder.length ? '滿分！這個單元你已經完全掌握了 🎉' : score>=quizOrder.length*0.7 ? '很不錯！再複習幾個易混淆的組合就更穩了。' : '沒關係，回頭逛逛前面的卡片，再挑戰一次！'}</p>
+          <div style="display:flex; gap:10px; justify-content:center; margin-top:16px;">
+            <button class="btn" onclick="startQuiz()">再玩一次</button>
+            <button class="btn ghost" onclick="renderUnitPicker()">選其他單元</button>
+          </div>
+        </div>
+      </div>`;
+    return;
+  }
+  answered = false;
+  const q = curUnit.qs[quizOrder[qi]];
+  const letters = ['A','B','C','D'];
+  const isEmoji = curUnit.type === 'emoji';
+  area.innerHTML = `
+    <div class="quiz-shell">
+      <div class="quiz-top">
+        <div class="quiz-progress">${curUnit.icon} ${curUnit.title}　第 ${qi+1} / ${quizOrder.length} 題</div>
+        <div class="quiz-score">得分 ${score}</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${(qi/quizOrder.length)*100}%"></div></div>
+      ${isEmoji
+        ? `<div class="quiz-q" style="text-align:center;">這組 emoji 代表哪一個成語？</div><div class="quiz-emoji-clue">${q.clue}</div>`
+        : `<div class="quiz-q">${q.q}</div>`
+      }
+      <div class="quiz-opts" id="quizOpts">
+        ${q.opts.map((o,idx)=>`<button class="quiz-opt" data-idx="${idx}"><span class="letter">${letters[idx]}</span>${o}</button>`).join('')}
+      </div>
+      <div class="quiz-explain" id="quizExplain">${q.ex}</div>
+      <div class="quiz-nav">
+        <button class="btn ghost" onclick="renderUnitPicker()">← 選其他單元</button>
+        <button class="btn" id="nextBtn" disabled>下一題</button>
+      </div>
+    </div>
+  `;
+  document.querySelectorAll('.quiz-opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      if(answered) return;
+      answered = true;
+      const idx = Number(btn.dataset.idx);
+      document.querySelectorAll('.quiz-opt').forEach(b=>b.classList.add('locked'));
+      if(idx === q.ans){
+        btn.classList.add('correct');
+        score++;
+      } else {
+        btn.classList.add('wrong');
+        document.querySelector(`.quiz-opt[data-idx="${q.ans}"]`).classList.add('correct');
+      }
+      document.getElementById('quizExplain').classList.add('show');
+      document.getElementById('nextBtn').disabled = false;
+    };
+  });
+  document.getElementById('nextBtn').onclick = ()=>{ qi++; renderQuizQuestion(); };
+}
+
+renderUnitPicker();
+</script>
+</body>
+</html>
