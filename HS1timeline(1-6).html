@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>臺灣史重要考點事件站｜史前～清末</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mud:#8B7355; --reed:#C4A882; --tide:#4A7C7E; --sky:#B8D4D8;
+  --soil:#2C1810; --paper:#F7F3EC; --ink:#1A1612; --muted:#6B5E52;
+  --seal:#A13D2C;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Noto Sans TC',sans-serif; line-height:1.7;
+}
+h1,h2,h3,.serif{font-family:'Noto Serif TC',serif;}
+
+/* ---- HERO ---- */
+.hero{position:relative; text-align:center; padding:56px 20px 34px; border-bottom:1px solid var(--reed); overflow:hidden;}
+.hero::before{
+  content:"史"; position:absolute; top:-40px; right:-10px; font-family:'Noto Serif TC',serif;
+  font-size:220px; color:var(--reed); opacity:.14; font-weight:900; pointer-events:none;
+}
+.eyebrow{letter-spacing:6px; font-size:12.5px; color:var(--seal); font-weight:700; margin-bottom:8px;}
+.hero h1{font-size:clamp(26px,4.6vw,42px); color:var(--soil); margin:0 0 10px; font-weight:900;}
+.hero p{max-width:640px; margin:0 auto; color:var(--muted); font-size:14.5px;}
+
+.progress-wrap{
+  position:sticky; top:0; z-index:20; background:var(--paper); border-bottom:0.5px solid var(--reed);
+  padding:8px 20px; text-align:right; font-size:12.5px; color:var(--muted);
+}
+#score{color:var(--seal); font-weight:700;}
+
+/* ---- NAV ---- */
+.mode-nav{
+  display:flex; justify-content:center; gap:6px; flex-wrap:wrap; max-width:900px; margin:22px auto 0; padding:0 16px;
+}
+.mode-btn{
+  padding:9px 20px; border:0.5px solid var(--mud); background:transparent; color:var(--muted);
+  border-radius:20px; font-size:13.5px; cursor:pointer; font-weight:500; font-family:'Noto Sans TC',sans-serif;
+}
+.mode-btn.active{background:var(--tide); border-color:var(--tide); color:#fff;}
+
+main{max-width:960px; margin:0 auto; padding:30px 18px 90px;}
+.view{display:none; animation:fade .3s ease;}
+.view.active{display:block;}
+@keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+/* ---- TIMELINE ---- */
+.era-nav{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px;}
+.era-btn{
+  padding:7px 15px; border-radius:16px; border:0.5px solid var(--tide); background:#fff;
+  color:var(--tide); font-size:12.8px; cursor:pointer; font-weight:500;
+}
+.era-btn.active{background:var(--tide); color:#fff;}
+
+.timeline{position:relative; padding-left:26px; border-left:2px solid var(--reed);}
+.tl-node{position:relative; margin-bottom:20px; cursor:pointer;}
+.tl-node::before{
+  content:""; position:absolute; left:-32px; top:6px; width:12px; height:12px; border-radius:50%;
+  background:var(--mud); border:2px solid var(--paper); box-shadow:0 0 0 1.5px var(--reed);
+}
+.tl-node.open::before{box-shadow:0 0 0 1.5px var(--reed), 0 0 0 4px rgba(26,22,18,.1);}
+.tl-row{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+.tl-year{font-family:'Noto Serif TC',serif; font-weight:900; font-size:17px; color:var(--seal); flex-shrink:0;}
+.tl-desc{font-weight:700; font-size:14.5px; color:var(--soil);}
+.tl-milestone-tag{
+  margin-left:auto; font-size:11.5px; font-weight:700; padding:3px 13px;
+  border:1.5px solid var(--seal); border-radius:20px; color:var(--seal); background:#fff; white-space:nowrap;
+}
+.tl-node.milestone::before{width:15px; height:15px; left:-33.5px; top:5px; box-shadow:0 0 0 5px rgba(161,61,44,.16);}
+.tl-node.milestone .tl-row{
+  background:#EDE6D3; border-radius:8px; padding:10px 14px; margin:-2px -8px;
+}
+
+.tl-body{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+.tl-node.open .tl-body{max-height:400px;}
+.tl-body-inner{padding:10px 4px 4px; font-size:14px; color:var(--ink);}
+.tl-body-inner b{color:var(--seal);}
+.tl-mnemonic{
+  margin-top:8px; padding:8px 12px; background:#fff; border-left:3px solid var(--mud);
+  border-radius:4px; font-size:13px; color:var(--muted);
+}
+
+/* ---- CARDS (flip) ---- */
+.card-filterbar{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:14px;}
+.flip{perspective:1000px; height:150px; cursor:pointer;}
+.flip-inner{position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d;}
+.flip.on .flip-inner{transform:rotateY(180deg);}
+.flip-face{
+  position:absolute; inset:0; backface-visibility:hidden; border-radius:8px;
+  border:0.5px solid var(--reed); padding:14px; display:flex; flex-direction:column; justify-content:center;
+  background:#fff;
+}
+.flip-front{text-align:center;}
+.flip-front .fy{font-family:'Noto Serif TC',serif; font-weight:900; font-size:22px; color:var(--tide);}
+.flip-front .ft{font-size:13px; color:var(--muted); margin-top:6px;}
+.flip-back{transform:rotateY(180deg); background:var(--soil); color:var(--paper); font-size:12.5px;}
+.flip-back b{color:var(--reed);}
+
+/* ---- QUIZ ---- */
+.quiz-card{background:#fff; border:0.5px solid var(--reed); border-radius:8px; padding:18px 20px; margin-bottom:15px;}
+.quiz-q{font-weight:700; font-size:15px; margin-bottom:12px;}
+.quiz-q .qnum{color:var(--seal); margin-right:6px;}
+.tag{display:inline-block; font-size:10.5px; padding:2px 9px; border-radius:20px; background:var(--tide); color:#fff; margin-left:6px;}
+.opt{
+  display:block; width:100%; text-align:left; padding:9px 14px; margin-bottom:7px;
+  border:1px solid var(--reed); background:#fff; border-radius:5px; cursor:pointer;
+  font-family:inherit; font-size:14px; color:var(--ink); transition:.15s;
+}
+.opt:hover{border-color:var(--tide);}
+.opt.correct{background:#fdf1ec; border-color:var(--seal); font-weight:700; position:relative;}
+.opt.correct::after{content:"印"; position:absolute; right:10px; top:50%; transform:translateY(-50%) rotate(-8deg);
+  color:var(--seal); border:1.5px solid var(--seal); border-radius:4px; padding:0 4px; font-size:11px; font-family:'Noto Serif TC',serif;}
+.opt.wrong{background:#f2ece3; border-color:var(--mud); text-decoration:line-through; color:var(--muted);}
+.opt[disabled]{cursor:default;}
+.explain{display:none; margin-top:10px; padding:11px 14px; border-radius:5px; background:#f7f1e6; border-left:3px solid var(--mud); font-size:13.5px; color:var(--ink);}
+.explain.show{display:block;}
+.explain b{color:var(--seal);}
+
+/* ---- CORE DATES ---- */
+.core-intro{font-size:13.5px; color:var(--muted); margin-bottom:20px;}
+.era-block{background:#fff; border:0.5px solid var(--reed); border-radius:8px; padding:18px 20px; margin-bottom:20px;}
+.era-block-head{display:flex; align-items:baseline; gap:10px; margin-bottom:12px;}
+.era-block-head h3{margin:0; font-size:17px; color:var(--soil);}
+.era-block-head .span{font-family:'Noto Serif TC',serif; font-weight:900; color:var(--seal); font-size:15px;}
+.era-block-head .dur{font-size:12px; color:var(--muted); background:var(--sky); padding:2px 10px; border-radius:12px;}
+.bar{height:8px; border-radius:4px; background:var(--reed); position:relative; margin-bottom:16px;}
+.bar-fill{position:absolute; top:0; left:0; height:100%; border-radius:4px; background:var(--tide);}
+.core-list{display:flex; flex-direction:column; gap:8px;}
+.core-item{display:flex; gap:12px; align-items:baseline; padding:8px 10px; border-radius:6px; background:var(--paper);}
+.core-item .cy{font-family:'Noto Serif TC',serif; font-weight:900; color:var(--seal); font-size:15px; min-width:78px;}
+.core-item .ce{font-size:13.8px; color:var(--ink);}
+.core-item.pivot{background:#fdf1ec; border-left:3px solid var(--seal);}
+
+footer{text-align:center; padding:26px; font-size:12px; color:var(--muted);}
+@media(max-width:600px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}}
+</style>
+</head>
+<body>
+
+<div class="progress-wrap">已作答 <span id="answered">0</span> / <span id="total">0</span> 題　正確 <span id="score">0</span> 題</div>
+
+<div class="hero">
+  <div class="eyebrow">臺灣史 · 重要考點總複習</div>
+  <h1>事件記憶站：史前到清末</h1>
+  <p>把散落在各單元的關鍵年代與事件，收進同一條時間軸——先看時間軸建立脈絡，再用翻卡加深年代記憶，最後用測驗檢查自己真的記住了沒。</p>
+</div>
+
+<div class="mode-nav" id="modeNav">
+  <button class="mode-btn active" data-m="core">必背年代</button>
+  <button class="mode-btn" data-m="timeline">時間軸總覽</button>
+  <button class="mode-btn" data-m="cards">事件翻卡</button>
+  <button class="mode-btn" data-m="quiz">事件測驗</button>
+</div>
+
+<main>
+
+  <!-- ============ CORE DATES VIEW ============ -->
+  <section class="view active" id="view-core">
+    <p class="core-intro">政權更迭的骨架只有這 13 個年代／時段——先把「誰、多久、轉折點」記熟，其餘細節都能掛在這條主軸上。</p>
+
+    <div class="era-block">
+      <div class="era-block-head"><h3>荷蘭時期</h3><span class="span">1624 – 1662</span><span class="dur">38年</span></div>
+      <div class="bar"><div class="bar-fill" style="width:100%"></div></div>
+      <div class="core-list">
+        <div class="core-item"><span class="cy">1624</span><span class="ce">荷蘭進占臺灣<b>南部</b>，最先占領臺灣的歐洲勢力</span></div>
+        <div class="core-item"><span class="cy">1626</span><span class="ce">西班牙進占臺灣<b>北部</b>（雞籠、淡水）</span></div>
+        <div class="core-item"><span class="cy">1642</span><span class="ce">荷蘭打敗西班牙，統一全臺（西班牙僅16年：1626–1642）</span></div>
+      </div>
+    </div>
+
+    <div class="era-block">
+      <div class="era-block-head"><h3>鄭氏政權</h3><span class="span">1662 – 1683</span><span class="dur">21年</span></div>
+      <div class="bar"><div class="bar-fill" style="width:100%"></div></div>
+      <div class="core-list">
+        <div class="core-item"><span class="cy">1661</span><span class="ce">鄭成功攻臺（次年1662荷蘭退出、鄭經繼位）</span></div>
+        <div class="core-item"><span class="cy">1683</span><span class="ce">施琅攻臺，鄭克塽降清，鄭氏政權結束</span></div>
+      </div>
+    </div>
+
+    <div class="era-block">
+      <div class="era-block-head"><h3>清領時期</h3><span class="span">1684 – 1895</span><span class="dur">211年</span></div>
+      <div class="bar"><div class="bar-fill" style="width:100%"></div></div>
+      <div class="core-list">
+        <div class="core-item"><span class="cy">1684</span><span class="ce">清廷將臺灣納入版圖（起點）</span></div>
+        <div class="core-item pivot"><span class="cy">1858</span><span class="ce">英法聯軍之役後<b>開港通商</b>——清領治臺政策的轉折點，外力再度進入臺灣</span></div>
+        <div class="core-item"><span class="cy">1874</span><span class="ce">牡丹社事件，清廷派沈葆楨來臺強化防務</span></div>
+        <div class="core-item"><span class="cy">1884</span><span class="ce">清法戰爭，促使清廷重視臺灣經營</span></div>
+        <div class="core-item"><span class="cy">1885</span><span class="ce">臺灣建省，劉銘傳首任巡撫，展開現代化建設</span></div>
+      </div>
+    </div>
+
+    <div class="core-list" style="margin-top:-4px;">
+      <div class="core-item" style="opacity:.75"><span class="cy">1895</span><span class="ce">終點：甲午戰爭後《馬關條約》割臺，清領時期結束（下一冊主題）</span></div>
+    </div>
+
+    <div id="coreQuizList" style="margin-top:24px;"></div>
+  </section>
+
+  <!-- ============ TIMELINE VIEW ============ -->
+  <section class="view" id="view-timeline">
+    <div class="era-nav" id="eraNavTL">
+      <button class="era-btn active" data-e="all">全部</button>
+      <button class="era-btn" data-e="史前">史前三時代</button>
+      <button class="era-btn" data-e="大航海">大航海／原住民</button>
+      <button class="era-btn" data-e="荷西">荷西時期</button>
+      <button class="era-btn" data-e="鄭氏">鄭氏政權</button>
+      <button class="era-btn" data-e="清初">清初治臺</button>
+      <button class="era-btn" data-e="開港">開港與現代化</button>
+    </div>
+    <div class="timeline" id="timelineList"></div>
+  </section>
+
+  <!-- ============ CARDS VIEW ============ -->
+  <section class="view" id="view-cards">
+    <p class="core-intro">只收錄「必背年代」的關鍵事件與年份，翻面複習最容易考的重點——其餘細節請到「時間軸總覽」查閱。</p>
+    <div class="card-filterbar" id="eraNavCards">
+      <button class="era-btn active" data-e="all">全部</button>
+      <button class="era-btn" data-e="史前">史前三時代</button>
+      <button class="era-btn" data-e="大航海">大航海／原住民</button>
+      <button class="era-btn" data-e="荷西">荷西時期</button>
+      <button class="era-btn" data-e="鄭氏">鄭氏政權</button>
+      <button class="era-btn" data-e="清初">清初治臺</button>
+      <button class="era-btn" data-e="開港">開港與現代化</button>
+    </div>
+    <div class="grid" id="cardGrid"></div>
+  </section>
+
+  <!-- ============ QUIZ VIEW ============ -->
+  <section class="view" id="view-quiz">
+    <div class="card-filterbar" id="eraNavQuiz">
+      <button class="era-btn active" data-f="all">全部</button>
+      <button class="era-btn" data-f="史前">史前三時代</button>
+      <button class="era-btn" data-f="大航海">大航海／原住民</button>
+      <button class="era-btn" data-f="荷西">荷西時期</button>
+      <button class="era-btn" data-f="鄭氏">鄭氏政權</button>
+      <button class="era-btn" data-f="清初">清初治臺</button>
+      <button class="era-btn" data-f="開港">開港與現代化</button>
+    </div>
+    <div id="quizList"></div>
+  </section>
+
+</main>
+
+<footer>臺灣史重要考點事件站　｜　資料整理自單元 1-1～6-2 互動講義</footer>
+
+<script>
+/* ============ DATA ============ */
+const events = [
+{era:"史前", year:"5萬～5千年前", title:"長濱文化（舊石器時代）", tag:"考古", cat3:"教育文化社會", body:"臺灣目前發現<b>最早</b>的舊石器時代文化，位於臺東縣長濱鄉。已知用火、使用打製石器，以採集漁獵維生，尚無農業。", mnemo:"打（獵）→磨（農）→鐵（貿）"},
+{era:"史前", year:"7千～2千年前", title:"大坌坑／圓山／卑南文化（新石器時代）", tag:"考古", cat3:"教育文化社會", body:"磨製石器、農業出現、飼養家畜、燒製陶器。圓山文化遺址所在的臺北盆地當時是湖泊，留下「貝塚」。"},
+{era:"史前", year:"2千～4百年前", title:"十三行文化（金屬器時代）", tag:"考古", cat3:"教育文化社會", body:"遺址位於新北市八里區，出土煉鐵爐、鐵渣；玻璃珠、銅錢等外來物品顯示與東南亞、中國大陸貿易頻繁。"},
+{era:"大航海", year:"12世紀", title:"漢人開始在澎湖活動", tag:"貿易", cat3:"經濟建設", body:"已有漢人在澎湖活動，是漢人接觸臺澎最早的紀錄之一。"},
+{era:"大航海", year:"14世紀後期", title:"明朝海禁政策", tag:"政策", cat3:"政治統治", body:"明朝為防備倭寇實施海禁，東亞貿易改由海商透過走私進行。"},
+{era:"大航海", year:"16世紀後期", title:"海商據點轉移到臺灣", tag:"貿易", cat3:"經濟建設", body:"明朝派兵進駐澎湖後，威脅原以澎湖為據點的海商，海商（如顏思齊、鄭芝龍）據點轉移到臺灣，並招募漢人開墾雲林、嘉義一帶。"},
+{era:"荷西", year:"1624", title:"荷蘭進占臺灣南部", tag:"政權更迭", cat3:"政治統治", body:"荷蘭聯合東印度公司進占臺灣南部，成為<b>最先占領臺灣</b>的歐洲勢力，展開38年統治（1624～1662）。行政中心「熱蘭遮城」（今安平古堡）。", mnemo:"荷蘭 24–62（38年）／ 西班牙 26–42（16年）", milestone:"歐洲勢力入臺起"},
+{era:"荷西", year:"1626", title:"西班牙進占臺灣北部", tag:"政權更迭", cat3:"政治統治", body:"西班牙為與荷蘭競爭，進攻臺灣北部，占領雞籠（今基隆）、淡水，作為對日貿易據點。", milestone:"北臺灣歐洲政權建立"},
+{era:"荷西", year:"1633", title:"日本頒布鎖國政策", tag:"外交", cat3:"政治統治", body:"日商退出東亞貿易競爭，原本因貿易糾紛緊張的荷、日關係因此不再衝突。"},
+{era:"荷西", year:"1635", title:"麻豆社之役", tag:"原住民", cat3:"政治統治", body:"荷蘭聯合新港社出兵攻打麻豆社，奠定荷蘭在南臺灣的統治權，是荷蘭「以社制社」策略的代表案例。"},
+{era:"荷西", year:"1642", title:"荷蘭打敗西班牙", tag:"政權更迭", cat3:"政治統治", body:"荷蘭出兵打敗西班牙人，結束西班牙在北臺灣16年的統治（1626～1642）。", milestone:"荷蘭統一全臺"},
+{era:"荷西", year:"1652", title:"郭懷一事件", tag:"反抗", cat3:"政治統治", body:"漢人反抗荷蘭統治失敗的事件，新港社原住民協助荷蘭人對付漢人反抗勢力。"},
+{era:"鄭氏", year:"1661", title:"鄭成功攻臺", tag:"政權更迭", cat3:"政治統治", body:"鄭成功因反清戰事受挫，率軍進攻臺灣，作為反清復明的基地。", milestone:"鄭氏政權起"},
+{era:"鄭氏", year:"1662", title:"鄭成功病逝・鄭經繼位・荷蘭退出臺灣", tag:"政權更迭", cat3:"政治統治", body:"鄭成功取得臺灣後不久病逝，由子<b>鄭經</b>繼位；同年荷蘭人退出臺灣，結束38年統治。", mnemo:"1661進攻臺灣→1662鄭成功病逝、鄭經繼位、荷蘭退出→1666設孔廟→1681鄭經病逝、鄭克塽繼位→1683施琅攻臺、鄭氏降清", milestone:"荷蘭統治結束"},
+{era:"鄭氏", year:"1666", title:"設立孔廟、推行文教", tag:"文教", cat3:"教育文化社會", body:"鄭氏政權在臺設孔廟，並於原住民部落設校，推行文教，使原住民逐漸接觸儒家文化。"},
+{era:"鄭氏", year:"1681", title:"鄭經病逝・鄭克塽繼位", tag:"政權更迭", cat3:"政治統治", body:"鄭經去世後，幼子鄭克塽繼位，鄭氏政權逐漸走向終結。"},
+{era:"鄭氏", year:"1683", title:"施琅攻臺・鄭氏降清", tag:"政權更迭", cat3:"政治統治", body:"清廷派施琅攻臺，鄭克塽投降，結束鄭氏政權在臺灣<b>21年</b>的統治（1662～1683）。", milestone:"鄭氏政權結束"},
+{era:"清初", year:"1684", title:"臺灣納入清帝國版圖", tag:"政策", cat3:"政治統治", body:"清廷採納施琅意見，將臺灣納入版圖，設「一府三縣」，展開「為防臺而治臺」的治理：渡臺禁令、劃界封山（番界）。", milestone:"清領時期起"},
+{era:"清初", year:"1709", title:"八堡圳興建", tag:"水利", cat3:"經濟建設", body:"施世榜興建，引濁水溪水源，灌溉彰化平原，使彰化一帶水田大增。"},
+{era:"清初", year:"1721", title:"朱一貴事件", tag:"民變", cat3:"政治統治", body:"清代臺灣三大民變之一，事件後清廷增設彰化縣、淡水廳（1727），加強北路統治。"},
+{era:"清初", year:"1727", title:"增設彰化縣、淡水廳", tag:"行政", cat3:"政治統治", body:"因應朱一貴事件後對北路統治的需求而增設，行政區劃由「一府三縣」調整為「一府四縣二廳」。"},
+{era:"清初", year:"1731", title:"大甲西社事件", tag:"原住民", cat3:"政治統治", body:"清代臺灣規模最大的原住民抗官事件，起因於已歸化的平埔族群長期受官府欺壓、不當差遣。"},
+{era:"清初", year:"1786", title:"林爽文事件", tag:"民變", cat3:"政治統治", body:"清代臺灣三大民變之一，平定後清廷嘉許當地居民協助平亂，將諸羅縣改名為「嘉義」。"},
+{era:"清初", year:"18世紀末", title:"吳沙率眾開墾蛤仔難（宜蘭）", tag:"拓墾", cat3:"經濟建設", body:"越界開墾番界的代表實例之一，吳沙率眾墾拓今宜蘭地區。"},
+{era:"清初", year:"1812", title:"增設噶瑪蘭廳・諸羅改名嘉義完成", tag:"行政", cat3:"政治統治", body:"行政區劃調整為「一府四縣三廳」；噶瑪蘭廳因海盜侵擾蛤仔難、清廷基於國防考量增設。"},
+{era:"清初", year:"1862", title:"戴潮春事件", tag:"民變", cat3:"政治統治", body:"清代臺灣三大民變之一（另二為朱一貴1721、林爽文1786）。", mnemo:"三大民變：朱一貴(1721)→林爽文(1786)→戴潮春(1862)"},
+{era:"開港", year:"1857～1858", title:"英法聯軍之役・開港通商", tag:"外力", cat3:"政治統治", body:"清帝國戰敗，被迫開放淡水、安平（後增雞籠、打狗）為通商口岸，西方勢力再度進入臺灣，洋行取代部分郊商角色。", milestone:"開港通商，治臺政策轉折"},
+{era:"開港", year:"1871～1874", title:"牡丹社事件", tag:"外力", cat3:"政治統治", body:"1871年琉球人民因船難漂流恆春半島遭原住民殺害，1874年日本藉此出兵臺灣。事件使清廷意識到臺灣的重要性，派<b>沈葆楨</b>來臺強化防務。", milestone:"近代化第一步的導火線"},
+{era:"開港", year:"1874～1875", title:"沈葆楨來臺・開山撫番", tag:"現代化", cat3:"經濟建設", body:"沈葆楨奏請廢除渡臺禁令、開放移民開墾；首倡「開山撫番」，開闢北中南三路山區道路；修築安平、旗後西式炮臺；架設臺灣最早電報線。", mnemo:"沈葆楨「開端」→劉銘傳「集大成」"},
+{era:"開港", year:"1878", title:"貿易重心由南轉北", tag:"貿易", cat3:"經濟建設", body:"1878年（光緒4年）後對外貿易持續出超，因茶、樟腦集中北部，政治經濟重心逐漸由府城一帶移往北部。"},
+{era:"開港", year:"1884", title:"清法戰爭", tag:"外力", cat3:"政治統治", body:"法軍侵擾臺灣北部（如基隆二沙灣炮臺受損），此戰使清廷更加重視臺灣經營，隔年下令建省。", milestone:"促成臺灣建省"},
+{era:"開港", year:"1885", title:"臺灣建省・劉銘傳首任巡撫", tag:"現代化", cat3:"政治統治", body:"清廷下令臺灣建省，派劉銘傳為首任巡撫，延續並擴大「開山撫番」，整建清法戰爭中受損的海防設施，架設遠達福州的電報線、設郵政總局。", milestone:"臺灣建省起"},
+{era:"開港", year:"1887", title:"行政區劃調整為三府十一縣三廳一直隸州", tag:"行政", cat3:"政治統治", body:"劉銘傳任內配合現代化建設全面調整行政區劃，是清代臺灣行政區劃最大規模的一次調整。"},
+{era:"開港", year:"1891", title:"基隆～臺北鐵路通車", tag:"現代化", cat3:"經濟建設", body:"劉銘傳任內修築的基隆到新竹鐵路，分階段通車，基隆～臺北段率先完工。"},
+{era:"開港", year:"1893", title:"臺北～新竹鐵路通車", tag:"現代化", cat3:"經濟建設", body:"基隆到新竹鐵路全線完工，是清代臺灣現代化建設「交通」面向的代表成果。"},
+];
+
+/* ============ QUIZ DATA ============ */
+const quizData = [
+{cat:'史前', q:'臺灣目前發現最早的舊石器時代文化是？', opts:['長濱文化','大坌坑文化','十三行文化','圓山文化'], a:0, ex:'長濱文化位於臺東縣長濱鄉，距今約五萬至五千年前，是臺灣目前發現最早的舊石器時代文化。'},
+{cat:'史前', q:'十三行文化遺址出土的煉鐵爐、鐵渣，說明當時已進入哪個時代？', opts:['舊石器時代','新石器時代','金屬器時代','大航海時代'], a:2, ex:'十三行文化遺址（新北市八里區）出土煉鐵爐、鐵渣，屬於金屬器時代的代表文化。'},
+{cat:'大航海', q:'明朝實施海禁政策，主要是為了防備誰？', opts:['倭寇','荷蘭人','西班牙人','鄭氏政權'], a:0, ex:'14世紀後期，明朝為防備倭寇實施海禁政策，導致東亞貿易改由海商走私進行。'},
+{cat:'大航海', q:'16世紀後期，明朝派兵進駐澎湖後，原以澎湖為據點的海商轉移到何處？', opts:['日本','臺灣','馬尼拉','中國東南沿海'], a:1, ex:'海商據點逐漸轉移到臺灣活動，顏思齊、鄭芝龍即在歐洲人占領臺灣之前，招募漢人開墾雲林、嘉義一帶。'},
+{cat:'荷西', q:'荷蘭人於哪一年進占臺灣南部，成為最先占領臺灣的歐洲勢力？', opts:['1602年','1624年','1626年','1642年'], a:1, ex:'荷蘭人於1624年進占臺灣南部，展開38年統治（1624～1662年）。'},
+{cat:'荷西', q:'西班牙於1626年占領臺灣北部的哪兩處，作為對日貿易據點？', opts:['雞籠、淡水','大員、安平','澎湖、馬公','新港、北港'], a:0, ex:'西班牙為與荷蘭競爭，於1626年占領雞籠（今基隆）、淡水等地。'},
+{cat:'荷西', q:'荷蘭於哪一年出兵打敗西班牙人，結束西班牙在北臺灣的統治？', opts:['1624年','1626年','1642年','1662年'], a:2, ex:'荷蘭於1642年出兵打敗西班牙人，結束西班牙在北臺灣16年的統治（1626～1642年）。'},
+{cat:'荷西', q:'「麻豆社之役」發生於哪一年？其意義為何？', opts:['1635年，奠定荷蘭南臺灣統治權','1652年，漢人反荷失敗','1624年，荷蘭首次登臺','1642年，荷蘭擊敗西班牙'], a:0, ex:'1635年荷蘭聯合新港社出兵攻打麻豆社，奠定荷蘭在南臺灣的統治權，是「以社制社」策略的代表案例。'},
+{cat:'荷西', q:'1652年的「郭懷一事件」是指什麼？', opts:['漢人反抗荷蘭統治失敗','原住民反抗鄭氏統治','西班牙反抗荷蘭','日本鎖國政策衝突'], a:0, ex:'郭懷一事件是漢人反抗荷蘭統治失敗的事件，新港社原住民協助荷蘭人對付漢人反抗勢力。'},
+{cat:'鄭氏', q:'鄭成功於哪一年進攻臺灣，作為反清復明的基地？', opts:['1624年','1642年','1661年','1683年'], a:2, ex:'鄭成功於1661年進攻臺灣；次年（1662年）荷蘭人即退出臺灣。'},
+{cat:'鄭氏', q:'荷蘭人退出臺灣、鄭經繼位，都發生在哪一年？', opts:['1661年','1662年','1666年','1683年'], a:1, ex:'1662年鄭成功病逝、鄭經繼位，同年荷蘭人退出臺灣，結束38年統治。'},
+{cat:'鄭氏', q:'1683年，清廷派何人攻臺，使鄭克塽投降？', opts:['沈有容','施琅','鄭芝龍','顏思齊'], a:1, ex:'1683年清廷派施琅攻臺，鄭克塽投降，結束鄭氏政權在臺灣21年的統治。'},
+{cat:'鄭氏', q:'鄭氏政權在臺灣的統治，前後共歷經幾年？', opts:['16年','21年','38年','50年'], a:1, ex:'鄭氏政權統治臺灣自1662年至1683年，共21年；荷蘭統治臺灣則長達38年（1624～1662年）。'},
+{cat:'清初', q:'清廷於哪一年將臺灣納入版圖，設「一府三縣」？', opts:['1662年','1683年','1684年','1721年'], a:2, ex:'1684年（康熙23年），清廷採納施琅意見，將臺灣納入版圖。'},
+{cat:'清初', q:'彰化八堡圳是由誰興建？灌溉哪一地區？', opts:['郭錫瑠父子、臺北盆地','施世榜、彰化平原','張達京、臺中盆地','曹謹、高屏地區'], a:1, ex:'八堡圳由施世榜於1709年興建，引濁水溪水源灌溉彰化平原，使彰化一帶水田大增。'},
+{cat:'清初', q:'清代臺灣三大民變依時間先後排列，順序為？', opts:['朱一貴→林爽文→戴潮春','林爽文→朱一貴→戴潮春','戴潮春→朱一貴→林爽文','朱一貴→戴潮春→林爽文'], a:0, ex:'三大民變依序為：朱一貴事件（1721）、林爽文事件（1786）、戴潮春事件（1862）。'},
+{cat:'清初', q:'林爽文事件平定後，清廷將諸羅縣改名為什麼，以嘉許當地居民協助平亂？', opts:['彰化','嘉義','噶瑪蘭','淡水'], a:1, ex:'林爽文事件（1786）平定後，清廷嘉許當地居民協助平亂，賜名「嘉義」。'},
+{cat:'清初', q:'清代臺灣規模最大的原住民抗官事件是？', opts:['大甲西社事件','麻豆社之役','郭懷一事件','牡丹社事件'], a:0, ex:'大甲西社事件（1731年）是清代臺灣規模最大的原住民抗官事件，起因於平埔族群長期受官府欺壓。'},
+{cat:'清初', q:'清廷將臺灣納入版圖後，採取「為防臺而治臺」的治理方針，主要透過哪兩項政策限制人民渡臺與拓墾？', opts:['渡臺禁令、劃界封山（番界）','保甲制度、聯莊互保','一條鞭法、攤丁入畝','屯田制、班兵制'], a:0, ex:'1684年清廷將臺灣納入版圖後，為降低治理成本，採取「為防臺而治臺」方針：訂定渡臺禁令限制大陸人民渡臺，並劃界封山（劃定番界），禁止漢人越界進入原住民地區拓墾。'},
+{cat:'開港', q:'英法聯軍之役後，清帝國被迫開放臺灣的哪兩個港口通商？（後又增開雞籠、打狗）', opts:['淡水、安平','鹿耳門、鹿港','基隆、高雄','臺南、臺中'], a:0, ex:'1857～1858年英法聯軍之役，清帝國戰敗，被迫開放淡水、安平（後增雞籠、打狗）為通商口岸。'},
+{cat:'開港', q:'牡丹社事件的起因是什麼？', opts:['琉球人民船難漂流恆春半島遭原住民殺害','清法戰爭爆發','日本鎖國政策','英法聯軍之役'], a:0, ex:'1871年琉球人民因船難漂流到恆春半島，遭原住民殺害，1874年日本藉此出兵臺灣，即牡丹社事件。'},
+{cat:'開港', q:'牡丹社事件後，清廷派何人來臺強化防務？他做了哪些建設？', opts:['劉銘傳、修築鐵路','沈葆楨、開山撫番、修築炮臺','施琅、平定鄭氏','曹謹、興建水圳'], a:1, ex:'牡丹社事件使清廷意識到臺灣的重要性，派沈葆楨來臺，奏請廢除渡臺禁令、首倡開山撫番、修築西式炮臺、架設最早電報線。'},
+{cat:'開港', q:'清法戰爭發生於哪一年？隔年清廷做出什麼重大決定？', opts:['1874年，開山撫番','1884年，臺灣建省','1858年，開港通商','1721年，增設彰化縣'], a:1, ex:'清法戰爭發生於1884年，此戰使清廷更加重視臺灣經營，隔年（1885年）下令臺灣建省。'},
+{cat:'開港', q:'臺灣建省後，首任巡撫是誰？', opts:['沈葆楨','劉銘傳','施琅','曹謹'], a:1, ex:'1885年臺灣建省，劉銘傳為首任巡撫，展開現代化建設，延續並擴大「開山撫番」。'},
+{cat:'開港', q:'劉銘傳任內修築的基隆～新竹鐵路，分別在哪兩年通車？', opts:['1885、1891年','1891、1893年','1874、1884年','1878、1887年'], a:1, ex:'基隆～臺北段於1891年通車，臺北～新竹段於1893年通車，是現代化建設「交通」面向的代表成果。'},
+{cat:'開港', q:'1878年後，臺灣貿易重心逐漸由何處轉移到何處？', opts:['北部轉南部','南部轉北部','東部轉西部','西部轉東部'], a:1, ex:'1878年後貿易持續出超，因茶、樟腦集中北部，政治經濟重心由府城一帶（南部）逐漸移往北部。'},
+];
+
+/* ============ CORE QUIZ DATA (13必背年代) ============ */
+const coreQuiz = [
+{q:'荷蘭進占臺灣南部是哪一年？', opts:['1602年','1624年','1626年','1642年'], a:1, ex:'1624年荷蘭進占臺灣南部，是最先占領臺灣的歐洲勢力。'},
+{q:'西班牙進占臺灣北部（雞籠、淡水）是哪一年？', opts:['1624年','1626年','1642年','1661年'], a:1, ex:'1626年西班牙為與荷蘭競爭，占領雞籠、淡水。'},
+{q:'荷蘭打敗西班牙、統一全臺是哪一年？', opts:['1626年','1642年','1662年','1683年'], a:1, ex:'1642年荷蘭出兵打敗西班牙，結束西班牙在北臺灣16年的統治。'},
+{q:'荷蘭統治臺灣的起訖年代為？', opts:['1624–1662年（38年）','1626–1642年（16年）','1662–1683年（21年）','1684–1858年'], a:0, ex:'荷蘭統治臺灣共38年（1624～1662年），統治時間比西班牙（16年）、鄭氏（21年）都長。'},
+{q:'鄭成功進攻臺灣是哪一年？', opts:['1642年','1661年','1662年','1683年'], a:1, ex:'鄭成功於1661年進攻臺灣，作為反清復明的基地；次年（1662年）荷蘭人即退出臺灣。'},
+{q:'鄭氏政權統治臺灣的起訖年代為？', opts:['1624–1662年','1661–1683年','1662–1683年（21年）','1684–1895年'], a:2, ex:'鄭氏政權統治臺灣自1662年（荷蘭退出、鄭經繼位）至1683年（鄭克塽降清），共21年。'},
+{q:'清廷派施琅攻臺、鄭克塽降清是哪一年？', opts:['1661年','1662年','1683年','1684年'], a:2, ex:'1683年清廷派施琅攻臺，鄭克塽投降，結束鄭氏政權21年的統治。'},
+{q:'清廷將臺灣納入版圖，是哪一年？', opts:['1683年','1684年','1858年','1885年'], a:1, ex:'1684年（康熙23年），清廷採納施琅意見，將臺灣納入版圖，設「一府三縣」。'},
+{q:'清領臺灣治臺政策的重大轉折點——開港通商——發生於哪一年？', opts:['1684年','1858年','1874年','1884年'], a:1, ex:'1857～1858年英法聯軍之役後，清帝國被迫開港通商，外力再度進入臺灣，是清領時期治臺政策的分水嶺。'},
+{q:'牡丹社事件促使清廷派誰來臺強化防務？發生於哪一年？', opts:['沈葆楨，1874年','劉銘傳，1885年','施琅，1683年','曹謹，1858年'], a:0, ex:'1874年牡丹社事件後，清廷派沈葆楨來臺，開山撫番、修築炮臺，是臺灣近代化的第一步。'},
+{q:'促使清廷隔年決定臺灣建省的戰爭是？發生於哪一年？', opts:['牡丹社事件，1874年','清法戰爭，1884年','英法聯軍之役，1858年','甲午戰爭，1895年'], a:1, ex:'1884年清法戰爭使清廷更加重視臺灣經營，隔年（1885年）下令臺灣建省。'},
+{q:'臺灣建省、劉銘傳出任首任巡撫，是哪一年？', opts:['1874年','1884年','1885年','1895年'], a:2, ex:'1885年清廷下令臺灣建省，派劉銘傳為首任巡撫，展開現代化建設。'},
+{q:'清領時期的起訖年代大致為？', opts:['1624–1662年','1662–1683年','1684–1895年','1684–1885年'], a:2, ex:'清領時期自1684年臺灣納入版圖，至1895年《馬關條約》割臺為止，共211年，1858年開港通商是其中的重要轉折點。'},
+];
+
+/* ============ RENDER: CORE QUIZ ============ */
+const coreQuizList = document.getElementById('coreQuizList');
+function renderCoreQuiz(){
+  coreQuizList.innerHTML = '<h3 style="color:var(--soil); font-size:15.5px; margin-bottom:12px;">快速自測（13題）</h3>';
+  coreQuiz.forEach((item, idx)=>{
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+    card.innerHTML = `
+      <div class="quiz-q"><span class="qnum">Q${idx+1}.</span>${item.q}</div>
+      <div class="opts"></div>
+      <div class="explain" id="cq-ex-${idx}"><b>詳解：</b>${item.ex}</div>
+    `;
+    const optsWrap = card.querySelector('.opts');
+    item.opts.forEach((opt, oi)=>{
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.textContent = `${String.fromCharCode(65+oi)}. ${opt}`;
+      btn.addEventListener('click', ()=>{
+        if(btn.disabled) return;
+        const allBtns = optsWrap.querySelectorAll('.opt');
+        allBtns.forEach(b=>b.disabled=true);
+        if(oi === item.a){
+          btn.classList.add('correct');
+          correct++;
+        } else {
+          btn.classList.add('wrong');
+          allBtns[item.a].classList.add('correct');
+        }
+        document.getElementById(`cq-ex-${idx}`).classList.add('show');
+        answered++;
+        document.getElementById('answered').textContent = answered;
+        document.getElementById('score').textContent = correct;
+      });
+      optsWrap.appendChild(btn);
+    });
+    coreQuizList.appendChild(card);
+  });
+}
+renderCoreQuiz();
+
+/* ============ RENDER: TIMELINE ============ */
+const timelineList = document.getElementById('timelineList');
+function renderTimeline(filter){
+  timelineList.innerHTML = '';
+  events.forEach((ev,idx)=>{
+    if(filter!=='all' && ev.era!==filter) return;
+    const node = document.createElement('div');
+    node.className = 'tl-node' + (ev.milestone ? ' milestone' : '');
+    node.innerHTML = `
+      <div class="tl-row">
+        <span class="tl-year">${ev.year}</span>
+        <span class="tl-desc">${ev.title}</span>
+        ${ev.milestone?`<span class="tl-milestone-tag">${ev.milestone}</span>`:''}
+      </div>
+      <div class="tl-body"><div class="tl-body-inner">${ev.body}${ev.mnemo?`<div class="tl-mnemonic"><b>記憶口訣：</b>${ev.mnemo}</div>`:''}</div></div>
+    `;
+    node.addEventListener('click', ()=>node.classList.toggle('open'));
+    timelineList.appendChild(node);
+  });
+}
+renderTimeline('all');
+document.querySelectorAll('#eraNavTL .era-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#eraNavTL .era-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTimeline(btn.dataset.e);
+  });
+});
+
+/* ============ RENDER: CARDS ============ */
+const cardGrid = document.getElementById('cardGrid');
+function renderCards(filter){
+  cardGrid.innerHTML = '';
+  events.filter(ev=>ev.milestone).forEach(ev=>{
+    if(filter!=='all' && ev.era!==filter) return;
+    const flip = document.createElement('div');
+    flip.className = 'flip';
+    flip.innerHTML = `
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <div class="fy">${ev.year}</div>
+          <div class="ft">${ev.tag}</div>
+        </div>
+        <div class="flip-face flip-back"><b>${ev.title}</b><br>${ev.body.replace(/<b>|<\/b>/g,'')}</div>
+      </div>
+    `;
+    flip.addEventListener('click', ()=>flip.classList.toggle('on'));
+    cardGrid.appendChild(flip);
+  });
+}
+renderCards('all');
+document.querySelectorAll('#eraNavCards .era-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#eraNavCards .era-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCards(btn.dataset.e);
+  });
+});
+
+/* ============ RENDER: QUIZ ============ */
+document.getElementById('total').textContent = quizData.length + coreQuiz.length;
+const quizList = document.getElementById('quizList');
+let answered = 0, correct = 0;
+function renderQuiz(filter){
+  quizList.innerHTML = '';
+  quizData.forEach((item, idx)=>{
+    if(filter!=='all' && item.cat!==filter) return;
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+    card.innerHTML = `
+      <div class="quiz-q"><span class="qnum">Q${idx+1}.</span>${item.q}<span class="tag">${item.cat}</span></div>
+      <div class="opts"></div>
+      <div class="explain" id="ex-${idx}"><b>詳解：</b>${item.ex}</div>
+    `;
+    const optsWrap = card.querySelector('.opts');
+    item.opts.forEach((opt, oi)=>{
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.textContent = `${String.fromCharCode(65+oi)}. ${opt}`;
+      btn.addEventListener('click', ()=>{
+        if(btn.disabled) return;
+        const allBtns = optsWrap.querySelectorAll('.opt');
+        allBtns.forEach(b=>b.disabled=true);
+        if(oi === item.a){
+          btn.classList.add('correct');
+          correct++;
+        } else {
+          btn.classList.add('wrong');
+          allBtns[item.a].classList.add('correct');
+        }
+        document.getElementById(`ex-${idx}`).classList.add('show');
+        answered++;
+        document.getElementById('answered').textContent = answered;
+        document.getElementById('score').textContent = correct;
+      });
+      optsWrap.appendChild(btn);
+    });
+    quizList.appendChild(card);
+  });
+}
+renderQuiz('all');
+document.querySelectorAll('#eraNavQuiz .era-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#eraNavQuiz .era-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderQuiz(btn.dataset.f);
+  });
+});
+
+/* ============ MODE SWITCH ============ */
+document.querySelectorAll('.mode-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById('view-'+btn.dataset.m).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+</script>
+
+</body>
+</html>
