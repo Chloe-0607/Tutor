@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日治時期臺灣 · 互動講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2ECDD;
+    --paper-deep:#E6DAB9;
+    --ink:#2B2620;
+    --ink-soft:#7A705D;
+    --red:#9C3B2E;
+    --red-deep:#7A2C21;
+    --gold:#AD8A3E;
+    --gold-deep:#8C6F2E;
+    --green:#3F5D45;
+    --green-deep:#2C4531;
+    --line:#D9CBA9;
+    --card:#FFFDF6;
+    --seal:#9C3B2E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans TC',sans-serif;
+    line-height:1.75;
+    position:relative;
+    min-height:100vh;
+  }
+  body::before{
+    content:"臺";
+    position:fixed;
+    top:-4vw; right:-4vw;
+    font-family:'Noto Serif TC',serif;
+    font-size:38vw;
+    font-weight:900;
+    color:var(--red);
+    opacity:0.045;
+    z-index:0;
+    pointer-events:none;
+    line-height:1;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px 80px;position:relative;z-index:1;}
+
+  /* Header */
+  header{
+    padding:56px 0 32px;
+    text-align:center;
+    border-bottom:0.5px solid var(--red);
+    margin-bottom:28px;
+  }
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:0.35em;
+    color:var(--gold-deep);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:clamp(30px,5vw,46px);
+    color:var(--ink);
+    letter-spacing:0.04em;
+  }
+  header p{
+    margin-top:12px;
+    color:var(--ink-soft);
+    font-size:15px;
+  }
+
+  .stats{
+    display:flex;
+    justify-content:center;
+    gap:32px;
+    margin-top:26px;
+    flex-wrap:wrap;
+  }
+  .stat{text-align:center;min-width:80px;}
+  .stat .num{
+    font-family:'Noto Serif TC',serif;
+    font-size:26px;
+    font-weight:700;
+    color:var(--red-deep);
+  }
+  .stat .lab{font-size:12px;color:var(--ink-soft);letter-spacing:0.08em;}
+
+  /* Tabs */
+  .tabs{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(242,236,221,0.95);
+    backdrop-filter:blur(6px);
+    display:flex;
+    gap:6px;
+    padding:14px 0;
+    border-bottom:0.5px solid var(--line);
+    margin-bottom:36px;
+    overflow-x:auto;
+  }
+  .tab-btn{
+    flex:1 1 0;
+    min-width:130px;
+    background:transparent;
+    border:0.5px solid var(--red);
+    color:var(--ink-soft);
+    font-family:'Noto Sans TC',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:11px 10px;
+    cursor:pointer;
+    letter-spacing:0.02em;
+    transition:all .25s ease;
+    white-space:nowrap;
+    text-align:center;
+  }
+  .tab-btn .tag{display:block;font-size:11px;color:var(--red-deep);letter-spacing:0.15em;margin-bottom:2px;}
+  .tab-btn:hover{border-color:var(--red-deep);color:var(--red-deep);}
+  .tab-btn.active{
+    background:var(--red-deep);
+    border-color:var(--red-deep);
+    color:#fff;
+  }
+  .tab-btn.active .tag{color:#F3DCC9;}
+
+  /* Sections */
+  .chapter{display:none;animation:fade .4s ease;}
+  .chapter.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .chapter-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;}
+  .chapter-num{
+    font-family:'Noto Serif TC',serif;
+    font-size:15px;
+    color:var(--red-deep);
+    font-weight:700;
+    letter-spacing:0.08em;
+    border:0.5px solid var(--red-deep);
+    padding:2px 10px;
+  }
+  .chapter-head h2{
+    font-family:'Noto Serif TC',serif;
+    font-size:clamp(22px,3.4vw,30px);
+    color:var(--ink);
+    font-weight:700;
+  }
+  .chapter-sub{color:var(--ink-soft);font-size:14px;margin-bottom:28px;padding-left:2px;}
+
+  /* Key point cards */
+  .points{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-bottom:44px;
+  }
+  .point-card{
+    background:var(--card);
+    border:0.5px solid var(--line);
+    padding:20px 22px;
+    position:relative;
+  }
+  .point-card.wide{grid-column:1 / -1;}
+  .point-card h3{
+    font-family:'Noto Serif TC',serif;
+    font-size:16px;
+    color:var(--red-deep);
+    font-weight:700;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .point-card h3::before{
+    content:"";
+    width:6px;height:6px;
+    background:var(--green);
+    display:inline-block;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .point-card p, .point-card li{font-size:14px;color:var(--ink);}
+  .point-card ul{padding-left:18px;margin-top:4px;}
+  .point-card .note{
+    margin-top:10px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    border-top:0.5px dashed var(--gold);
+    padding-top:8px;
+  }
+  .point-card .note .tlabel{display:block;font-size:11px;letter-spacing:0.12em;color:var(--gold-deep);margin-bottom:5px;font-weight:700;}
+  .point-card b{color:var(--seal);font-weight:700;}
+
+  /* Generic data tables (multi-column) */
+  .table-wrap{overflow-x:auto;margin-bottom:14px;border:0.5px solid var(--line);}
+  table{width:100%;border-collapse:collapse;background:var(--card);font-size:.86rem;}
+  thead th{background:var(--green);color:#fff;text-align:left;padding:10px 14px;font-family:'Noto Serif TC',serif;font-weight:600;letter-spacing:.03em;}
+  tbody td{padding:10px 14px;border-top:1px solid var(--line);}
+  tbody tr:nth-child(even){background:#F5EFDE;}
+  td.wc{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--red-deep);font-size:.92rem;}
+
+  /* Trap / 易混淆 boxes */
+  .trap{background:#F6EEDD;border:0.5px solid var(--gold);padding:16px 20px;margin-bottom:14px;font-size:.92rem;}
+  .trap b{color:var(--gold-deep);}
+
+  /* Timeline */
+  .tl-legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:24px;font-size:.85rem;color:var(--ink-soft);}
+  .tl-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .dot.pol{background:var(--red);}
+  .dot.eco{background:var(--gold-deep);}
+  .dot.cul{background:var(--green);}
+  .timeline{position:relative;padding-left:26px;border-left:2px solid var(--line);margin-bottom:20px;}
+  .tl-item{position:relative;margin-bottom:20px;}
+  .tl-item::before{content:"";position:absolute;left:-32px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid var(--card);}
+  .tl-item.pol::before{background:var(--red);}
+  .tl-item.eco::before{background:var(--gold-deep);}
+  .tl-item.cul::before{background:var(--green);}
+  .tl-year{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--ink);font-size:1rem;margin-right:8px;}
+  .tl-text{color:var(--ink-soft);font-size:.94rem;}
+  .tl-period-tag{display:inline-block;font-size:.72rem;letter-spacing:.05em;padding:2px 8px;border-radius:99px;margin-left:8px;border:1px solid currentColor;vertical-align:2px;}
+  .tl-item.major{padding:10px 14px;background:var(--paper-deep);border:1px solid var(--line);border-radius:6px;margin-left:-4px;}
+  .tl-item.major::before{width:18px;height:18px;left:-36px;top:6px;box-shadow:0 0 0 4px rgba(156,59,46,.15);}
+  .tl-item.major .tl-year{font-size:1.15rem;color:var(--red-deep);}
+  .tl-item.major .tl-text{font-weight:700;color:var(--ink);}
+
+  /* Matching game */
+  .match-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:10px;}
+  @media(max-width:640px){.match-grid{grid-template-columns:repeat(2,1fr);}}
+  .match-card{aspect-ratio:1/1;border-radius:8px;cursor:pointer;position:relative;perspective:600px;}
+  .match-card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.2,1);}
+  .match-card.flipped .match-card-inner{transform:rotateY(180deg);}
+  .match-card.matched .match-card-inner{transform:rotateY(180deg);}
+  .match-face{position:absolute;inset:0;border-radius:8px;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;font-size:.82rem;text-align:center;padding:10px;font-weight:600;}
+  .match-front{background:linear-gradient(135deg,var(--green),var(--green-deep));color:#fff;font-family:'Noto Serif TC',serif;font-size:1.3rem;}
+  .match-back{background:var(--card);border:2px solid var(--green);color:var(--ink);transform:rotateY(180deg);}
+  .match-card.matched .match-back{border-color:var(--red-deep);background:#F7E7E2;}
+  #match-status{text-align:center;color:var(--green-deep);font-weight:700;margin:14px 0 44px;font-family:'Noto Serif TC',serif;min-height:24px;}
+
+  /* Quiz */
+  .quiz-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+    border-top:0.5px solid var(--red);
+    padding-top:28px;
+  }
+  .quiz-head h3{font-family:'Noto Serif TC',serif;font-size:20px;color:var(--ink);}
+  .quiz-score{
+    font-size:13px;
+    color:var(--red-deep);
+    font-weight:600;
+    border:0.5px solid var(--red-deep);
+    padding:4px 12px;
+  }
+  .q-card{
+    background:var(--card);
+    border:0.5px solid var(--line);
+    padding:20px 22px 22px;
+    margin-bottom:16px;
+    position:relative;
+  }
+  .q-num{
+    font-family:'Noto Serif TC',serif;
+    font-size:12px;
+    color:var(--red-deep);
+    letter-spacing:0.1em;
+    margin-bottom:6px;
+    font-weight:700;
+  }
+  .q-text{font-size:15.5px;font-weight:500;color:var(--ink);margin-bottom:14px;}
+  .options{display:grid;gap:8px;}
+  .opt{
+    text-align:left;
+    background:var(--paper);
+    border:0.5px solid var(--ink-soft);
+    color:var(--ink);
+    padding:10px 14px;
+    font-size:14px;
+    font-family:'Noto Sans TC',sans-serif;
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .opt:hover{border-color:var(--red-deep);background:#fff;}
+  .opt.correct{border-color:var(--green-deep);background:#EAF1E9;color:var(--green-deep);font-weight:700;}
+  .opt.wrong{border-color:var(--ink-soft);background:#eee9e1;color:var(--ink-soft);text-decoration:line-through;}
+  .opt.disabled{cursor:default;}
+  .feedback{
+    display:none;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:0.5px dashed var(--gold);
+    font-size:13.5px;
+    color:var(--ink-soft);
+    align-items:center;
+    gap:10px;
+  }
+  .feedback.show{display:flex;}
+  .seal{
+    flex-shrink:0;
+    width:auto;
+    border:1.5px solid var(--seal);
+    color:var(--seal);
+    border-radius:6px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:5px 10px;
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:12.5px;
+    letter-spacing:0.1em;
+    white-space:nowrap;
+  }
+
+  footer{text-align:center;padding:40px 20px 60px;color:var(--ink-soft);font-size:.85rem;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">互動講義 · 臺灣的歷史（下）</div>
+    <h1>日治時期臺灣</h1>
+    <p>殖民體制・經濟建設・教育文化與社會變遷（西元1895〜1945年，共五十年）</p>
+    <div class="stats">
+      <div class="stat"><div class="num">5</div><div class="lab">章節</div></div>
+      <div class="stat"><div class="num" id="totalQCount">0</div><div class="lab">題目</div></div>
+      <div class="stat"><div class="num" id="globalScore">0</div><div class="lab">已答對</div></div>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab-btn active" data-target="ch0"><span class="tag">總覽</span>時間線</button>
+    <button class="tab-btn" data-target="ch1"><span class="tag">第1課</span>殖民體制</button>
+    <button class="tab-btn" data-target="ch2"><span class="tag">第2課</span>殖民經濟</button>
+    <button class="tab-btn" data-target="ch3"><span class="tag">第3課</span>教育文化</button>
+    <button class="tab-btn" data-target="ch4"><span class="tag">總複習</span>考點＋遊戲</button>
+  </nav>
+
+  <!-- ===================== CHAPTER 0：總時間線 ===================== -->
+  <section class="chapter active" id="ch0">
+    <div class="chapter-head"><span class="chapter-num">總覽</span><h2>總時間線（1895〜1945）</h2></div>
+    <p class="chapter-sub">先抓大架構再讀細節：三時期口訣「頭武、中文、尾武」——武官（1895-1919）→文官（1919-1937）→武官（1937-1945）。</p>
+
+    <div class="tl-legend">
+      <span><span class="dot pol"></span>政治統治</span>
+      <span><span class="dot eco"></span>經濟建設</span>
+      <span><span class="dot cul"></span>教育文化社會</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item pol"><span class="tl-year">1894〜1895</span><span class="tl-text">甲午戰爭，清廷戰敗</span></div>
+      <div class="tl-item pol"><span class="tl-year">1895.4</span><span class="tl-text">馬關條約簽訂，臺灣、澎湖割讓給日本</span></div>
+      <div class="tl-item pol"><span class="tl-year">1895.5</span><span class="tl-text">臺灣民主國成立（唐景崧、丘逢甲），抗拒接收但終告失敗</span></div>
+      <div class="tl-item pol major"><span class="tl-year">1895</span><span class="tl-text">臺灣總督府設立，展開殖民統治<span class="tl-period-tag" style="color:var(--red)">殖民地特殊統治時期起</span></span></div>
+      <div class="tl-item pol"><span class="tl-year">1896</span><span class="tl-text">日本發布「六三法」，授權總督可頒布具法律效力的命令</span></div>
+      <div class="tl-item eco"><span class="tl-year">1908</span><span class="tl-text">縱貫鐵路（基隆〜高雄）完工</span></div>
+      <div class="tl-item pol"><span class="tl-year">1910〜1915</span><span class="tl-text">五年理蕃計畫：武力鎮壓高山原住民</span></div>
+      <div class="tl-item pol"><span class="tl-year">1915</span><span class="tl-text">西來庵事件（噍吧哖事件，余清芳）— 最大規模武裝抗日</span></div>
+      <div class="tl-item cul"><span class="tl-year">1915</span><span class="tl-text">臺中中學校設立，第一所收臺人子弟的中學</span></div>
+      <div class="tl-item cul"><span class="tl-year">1918</span><span class="tl-text">第一次世界大戰結束，「民族自決」思潮興起</span></div>
+      <div class="tl-item pol major"><span class="tl-year">1919</span><span class="tl-text">首任文官總督到任，統治政策轉為「內地延長主義」<span class="tl-period-tag" style="color:var(--gold-deep)">內地延長時期起</span></span></div>
+      <div class="tl-item cul"><span class="tl-year">1921</span><span class="tl-text">臺灣文化協會成立（林獻堂、蔣渭水），發行臺灣民報</span></div>
+      <div class="tl-item cul"><span class="tl-year">1927</span><span class="tl-text">臺灣民眾黨成立（蔣渭水）— 臺人第一個政黨</span></div>
+      <div class="tl-item cul"><span class="tl-year">1928</span><span class="tl-text">臺北帝國大學設立（今國立臺灣大學前身）</span></div>
+      <div class="tl-item cul"><span class="tl-year">1929</span><span class="tl-text">臺灣議會設置請願運動成員赴東京請願（林獻堂、蔣渭水領導）</span></div>
+      <div class="tl-item cul"><span class="tl-year">1930</span><span class="tl-text">臺灣地方自治聯盟成立（林獻堂）</span></div>
+      <div class="tl-item pol"><span class="tl-year">1930</span><span class="tl-text">霧社事件爆發（賽德克族頭目莫那魯道）</span></div>
+      <div class="tl-item eco"><span class="tl-year">1930</span><span class="tl-text">嘉南大圳設計完工（八田與一）</span></div>
+      <div class="tl-item eco"><span class="tl-year">1930年代起</span><span class="tl-text">推行「南進政策」，經濟政策轉為「工業臺灣，農業南洋」</span></div>
+      <div class="tl-item eco"><span class="tl-year">1934</span><span class="tl-text">日月潭發電所完工，帶動機械、造船、石化等工業</span></div>
+      <div class="tl-item cul"><span class="tl-year">1935</span><span class="tl-text">總督府首次舉辦地方議員選舉（臺灣民眾第一次投票，但仍有限制）</span></div>
+      <div class="tl-item pol major"><span class="tl-year">1937</span><span class="tl-text">中日戰爭爆發，統治轉為「皇民化運動時期」，總督再由武官擔任<span class="tl-period-tag" style="color:var(--red)">皇民化時期起</span></span></div>
+      <div class="tl-item cul"><span class="tl-year">1941</span><span class="tl-text">配合皇民化運動，取消小學校／公學校區別，統稱「國民學校」</span></div>
+      <div class="tl-item cul"><span class="tl-year">1943</span><span class="tl-text">開始實施六年國民義務教育</span></div>
+      <div class="tl-item pol major"><span class="tl-year">1945</span><span class="tl-text">日本戰敗投降，第二次世界大戰結束，日本殖民統治結束（共50年）</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== CHAPTER 1：第1課 殖民體制的建立與原住民政策 ===================== -->
+  <section class="chapter" id="ch1">
+    <div class="chapter-head"><span class="chapter-num">第1課</span><h2>殖民體制的建立與原住民政策</h2></div>
+    <p class="chapter-sub">總督專制、警察政治、統治三時期，以及理蕃政策下的原住民處境。</p>
+
+    <div class="points">
+      <div class="point-card">
+        <h3>殖民體制的建立</h3>
+        <p>甲午戰爭清廷戰敗，1895年4月簽訂馬關條約，割讓臺灣、澎湖。臺灣士紳（唐景崧、丘逢甲等）成立臺灣民主國抗拒接收，但終告失敗。總督集行政、立法、司法、軍事大權於一身，稱<b>總督專制</b>；地方治理以警察為中心（<b>保甲制度</b>：十戶一甲、十甲一保，鄰里連坐），稱<b>警察政治</b>。</p>
+        <div class="note">
+          <span class="tlabel">記憶點</span>
+          1896年發布<b>六三法</b>，授權總督可自行頒布具法律效力的命令，讓總督統治更具法源依據。臺灣自此進入日本殖民統治（1895〜1945，共50年）。
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>日本治臺政策的演變（統治三時期）</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>時期</th><th>年代</th><th>總督性質</th><th>特色</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">殖民地特殊統治</td><td>1895〜1919</td><td>武官總督</td><td>又稱「無方針主義」；一方面籠絡人心，一方面鎮壓武裝抗日</td></tr>
+              <tr><td class="wc">內地延長主義</td><td>1919〜1937</td><td>文官總督</td><td>受一戰後民族自決思潮影響，標榜「日臺合一」，但待遇仍未平等</td></tr>
+              <tr><td class="wc">皇民化運動</td><td>1937〜1945</td><td>武官總督</td><td>因應中日戰爭，全力推行皇民化，動員人力物力投入戰爭</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <span class="tlabel">易混淆</span>
+          「內地延長主義」≠ 臺人與日人平等：口號雖是「日臺合一」，但教育、政治參與上仍有差別待遇，只是統治手段比前期「溫和」。
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>理蕃政策與原住民的對應</h3>
+        <p>對高山原住民採取「防堵、安撫」方針：設置學校教育原住民兒童、安排頭目赴日觀光以籠絡人心；同時推行<b>五年理蕃計畫</b>（1910〜1915），沒收槍械、武力鎮壓、驅離傳統領域。1930年，賽德克族頭目<b>莫那魯道</b>領導「霧社事件」（霧社位於今南投縣仁愛鄉）。</p>
+        <div class="note">
+          <span class="tlabel">霧社事件重點</span>
+          這是原住民在高壓理蕃政策下最著名的抗日行動。事件後，日人一方面將部落集體遷移以便控制，另一方面加強教育同化政策。同一年，臺灣地方自治聯盟也宣告成立——一邊是武裝抗爭的高峰，一邊是溫和自治的高峰。
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-head">
+      <h3>章節自我測驗</h3>
+      <div class="quiz-score">本章答對 <span class="score-display" data-chapter="ch1">0</span> / <span class="score-total" data-chapter="ch1">0</span></div>
+    </div>
+    <div class="quiz-list" id="quiz-ch1"></div>
+  </section>
+
+  <!-- ===================== CHAPTER 2：第2課 殖民經濟的建設與轉型 ===================== -->
+  <section class="chapter" id="ch2">
+    <div class="chapter-head"><span class="chapter-num">第2課</span><h2>殖民經濟的建設與轉型</h2></div>
+    <p class="chapter-sub">從基礎建設到「工業日本，農業臺灣」，再到1930年代「工業臺灣，農業南洋」的經濟轉型。</p>
+
+    <div class="points">
+      <div class="point-card">
+        <h3>基礎建設</h3>
+        <p>民政長官<b>後藤新平</b>主持下，展開基礎建設：土地與林野調查（確定土地所有權，但造成原住民傳統領域流失）、統一貨幣（設立臺灣銀行）、人口普查、交通建設（1908年縱貫鐵路完工）。另外實施<b>專賣制度</b>（鴉片、樟腦等由政府獨占經營）以增加財政收入。</p>
+        <div class="note">
+          <span class="tlabel">補充</span>
+          基礎建設的真正目的：強化殖民統治、便於掠奪臺灣資源，而非單純造福臺灣人民。
+        </div>
+      </div>
+
+      <div class="point-card">
+        <h3>工業日本，農業臺灣</h3>
+        <p>日治初期經濟政策偏重稻米、蔗糖生產，以滿足日本國內民生需求。<b>磯永吉</b>培育「蓬萊米」；總督府獎勵日本企業家在臺設新式糖廠，但蔗農待遇未獲改善（諺語：「第一憨，種甘蔗予會社磅」）。水利工程師<b>八田與一</b>設計完工嘉南大圳，提高稻米、蔗糖產量。</p>
+        <div class="note">
+          <span class="tlabel">兩位關鍵人物</span>
+          磯永吉＝稻米（蓬萊米，管「種什麼」）；八田與一＝水利（嘉南大圳，管「怎麼灌溉」），兩人常一起考。
+        </div>
+      </div>
+
+      <div class="point-card">
+        <h3>工業臺灣，農業南洋</h3>
+        <p>1930年代起，為配合<b>南進政策</b>（以南洋東南亞為侵略目標，取得石油、橡膠等資源），經濟政策調整為「工業臺灣，農業南洋」。1934年日月潭發電所完工，提供穩定電力，總督府得以發展機械、造船、石化等國防軍需工業。臺灣逐漸從農業社會邁向工業社會。</p>
+        <div class="note">
+          <span class="tlabel">對照記憶（超常考）</span>
+          「工業日本，農業臺灣」（前期）→「工業臺灣，農業南洋」（1930年代起）。句子後半段才是「被生產的角色」——前期臺灣負責種田，後期臺灣升級當工廠，換東南亞負責種田。轉折關鍵字是「南進政策」。
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-head">
+      <h3>章節自我測驗</h3>
+      <div class="quiz-score">本章答對 <span class="score-display" data-chapter="ch2">0</span> / <span class="score-total" data-chapter="ch2">0</span></div>
+    </div>
+    <div class="quiz-list" id="quiz-ch2"></div>
+  </section>
+
+  <!-- ===================== CHAPTER 3：第3課 教育、文化與社會的變遷 ===================== -->
+  <section class="chapter" id="ch3">
+    <div class="chapter-head"><span class="chapter-num">第3課</span><h2>教育、文化與社會的變遷</h2></div>
+    <p class="chapter-sub">差別待遇的教育體系、政治社會運動的興起，以及新舊文化的並存。</p>
+
+    <div class="points">
+      <div class="point-card wide">
+        <h3>差別待遇的現代教育</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>族群</th><th>初等教育名稱</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">日本人</td><td>小學校</td></tr>
+              <tr><td class="wc">臺灣人</td><td>公學校</td></tr>
+              <tr><td class="wc">原住民</td><td>蕃人公學校／蕃童教育所</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>小學校設立比照日本內地，其餘學校師資、設備皆不如小學校，就學率也差距懸殊（1943年臺灣人就學率71.3%，在臺日人已達99.6%）。1941年為配合皇民化運動，取消小學校、公學校區別，統稱「國民學校」。中等教育：1915年才設立第一所專收臺人子弟的中學——臺中中學校（今臺中一中）。高等教育：1928年設立臺北帝國大學。</p>
+        <div class="note">
+          <span class="tlabel">記憶點</span>
+          「小」學校給地位較高的日本人，「公」學校（公共、普及）給臺灣人，「蕃」給原住民，三種學校＝三種身分階序。
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>文化啟蒙與政治社會運動</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>團體</th><th>成立年份</th><th>領導人</th><th>特色</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">臺灣文化協會</td><td>1921</td><td>林獻堂、蔣渭水</td><td>發行臺灣民報、設讀報社、辦演講會，喚起臺人民族意識</td></tr>
+              <tr><td class="wc">臺灣議會設置請願運動</td><td>1921起，1929赴東京</td><td>林獻堂、蔣渭水</td><td>要求設立臺灣議會，日本未採納，但引發臺人追求自治的想法</td></tr>
+              <tr><td class="wc">臺灣民眾黨</td><td>1927</td><td>蔣渭水</td><td>臺人成立的第一個政黨，宣傳民權、自治，並扶助農工運動</td></tr>
+              <tr><td class="wc">臺灣地方自治聯盟</td><td>1930</td><td>林獻堂</td><td>主張實施地方自治；1935年總督府首次舉辦地方議員選舉</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <span class="tlabel">記憶點</span>
+          三個團體時間軸：1921文化協會 → 1927民眾黨 → 1930自治聯盟，是「先啟蒙思想、再組政黨、最後拚地方自治」的遞進關係。蔣渭水橫跨前兩者、林獻堂橫跨頭尾兩者——兩人是這段歷史的靈魂人物。1937年中日戰爭爆發後，政治社會運動受打壓漸沉寂。
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>新舊文化的變遷</h3>
+        <p>總督府將現代化經驗引進臺灣，建立西式醫院、興建自來水與下水道，防疫衛生觀念逐漸普及；也引進現代司法制度、標準時間制。總督府將纏足、辮髮、吸食鴉片視為「陋習」，推行<b>鴉片漸禁政策</b>（收歸專賣、憑證購買，並無根絕鴉片的誠意——「漸禁」≠「禁止」，是常考陷阱字）。隨都市發展，百貨公司、咖啡廳、新式餐廳普及（如臺灣第一家新式百貨「菊元百貨」）。</p>
+        <div class="note">
+          <span class="tlabel">城鄉差距</span>
+          現代化多集中於都市，鄉村與原住民部落大致保留原有生活型態。新舊文化並存，並未使臺灣傳統風俗完全消失。
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-head">
+      <h3>章節自我測驗</h3>
+      <div class="quiz-score">本章答對 <span class="score-display" data-chapter="ch3">0</span> / <span class="score-total" data-chapter="ch3">0</span></div>
+    </div>
+    <div class="quiz-list" id="quiz-ch3"></div>
+  </section>
+
+  <!-- ===================== CHAPTER 4：總複習（考點整理＋配對遊戲） ===================== -->
+  <section class="chapter" id="ch4">
+    <div class="chapter-head"><span class="chapter-num">總複習</span><h2>考點整理與記憶配對</h2></div>
+    <p class="chapter-sub">易混淆概念、關鍵人物總表，以及配對小遊戲，考前務必再確認一次。</p>
+
+    <div class="points">
+      <div class="point-card wide">
+        <h3>易混淆比較</h3>
+        <div class="trap"><b>內地延長主義 ≠ 臺日平等</b>　口號是「日臺合一」，實際教育、政治參與仍有差別待遇，只是統治手段較前期溫和。</div>
+        <div class="trap"><b>鴉片「漸禁」≠「禁絕」</b>　總督府藉專賣賺取利潤，並無根絕鴉片的誠意，是常考陷阱字。</div>
+        <div class="trap"><b>工業日本農業臺灣 vs 工業臺灣農業南洋</b>　句子後半段才是「被生產的角色」，轉折關鍵字是「南進政策」（1930年代起）。</div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>關鍵人物總表</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>人物</th><th>身分</th><th>重要事蹟</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">唐景崧、丘逢甲</td><td>臺灣士紳</td><td>1895年成立臺灣民主國，抗拒日本接收</td></tr>
+              <tr><td class="wc">後藤新平</td><td>民政長官</td><td>主持土地林野調查、統一貨幣、交通建設等基礎建設</td></tr>
+              <tr><td class="wc">余清芳</td><td>抗日領袖</td><td>1915年發動西來庵（噍吧哖）事件</td></tr>
+              <tr><td class="wc">莫那魯道</td><td>賽德克族頭目</td><td>1930年領導霧社事件</td></tr>
+              <tr><td class="wc">磯永吉</td><td>農業專家</td><td>培育「蓬萊米」，提升稻米產量</td></tr>
+              <tr><td class="wc">八田與一</td><td>水利工程師</td><td>設計嘉南大圳（1930年完工）</td></tr>
+              <tr><td class="wc">林獻堂</td><td>士紳領袖</td><td>文化協會、請願運動、地方自治聯盟核心人物</td></tr>
+              <tr><td class="wc">蔣渭水</td><td>醫師、社運領袖</td><td>文化協會、請願運動、臺灣民眾黨創立者</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>記憶配對小遊戲</h3>
+        <p style="margin-bottom:14px;">翻開卡片找出「關鍵詞」與「說明」的配對，全部配對成功即完成。</p>
+        <div class="match-grid" id="matchGrid"></div>
+        <div id="match-status"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>日治時期臺灣（1895〜1945）· 互動講義　整理自翰林版國中歷史七年級下冊第1〜3課</footer>
+</div>
+
+<script>
+/* ---------- tab switching ---------- */
+const tabButtons = document.querySelectorAll('.tab-btn');
+const chapters = document.querySelectorAll('.chapter');
+tabButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabButtons.forEach(b=>b.classList.remove('active'));
+    chapters.forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ---------- quiz data ---------- */
+const QUIZ_DATA = {
+  ch1: [
+    {q:"總督集行政、立法、司法、軍事大權於一身，稱為？",opts:["內地延長主義","總督專制","皇民化運動","六三法"],a:1,note:"總督一人掌握行政、立法、司法、軍事大權，是日治時期殖民體制的核心特色，稱為總督專制。"},
+    {q:"1896年授權臺灣總督可頒布具法律效力命令的法律是？",opts:["保甲條例","治安維持法","六三法","國家總動員法"],a:2,note:"六三法是法律「第六十三號」的簡稱，授權總督可自行頒布具法律效力的命令。"},
+    {q:"1915年爆發、規模最大的武裝抗日事件是？",opts:["霧社事件","西來庵事件","苗栗事件","西螺事件"],a:1,note:"西來庵事件（噍吧哖事件）由余清芳發動，是日治時期規模最大的武裝抗日行動。"},
+    {q:"首任文官總督到任、統治轉為內地延長主義是在哪一年？",opts:["1915","1919","1921","1930"],a:1,note:"1919年首任文官總督到任，受一戰後民族自決思潮影響，統治轉為內地延長主義。"},
+    {q:"1930年由莫那魯道領導的抗日行動是？",opts:["西來庵事件","霧社事件","苗栗事件","芝山巖事件"],a:1,note:"1930年賽德克族頭目莫那魯道領導霧社事件，是原住民在高壓理蕃政策下最著名的抗日行動。"},
+    {q:"日治統治三時期依序為？",opts:["文官→武官→文官","武官→文官→武官","武官→武官→文官","文官→文官→武官"],a:1,note:"口訣「頭武、中文、尾武」：武官總督（1895-1919）→文官總督（1919-1937）→武官總督（1937-1945）。"}
+  ],
+  ch2: [
+    {q:"主持土地林野調查、統一貨幣、交通建設的民政長官是？",opts:["兒玉源太郎","後藤新平","樺山資紀","明石元二郎"],a:1,note:"後藤新平主持基礎建設，包括土地林野調查、統一貨幣、人口普查與交通建設。"},
+    {q:"培育「蓬萊米」的農業專家是？",opts:["八田與一","磯永吉","後藤新平","新渡戶稻造"],a:1,note:"磯永吉是農業專家，培育出「蓬萊米」，使臺灣稻米產量大增並輸往日本。"},
+    {q:"1930年完工、日治時期規模最大水利工程是？",opts:["曹公圳","嘉南大圳","瑠公圳","八堡圳"],a:1,note:"八田與一設計完工的嘉南大圳於1930年完工，是日治時期規模最大的水利工程。"},
+    {q:"1930年代起，配合何種政策使經濟轉為「工業臺灣，農業南洋」？",opts:["內地延長政策","南進政策","皇民化政策","理蕃政策"],a:1,note:"南進政策以南洋東南亞為侵略目標，是1930年代起經濟政策轉向的關鍵字。"},
+    {q:"1934年完工、帶動臺灣重工業發展的建設是？",opts:["縱貫鐵路","嘉南大圳","日月潭發電所","基隆港"],a:2,note:"日月潭發電所提供穩定電力，帶動機械、造船、石化等國防軍需工業發展。"},
+    {q:"「工業日本，農業臺灣」代表的意義是？",opts:["臺灣負責生產稻米蔗糖供應日本","臺灣發展重工業","日本供應臺灣工業原料","臺灣完全自給自足"],a:0,note:"「工業日本，農業臺灣」指臺灣負責生產稻米、蔗糖，以滿足日本國內民生需求。"}
+  ],
+  ch3: [
+    {q:"日治時期臺灣人就讀的初等教育機構名稱為？",opts:["小學校","公學校","國民學校","蕃童教育所"],a:1,note:"「小」學校給日本人，「公」學校給臺灣人，「蕃」給原住民，三種學校反映身分階序。"},
+    {q:"1921年由林獻堂、蔣渭水成立、發行《臺灣民報》的團體是？",opts:["臺灣民眾黨","臺灣文化協會","臺灣地方自治聯盟","臺灣議會設置請願運動"],a:1,note:"臺灣文化協會於1921年成立，發行臺灣民報、辦演講會，喚起臺人民族意識。"},
+    {q:"臺人成立的第一個政黨是？",opts:["臺灣文化協會","臺灣民眾黨","臺灣地方自治聯盟","臺灣共產黨"],a:1,note:"臺灣民眾黨（1927年，蔣渭水）是臺人成立的第一個政黨。"},
+    {q:"促使總督府於1935年首次舉辦地方議員選舉的團體是？",opts:["臺灣民眾黨","臺灣地方自治聯盟","臺灣文化協會","臺灣議會設置請願運動"],a:1,note:"臺灣地方自治聯盟（1930年，林獻堂）主張實施地方自治，促成1935年首次地方議員選舉。"},
+    {q:"1941年為配合皇民化運動，小學校、公學校統稱為？",opts:["帝國學校","國民學校","皇民學校","新式學校"],a:1,note:"1941年配合皇民化運動，取消小學校、公學校區別，統稱「國民學校」。"},
+    {q:"總督府對鴉片吸食推行的政策實際是？",opts:["立即禁絕","完全開放","漸禁政策","不予理會"],a:2,note:"總督府推行鴉片漸禁政策，藉專賣賺取利潤，並無根絕鴉片的誠意，「漸禁」≠「禁止」。"},
+    {q:"臺灣第一家新式百貨公司是？",opts:["波麗路餐廳","菊元百貨","新光三越","太平洋崇光百貨"],a:1,note:"菊元百貨是臺灣第一家新式百貨公司，反映都市化與新式消費文化的興起。"},
+    {q:"下列團體成立年代最早的是？",opts:["臺灣民眾黨","臺灣文化協會","臺灣地方自治聯盟","皇民奉公會"],a:1,note:"三團體時間軸：1921文化協會 → 1927民眾黨 → 1930自治聯盟，文化協會最早成立。"}
+  ]
+};
+
+const tabForChapter = {ch1:'ch1', ch2:'ch2', ch3:'ch3'};
+
+let globalCorrect = 0;
+let totalQuestions = 0;
+
+function buildQuiz(chapterId){
+  const container = document.getElementById('quiz-' + chapterId);
+  const items = QUIZ_DATA[chapterId];
+  totalQuestions += items.length;
+  document.querySelectorAll(`.score-total[data-chapter="${chapterId}"]`).forEach(el=>el.textContent=items.length);
+
+  items.forEach((item, idx)=>{
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `
+      <div class="q-num">第 ${idx+1} 題</div>
+      <div class="q-text">${item.q}</div>
+      <div class="options"></div>
+      <div class="feedback"><div class="seal">正解</div><div class="fb-text"></div></div>
+    `;
+    const optsWrap = card.querySelector('.options');
+    item.opts.forEach((optText, oIdx)=>{
+      const optBtn = document.createElement('button');
+      optBtn.className = 'opt';
+      optBtn.textContent = optText;
+      optBtn.addEventListener('click', ()=>{
+        if(optBtn.classList.contains('locked')) return;
+        const allOpts = optsWrap.querySelectorAll('.opt');
+        allOpts.forEach(o=>o.classList.add('disabled','locked'));
+        if(oIdx === item.a){
+          optBtn.classList.add('correct');
+          globalCorrect++;
+          document.getElementById('globalScore').textContent = globalCorrect;
+          const scoreEl = card.closest('.chapter').querySelector(`.score-display[data-chapter="${chapterId}"]`);
+          scoreEl.textContent = parseInt(scoreEl.textContent) + 1;
+        } else {
+          optBtn.classList.add('wrong');
+          allOpts[item.a].classList.add('correct');
+        }
+        const fb = card.querySelector('.feedback');
+        fb.querySelector('.fb-text').textContent = item.note;
+        fb.classList.add('show');
+      });
+      optsWrap.appendChild(optBtn);
+    });
+    container.appendChild(card);
+  });
+}
+
+['ch1','ch2','ch3'].forEach(buildQuiz);
+document.getElementById('totalQCount').textContent = totalQuestions;
+
+/* ---------- matching game ---------- */
+const MATCH_PAIRS = [
+  {term:'六三法', def:'授權總督頒布法律命令'},
+  {term:'後藤新平', def:'主持基礎建設'},
+  {term:'磯永吉', def:'培育蓬萊米'},
+  {term:'八田與一', def:'設計嘉南大圳'},
+  {term:'林獻堂', def:'橫跨文化協會與地方自治聯盟'},
+  {term:'蔣渭水', def:'創立臺灣民眾黨'},
+  {term:'莫那魯道', def:'領導霧社事件'},
+  {term:'南進政策', def:'工業臺灣、農業南洋的轉折關鍵'}
+];
+let matchCards = [];
+MATCH_PAIRS.forEach((p,i)=>{
+  matchCards.push({id:'t'+i, pair:i, type:'term', text:p.term});
+  matchCards.push({id:'d'+i, pair:i, type:'def', text:p.def});
+});
+matchCards = matchCards.sort(()=>Math.random()-0.5);
+
+const grid = document.getElementById('matchGrid');
+let flipped = [];
+let lockBoard = false;
+let matchedCount = 0;
+
+matchCards.forEach(card=>{
+  const el = document.createElement('div');
+  el.className='match-card';
+  el.dataset.pair = card.pair;
+  el.dataset.id = card.id;
+  el.innerHTML = `
+    <div class="match-card-inner">
+      <div class="match-face match-front">臺</div>
+      <div class="match-face match-back">${card.text}</div>
+    </div>`;
+  el.addEventListener('click', ()=>onCardClick(el));
+  grid.appendChild(el);
+});
+
+function onCardClick(el){
+  if(lockBoard || el.classList.contains('flipped') || el.classList.contains('matched')) return;
+  el.classList.add('flipped');
+  flipped.push(el);
+  if(flipped.length === 2){
+    lockBoard = true;
+    const [a,b] = flipped;
+    if(a.dataset.pair === b.dataset.pair && a.dataset.id !== b.dataset.id){
+      a.classList.add('matched'); b.classList.add('matched');
+      matchedCount++;
+      flipped = []; lockBoard = false;
+      if(matchedCount === MATCH_PAIRS.length){
+        document.getElementById('match-status').textContent = '全部配對成功！';
+      }
+    } else {
+      setTimeout(()=>{
+        a.classList.remove('flipped'); b.classList.remove('flipped');
+        flipped = []; lockBoard = false;
+      }, 800);
+    }
+  }
+}
+</script>
+</body>
+</html>
