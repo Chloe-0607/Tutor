@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>關鍵年份事件人物記憶特訓場</title>
+<style>
+:root{
+  --paper:#F2ECDD;
+  --paper-deep:#E6DAB9;
+  --ink:#2B2620;
+  --ink-soft:#7A705D;
+  --red:#9C3B2E;
+  --red-deep:#7A2C21;
+  --gold:#AD8A3E;
+  --gold-deep:#8C6F2E;
+  --green:#3F5D45;
+  --green-deep:#2C4531;
+  --blue:#3B5266;
+  --blue-deep:#2A3B49;
+  --line:#D9CBA9;
+  --card:#FFFDF6;
+  --wrong:#8B3A3A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Noto Sans TC',sans-serif;
+  line-height:1.75;
+  position:relative;
+  min-height:100vh;
+}
+body::before{
+  content:"印";
+  position:fixed;
+  top:-4vw; right:-4vw;
+  font-family:'Noto Serif TC',serif;
+  font-size:38vw;
+  font-weight:900;
+  color:var(--red);
+  opacity:0.045;
+  z-index:0;
+  pointer-events:none;
+  line-height:1;
+}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px 90px;position:relative;z-index:1;}
+
+header{padding:52px 0 30px;text-align:center;border-bottom:0.5px solid var(--red);margin-bottom:26px;}
+.eyebrow{font-size:13px;letter-spacing:0.35em;color:var(--gold-deep);font-weight:600;margin-bottom:14px;}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(28px,5vw,44px);color:var(--ink);letter-spacing:0.03em;}
+header p{margin-top:12px;color:var(--ink-soft);font-size:14.5px;}
+
+.stats{display:flex;justify-content:center;gap:30px;margin-top:24px;flex-wrap:wrap;}
+.stat{text-align:center;min-width:78px;}
+.stat .num{font-family:'Noto Serif TC',serif;font-size:25px;font-weight:700;color:var(--red-deep);}
+.stat .lab{font-size:11.5px;color:var(--ink-soft);letter-spacing:0.06em;}
+
+.tabs{
+  position:sticky;top:0;z-index:30;
+  background:rgba(242,236,221,0.96);
+  backdrop-filter:blur(6px);
+  display:flex;gap:6px;padding:14px 0;
+  border-bottom:0.5px solid var(--line);
+  margin-bottom:34px;overflow-x:auto;
+}
+.tab-btn{
+  flex:1 1 0;min-width:118px;background:transparent;border:0.5px solid var(--red);
+  color:var(--ink-soft);font-family:'Noto Sans TC',sans-serif;font-weight:600;font-size:13.5px;
+  padding:10px 8px;cursor:pointer;letter-spacing:0.01em;transition:all .25s ease;white-space:nowrap;text-align:center;
+}
+.tab-btn:hover{border-color:var(--red-deep);color:var(--red-deep);}
+.tab-btn.active{background:var(--red-deep);border-color:var(--red-deep);color:#fff;}
+
+.chapter{display:none;animation:fade .4s ease;}
+.chapter.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+.chapter-head{margin-bottom:22px;}
+.chapter-head .kicker{font-size:12.5px;color:var(--red-deep);letter-spacing:0.2em;font-weight:700;margin-bottom:6px;}
+.chapter-head h2{font-family:'Noto Serif TC',serif;font-size:24px;font-weight:800;margin-bottom:6px;}
+.chapter-head p{color:var(--ink-soft);font-size:14px;}
+
+.card{background:var(--card);border:0.5px solid var(--line);border-radius:2px;padding:22px 22px;margin-bottom:20px;box-shadow:0 1px 0 rgba(0,0,0,0.02);}
+.card h3{font-family:'Noto Serif TC',serif;font-size:17px;margin-bottom:12px;color:var(--red-deep);}
+
+/* timeline mini */
+.tl{border-left:2px solid var(--line);margin-left:8px;padding-left:18px;}
+.tl-item{position:relative;padding:8px 0;}
+.tl-item::before{content:"";position:absolute;left:-23px;top:14px;width:8px;height:8px;border-radius:50%;background:var(--red-deep);}
+.tl-year{font-weight:800;color:var(--red-deep);font-size:13.5px;margin-right:8px;}
+.tl-event{font-size:14px;}
+.tl-person{font-size:12.5px;color:var(--gold-deep);margin-left:4px;}
+
+/* people grid */
+.people-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:8px;}
+.person-card{background:var(--paper-deep);border:0.5px solid var(--line);padding:14px 14px;border-radius:2px;}
+.person-card .name{font-family:'Noto Serif TC',serif;font-weight:800;font-size:15.5px;color:var(--ink);margin-bottom:4px;}
+.person-card .role{font-size:12px;color:var(--gold-deep);margin-bottom:6px;}
+.person-card .deed{font-size:13px;color:var(--ink-soft);}
+
+/* quiz */
+.quiz-box{margin-top:6px;}
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+.qcount{font-size:12.5px;color:var(--ink-soft);letter-spacing:0.05em;}
+.qscore{font-size:12.5px;color:var(--red-deep);font-weight:700;}
+.prompt{font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin-bottom:16px;line-height:1.6;}
+.options{display:grid;gap:10px;}
+.opt-btn{
+  text-align:left;background:var(--paper);border:1px solid var(--line);padding:12px 16px;border-radius:2px;
+  font-size:14.5px;cursor:pointer;transition:all .18s ease;color:var(--ink);
+}
+.opt-btn:hover:not(:disabled){border-color:var(--red);background:#fff;}
+.opt-btn:disabled{cursor:default;}
+.opt-btn.correct{background:#EAF1EA;border-color:var(--green-deep);color:var(--green-deep);font-weight:700;}
+.opt-btn.wrong{background:#F5E7E4;border-color:var(--wrong);color:var(--wrong);font-weight:700;}
+.opt-btn.reveal{border-color:var(--green-deep);background:#EAF1EA;color:var(--green-deep);}
+
+.explain{margin-top:14px;padding:12px 14px;background:var(--paper-deep);border-left:3px solid var(--gold-deep);font-size:13.5px;color:var(--ink);display:none;}
+.explain.show{display:block;}
+
+.qcontrols{display:flex;justify-content:space-between;align-items:center;margin-top:18px;}
+.next-btn{background:var(--red-deep);color:#fff;border:none;padding:10px 22px;border-radius:2px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.03em;}
+.next-btn:hover{background:var(--red);}
+.next-btn:disabled{background:#C9BFA8;cursor:not-allowed;}
+
+.stamp{
+  position:relative;display:inline-flex;align-items:center;gap:6px;font-family:'Noto Serif TC',serif;
+  font-weight:900;font-size:13px;padding:5px 12px;border:2px solid;border-radius:3px;letter-spacing:0.1em;
+  transform:rotate(-3deg);
+}
+.stamp.ok{color:var(--red-deep);border-color:var(--red-deep);}
+.stamp.no{color:var(--ink-soft);border-color:var(--ink-soft);}
+
+/* order challenge */
+.order-pool{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+.order-chip{background:var(--card);border:1px solid var(--line);padding:9px 14px;border-radius:2px;font-size:13.5px;cursor:pointer;transition:all .15s;}
+.order-chip:hover{border-color:var(--red);}
+.order-chip.picked{opacity:0.35;pointer-events:none;}
+.order-slots{display:flex;flex-wrap:wrap;gap:10px;min-height:46px;padding:10px;background:var(--paper-deep);border:1px dashed var(--line);}
+.order-slot-item{background:var(--red-deep);color:#fff;padding:8px 13px;border-radius:2px;font-size:13px;display:flex;align-items:center;gap:6px;}
+.order-slot-item .n{background:rgba(255,255,255,0.25);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:11px;}
+.order-check{margin-top:14px;display:flex;gap:10px;align-items:center;}
+.order-msg{font-size:13.5px;font-weight:700;}
+.order-msg.ok{color:var(--green-deep);}
+.order-msg.no{color:var(--wrong);}
+
+/* small buttons */
+.mini-btn{background:transparent;border:1px solid var(--red);color:var(--red-deep);padding:6px 14px;font-size:13px;border-radius:2px;cursor:pointer;font-weight:700;}
+.mini-btn:hover{background:var(--red-deep);color:#fff;}
+
+/* table */
+table.ref{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px;}
+table.ref th,table.ref td{border:0.5px solid var(--line);padding:9px 10px;text-align:left;}
+table.ref th{background:var(--paper-deep);color:var(--red-deep);font-weight:700;}
+
+/* flip cards for institutions */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:10px;}
+.flip-card{perspective:900px;height:120px;cursor:pointer;}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;text-align:center;border:1px solid var(--line);}
+.flip-front{background:var(--paper-deep);}
+.flip-front .tag{font-size:11px;color:var(--gold-deep);letter-spacing:0.1em;margin-bottom:4px;}
+.flip-front .title{font-family:'Noto Serif TC',serif;font-weight:800;font-size:16px;}
+.flip-back{background:var(--red-deep);color:#fff;transform:rotateY(180deg);font-size:12.5px;}
+
+/* match game */
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.match-col{display:flex;flex-direction:column;gap:9px;}
+.match-col .col-lab{font-size:11.5px;color:var(--ink-soft);letter-spacing:0.1em;margin-bottom:2px;}
+.match-btn{text-align:left;background:var(--paper);border:1px solid var(--line);padding:10px 13px;border-radius:2px;font-size:13.5px;cursor:pointer;transition:all .15s;}
+.match-btn:hover:not(:disabled){border-color:var(--red);background:#fff;}
+.match-btn.selected{border-color:var(--gold-deep);background:#F5EDD6;}
+.match-btn.matched{border-color:var(--green-deep);background:#EAF1EA;color:var(--green-deep);cursor:default;}
+.match-btn.shake{border-color:var(--wrong);background:#F5E7E4;}
+.match-status{margin-top:14px;font-size:13.5px;color:var(--ink-soft);}
+@media (max-width:640px){.match-wrap{grid-template-columns:1fr;}}
+
+/* fill blank */
+.fill-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center;}
+.fill-input{flex:1 1 160px;padding:10px 13px;border:1px solid var(--line);border-radius:2px;font-size:14.5px;font-family:'Noto Sans TC',sans-serif;background:#fff;}
+.fill-input:focus{outline:none;border-color:var(--red);}
+.fill-input.correct{border-color:var(--green-deep);background:#EAF1EA;}
+.fill-input.wrong{border-color:var(--wrong);background:#F5E7E4;}
+.check-btn{background:var(--gold-deep);color:#fff;border:none;padding:10px 18px;border-radius:2px;font-size:13.5px;font-weight:700;cursor:pointer;}
+.check-btn:hover{background:var(--gold);}
+.check-btn:disabled{background:#C9BFA8;cursor:not-allowed;}
+
+/* phase blocks */
+.phase-block{margin-bottom:22px;}
+.phase-block:last-child{margin-bottom:0;}
+.phase-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;padding-bottom:8px;border-bottom:1px solid var(--line);margin-bottom:10px;}
+.phase-num{font-family:'Noto Serif TC',serif;font-weight:900;font-size:22px;color:var(--red-deep);}
+.phase-title{font-family:'Noto Serif TC',serif;font-weight:800;font-size:17px;color:var(--ink);}
+.phase-sub{font-size:12px;color:var(--gold-deep);font-weight:700;letter-spacing:0.04em;}
+.phase-period{font-size:12.5px;color:var(--ink-soft);margin-left:auto;}
+.phase-reason{background:var(--paper-deep);border-left:3px solid var(--red-deep);padding:9px 13px;font-size:13px;color:var(--ink);margin-bottom:12px;}
+.phase-reason b{color:var(--red-deep);}
+.phase-note{background:#F5EDD6;border-left:3px solid var(--gold-deep);padding:9px 13px;font-size:12.5px;color:var(--ink);margin-top:10px;}
+.tl-item.pivot .tl-event{font-weight:700;}
+.tl-item.pivot::before{background:var(--gold-deep);width:10px;height:10px;left:-24px;top:12px;}
+.tl-reason-tag{display:inline-block;font-size:11.5px;background:var(--red-deep);color:#fff;padding:1px 8px;border-radius:9px;margin-left:6px;letter-spacing:0.02em;}
+
+.badge{display:inline-block;font-size:11px;padding:2px 9px;border-radius:10px;letter-spacing:0.05em;font-weight:700;margin-left:6px;}
+.badge.colonial{background:#E4E0D2;color:var(--blue-deep);}
+.badge.postwar{background:#F0DCD6;color:var(--red-deep);}
+.badge.econ{background:#EFE6C9;color:var(--gold-deep);}
+
+.final-result{text-align:center;padding:36px 20px;}
+.final-result .big{font-family:'Noto Serif TC',serif;font-size:52px;font-weight:900;color:var(--red-deep);}
+.final-result .msg{margin-top:8px;color:var(--ink-soft);font-size:15px;}
+
+footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:50px;padding-top:20px;border-top:0.5px solid var(--line);}
+
+@media (max-width:640px){
+  .tab-btn{min-width:96px;font-size:12px;}
+  .prompt{font-size:15.5px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">互動記憶測驗　臺灣史全覽</div>
+  <h1>關鍵年份事件人物</h1>
+  <p>日治時期 → 戰後民主化 → 經濟外交兩岸　整合記憶特訓場</p>
+  <div class="stats">
+    <div class="stat"><div class="num" id="statTopics">4</div><div class="lab">主題區</div></div>
+    <div class="stat"><div class="num" id="statAnswered">0</div><div class="lab">已作答題數</div></div>
+    <div class="stat"><div class="num" id="statCorrect">0</div><div class="lab">答對題數</div></div>
+    <div class="stat"><div class="num" id="statRate">—</div><div class="lab">正確率</div></div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="overview">總覽時間軸</button>
+  <button class="tab-btn" data-tab="colonial">日治時期</button>
+  <button class="tab-btn" data-tab="postwar">戰後民主化</button>
+  <button class="tab-btn" data-tab="econ">經濟外交兩岸</button>
+  <button class="tab-btn" data-tab="final">總複習大挑戰</button>
+</div>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="chapter active" id="tab-overview">
+  <div class="chapter-head">
+    <div class="kicker">OVERVIEW</div>
+    <h2>臺灣史 120 年一條線</h2>
+    <p>先抓大架構：日治 50 年（1895–1945）→ 戰後政治發展 70 年（1945–2016起）。三個顏色代表三個主題區，點右方分頁進入各區測驗。</p>
+  </div>
+  <div class="card">
+    <h3>總時間軸</h3>
+    <div id="overviewTimeline" class="tl"></div>
+  </div>
+  <div class="card">
+    <h3>三大記憶口訣</h3>
+    <div class="tl">
+      <div class="tl-item"><span class="tl-event"><b>日治三時期</b>：頭武、中文、尾武——武官（1895–1919）→文官（1919–1937）→武官（1937–1945）</span></div>
+      <div class="tl-item"><span class="tl-event"><b>兩岸機構</b>：陸對國，海對海——陸委會對國台辦（官方對官方），海基會對海協會（民間對民間）</span></div>
+      <div class="tl-item"><span class="tl-event"><b>關鍵分水嶺</b>：民國76年（1987），蔣經國「解嚴＋開放探親」同年發生，兩岸從對峙走向交流</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLONIAL ============ -->
+<section class="chapter" id="tab-colonial">
+  <div class="chapter-head">
+    <div class="kicker">1895 – 1945</div>
+    <h2>日治時期臺灣<span class="badge colonial">殖民 50 年</span></h2>
+    <p>殖民體制建立、經濟轉型、教育文化與社會變遷。</p>
+  </div>
+
+  <div class="card">
+    <h3>三階段年表（無方針 → 內地延長 → 皇民化）</h3>
+    <div id="colonialTimeline"></div>
+  </div>
+
+  <div class="card">
+    <h3>關鍵人物總表</h3>
+    <div class="people-grid" id="colonialPeople"></div>
+  </div>
+
+  <div class="card">
+    <h3>年份排序挑戰</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:10px;">依時間先後，依序點選下列事件。</p>
+    <div id="orderColonial"></div>
+  </div>
+
+  <div class="card">
+    <h3>人物成就配對遊戲</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:6px;">左邊點一位人物，右邊點對應事蹟，配對正確會鎖住變綠色。</p>
+    <div id="matchColonial"></div>
+  </div>
+
+  <div class="card">
+    <h3>填空記憶測驗</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:6px;">不看答案，直接打出關鍵字或年份，訓練主動回想。</p>
+    <div id="fillColonial"></div>
+  </div>
+
+  <div class="card">
+    <h3>快問快答</h3>
+    <div class="quiz-box" id="quizColonial"></div>
+  </div>
+</section>
+
+<!-- ============ POSTWAR ============ -->
+<section class="chapter" id="tab-postwar">
+  <div class="chapter-head">
+    <div class="kicker">1945 – 2016</div>
+    <h2>戰後政治民主化<span class="badge postwar">民主 70 年</span></h2>
+    <p>二二八、戒嚴與白色恐怖、政治民主化歷程。</p>
+  </div>
+
+  <div class="card">
+    <h3>三階段年表（武力對抗 → 政治對峙 → 兩岸交流）</h3>
+    <div id="postwarTimeline"></div>
+  </div>
+
+  <div class="card">
+    <h3>歷任總統任期對照</h3>
+    <table class="ref">
+      <tr><th>總統</th><th>任期</th><th>代表事件</th></tr>
+      <tr><td>蔣中正</td><td>民37～49年間陸續連任</td><td>遷臺、戒嚴令、臨時條款、土地改革、地方自治開放</td></tr>
+      <tr><td>蔣經國</td><td>民67～77年在任</td><td>十大建設（行政院長任內）、美麗島事件、解除戒嚴、開放探親</td></tr>
+      <tr><td>李登輝</td><td>民77～89年在任</td><td>三月學運、廢除臨時條款、國會全面改選、首次總統直選</td></tr>
+      <tr><td>陳水扁</td><td>民89～97年在任</td><td>首次政黨輪替</td></tr>
+      <tr><td>馬英九</td><td>民97～105年在任</td><td>第二次政黨輪替</td></tr>
+      <tr><td>蔡英文</td><td>民105年起</td><td>首位女性總統，第三次政黨輪替</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>年份排序挑戰</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:10px;">依時間先後，依序點選下列事件。</p>
+    <div id="orderPostwar"></div>
+  </div>
+
+  <div class="card">
+    <h3>總統與大事配對遊戲</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:6px;">左邊點一位總統，右邊點對應的代表性政績或事件。</p>
+    <div id="matchPostwar"></div>
+  </div>
+
+  <div class="card">
+    <h3>填空記憶測驗</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:6px;">不看答案，直接打出關鍵字或年份，訓練主動回想。</p>
+    <div id="fillPostwar"></div>
+  </div>
+
+  <div class="card">
+    <h3>快問快答</h3>
+    <div class="quiz-box" id="quizPostwar"></div>
+  </div>
+</section>
+
+<!-- ============ ECON / DIPLOMACY / CROSS-STRAIT ============ -->
+<section class="chapter" id="tab-econ">
+  <div class="chapter-head">
+    <div class="kicker">兩岸機構・外交三階段・經濟五階段・文化政策</div>
+    <h2>經濟外交兩岸<span class="badge econ">四大盲區</span></h2>
+    <p>錯題診斷重點區：機構配對、時間軸對應、五階段排序、文化政策方向判斷。</p>
+  </div>
+
+  <div class="card">
+    <h3>兩岸交流機構 · 翻牌記憶</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:6px;">點卡片翻面看內容。口訣：「陸對國，海對海」。</p>
+    <div class="flip-grid" id="institutionFlip"></div>
+  </div>
+
+  <div class="card">
+    <h3>外交三階段 ／ 兩岸三階段對照</h3>
+    <table class="ref">
+      <tr><th>類別</th><th>第一階段</th><th>第二階段</th><th>第三階段</th></tr>
+      <tr><td>外交政策</td><td>鞏固外交（民38–60，蔣中正）</td><td>彈性外交（民60–77，蔣經國）</td><td>務實外交（民77起，李登輝起）</td></tr>
+      <tr><td>兩岸關係</td><td>武力對抗（民38–68）</td><td>政治對峙（民68–76）</td><td>兩岸交流（民76起）</td></tr>
+    </table>
+    <div class="phase-reason" style="margin-top:12px;">
+      <b>外交階段轉折原因：</b>民國60年（1971）<b>退出聯合國</b>，外交陷入孤立，鞏固外交轉為彈性外交；民國77年（1988）蔣經國逝世，李登輝繼任後轉為務實外交，積極爭取國際參與空間（如加入WTO）。
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>經濟五階段重點整理</h3>
+    <table class="ref">
+      <tr><th style="white-space:nowrap;">階段</th><th style="white-space:nowrap;">時間</th><th>核心內容</th><th>常見混淆點</th></tr>
+      <tr><td style="white-space:nowrap;"><b>①土地改革</b></td><td style="white-space:nowrap;">民38～42年</td><td>三七五減租 → 公地放領 → 耕者有其田；目的是穩定農村、釋出地主資金轉入工商業</td><td>常與「發行新臺幣（穩定物價）」搞混，後者屬幣制改革，非土地改革</td></tr>
+      <tr><td style="white-space:nowrap;"><b>②進口替代</b></td><td style="white-space:nowrap;">民40年代</td><td>扶植國內輕工業、限制外國商品進口</td><td>常與出口導向順序顛倒</td></tr>
+      <tr><td style="white-space:nowrap;"><b>③出口導向</b></td><td style="white-space:nowrap;">民50年代</td><td>設加工出口區（高雄前鎮），目的是拓展外銷、由農業轉為工業經濟</td><td>誤以為加工出口區是「限制進口」，其實核心是「拓展外銷」</td></tr>
+      <tr><td style="white-space:nowrap;"><b>④十大建設</b></td><td style="white-space:nowrap;">民60年代</td><td>蔣經國提出，因應石油危機、強化基礎建設</td><td>常誤記提出者為蔣中正</td></tr>
+      <tr><td style="white-space:nowrap;"><b>⑤產業升級</b></td><td style="white-space:nowrap;">民70年代起</td><td>以新竹科學園區為核心，發展高科技產業</td><td>容易與「自由化、國際化（加入WTO、APEC）」混為一談，其實是不同階段</td></tr>
+    </table>
+    <div class="phase-reason" style="margin-top:12px;">
+      <b>記憶主軸：</b>把五階段想成一條時間河流——先穩定土地 → 再扶植輕工業 → 接著拚外銷 → 然後拚基礎建設 → 最後拚高科技。每個階段的目的關鍵字：<b>穩定 → 替代 → 外銷 → 建設 → 升級</b>。
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>經濟五階段排序挑戰</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:10px;">依發展先後，依序點選五個階段。</p>
+    <div id="orderEcon"></div>
+  </div>
+
+  <div class="card">
+    <h3>文化政策方向判斷：同化 或 多元？</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:10px;">判斷下列作為屬於「同化政策」還是「多元文化」。</p>
+    <div id="cultureSort"></div>
+  </div>
+
+  <div class="card">
+    <h3>經濟階段與目的配對遊戲</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:6px;">左邊點一個階段，右邊點對應的核心目的。</p>
+    <div id="matchEcon"></div>
+  </div>
+
+  <div class="card">
+    <h3>填空記憶測驗</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:6px;">不看答案，直接打出關鍵字或年份，訓練主動回想。</p>
+    <div id="fillEcon"></div>
+  </div>
+
+  <div class="card">
+    <h3>快問快答</h3>
+    <div class="quiz-box" id="quizEcon"></div>
+  </div>
+</section>
+
+<!-- ============ FINAL CHALLENGE ============ -->
+<section class="chapter" id="tab-final">
+  <div class="chapter-head">
+    <div class="kicker">FINAL CHALLENGE</div>
+    <h2>總複習大挑戰</h2>
+    <p>從三大主題隨機抽取 20 題混合出題，測驗完畢後蓋章結算。</p>
+  </div>
+  <div class="card">
+    <div id="finalIntro">
+      <p style="margin-bottom:14px;">準備好了嗎？這 20 題會混合日治、戰後、經濟外交兩岸三大主題的年份、事件、人物題型。</p>
+      <button class="next-btn" id="startFinalBtn">開始挑戰</button>
+    </div>
+    <div class="quiz-box" id="quizFinal" style="display:none;"></div>
+    <div class="final-result" id="finalResult" style="display:none;"></div>
+  </div>
+</section>
+
+<footer>關鍵年份事件人物記憶測驗　整理自日治時期（翰林版七下第1～3課）、戰後臺灣史（第四單元＋第五六章）、歷史科錯題診斷講義</footer>
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+const FACTS = [
+  // ---- COLONIAL 1895-1945 ----
+  {era:'colonial', year:'1895.4', label:'1895年4月', event:'馬關條約簽訂，臺灣、澎湖割讓給日本', person:null},
+  {era:'colonial', year:'1895.5', label:'1895年5月', event:'臺灣民主國成立，抗拒日本接收但終告失敗', person:'唐景崧、丘逢甲'},
+  {era:'colonial', year:'1896', label:'1896年', event:'發布「六三法」，授權總督可頒布具法律效力的命令', person:null},
+  {era:'colonial', year:'1908', label:'1908年', event:'縱貫鐵路（基隆～高雄）完工', person:null},
+  {era:'colonial', year:'1910-1915', label:'1910～1915年', event:'五年理蕃計畫：武力鎮壓高山原住民', person:null},
+  {era:'colonial', year:'1915a', label:'1915年', event:'西來庵事件（噍吧哖事件）——最大規模武裝抗日', person:'余清芳'},
+  {era:'colonial', year:'1915b', label:'1915年', event:'臺中中學校設立，第一所收臺人子弟的中學', person:null},
+  {era:'colonial', year:'1919', label:'1919年', event:'首任文官總督到任，統治轉為「內地延長主義」', person:null},
+  {era:'colonial', year:'1921', label:'1921年', event:'臺灣文化協會成立，發行臺灣民報', person:'林獻堂、蔣渭水'},
+  {era:'colonial', year:'1927', label:'1927年', event:'臺灣民眾黨成立——臺人第一個政黨', person:'蔣渭水'},
+  {era:'colonial', year:'1928', label:'1928年', event:'臺北帝國大學設立（今國立臺灣大學前身）', person:null},
+  {era:'colonial', year:'1930a', label:'1930年', event:'臺灣地方自治聯盟成立', person:'林獻堂'},
+  {era:'colonial', year:'1930b', label:'1930年', event:'霧社事件爆發', person:'莫那魯道（賽德克族頭目）'},
+  {era:'colonial', year:'1930c', label:'1930年', event:'嘉南大圳設計完工', person:'八田與一'},
+  {era:'colonial', year:'1934', label:'1934年', event:'日月潭發電所完工，帶動機械、造船、石化等工業', person:null},
+  {era:'colonial', year:'1935', label:'1935年', event:'總督府首次舉辦地方議員選舉', person:null},
+  {era:'colonial', year:'1937', label:'1937年', event:'中日戰爭爆發，統治轉為「皇民化運動時期」', person:null},
+  {era:'colonial', year:'1941', label:'1941年', event:'取消小學校／公學校區別，統稱「國民學校」', person:null},
+  {era:'colonial', year:'1945', label:'1945年', event:'日本戰敗投降，殖民統治結束（共50年）', person:null},
+
+  // ---- POSTWAR 1945-2016 ----
+  {era:'postwar', year:'p1945', label:'民國34年(1945)', event:'臺灣光復，設臺灣省行政長官公署', person:'陳儀'},
+  {era:'postwar', year:'p1947', label:'民國36年(1947)', event:'二二八事件爆發', person:null},
+  {era:'postwar', year:'p1948', label:'民國37年(1948)', event:'制定動員戡亂時期臨時條款，擴大總統職權', person:null},
+  {era:'postwar', year:'p1949', label:'民國38年(1949)', event:'頒布戒嚴令；中央政府遷臺；推行三七五減租', person:null},
+  {era:'postwar', year:'p1950', label:'民國39年(1950)', event:'韓戰爆發，美國第七艦隊協防臺灣海峽', person:null},
+  {era:'postwar', year:'p1960', label:'民國49年(1960)', event:'雷震事件：創辦《自由中國》、籌組反對黨遭逮捕', person:'雷震'},
+  {era:'postwar', year:'p1966', label:'民國55年(1966)', event:'設立高雄加工出口區', person:null},
+  {era:'postwar', year:'p1971', label:'民國60年(1971)', event:'退出聯合國（2758號決議）', person:null},
+  {era:'postwar', year:'p1972', label:'民國61年(1972)', event:'中日斷交', person:null},
+  {era:'postwar', year:'p1973', label:'民國62～68年', event:'推動十大建設', person:'蔣經國'},
+  {era:'postwar', year:'p1979a', label:'民國68年(1979)', event:'中美斷交，美國轉與中華人民共和國建交', person:null},
+  {era:'postwar', year:'p1979b', label:'民國68年(1979)', event:'美麗島事件爆發於高雄', person:null},
+  {era:'postwar', year:'p1980', label:'民國69年(1980)', event:'設立新竹科學工業園區', person:null},
+  {era:'postwar', year:'p1986', label:'民國75年(1986)', event:'民主進步黨成立——戰後第一個實質運作的反對黨', person:null},
+  {era:'postwar', year:'p1987', label:'民國76年(1987)', event:'宣布解除戒嚴，年底開放大陸探親', person:'蔣經國'},
+  {era:'postwar', year:'p1988', label:'民國77年(1988)', event:'蔣經國逝世，繼任為首位臺灣出生的總統', person:'李登輝'},
+  {era:'postwar', year:'p1990', label:'民國79年(1990)', event:'三月學運（野百合學運）', person:null},
+  {era:'postwar', year:'p1991', label:'民國80年(1991)', event:'廢除動員戡亂時期臨時條款', person:null},
+  {era:'postwar', year:'p1996', label:'民國85年(1996)', event:'首次人民直選總統', person:'李登輝、連戰'},
+  {era:'postwar', year:'p2000', label:'民國89年(2000)', event:'首次政黨輪替', person:'陳水扁'},
+  {era:'postwar', year:'p2008', label:'民國97年(2008)', event:'第二次政黨輪替', person:'馬英九'},
+  {era:'postwar', year:'p2016', label:'民國105年(2016)', event:'首位女性總統，第三次政黨輪替', person:'蔡英文'},
+
+  // ---- ECON / DIPLOMACY / CROSS-STRAIT ----
+  {era:'econ', year:'e1', label:'民國38～42年', event:'土地改革：三七五減租→公地放領→耕者有其田', person:null},
+  {era:'econ', year:'e2', label:'民國40年代', event:'進口替代：扶植國內輕工業、限制外國商品進口', person:null},
+  {era:'econ', year:'e3', label:'民國50年代', event:'出口導向：設加工出口區，拓展外銷、轉型工業經濟', person:null},
+  {era:'econ', year:'e4', label:'民國60年代', event:'十大建設：因應石油危機，強化基礎建設', person:'蔣經國'},
+  {era:'econ', year:'e5', label:'民國70年代起', event:'產業升級：新竹科學園區為核心，發展高科技產業', person:null},
+  {era:'econ', year:'e6', label:'民國82年(1993)', event:'辜汪會談——海基會與海協會代表協商', person:'辜振甫、汪道涵'},
+];
+
+const PEOPLE_COLONIAL = [
+  {name:'唐景崧、丘逢甲', role:'臺灣士紳', deed:'1895年成立臺灣民主國，抗拒日本接收'},
+  {name:'後藤新平', role:'民政長官', deed:'主持土地林野調查、統一貨幣、交通建設等基礎建設'},
+  {name:'余清芳', role:'抗日領袖', deed:'1915年發動西來庵（噍吧哖）事件'},
+  {name:'莫那魯道', role:'賽德克族頭目', deed:'1930年領導霧社事件'},
+  {name:'磯永吉', role:'農業專家', deed:'培育「蓬萊米」，提升稻米產量'},
+  {name:'八田與一', role:'水利工程師', deed:'設計嘉南大圳（1930年完工）'},
+  {name:'林獻堂', role:'士紳領袖', deed:'文化協會、議會請願運動、地方自治聯盟核心人物'},
+  {name:'蔣渭水', role:'醫師、社運領袖', deed:'文化協會、議會請願運動、臺灣民眾黨創立者'},
+];
+
+const INSTITUTIONS = [
+  {tag:'我方・官方', title:'陸委會', back:'大陸委員會——處理政策，不直接接觸對岸官方；對應對岸的國台辦'},
+  {tag:'對岸・官方', title:'國台辦', back:'對岸官方機構，對應我方的陸委會（官方對官方）'},
+  {tag:'我方・民間', title:'海基會', back:'首任董事長辜振甫；實際出面協商、簽署協議，對應海協會（民間對民間）'},
+  {tag:'對岸・民間', title:'海協會', back:'首任會長汪道涵；辜汪會談即海基會 vs 海協會，不是陸委會'},
+];
+
+const MATCH_COLONIAL = [
+  {a:'後藤新平', b:'主持土地林野調查、統一貨幣等基礎建設'},
+  {a:'磯永吉', b:'培育「蓬萊米」，提升稻米產量'},
+  {a:'八田與一', b:'設計嘉南大圳，提升灌溉效率'},
+  {a:'林獻堂', b:'文化協會、議會請願運動、地方自治聯盟核心人物'},
+  {a:'蔣渭水', b:'創立臺灣民眾黨，臺人第一個政黨'},
+  {a:'莫那魯道', b:'領導霧社事件，抗拒理蕃政策'},
+  {a:'余清芳', b:'發動西來庵（噍吧哖）事件'},
+  {a:'唐景崧、丘逢甲', b:'成立臺灣民主國，抗拒日本接收'},
+];
+
+const FILL_COLONIAL = [
+  {q:'臺灣、澎湖依馬關條約割讓給日本，時間是西元____年。', a:'1895'},
+  {q:'________法授權總督可自行頒布具法律效力的命令。', a:'六三'},
+  {q:'1921年成立的________，發行臺灣民報，喚起臺人民族意識。', a:'臺灣文化協會'},
+  {q:'1930年，賽德克族頭目莫那魯道領導________事件。', a:'霧社'},
+  {q:'臺人第一個政黨「臺灣民眾黨」成立於西元____年。', a:'1927'},
+  {q:'設計嘉南大圳的水利工程師是________。', a:'八田與一'},
+  {q:'日本殖民統治共計____年（1895–1945）。', a:'50'},
+];
+
+const MATCH_POSTWAR = [
+  {a:'蔣中正', b:'頒布戒嚴令、動員戡亂臨時條款、遷臺'},
+  {a:'蔣經國', b:'十大建設、解除戒嚴、開放大陸探親'},
+  {a:'李登輝', b:'首次總統直選、廢除臨時條款、國會全面改選'},
+  {a:'陳水扁', b:'首次政黨輪替'},
+  {a:'馬英九', b:'第二次政黨輪替'},
+  {a:'蔡英文', b:'首位女性總統，第三次政黨輪替'},
+];
+
+const FILL_POSTWAR = [
+  {q:'民國36年（1947）爆發的衝突事件，史稱________事件。', a:'二二八'},
+  {q:'民國38年政府頒布________，限制言論、出版、集會、結社自由。', a:'戒嚴令'},
+  {q:'民國49年雷震創辦《________》雜誌，批評時政。', a:'自由中國'},
+  {q:'民國68年爆發於高雄的黨外運動衝突事件稱為________事件。', a:'美麗島'},
+  {q:'民國76年，總統________宣布解除戒嚴。', a:'蔣經國'},
+  {q:'民國79年學生於中正紀念堂廣場發起的學運，又稱________學運。', a:'野百合'},
+  {q:'民國85年，臺灣首次由人民________總統。', a:'直選'},
+  {q:'民國89年陳水扁當選總統，是首次________。', a:'政黨輪替'},
+];
+
+const MATCH_ECON = [
+  {a:'土地改革', b:'穩定農村，釋出地主資金轉入工商業'},
+  {a:'進口替代', b:'扶植國內輕工業、限制外國商品進口'},
+  {a:'出口導向', b:'設加工出口區，拓展外銷'},
+  {a:'十大建設', b:'因應石油危機，強化基礎建設'},
+  {a:'產業升級', b:'發展新竹科學園區等高科技產業'},
+];
+
+const FILL_ECON = [
+  {q:'兩岸機構記憶口訣：陸委會對________（官方對官方）。', a:'國台辦'},
+  {q:'海基會首任董事長是________。', a:'辜振甫'},
+  {q:'海協會首任會長是________。', a:'汪道涵'},
+  {q:'民國________年，辜汪會談舉行（西元1993年）。', a:'82'},
+  {q:'外交政策「彈性外交」是由________總統任內推動。', a:'蔣經國'},
+  {q:'兩岸關係從「政治對峙」轉為「兩岸交流」的關鍵年代是民國____年。', a:'76'},
+];
+
+const CULTURE_ITEMS = [
+  {text:'推行國語運動，禁說方言', ans:'同化'},
+  {text:'成立客家電視台', ans:'多元'},
+  {text:'提倡中華文化復興運動', ans:'同化'},
+  {text:'原住民族正名運動', ans:'多元'},
+  {text:'尊重新住民文化', ans:'多元'},
+];
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+let SCORE = {answered:0, correct:0};
+function bumpScore(isCorrect){
+  SCORE.answered++;
+  if(isCorrect) SCORE.correct++;
+  document.getElementById('statAnswered').textContent = SCORE.answered;
+  document.getElementById('statCorrect').textContent = SCORE.correct;
+  document.getElementById('statRate').textContent = SCORE.answered ? Math.round(SCORE.correct/SCORE.answered*100)+'%' : '—';
+}
+
+/* Generate MC questions from facts */
+function buildQuestions(facts){
+  const qs = [];
+  facts.forEach(f=>{
+    // year -> event
+    const sameEra = facts.filter(x=>x.era===f.era && x!==f);
+    const d1 = shuffle(sameEra).slice(0,3).map(x=>x.event);
+    qs.push({
+      prompt: `${f.label} 發生了下列哪一件事？`,
+      options: shuffle([f.event, ...d1]),
+      answer: f.event,
+      explain: `正確答案：${f.label}——${f.event}${f.person ? '（關鍵人物：'+f.person+'）':''}`
+    });
+    // event -> year
+    const d2 = shuffle(sameEra).slice(0,3).map(x=>x.label);
+    qs.push({
+      prompt: `「${f.event}」發生於下列哪個時間？`,
+      options: shuffle([f.label, ...d2]),
+      answer: f.label,
+      explain: `正確答案：${f.label}——${f.event}`
+    });
+    // person -> event (only if person exists)
+    if(f.person){
+      const withPeople = sameEra.filter(x=>x.person);
+      const d3 = shuffle(withPeople).slice(0,3).map(x=>x.event);
+      if(d3.length>=2){
+        qs.push({
+          prompt: `「${f.person}」最主要的事蹟是下列何者？`,
+          options: shuffle([f.event, ...d3]),
+          answer: f.event,
+          explain: `正確答案：${f.person}——${f.event}`
+        });
+      }
+    }
+  });
+  return shuffle(qs);
+}
+
+/* Render a sequential quiz into a container */
+function renderQuiz(containerId, questions, opts){
+  opts = opts || {};
+  const container = document.getElementById(containerId);
+  let idx = 0;
+  let localCorrect = 0;
+
+  function renderQ(){
+    if(idx >= questions.length){
+      if(opts.onFinish){ opts.onFinish(localCorrect, questions.length); return; }
+      container.innerHTML = `<div class="final-result"><div class="stamp ok" style="transform:rotate(-3deg);font-size:16px;">本區完成</div><p style="margin-top:14px;color:var(--ink-soft);">本區答對 ${localCorrect} / ${questions.length} 題</p></div>`;
+      return;
+    }
+    const q = questions[idx];
+    container.innerHTML = `
+      <div class="qhead">
+        <div class="qcount">第 ${idx+1} / ${questions.length} 題</div>
+        <div class="qscore">本區答對：${localCorrect}</div>
+      </div>
+      <div class="prompt">${q.prompt}</div>
+      <div class="options">
+        ${q.options.map((o,i)=>`<button class="opt-btn" data-i="${i}">${o}</button>`).join('')}
+      </div>
+      <div class="explain" id="${containerId}-explain">${q.explain}</div>
+      <div class="qcontrols">
+        <span></span>
+        <button class="next-btn" id="${containerId}-next" disabled>下一題</button>
+      </div>
+    `;
+    const btns = container.querySelectorAll('.opt-btn');
+    btns.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        btns.forEach(b=>b.disabled=true);
+        const chosen = btn.textContent;
+        const isCorrect = chosen === q.answer;
+        if(isCorrect){
+          btn.classList.add('correct');
+          localCorrect++;
+        }else{
+          btn.classList.add('wrong');
+          btns.forEach(b=>{ if(b.textContent === q.answer) b.classList.add('reveal'); });
+        }
+        document.getElementById(containerId+'-explain').classList.add('show');
+        document.getElementById(containerId+'-next').disabled = false;
+        bumpScore(isCorrect);
+      });
+    });
+    document.getElementById(containerId+'-next').addEventListener('click', ()=>{
+      idx++;
+      renderQ();
+    });
+  }
+  renderQ();
+}
+
+/* ============================================================
+   TIMELINE RENDER
+   ============================================================ */
+function renderTimeline(containerId, facts){
+  const container = document.getElementById(containerId);
+  container.innerHTML = facts.map(f=>`
+    <div class="tl-item">
+      <span class="tl-year">${f.label}</span>
+      <span class="tl-event">${f.event}</span>
+      ${f.person ? `<span class="tl-person">〔${f.person}〕</span>` : ''}
+    </div>
+  `).join('');
+}
+
+/* ---- Phase-grouped timeline data ---- */
+const COLONIAL_PHASES = [
+  {
+    num:'1', title:'殖民地特殊統治（無方針主義）', sub:'武官總督', period:'1895～1919',
+    reason:'甲午戰爭清廷戰敗，馬關條約割讓臺灣、澎湖，日本開始殖民統治，初期一方面籠絡人心、一方面武力鎮壓抗日。',
+    items:[
+      {label:'1895.4', event:'馬關條約簽訂，臺灣、澎湖割讓給日本', pivot:true, reasonTag:'甲午戰敗'},
+      {label:'1895.5', event:'臺灣民主國成立，抗拒接收但終告失敗', person:'唐景崧、丘逢甲'},
+      {label:'1896', event:'發布「六三法」，授權總督可頒布具法律效力的命令'},
+      {label:'1908', event:'縱貫鐵路（基隆～高雄）完工'},
+      {label:'1910～1915', event:'五年理蕃計畫：武力鎮壓高山原住民'},
+      {label:'1915', event:'西來庵事件（噍吧哖事件）——最大規模武裝抗日', person:'余清芳'},
+      {label:'1915', event:'臺中中學校設立，第一所收臺人子弟的中學'},
+    ]
+  },
+  {
+    num:'2', title:'內地延長主義', sub:'文官總督', period:'1919～1937',
+    reason:'第一次世界大戰結束，「民族自決」思潮興起，首任文官總督到任，標榜「日臺合一」，但教育、政治參與待遇仍未平等。',
+    items:[
+      {label:'1919', event:'首任文官總督到任，統治轉為「內地延長主義」', pivot:true, reasonTag:'一戰結束・民族自決'},
+      {label:'1921～1934', event:'臺灣議會設置請願運動，前後15次赴東京請願', person:'林獻堂、蔣渭水'},
+      {label:'1921', event:'臺灣文化協會成立，發行臺灣民報', person:'林獻堂、蔣渭水'},
+      {label:'1927', event:'臺灣民眾黨成立——臺人第一個政黨', person:'蔣渭水'},
+      {label:'1928', event:'臺北帝國大學設立（今國立臺灣大學前身）'},
+      {label:'1930', event:'臺灣地方自治聯盟成立', person:'林獻堂'},
+      {label:'1930', event:'霧社事件爆發', person:'莫那魯道（賽德克族頭目）'},
+      {label:'1930', event:'嘉南大圳設計完工', person:'八田與一'},
+      {label:'1934', event:'日月潭發電所完工，帶動機械、造船、石化等工業'},
+      {label:'1935', event:'總督府首次舉辦地方議員選舉'},
+    ]
+  },
+  {
+    num:'3', title:'皇民化運動', sub:'武官總督', period:'1937～1945',
+    reason:'中日戰爭爆發，總督再由武官擔任，全力推行皇民化運動，動員人力物力投入戰爭。',
+    items:[
+      {label:'1937', event:'中日戰爭爆發，統治轉為「皇民化運動時期」', pivot:true, reasonTag:'中日戰爭爆發'},
+      {label:'1941', event:'取消小學校／公學校區別，統稱「國民學校」'},
+      {label:'1943', event:'開始實施六年國民義務教育'},
+      {label:'1945', event:'日本戰敗投降，殖民統治結束（共50年）', pivot:true, reasonTag:'二戰結束'},
+    ]
+  },
+];
+
+const POSTWAR_PHASES = [
+  {
+    num:'1', title:'武力對抗時期', sub:'外交：鞏固外交（蔣中正）', period:'民國38～68年（1949～1979）',
+    reason:'國共內戰失利，中央政府遷臺，兩岸分治對立；我方主張「光復大陸」，中共主張「武力解放臺灣」。',
+    items:[
+      {label:'民34(1945)', event:'臺灣光復，設臺灣省行政長官公署', person:'陳儀'},
+      {label:'民36(1947)', event:'二二八事件爆發'},
+      {label:'民37(1948)', event:'制定動員戡亂時期臨時條款，擴大總統職權'},
+      {label:'民38(1949)', event:'頒布戒嚴令；中央政府遷臺；推行三七五減租', pivot:true, reasonTag:'國共內戰失利'},
+      {label:'民39(1950)', event:'韓戰爆發，美國第七艦隊協防臺灣海峽'},
+      {label:'民49(1960)', event:'雷震事件：創辦《自由中國》、籌組反對黨遭逮捕', person:'雷震'},
+      {label:'民55(1966)', event:'設立高雄加工出口區'},
+      {label:'民60(1971)', event:'退出聯合國（2758號決議）', pivot:true, reasonTag:'外交政策同年轉為彈性外交，但兩岸關係仍屬武力對抗'},
+      {label:'民61(1972)', event:'中日斷交'},
+      {label:'民62～68', event:'推動十大建設', person:'蔣經國'},
+    ]
+  },
+  {
+    num:'2', title:'政治對峙時期', sub:'外交：彈性外交（蔣經國）', period:'民國68～76年（1979～1987）',
+    reason:'民國68年（1979）中美斷交，美國轉與中華人民共和國建交，臺灣外交陷入空前孤立；兩岸關係正式進入對峙——我方「三不政策」對上中共「一國兩制／和平統戰」。',
+    items:[
+      {label:'民68(1979)', event:'中美斷交，美國轉與中華人民共和國建交', pivot:true, reasonTag:'中美斷交'},
+      {label:'民68(1979)', event:'美麗島事件爆發於高雄'},
+      {label:'民69(1980)', event:'設立新竹科學工業園區'},
+      {label:'民75(1986)', event:'民主進步黨成立——戰後第一個實質運作的反對黨'},
+    ]
+  },
+  {
+    num:'3', title:'兩岸交流時期', sub:'外交：務實外交（李登輝起）', period:'民國76年起（1987起）',
+    reason:'民國76年（1987）蔣經國宣布解除戒嚴，年底開放大陸探親，兩岸關係從對峙走向交流；隔年蔣經國逝世，李登輝繼任後外交政策轉為務實外交。',
+    items:[
+      {label:'民76(1987)', event:'宣布解除戒嚴，年底開放大陸探親', pivot:true, reasonTag:'解嚴＋開放探親'},
+      {label:'民77(1988)', event:'蔣經國逝世，繼任為首位臺灣出生的總統', person:'李登輝'},
+      {label:'民79(1990)', event:'三月學運（野百合學運）'},
+      {label:'民80(1991)', event:'廢除動員戡亂時期臨時條款'},
+      {label:'民82(1993)', event:'辜汪會談——海基會與海協會代表協商', person:'辜振甫、汪道涵'},
+      {label:'民85(1996)', event:'首次人民直選總統', person:'李登輝、連戰'},
+      {label:'民89(2000)', event:'首次政黨輪替', person:'陳水扁'},
+      {label:'民97(2008)', event:'第二次政黨輪替', person:'馬英九'},
+      {label:'民105(2016)', event:'首位女性總統，第三次政黨輪替', person:'蔡英文'},
+    ]
+  },
+];
+
+function renderPhaseTimeline(containerId, phases){
+  const container = document.getElementById(containerId);
+  container.innerHTML = phases.map(ph=>`
+    <div class="phase-block">
+      <div class="phase-head">
+        <span class="phase-num">${ph.num}</span>
+        <span class="phase-title">${ph.title}</span>
+        <span class="phase-sub">${ph.sub}</span>
+        <span class="phase-period">${ph.period}</span>
+      </div>
+      <div class="phase-reason"><b>轉入原因：</b>${ph.reason}</div>
+      <div class="tl">
+        ${ph.items.map(it=>`
+          <div class="tl-item${it.pivot ? ' pivot' : ''}">
+            <span class="tl-year">${it.label}</span>
+            <span class="tl-event">${it.event}</span>
+            ${it.person ? `<span class="tl-person">〔${it.person}〕</span>` : ''}
+            ${it.reasonTag ? `<span class="tl-reason-tag">${it.reasonTag}</span>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ============================================================
+   ORDER CHALLENGE
+   ============================================================ */
+function renderOrderChallenge(containerId, items){
+  // items: array of {label, order} where order is the correct 1-based rank
+  const container = document.getElementById(containerId);
+  const shuffled = shuffle(items);
+  let picked = [];
+
+  function draw(){
+    container.innerHTML = `
+      <div class="order-pool">
+        ${shuffled.map((it,i)=>`<button class="order-chip" data-label="${it.label}">${it.label}</button>`).join('')}
+      </div>
+      <div class="order-slots" id="${containerId}-slots"></div>
+      <div class="order-check">
+        <button class="mini-btn" id="${containerId}-check">檢查答案</button>
+        <button class="mini-btn" id="${containerId}-reset">重新開始</button>
+        <span class="order-msg" id="${containerId}-msg"></span>
+      </div>
+    `;
+    const chips = container.querySelectorAll('.order-chip');
+    const slots = document.getElementById(containerId+'-slots');
+    chips.forEach(chip=>{
+      chip.addEventListener('click', ()=>{
+        if(chip.classList.contains('picked')) return;
+        chip.classList.add('picked');
+        picked.push(chip.dataset.label);
+        const slot = document.createElement('span');
+        slot.className = 'order-slot-item';
+        slot.innerHTML = `<span class="n">${picked.length}</span>${chip.dataset.label}`;
+        slots.appendChild(slot);
+      });
+    });
+    document.getElementById(containerId+'-check').addEventListener('click', ()=>{
+      const correctOrder = items.slice().sort((a,b)=>a.order-b.order).map(x=>x.label);
+      const isCorrect = JSON.stringify(picked) === JSON.stringify(correctOrder);
+      const msg = document.getElementById(containerId+'-msg');
+      if(picked.length < items.length){
+        msg.textContent = '請先選完全部項目';
+        msg.className = 'order-msg no';
+        return;
+      }
+      bumpScore(isCorrect);
+      if(isCorrect){
+        msg.textContent = '✓ 完全正確！';
+        msg.className = 'order-msg ok';
+      }else{
+        msg.textContent = '✗ 順序有誤，正確順序：' + correctOrder.join(' → ');
+        msg.className = 'order-msg no';
+      }
+    });
+    document.getElementById(containerId+'-reset').addEventListener('click', ()=>{
+      picked = [];
+      draw();
+    });
+  }
+  draw();
+}
+
+/* ============================================================
+   MATCH GAME (click left item, click right item, check pair)
+   ============================================================ */
+function renderMatchGame(containerId, pairs){
+  const container = document.getElementById(containerId);
+  const leftOrder = shuffle(pairs.map((p,i)=>i));
+  const rightOrder = shuffle(pairs.map((p,i)=>i));
+  let selLeft = null, selRight = null;
+  let matchedCount = 0;
+  let counted = false; // whether this game's completion already counted toward answered stats per pair
+
+  container.innerHTML = `
+    <div class="match-wrap">
+      <div class="match-col">
+        <div class="col-lab">項目</div>
+        ${leftOrder.map(i=>`<button class="match-btn" data-side="l" data-i="${i}">${pairs[i].a}</button>`).join('')}
+      </div>
+      <div class="match-col">
+        <div class="col-lab">對應內容</div>
+        ${rightOrder.map(i=>`<button class="match-btn" data-side="r" data-i="${i}">${pairs[i].b}</button>`).join('')}
+      </div>
+    </div>
+    <div class="match-status" id="${containerId}-status">配對進度：0 / ${pairs.length}</div>
+  `;
+
+  function updateStatus(){
+    const status = document.getElementById(containerId+'-status');
+    if(matchedCount >= pairs.length){
+      status.innerHTML = `<span class="stamp ok" style="font-size:12px;">全部配對完成</span>`;
+    }else{
+      status.textContent = `配對進度：${matchedCount} / ${pairs.length}`;
+    }
+  }
+
+  container.querySelectorAll('.match-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const side = btn.dataset.side;
+      const i = parseInt(btn.dataset.i,10);
+      if(side==='l'){
+        if(selLeft) selLeft.classList.remove('selected');
+        selLeft = btn; btn.classList.add('selected');
+      }else{
+        if(selRight) selRight.classList.remove('selected');
+        selRight = btn; btn.classList.add('selected');
+      }
+      if(selLeft && selRight){
+        const li = parseInt(selLeft.dataset.i,10);
+        const ri = parseInt(selRight.dataset.i,10);
+        const isMatch = li === ri;
+        bumpScore(isMatch);
+        if(isMatch){
+          selLeft.classList.remove('selected'); selRight.classList.remove('selected');
+          selLeft.classList.add('matched'); selRight.classList.add('matched');
+          selLeft.disabled = true; selRight.disabled = true;
+          matchedCount++;
+          selLeft = null; selRight = null;
+          updateStatus();
+        }else{
+          selLeft.classList.add('shake'); selRight.classList.add('shake');
+          setTimeout(()=>{
+            if(selLeft){ selLeft.classList.remove('selected','shake'); }
+            if(selRight){ selRight.classList.remove('selected','shake'); }
+            selLeft = null; selRight = null;
+          }, 500);
+        }
+      }
+    });
+  });
+  updateStatus();
+}
+
+/* ============================================================
+   FILL-IN-THE-BLANK RECALL QUIZ
+   ============================================================ */
+function normalizeAnswer(s){
+  return s.trim().replace(/\s+/g,'');
+}
+function renderFillBlank(containerId, items){
+  const container = document.getElementById(containerId);
+  let idx = 0;
+  let correct = 0;
+
+  function draw(){
+    if(idx >= items.length){
+      container.innerHTML = `<div style="text-align:center;padding:16px;"><div class="stamp ok">填空完成</div><p style="margin-top:12px;color:var(--ink-soft);">答對 ${correct} / ${items.length} 題</p></div>`;
+      return;
+    }
+    const it = items[idx];
+    container.innerHTML = `
+      <div class="prompt" style="font-size:15.5px;">${it.q}</div>
+      <div class="fill-row">
+        <input type="text" class="fill-input" id="${containerId}-input" placeholder="輸入答案" autocomplete="off">
+        <button class="check-btn" id="${containerId}-check">送出</button>
+      </div>
+      <div class="explain" id="${containerId}-ex"></div>
+      <div class="qcontrols"><span></span><button class="next-btn" id="${containerId}-next" disabled>下一題</button></div>
+    `;
+    const input = document.getElementById(containerId+'-input');
+    const checkBtn = document.getElementById(containerId+'-check');
+    const nextBtn = document.getElementById(containerId+'-next');
+
+    function doCheck(){
+      if(input.disabled) return;
+      const ok = normalizeAnswer(input.value) === normalizeAnswer(it.a);
+      input.disabled = true;
+      checkBtn.disabled = true;
+      input.classList.add(ok ? 'correct' : 'wrong');
+      if(ok) correct++;
+      const ex = document.getElementById(containerId+'-ex');
+      ex.classList.add('show');
+      ex.textContent = ok ? `✓ 答對了！正確答案：${it.a}` : `✗ 正確答案：${it.a}`;
+      nextBtn.disabled = false;
+      bumpScore(ok);
+    }
+    checkBtn.addEventListener('click', doCheck);
+    input.addEventListener('keydown', e=>{ if(e.key==='Enter') doCheck(); });
+    nextBtn.addEventListener('click', ()=>{ idx++; draw(); });
+    input.focus();
+  }
+  draw();
+}
+
+/* ============================================================
+   CULTURE SORT MINI-GAME
+   ============================================================ */
+function renderCultureSort(containerId, items){
+  const container = document.getElementById(containerId);
+  let idx = 0;
+  let correct = 0;
+  function draw(){
+    if(idx >= items.length){
+      container.innerHTML = `<div style="text-align:center;padding:16px;"><div class="stamp ok">判斷完成</div><p style="margin-top:12px;color:var(--ink-soft);">答對 ${correct} / ${items.length} 題</p></div>`;
+      return;
+    }
+    const it = items[idx];
+    container.innerHTML = `
+      <div class="prompt" style="font-size:15.5px;">「${it.text}」</div>
+      <div class="options" style="grid-template-columns:1fr 1fr;display:grid;">
+        <button class="opt-btn" data-v="同化">同化政策</button>
+        <button class="opt-btn" data-v="多元">多元文化</button>
+      </div>
+      <div class="explain show" id="${containerId}-ex" style="display:none;"></div>
+      <div class="qcontrols"><span></span><button class="next-btn" id="${containerId}-next" disabled>下一題</button></div>
+    `;
+    const btns = container.querySelectorAll('.opt-btn');
+    btns.forEach(b=>{
+      b.addEventListener('click', ()=>{
+        btns.forEach(x=>x.disabled=true);
+        const ok = b.dataset.v === it.ans;
+        if(ok){ b.classList.add('correct'); correct++; }
+        else{
+          b.classList.add('wrong');
+          btns.forEach(x=>{ if(x.dataset.v===it.ans) x.classList.add('reveal'); });
+        }
+        const ex = document.getElementById(containerId+'-ex');
+        ex.style.display='block';
+        ex.textContent = `正確分類：${it.ans === '同化' ? '同化政策' : '多元文化'}`;
+        document.getElementById(containerId+'-next').disabled = false;
+        bumpScore(ok);
+      });
+    });
+    document.getElementById(containerId+'-next').addEventListener('click', ()=>{ idx++; draw(); });
+  }
+  draw();
+}
+
+/* ============================================================
+   INIT PAGE CONTENT
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', ()=>{
+
+  // tabs
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // overview timeline (compact selection across all eras, kept in true chronological order)
+  const overviewYearKeys = [
+    '1895.4','1919','1921','1937','1945',
+    'p1947','p1949','p1971','p1979a','p1987','e6','p1996','p2000','p2016'
+  ];
+  const overviewFacts = overviewYearKeys.map(y => FACTS.find(f => f.year === y)).filter(Boolean);
+  renderTimeline('overviewTimeline', overviewFacts);
+
+  // colonial
+  const colonialFacts = FACTS.filter(f=>f.era==='colonial');
+  renderPhaseTimeline('colonialTimeline', COLONIAL_PHASES);
+  document.getElementById('colonialPeople').innerHTML = PEOPLE_COLONIAL.map(p=>`
+    <div class="person-card">
+      <div class="name">${p.name}</div>
+      <div class="role">${p.role}</div>
+      <div class="deed">${p.deed}</div>
+    </div>
+  `).join('');
+  renderOrderChallenge('orderColonial', [
+    {label:'馬關條約簽訂割臺', order:1},
+    {label:'西來庵事件（余清芳）', order:2},
+    {label:'臺灣文化協會成立', order:3},
+    {label:'霧社事件爆發', order:4},
+    {label:'皇民化運動開始', order:5},
+  ]);
+  renderMatchGame('matchColonial', shuffle(MATCH_COLONIAL));
+  renderFillBlank('fillColonial', FILL_COLONIAL);
+  renderQuiz('quizColonial', buildQuestions(colonialFacts).slice(0,12));
+
+  // postwar
+  const postwarFacts = FACTS.filter(f=>f.era==='postwar');
+  renderPhaseTimeline('postwarTimeline', POSTWAR_PHASES);
+  renderOrderChallenge('orderPostwar', [
+    {label:'雷震事件', order:1},
+    {label:'美麗島事件', order:2},
+    {label:'解除戒嚴', order:3},
+    {label:'首次總統直選', order:4},
+    {label:'首次政黨輪替', order:5},
+  ]);
+  renderMatchGame('matchPostwar', shuffle(MATCH_POSTWAR));
+  renderFillBlank('fillPostwar', FILL_POSTWAR);
+  renderQuiz('quizPostwar', buildQuestions(postwarFacts).slice(0,14));
+
+  // econ
+  const econFacts = FACTS.filter(f=>f.era==='econ');
+  document.getElementById('institutionFlip').innerHTML = INSTITUTIONS.map((it,i)=>`
+    <div class="flip-card" data-i="${i}">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <div class="tag">${it.tag}</div>
+          <div class="title">${it.title}</div>
+        </div>
+        <div class="flip-face flip-back">${it.back}</div>
+      </div>
+    </div>
+  `).join('');
+  document.querySelectorAll('#institutionFlip .flip-card').forEach(card=>{
+    card.addEventListener('click', ()=>card.classList.toggle('flipped'));
+  });
+  renderOrderChallenge('orderEcon', [
+    {label:'土地改革', order:1},
+    {label:'進口替代', order:2},
+    {label:'出口導向', order:3},
+    {label:'十大建設', order:4},
+    {label:'產業升級', order:5},
+  ]);
+  renderCultureSort('cultureSort', shuffle(CULTURE_ITEMS));
+  renderMatchGame('matchEcon', shuffle(MATCH_ECON));
+  renderFillBlank('fillEcon', FILL_ECON);
+  renderQuiz('quizEcon', buildQuestions(econFacts).slice(0,10));
+
+  // final challenge
+  document.getElementById('startFinalBtn').addEventListener('click', ()=>{
+    document.getElementById('finalIntro').style.display = 'none';
+    const finalQuiz = document.getElementById('quizFinal');
+    finalQuiz.style.display = 'block';
+    const allQs = buildQuestions(FACTS).slice(0,20);
+    renderQuiz('quizFinal', allQs, {
+      onFinish: (correct,total)=>{
+        finalQuiz.style.display='none';
+        const resultBox = document.getElementById('finalResult');
+        resultBox.style.display='block';
+        const pct = Math.round(correct/total*100);
+        let msg = '再接再厲，回到各主題區複習盲區！';
+        if(pct >= 90) msg = '滿分等級！記憶力超群，準備迎接會考！';
+        else if(pct >= 70) msg = '相當不錯，再抓緊幾個易混淆的年份就更穩了。';
+        resultBox.innerHTML = `
+          <div class="stamp ok" style="font-size:18px;">大挑戰完成</div>
+          <div class="big">${correct} / ${total}</div>
+          <div class="msg">正確率 ${pct}%　${msg}</div>
+          <button class="next-btn" id="retryFinalBtn" style="margin-top:18px;">再挑戰一次</button>
+        `;
+        document.getElementById('retryFinalBtn').addEventListener('click', ()=>{
+          resultBox.style.display='none';
+          document.getElementById('finalIntro').style.display='block';
+        });
+      }
+    });
+  });
+
+});
+</script>
+</body>
+</html>
