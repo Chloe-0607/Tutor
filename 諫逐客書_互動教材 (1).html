@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>諫逐客書｜互動古文教材</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap');
+
+:root{
+  --paper:#FBF6EC;
+  --paper-deep:#F1E2C0;
+  --ink:#241512;
+  --muted:#7C6656;
+  --mud:#9B3323;
+  --mud-deep:#6E2015;
+  --reed:#B8863B;
+  --tide:#3F6656;
+  --tide-deep:#294A3C;
+  --sky:#D8E4D3;
+  --soil:#1C1210;
+  --rust:#C0532E;
+  --card:#FFFFFF;
+  --line:#E9D9B8;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif;
+  line-height:1.9;
+}
+h1,h2,h3,.disp{font-family:"Noto Serif TC",serif;}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;
+  min-height:92vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  background:var(--paper-deep);
+  padding:40px 20px;
+}
+.hero-inner{position:relative;z-index:2;max-width:720px;}
+.eyebrow{
+  font-size:.85rem;letter-spacing:.5em;color:var(--mud-deep);
+  margin-bottom:18px;font-weight:700;
+}
+.hero h1{
+  font-size:clamp(3rem,9vw,5.2rem);
+  margin:0 0 10px;font-weight:900;color:var(--soil);letter-spacing:.15em;
+  text-shadow:0 6px 0 rgba(110,32,21,.14);
+}
+.hero .sub{font-size:1.1rem;color:var(--muted);margin-bottom:6px;letter-spacing:.2em;}
+.hero .author{font-size:1rem;color:var(--tide-deep);margin-bottom:34px;letter-spacing:.3em;font-weight:600;}
+.hero p.lead{font-size:1.02rem;color:var(--muted);max-width:540px;margin:0 auto 36px;}
+.scroll-cta{
+  display:inline-flex;align-items:center;gap:10px;padding:14px 30px;border-radius:999px;
+  background:var(--mud-deep);
+  color:#fff;font-family:"Noto Serif TC",serif;font-size:1rem;letter-spacing:.2em;
+  text-decoration:none;cursor:pointer;border:none;
+  box-shadow:0 10px 26px -10px rgba(110,32,21,.5);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.scroll-cta:hover{transform:translateY(-3px);background:var(--mud);box-shadow:0 14px 30px -8px rgba(110,32,21,.5);}
+.scroll-cta svg{width:16px;height:16px;animation:bob 1.6s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+/* ===== CONTROLS BAR ===== */
+.controls{
+  position:sticky;top:0;z-index:55;
+  background:rgba(250,246,237,.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+  padding:12px 20px;
+  display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;font-size:.92rem;
+}
+.controls label{display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--muted);user-select:none;}
+.switch{position:relative;width:38px;height:22px;border-radius:99px;background:var(--line);transition:background .2s ease;flex-shrink:0;}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s ease;box-shadow:0 1px 2px rgba(0,0,0,.3);}
+input[type=checkbox]{display:none;}
+input[type=checkbox]:checked + .switch{background:var(--tide);}
+input[type=checkbox]:checked + .switch::after{transform:translateX(16px);}
+.hint-tag{font-size:.78rem;color:var(--tide-deep);border:1px solid var(--tide-deep);padding:2px 10px;border-radius:99px;}
+
+/* ===== STEPPING-STONE NAV ===== */
+.stones{
+  position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:59;
+  display:flex;flex-direction:column;gap:12px;
+}
+.stone{
+  width:14px;height:14px;border-radius:50%;background:var(--line);
+  border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.12);cursor:pointer;
+  transition:background .25s ease, transform .25s ease;position:relative;
+}
+.stone:hover{transform:scale(1.25);}
+.stone.active{background:var(--mud-deep);transform:scale(1.3);}
+.stone .stone-label{
+  position:absolute;right:24px;top:50%;transform:translateY(-50%);
+  background:var(--soil);color:#fff;font-size:.72rem;padding:4px 9px;border-radius:8px;
+  white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease;
+}
+.stone:hover .stone-label{opacity:1;}
+@media(max-width:800px){.stones{display:none;}}
+
+/* ===== SECTION WRAP ===== */
+.wrap{max-width:900px;margin:0 auto;padding:70px 22px;}
+.section-title{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;}
+.section-title h2{font-size:1.7rem;margin:0;letter-spacing:.08em;color:var(--soil);}
+.section-title .num{font-family:"Noto Serif TC",serif;color:var(--mud-deep);font-weight:700;font-size:1.1rem;}
+.section-intro{color:var(--muted);margin:0 0 34px;font-size:.96rem;}
+
+/* ===== CONTEXT CARD (background) ===== */
+.context-card{
+  background:linear-gradient(135deg,var(--paper-deep),var(--paper));
+  border:1px solid var(--line);border-left:5px solid var(--mud);border-radius:16px;
+  padding:24px 28px;margin-bottom:40px;
+}
+.context-card .clabel{display:block;font-size:.78rem;letter-spacing:.25em;color:var(--mud-deep);margin-bottom:10px;font-weight:700;}
+.context-card p{margin:0;color:var(--ink);font-size:.98rem;line-height:2;}
+
+/* ===== PASSAGE CARDS ===== */
+.passage{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:26px;overflow:hidden;
+  box-shadow:0 1px 0 rgba(0,0,0,.02);
+  transition:max-width .9s cubic-bezier(.2,.8,.2,1), padding .9s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
+}
+.passage-head{
+  display:flex;align-items:center;justify-content:space-between;padding:14px 24px;
+  background:var(--paper-deep);border-bottom:1px solid var(--line);
+}
+.passage-head .ptitle{font-weight:700;color:var(--tide-deep);font-size:.92rem;letter-spacing:.1em;}
+.passage-body{padding:26px 28px;display:grid;grid-template-columns:1.15fr 1fr;gap:28px;}
+@media(max-width:720px){.passage-body{grid-template-columns:1fr;}}
+.classical{font-family:"Noto Serif TC",serif;font-size:1.18rem;line-height:2.5;color:var(--ink);}
+.classical ruby{ruby-position:over;}
+.classical rt{font-size:.5em;font-family:"Noto Sans TC",sans-serif;color:var(--mud-deep);font-weight:600;user-select:none;letter-spacing:0;}
+.classical .gloss{border-bottom:2px dotted var(--mud-deep);cursor:pointer;color:var(--mud-deep);font-weight:600;padding:0 1px;}
+.classical .gloss:hover{background:#EFEAE0;}
+.translation{font-size:.98rem;color:var(--muted);border-left:2px solid var(--sky);padding-left:20px;}
+.translation .tlabel{display:block;font-size:.75rem;letter-spacing:.2em;color:var(--tide-deep);margin-bottom:8px;font-weight:700;}
+body.hide-translation .translation{display:none;}
+body.hide-translation .passage-body{grid-template-columns:1fr;}
+
+.cave-caption{text-align:center;font-size:.8rem;color:var(--tide-deep);letter-spacing:.15em;padding:10px 0 0;font-family:"Noto Serif TC",serif;}
+
+.pivot-line{text-align:center;font-family:"Noto Serif TC",serif;font-size:1.12rem;color:var(--mud-deep);margin:0 0 10px;padding:18px 20px;background:var(--paper-deep);border-radius:14px;border:1px dashed var(--mud-deep);}
+.pivot-line b{font-weight:900;}
+.pivot-sub{text-align:center;font-size:.8rem;color:var(--muted);margin:0 0 40px;letter-spacing:.1em;}
+
+/* ===== TOOLTIP ===== */
+#tooltip{
+  position:fixed;max-width:260px;background:var(--soil);color:#fff;padding:10px 14px;border-radius:10px;
+  font-size:.85rem;line-height:1.6;z-index:200;display:none;box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+#tooltip::before{content:"";position:absolute;top:-6px;left:16px;border-width:0 6px 6px 6px;border-style:solid;border-color:transparent transparent var(--soil) transparent;}
+
+/* ===== TABLES ===== */
+.table-wrap{overflow-x:auto;margin-bottom:30px;border-radius:14px;border:1px solid var(--line);}
+table{width:100%;border-collapse:collapse;background:var(--card);font-size:.92rem;}
+thead th{background:var(--tide-deep);color:#fff;text-align:left;padding:12px 16px;font-family:"Noto Serif TC",serif;font-weight:600;letter-spacing:.05em;}
+tbody td{padding:12px 16px;border-top:1px solid var(--line);}
+tbody tr:nth-child(even){background:#F5F0E6;}
+td.wc{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--mud-deep);font-size:1.05rem;}
+.subhead{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--ink);margin:36px 0 12px;font-size:1.05rem;display:flex;align-items:center;gap:10px;}
+.subhead::before{content:"";width:8px;height:8px;background:var(--mud-deep);border-radius:50%;display:inline-block;}
+
+/* ===== ARGUMENT CHAIN ORDERING GAME ===== */
+.chain-wrap{margin:34px 0 10px;}
+.chain-list{display:flex;flex-direction:column;gap:12px;counter-reset:chain;}
+.chain-item{
+  display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:16px 20px;transition:border-color .2s ease, transform .2s ease, background .2s ease;
+}
+.chain-item.correct{border-color:var(--tide-deep);background:#EAF3EA;}
+.chain-item.wrong{border-color:var(--rust);background:#FBEDE6;}
+.chain-slot{
+  flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--paper-deep);color:var(--mud-deep);
+  display:flex;align-items:center;justify-content:center;font-family:"Noto Serif TC",serif;font-weight:700;font-size:1rem;
+}
+.chain-text{flex:1;font-size:.95rem;line-height:1.65;}
+.chain-text b{font-family:"Noto Serif TC",serif;color:var(--mud-deep);font-weight:700;margin-right:4px;}
+.chain-quote{display:block;font-family:"Noto Serif TC",serif;color:var(--muted);font-size:.86rem;margin-top:4px;}
+.chain-btns{display:flex;flex-direction:column;gap:6px;flex-shrink:0;}
+.chain-btn{
+  width:34px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--paper-deep);
+  cursor:pointer;font-size:.9rem;color:var(--mud-deep);transition:all .15s ease;
+}
+.chain-btn:hover:not(:disabled){border-color:var(--mud-deep);}
+.chain-btn:disabled{opacity:.35;cursor:default;}
+.chain-actions{display:flex;justify-content:center;gap:14px;margin-top:18px;}
+.chain-check{
+  padding:11px 30px;border-radius:999px;border:none;cursor:pointer;
+  background:var(--mud-deep);color:#fff;
+  font-family:"Noto Serif TC",serif;font-size:.95rem;letter-spacing:.1em;transition:transform .2s ease, background .2s ease;
+}
+.chain-check:hover{transform:translateY(-2px);background:var(--mud);}
+#chain-status{text-align:center;color:var(--tide-deep);font-weight:700;margin-top:14px;font-family:"Noto Serif TC",serif;min-height:24px;}
+
+/* ===== CLASSIFY GAME ===== */
+.classify-wrap{margin:34px 0 10px;}
+.classify-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:14px;}
+.classify-quote{font-family:"Noto Serif TC",serif;font-size:1.05rem;margin-bottom:14px;color:var(--ink);line-height:1.7;}
+.classify-btns{display:flex;gap:10px;}
+.classify-btn{flex:1;padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--paper-deep);cursor:pointer;font-family:"Noto Serif TC",serif;font-weight:700;font-size:.95rem;color:var(--ink);transition:all .15s ease;}
+.classify-btn:hover:not(:disabled){border-color:var(--mud-deep);transform:translateY(-1px);}
+.classify-btn.correct{background:#EAF3F2;border-color:var(--tide-deep);color:var(--tide-deep);}
+.classify-btn.wrong{background:#F9EAE4;border-color:var(--rust);color:var(--rust);}
+.classify-btn:disabled{cursor:default;opacity:.85;}
+#classify-status{text-align:center;color:var(--tide-deep);font-weight:700;margin-top:10px;font-family:"Noto Serif TC",serif;min-height:24px;}
+
+/* ===== QUIZ ===== */
+.quiz-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 26px;margin-bottom:18px;}
+.quiz-q{font-weight:700;margin-bottom:14px;font-family:"Noto Serif TC",serif;font-size:1.02rem;}
+.quiz-tag{display:inline-block;font-size:.72rem;color:var(--tide-deep);border:1px solid var(--tide-deep);padding:1px 8px;border-radius:99px;margin-bottom:10px;letter-spacing:.05em;}
+.quiz-opt{display:block;padding:10px 14px;margin-bottom:8px;border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:all .15s ease;font-size:.94rem;}
+.quiz-opt:hover{border-color:var(--mud-deep);}
+.quiz-opt.correct{background:#EAF3F2;border-color:var(--tide-deep);color:var(--tide-deep);font-weight:700;}
+.quiz-opt.wrong{background:#F9EAE4;border-color:var(--rust);color:var(--rust);}
+.quiz-opt input{margin-right:10px;}
+#quiz-result{text-align:center;font-family:"Noto Serif TC",serif;font-size:1.2rem;color:var(--tide-deep);margin:22px 0;min-height:30px;font-weight:700;}
+.quiz-btn{
+  display:block;margin:10px auto 0;padding:12px 34px;border-radius:999px;border:none;
+  background:var(--mud-deep);color:#fff;
+  font-family:"Noto Serif TC",serif;font-size:1rem;letter-spacing:.1em;cursor:pointer;transition:transform .2s ease, background .2s ease;
+}
+.quiz-btn:hover{transform:translateY(-2px);background:var(--mud);}
+
+footer{text-align:center;padding:40px 20px 60px;color:var(--muted);font-size:.85rem;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+
+<div id="tooltip"></div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">互動古文教材</div>
+    <h1>諫逐客書</h1>
+    <div class="sub">秦．李斯</div>
+    <div class="author">有容乃大　物不擇秦產　人豈可輕棄</div>
+    <p class="lead">李斯以客卿身分上書秦王，勸諫收回逐客之令。全文層層設喻、句句排比，
+      先以四君用客之史實立論，再以異國珍寶反襯秦王「重物輕人」之失，
+      終以泰山河海為喻，道出「有容乃大」的治國之道，是古文中說理與氣勢兼備的奏議典範。</p>
+    <a class="scroll-cta" href="#context">
+      <span>走進秦廷，讀一篇改變帝業的奏書</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16M6 14l6 6 6-6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===================== CONTROLS ===================== -->
+<div class="controls">
+  <label>
+    <input type="checkbox" id="toggleTrans" checked onchange="document.body.classList.toggle('hide-translation', !this.checked)">
+    <span class="switch"></span>
+    顯示白話翻譯
+  </label>
+  <span class="hint-tag">點選文中標色詞語　可查看註釋</span>
+</div>
+
+<!-- ===================== STEPPING STONE NAV ===================== -->
+<div class="stones" id="stones">
+  <div class="stone" data-target="context"><span class="stone-label">逐客背景</span></div>
+  <div class="stone" data-target="passage-1"><span class="stone-label">四君用客</span></div>
+  <div class="stone" data-target="p2"><span class="stone-label">異國奇珍</span></div>
+  <div class="stone" data-target="p4"><span class="stone-label">重物輕人</span></div>
+  <div class="stone" data-target="p6"><span class="stone-label">泰山河海</span></div>
+  <div class="stone" data-target="p7"><span class="stone-label">藉寇齎盜</span></div>
+  <div class="stone" data-target="vocab-sec"><span class="stone-label">字詞整理</span></div>
+  <div class="stone" data-target="quiz-sec"><span class="stone-label">自我檢測</span></div>
+</div>
+
+<!-- ===================== BACKGROUND CONTEXT ===================== -->
+<div class="wrap" id="context" style="padding-bottom:0;">
+  <div class="section-title"><span class="num">緣起</span><h2>逐客令的由來</h2></div>
+  <div class="context-card">
+    <span class="clabel">背景說明</span>
+    <p>秦王政十年（西元前 237 年），韓國派水利專家鄭國入秦，藉修築灌溉渠道消耗秦國人力物力，意圖以此「疲秦」，延緩秦國東進的腳步。事情敗露後，秦國宗室大臣皆以「諸侯人來事秦者，大抵為其主遊間於秦耳」為由，建議秦王下令驅逐所有客卿。李斯本為楚國人，也在被逐之列，於是上書力陳逐客之弊，即為〈諫逐客書〉。秦王讀後大為所動，隨即撤銷逐客令，恢復李斯官職，此後更委以重任。</p>
+  </div>
+</div>
+
+<!-- ===================== PASSAGE 1 ===================== -->
+<div class="wrap" id="passage-1">
+  <div class="section-title"><span class="num">壹</span><h2>課文與注釋</h2></div>
+  <p class="section-intro">全文依論證脈絡分為四大段：四君用客之史實、異國珍寶與重物輕人之對比、泰山河海之喻、逐客資敵之結論。點選文中標色詞語可查看解釋。</p>
+
+  <div class="passage">
+    <div class="passage-head"><span class="ptitle">第一段．臣聞吏議逐客，竊以為過矣</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        臣聞吏議逐客，<span class="gloss" data-def="私下（表謙遜的用語），今義多指偷竊，古今義有別。">竊</span>以為過矣。昔<span class="gloss" data-def="通「穆」，即秦穆公，音ㄇㄨˋ。"><ruby>繆<rt>ㄇㄨˋ</rt></ruby>公</span>求士，西取由余於戎，東得百里奚於<ruby>宛<rt>ㄩㄢ</rt></ruby>，迎<span class="gloss" data-def="秦人，寓居於宋，由百里奚推薦，任為上大夫。"><ruby>蹇<rt>ㄐㄧㄢˇ</rt></ruby>叔</span>於宋，來<ruby>丕<rt>ㄆㄧ</rt></ruby>豹、公孫支於晉。此五子者，不產於秦，而繆公用之，<span class="gloss" data-def="併吞、兼併。">并</span>國二十，遂霸西戎。孝公用<span class="gloss" data-def="戰國衛人，相秦孝公，變法圖強，史稱「商鞅變法」。">商鞅</span>之法，移風易俗，民以<span class="gloss" data-def="富庶繁盛。">殷盛</span>，國以富<ruby>彊<rt>ㄑㄧㄤˊ</rt></ruby>，百姓樂用，諸侯親服，獲楚、魏之師，舉地千里，至今治彊。惠王用<span class="gloss" data-def="戰國魏人，仕秦為相，倡連橫之策，游說六國事秦。">張儀</span>之計，拔三川之地，西并巴、蜀，北收上郡，南取漢中，包九夷，制<ruby>鄢<rt>ㄧㄢ</rt></ruby><ruby>郢<rt>ㄧㄥˇ</rt></ruby>，東據成皋之險，割<span class="gloss" data-def="肥沃的土地。">膏腴之壤</span>，遂散六國之從，使之西面事秦，功施到今。昭王得<span class="gloss" data-def="戰國魏人，入秦獻遠交近攻之策，深受昭王信任。"><ruby>范<rt>ㄈㄢˋ</rt></ruby><ruby>睢<rt>ㄐㄩ</rt></ruby></span>，廢<span class="gloss" data-def="即魏冉，昭王母舅，權傾一時。">穰侯</span>，逐華陽，彊公室，杜私門，<span class="gloss" data-def="像蠶吃桑葉般，逐步侵吞併吞。"><ruby>蠶<rt>ㄘㄢˊ</rt></ruby>食</span>諸侯，使秦成帝業。此四君者，皆以客之功。由此觀之，客何負於秦哉！向使四君卻客而<span class="gloss" data-def="通「納」，接納。">不內</span>，<span class="gloss" data-def="疏遠、不加任用。">疏士而不用</span>，是使國無富利之實，而秦無彊大之名也。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        臣聽說官吏們建議驅逐客卿，臣私下認為這是錯誤的。從前秦穆公訪求賢士，西邊從戎地取得由余，東邊從宛地得到百里奚，從宋國迎來蹇叔，從晉國招來丕豹、公孫支。這五位賢才，都不是秦國人，穆公卻重用他們，結果併吞二十國，於是稱霸西戎。孝公採用商鞅的新法，移風易俗，百姓因此富庶興盛，國家因此富強，百姓樂於為國效力，諸侯也親附臣服，擊敗楚、魏軍隊，奪地千里，至今國家仍安定強盛。惠王採用張儀的謀略，攻下三川之地，西邊併吞巴、蜀，北邊收取上郡，南邊奪得漢中，包舉九夷之地，控制鄢、郢，東邊據守成皋險要，割取肥沃土地，於是瓦解六國合縱之勢，使他們向西臣服秦國，功業延續至今。昭王得到范睢輔佐，廢黜穰侯，驅逐華陽君，強化王室權力，杜絕私門把持朝政，逐步兼併諸侯，使秦國成就帝業。這四位君主，都是憑藉客卿的功勞。由此看來，客卿哪裡辜負秦國了呢！假使當初四位君主拒絕客卿而不接納，疏遠賢士而不任用，那就會使國家沒有富強的實惠，秦國也不會有強大的名聲了。
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead">四君用客．排比遞進表</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>秦君</th><th>所用客卿</th><th>主要功業</th><th>排比句式</th></tr></thead>
+      <tbody>
+        <tr><td class="wc">繆公</td><td>由余、百里奚、蹇叔、丕豹、公孫支</td><td>併國二十，遂霸西戎</td><td>四言短句起勢</td></tr>
+        <tr><td class="wc">孝公</td><td>商鞅</td><td>變法圖強，民殷國富</td><td>六句鋪陳，句式漸長</td></tr>
+        <tr><td class="wc">惠王</td><td>張儀</td><td>連橫拓地，六國西面事秦</td><td>八句連綴，氣勢達於頂峰</td></tr>
+        <tr><td class="wc">昭王</td><td>范睢</td><td>強公室、杜私門，秦成帝業</td><td>四言短句急收，戛然而止</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="section-intro" style="margin-top:-18px;">句式由四言而六言而八言，層層堆疊、步步推迫；末段昭王一事又收束為四言短句，一氣呵成中見張弛之美，是本文氣勢磅礴的關鍵手法。</p>
+
+  <div class="passage" id="p2">
+    <div class="passage-head"><span class="ptitle">第二段（上）．今陛下致昆山之玉，異國奇珍薈萃秦廷</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        今陛下致<ruby>昆<rt>ㄎㄨㄣ</rt></ruby>山之玉，有<span class="gloss" data-def="隨侯珠與和氏璧，皆天下名寶。">隨、和之寶</span>，垂<span class="gloss" data-def="夜明珠。">明月之珠</span>，服<span class="gloss" data-def="古代寶劍名。">太阿之劍</span>，乘<span class="gloss" data-def="良馬名。"><ruby>纖<rt>ㄒㄧㄢ</rt></ruby>離</span>之馬，建翠鳳之旗，樹<span class="gloss" data-def="用鼉皮蒙製的鼓，鼉即揚子鱷。"><ruby>靈<rt>ㄌㄧㄥˊ</rt></ruby><ruby>鼉<rt>ㄊㄨㄛˊ</rt></ruby></span>之鼓。此數寶者，秦不生一焉，而陛下<span class="gloss" data-def="通「悅」，喜愛。">說</span>之，何也？必秦國之所生然後可，則是夜光之璧，不飾朝廷；犀、象之器，不為玩好；鄭、衛之女，不充後宮；而駿良<span class="gloss" data-def="北方所產的良馬名。"><ruby>駃<rt>ㄐㄩㄝˊ</rt></ruby><ruby>騠<rt>ㄊㄧˊ</rt></ruby></span>，不實外廄；江南金錫不為用，西蜀丹青不為采。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        如今陛下擁有崑崙山所產的美玉，有隨侯珠、和氏璧這樣的珍寶，垂掛著夜明珠，佩帶著太阿寶劍，騎乘纖離良馬，豎立翠鳳羽旗，架設靈鼉皮鼓。這幾樣寶物，秦國一樣也不出產，然而陛下卻很喜愛它們，這是為什麼呢？如果一定要秦國出產的東西才可以用，那麼夜光璧就不該裝飾朝廷；犀角象牙製成的器物，就不該成為玩賞珍品；鄭、衛的美女，就不該充列後宮；而北方的駿馬良駒，也不該養在宮外馬廄；江南所產的金錫，就不該被使用；西蜀所產的顏料，也不該被採用。
+      </div>
+    </div>
+  </div>
+
+  <div class="passage" id="p3">
+    <div class="passage-head"><span class="ptitle">第二段（中）．若必秦產然後可，後宮盛景將盡失</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        所以飾後宮、<span class="gloss" data-def="陳列於後列，指侍妾姬妾。">充下陳</span>、娛心意、說耳目者，必出於秦然後可，則是<span class="gloss" data-def="以南海圓珠鑲製的髮簪。">宛珠之簪</span>、<span class="gloss" data-def="嵌著珠玉的耳飾。">傅璣之珥</span>、<span class="gloss" data-def="以東阿所產細白絹製成的衣裳。">阿縞之衣</span>、錦繡之飾，不進於前；而隨俗雅化、佳冶窈窕趙女，不立於側也。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        用來裝飾後宮、充列姬妾行列、娛悅心意、取悅耳目的東西，如果一定要秦國出產的才可以，那麼用南海珠玉製成的髮簪、鑲嵌珠玉的耳飾、東阿細絹製成的衣裳、錦繡的裝飾，就不該呈現在眼前；而那些順應世俗、妝扮雅致、體態美好的趙國女子，也不該侍立在身旁了。
+      </div>
+    </div>
+  </div>
+
+  <div class="passage" id="p4">
+    <div class="passage-head"><span class="ptitle">第二段（下）．秦聲鄭衛，用物與用人竟判若兩制</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        夫擊<span class="gloss" data-def="敲擊瓦罐瓦盆，皆秦地傳統樂器。">甕叩缶</span>彈箏搏髀，而歌呼嗚嗚快耳者，真秦之聲也；鄭、衛、桑間，韶、虞、武、象者，異國之樂也。今棄擊甕叩缶而就鄭、衛，退彈箏而取昭、虞，若是者何也？快意當前，適觀而已矣。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        敲擊瓦罐瓦盆、彈箏拍腿，發出嗚嗚之聲來使耳朵暢快的，才是真正的秦國音樂；鄭、衛、桑間一帶，以及韶、虞、武、象等樂曲，都是異國的音樂。如今捨棄敲擊瓦罐瓦盆而改採鄭、衛之樂，摒退彈箏而選取昭、虞之曲，這樣做是為什麼呢？只不過是為了眼前的快意、悅目而已。
+      </div>
+    </div>
+  </div>
+
+  <p class="pivot-line">今取人則不然。<b>不問可否，不論曲直，非秦者去，為客者逐。</b></p>
+  <p class="pivot-sub">全文最尖銳的一句反詰──對待「物」尚且不問秦產與否，對待「人」為何獨獨如此苛刻？以下正面點破癥結</p>
+
+  <div class="passage" id="p5">
+    <div class="passage-head"><span class="ptitle">第二段．結論──重物輕人，非跨海內之術</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        然則是所重者在乎色樂珠玉，而所輕者在乎人民也。此非所以跨海內、制諸侯之術也。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        既然如此，可見陛下所看重的是聲色音樂與珠玉寶物，所輕視的卻是人才啊！這絕不是用來統一天下、制服諸侯的辦法。
+      </div>
+    </div>
+  </div>
+
+  <div class="passage" id="p6">
+    <div class="passage-head"><span class="ptitle">第三段．泰山不讓土壤，河海不擇細流</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        臣聞地廣者粟多，國大者人眾，兵彊則士勇。是以泰山不<span class="gloss" data-def="拒絕、捨棄。">讓</span>土壤，故能成其大；河海不<span class="gloss" data-def="拒絕、挑剔。">擇</span>細流，故能就其深；王者不<span class="gloss" data-def="拒絕。">卻</span>眾庶，故能明其德。是以地無四方，民無異國，四時充美，鬼神降福，此五帝、三王之所以無敵也。今乃棄<span class="gloss" data-def="百姓，秦代對平民的稱呼。">黔首</span>以資敵國，卻賓客以業諸侯，使天下之士退而不敢西向，裹足不入秦，此所謂「<span class="gloss" data-def="借武器給敵人、送糧食給盜賊，比喻反而助長敵方的力量。">藉寇兵而齎盜糧</span>」者也。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        臣聽說土地廣大糧食就充足，國家強大人口就眾多，軍隊強盛士兵就勇敢。因此泰山不捨棄任何微小的土壤，才能成就它的高大；河海不挑剔細小的水流，才能成就它的深廣；想稱王天下的人，不拒絕眾多百姓的歸附，才能彰顯他的盛德。所以土地不分東西南北，人民不分本國他國，四季因此富足美好，鬼神也因此降下福澤，這就是五帝三王之所以無人能敵的原因。如今陛下卻拋棄百姓去幫助敵國，辭退賓客去成就其他諸侯的功業，使天下賢士退卻而不敢向西臣事秦國，裹足不前不敢踏入秦地，這正是所謂「借武器給敵寇、送糧食給盜賊」的做法啊。
+      </div>
+    </div>
+  </div>
+
+  <div class="passage" id="p7">
+    <div class="passage-head"><span class="ptitle">第四段．夫物不產於秦，可寶者多──全文總結</span></div>
+    <div class="passage-body">
+      <div class="classical">
+        夫物不產於秦，可寶者多；士不產於秦，而願忠者眾。今逐客以資敵國，損民以益<span class="gloss" data-def="仇敵。">讎</span>，內自虛而外樹怨於諸侯，求國無危，不可得也。
+      </div>
+      <div class="translation">
+        <span class="tlabel">白話翻譯</span>
+        物品不出產於秦國，但值得珍愛的卻很多；人才不出生於秦國，但願意效忠秦國的人也很多。如今驅逐客卿以資助敵國，減損秦國人民而使仇敵得利，對內使自己空虛，對外又與諸侯結怨，如此還想要國家沒有危險，那是不可能的。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== VOCAB TABLES ===================== -->
+<div class="wrap" id="vocab-sec">
+  <div class="section-title"><span class="num">貳</span><h2>字詞整理</h2></div>
+  <p class="section-intro">整理通假字、古今異義、一字多義與修辭結構，是本文考試最常出題的重點。</p>
+
+  <div class="subhead">特殊用法（通假）</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>字</th><th>通</th><th>解釋</th><th>出處</th></tr></thead>
+      <tbody>
+        <tr><td class="wc">繆</td><td>穆</td><td>秦穆公</td><td>昔繆公求士</td></tr>
+        <tr><td class="wc">說</td><td>悅</td><td>喜愛</td><td>而陛下說之</td></tr>
+        <tr><td class="wc">內</td><td>納</td><td>接納</td><td>卻客而不內</td></tr>
+        <tr><td class="wc">彊</td><td>強</td><td>強大、有力</td><td>國以富彊</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">古今異義</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>詞語</th><th>文中古義</th><th>常見今義</th></tr></thead>
+      <tbody>
+        <tr><td class="wc">竊</td><td>私下（表謙遜之詞）</td><td>偷竊</td></tr>
+        <tr><td class="wc">舉</td><td>全部、整個（副詞）</td><td>舉起、舉行</td></tr>
+        <tr><td class="wc">制</td><td>控制、佔領（動詞）</td><td>制度、限制</td></tr>
+        <tr><td class="wc">卻</td><td>拒絕（動詞）</td><td>然而、可是（轉折連詞）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">一字多義</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>例句</th><th>詞性</th><th>詞義</th></tr></thead>
+      <tbody>
+        <tr><td>而繆公「用」之</td><td>動詞</td><td>任用</td></tr>
+        <tr><td>孝公「用」商鞅之法</td><td>動詞</td><td>採用</td></tr>
+        <tr><td>民「以」殷盛</td><td>介詞</td><td>因而、因此</td></tr>
+        <tr><td>「是以」地無四方</td><td>連詞</td><td>因此（固定用法）</td></tr>
+        <tr><td>「而」繆公用之</td><td>連詞</td><td>表承接，可不譯</td></tr>
+        <tr><td>「而」陛下說之</td><td>連詞</td><td>表轉折，然而</td></tr>
+        <tr><td>此五子「者」</td><td>代詞</td><td>……的人</td></tr>
+        <tr><td>藉寇兵而齎盜糧「者」也</td><td>助詞</td><td>表判斷語氣，不譯</td></tr>
+        <tr><td>不產「於」秦</td><td>介詞</td><td>在</td></tr>
+        <tr><td>客何負「於」秦哉</td><td>介詞</td><td>對於</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">修辭手法與結構賞析</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>手法／結構</th><th>說明</th></tr></thead>
+      <tbody>
+        <tr><td class="wc">排比與層遞</td><td>舉四君用客史實，句式由四言而六言而八言，層層堆疊、氣勢遞增，末段昭王事又收束為四言短句，張弛有致</td></tr>
+        <tr><td class="wc">映襯（今取人則不然）</td><td>以「物不問秦產」與「人必問秦產」對照映襯，凸顯逐客政策自相矛盾之荒謬</td></tr>
+        <tr><td class="wc">譬喻（泰山河海）</td><td>以泰山不讓土壤、河海不擇細流設喻，說明廣納人才方能成就帝業之理</td></tr>
+        <tr><td class="wc">借喻（藉寇兵而齎盜糧）</td><td>借日常俗語為喻，形象化逐客政策實為資助敵國、自毀根基之害</td></tr>
+        <tr><td class="wc">先破後立，層層推進</td><td>先以史實立論（客有大功）、次以物人對比破題（重物輕人）、再以自然設喻明理，終以逐客資敵作結，脈絡井然</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subhead">論證鏈重組．先破後立挑戰</div>
+  <p class="section-intro" style="margin-bottom:16px;">本文「先破後立，層層推進」，下列四個階段順序已被打亂。用右側 ▲▼ 按鈕調整順序，排出李斯論證的正確脈絡，再按「檢查順序」看看排對了沒有。</p>
+  <div class="chain-wrap">
+    <div class="chain-list" id="chainList"></div>
+    <div class="chain-actions"><button class="chain-check" onclick="checkChain()">檢查順序</button></div>
+    <div id="chain-status"></div>
+  </div>
+
+  <div class="subhead">論物或論人．分類挑戰</div>
+  <p class="section-intro" style="margin-bottom:16px;">判斷下列文句主要是在談「物」（珍寶聲色）還是「人」（客卿人才），點選按鈕立即看出對錯，全部答完會顯示總分。</p>
+  <div class="classify-wrap" id="classifyWrap"></div>
+  <div id="classify-status"></div>
+</div>
+
+<!-- ===================== QUIZ ===================== -->
+<div class="wrap" id="quiz-sec">
+  <div class="section-title"><span class="num">參</span><h2>自我檢測</h2></div>
+  <p class="section-intro">十二題選擇題，涵蓋一字多義、古今異義、文意理解、修辭鑑賞、篇章結構與文學常識，難度較高，答對後會立即顯示正確與否。</p>
+
+  <div id="quiz"></div>
+  <button class="quiz-btn" onclick="gradeQuiz()">送出答案</button>
+  <div id="quiz-result"></div>
+</div>
+
+<footer>諫逐客書．李斯　｜　互動教材僅供學習使用</footer>
+
+<script>
+/* ---------- tooltip for gloss words ---------- */
+const tooltip = document.getElementById('tooltip');
+document.querySelectorAll('.gloss').forEach(el=>{
+  el.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    const rect = el.getBoundingClientRect();
+    tooltip.textContent = el.dataset.def;
+    tooltip.style.display = 'block';
+    let left = rect.left;
+    const maxLeft = window.innerWidth - 280;
+    if(left > maxLeft) left = maxLeft;
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = (rect.bottom + 8) + 'px';
+  });
+});
+document.addEventListener('click', ()=>{ tooltip.style.display='none'; });
+
+/* ---------- stepping stone scrollspy nav ---------- */
+const stoneEls = document.querySelectorAll('.stone');
+const targets = Array.from(stoneEls).map(s=>document.getElementById(s.dataset.target));
+stoneEls.forEach(s=>{
+  s.addEventListener('click', ()=>{
+    document.getElementById(s.dataset.target).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+const ioStones = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    const idx = targets.indexOf(entry.target);
+    if(idx === -1) return;
+    if(entry.isIntersecting){
+      stoneEls.forEach(s=>s.classList.remove('active'));
+      stoneEls[idx].classList.add('active');
+    }
+  });
+},{rootMargin:'-40% 0px -50% 0px'});
+targets.forEach(t=>{ if(t) ioStones.observe(t); });
+
+/* ---------- argument-chain ordering game ---------- */
+const CHAIN_STAGES = [
+  {id:0, label:'史實立論', text:'舉繆公、孝公、惠王、昭王四君用客之史實，證明客卿有大功於秦', quote:'此四君者，皆以客之功'},
+  {id:1, label:'物人對比', text:'以異國奇珍反襯，點破「物不問秦產，人必問秦產」的自相矛盾', quote:'今取人則不然……非秦者去，為客者逐'},
+  {id:2, label:'設喻明理', text:'以泰山不讓土壤、河海不擇細流為喻，說明廣納人才方能成就帝業', quote:'泰山不讓土壤，故能成其大'},
+  {id:3, label:'資敵結論', text:'點出逐客乃「藉寇兵而齎盜糧」，資助敵國、自毀根基，總結逐客之害', quote:'今逐客以資敵國，損民以益讎'}
+];
+let chainOrder = [1,3,0,2]; // shuffled starting order (by stage id)
+const chainListEl = document.getElementById('chainList');
+
+function renderChain(){
+  chainListEl.innerHTML = '';
+  chainOrder.forEach((stageId, pos)=>{
+    const stage = CHAIN_STAGES.find(s=>s.id===stageId);
+    const item = document.createElement('div');
+    item.className = 'chain-item';
+    item.innerHTML = `
+      <div class="chain-slot">${pos+1}</div>
+      <div class="chain-text"><b>${stage.label}</b>${stage.text}<span class="chain-quote">「${stage.quote}」</span></div>
+      <div class="chain-btns">
+        <button class="chain-btn" data-dir="up" data-pos="${pos}" ${pos===0?'disabled':''}>▲</button>
+        <button class="chain-btn" data-dir="down" data-pos="${pos}" ${pos===chainOrder.length-1?'disabled':''}>▼</button>
+      </div>`;
+    chainListEl.appendChild(item);
+  });
+}
+renderChain();
+
+chainListEl.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.chain-btn');
+  if(!btn) return;
+  const pos = Number(btn.dataset.pos);
+  const dir = btn.dataset.dir;
+  const swapWith = dir === 'up' ? pos-1 : pos+1;
+  if(swapWith < 0 || swapWith >= chainOrder.length) return;
+  [chainOrder[pos], chainOrder[swapWith]] = [chainOrder[swapWith], chainOrder[pos]];
+  renderChain();
+  document.getElementById('chain-status').textContent = '';
+});
+
+function checkChain(){
+  const items = chainListEl.querySelectorAll('.chain-item');
+  let correctCount = 0;
+  chainOrder.forEach((stageId, pos)=>{
+    items[pos].classList.remove('correct','wrong');
+    if(stageId === pos){
+      items[pos].classList.add('correct');
+      correctCount++;
+    } else {
+      items[pos].classList.add('wrong');
+    }
+  });
+  const statusEl = document.getElementById('chain-status');
+  statusEl.textContent = correctCount === CHAIN_STAGES.length
+    ? '🎉 完全正確！這就是李斯先破後立、層層推進的論證脈絡'
+    : `目前排對 ${correctCount} / ${CHAIN_STAGES.length} 個階段，再調整看看`;
+}
+
+/* ---------- classify game: 論物 or 論人 ---------- */
+const CLASSIFY_ITEMS = [
+  {quote:'西取由余於戎，東得百里奚於宛', answer:'人'},
+  {quote:'有隨、和之寶，垂明月之珠', answer:'物'},
+  {quote:'孝公用商鞅之法，惠王用張儀之計，昭王得范睢', answer:'人'},
+  {quote:'服太阿之劍，乘纖離之馬，建翠鳳之旗', answer:'物'},
+  {quote:'不問可否，不論曲直，非秦者去，為客者逐', answer:'人'},
+  {quote:'犀、象之器，江南金錫，西蜀丹青', answer:'物'},
+  {quote:'士不產於秦，而願忠者眾', answer:'人'},
+  {quote:'必秦國之所生然後可，則是夜光之璧，不飾朝廷', answer:'物'}
+];
+let classifyAnswered = 0;
+let classifyCorrect = 0;
+const classifyWrap = document.getElementById('classifyWrap');
+CLASSIFY_ITEMS.forEach((item, ci)=>{
+  const card = document.createElement('div');
+  card.className = 'classify-card';
+  card.innerHTML = `
+    <div class="classify-quote">「${item.quote}」</div>
+    <div class="classify-btns">
+      <button class="classify-btn" data-choice="物" data-ci="${ci}">論物</button>
+      <button class="classify-btn" data-choice="人" data-ci="${ci}">論人</button>
+    </div>`;
+  classifyWrap.appendChild(card);
+});
+classifyWrap.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.classify-btn');
+  if(!btn) return;
+  const card = btn.closest('.classify-card');
+  const buttons = card.querySelectorAll('.classify-btn');
+  if(card.dataset.done) return;
+  card.dataset.done = '1';
+  const ci = Number(btn.dataset.ci);
+  const correctAnswer = CLASSIFY_ITEMS[ci].answer;
+  buttons.forEach(b=>{
+    b.disabled = true;
+    if(b.dataset.choice === correctAnswer) b.classList.add('correct');
+    else if(b === btn) b.classList.add('wrong');
+  });
+  classifyAnswered++;
+  if(btn.dataset.choice === correctAnswer) classifyCorrect++;
+  const statusEl = document.getElementById('classify-status');
+  if(classifyAnswered === CLASSIFY_ITEMS.length){
+    statusEl.textContent = `🎉 挑戰完成！你答對了 ${classifyCorrect} / ${CLASSIFY_ITEMS.length} 題`;
+  } else {
+    statusEl.textContent = `已完成 ${classifyAnswered} / ${CLASSIFY_ITEMS.length} 題`;
+  }
+});
+
+/* ---------- quiz ---------- */
+const QUIZ = [
+  {
+    tag:'一字多義',
+    q:'1.「而陛下說之」的「說」字，意思為何？',
+    options:['述說','遊說','通「悅」，喜愛','解說'],
+    answer:2
+  },
+  {
+    tag:'古今異義',
+    q:'2.「竊以為過矣」的「竊」字，意思最接近下列何者？',
+    options:['偷竊','私下（謙詞）','偷偷摸摸地做壞事','竊取情報'],
+    answer:1
+  },
+  {
+    tag:'特殊用法',
+    q:'3.「向使四君卻客而不內」的「內」字，用法為何？',
+    options:['內部，名詞','通「納」，接納','內心，名詞','由外而內，方位詞'],
+    answer:1
+  },
+  {
+    tag:'文意理解',
+    q:'4. 本文開頭「臣聞吏議逐客，竊以為過矣」，李斯所持的基本立場為何？',
+    options:['贊成逐客，以絕外患','反對逐客，認為逐客乃錯誤決策','保持中立，靜觀其變','建議先逐客，再選擇性召回'],
+    answer:1
+  },
+  {
+    tag:'篇章結構',
+    q:'5. 文中舉繆公、孝公、惠王、昭王四位國君之事例，主要用意為何？',
+    options:['純粹陳述秦國歷史','以史為證，說明秦國之強盛皆賴客卿之功，逐客實為自毀根基','歌頌四位國君的文治武功','說明秦國歷代國君皆善於用兵'],
+    answer:1
+  },
+  {
+    tag:'修辭鑑賞',
+    q:'6.「今陛下致昆山之玉……而陛下說之，何也？」一段運用了下列何種論證方式？',
+    options:['以物喻人，先言秦王愛用異國之物，再反問其為何獨不用異國之人才','純粹描寫宮廷奢華，與逐客之議無關','誇飾秦國物產豐饒','以疑問句表達對秦王品味的讚美'],
+    answer:0
+  },
+  {
+    tag:'文意理解',
+    q:'7.「然則是所重者在乎色樂珠玉，而所輕者在乎人民也」一句，李斯藉此指出秦王施政的什麼盲點？',
+    options:['秦王過於節儉，不懂享受','秦王重視物質享受卻輕忽人才，本末倒置','秦王偏好異國音樂，忽略秦聲傳統','秦王用人唯親，不重才德'],
+    answer:1
+  },
+  {
+    tag:'修辭鑑賞',
+    q:'8.「泰山不讓土壤，故能成其大；河海不擇細流，故能就其深」運用下列何種修辭手法，說明廣納人才之理？',
+    options:['誇飾','設問','譬喻（以自然現象喻治國之道）','頂真'],
+    answer:2
+  },
+  {
+    tag:'文意理解',
+    q:'9.「藉寇兵而齎盜糧」一語，用來比喻逐客政策將導致什麼後果？',
+    options:['秦國糧食短缺，須向他國借糧','驅逐的客卿轉而效力他國，等於資助敵人、壯大對手','秦國軍隊缺乏武器，須向盜賊購買','秦王將糧食贈與友邦，換取和平'],
+    answer:1
+  },
+  {
+    tag:'篇章結構',
+    q:'10. 全文論證脈絡，下列敘述何者正確？',
+    options:['先破後立：先破斥逐客之非，再立論人才之重要','先以史實證客之功，次以物人對比破題重物輕人之非，再以自然設喻明理，終歸結逐客資敵之害','純粹以個人遭遇博取秦王同情','先論後敘，先講道理，再舉例證明'],
+    answer:1
+  },
+  {
+    tag:'文學常識',
+    q:'11. 關於〈諫逐客書〉的寫作背景，下列敘述何者正確？',
+    options:['因韓國派鄭國入秦修渠疲秦，秦宗室大臣藉機主張驅逐所有客卿，李斯亦在被逐之列，遂上書勸諫','因李斯與呂不韋不合，被誣陷而遭驅逐，故上書自辯','因六國聯合抵制秦國商人，李斯代表商界請願','因秦王欲遷都，李斯反對而上此書'],
+    answer:0
+  },
+  {
+    tag:'文學常識',
+    q:'12.〈諫逐客書〉的文體與寫作特色，下列敘述何者最恰當？',
+    options:['屬駢文，句句對仗工整，情感濃烈勝過說理','屬奏議類散文，大量運用排比、對偶句式，氣勢奔騰而說理清晰，終使秦王收回逐客令','屬遊記散文，記敘作者遊歷各國的見聞','屬寓言體，以動物故事諷諭時政'],
+    answer:1
+  }
+];
+
+const quizDiv = document.getElementById('quiz');
+QUIZ.forEach((item, qi)=>{
+  const card = document.createElement('div');
+  card.className='quiz-card';
+  card.innerHTML = `<span class="quiz-tag">${item.tag}</span><div class="quiz-q">${item.q}</div>` +
+    item.options.map((opt,oi)=>`
+      <label class="quiz-opt" data-q="${qi}" data-o="${oi}">
+        <input type="radio" name="q${qi}" value="${oi}"> ${opt}
+      </label>
+    `).join('');
+  quizDiv.appendChild(card);
+});
+
+function gradeQuiz(){
+  let score = 0;
+  QUIZ.forEach((item, qi)=>{
+    const selected = document.querySelector(`input[name="q${qi}"]:checked`);
+    const opts = document.querySelectorAll(`.quiz-opt[data-q="${qi}"]`);
+    opts.forEach(opt=>{
+      opt.classList.remove('correct','wrong');
+      const oi = Number(opt.dataset.o);
+      if(oi === item.answer) opt.classList.add('correct');
+      else if(selected && Number(selected.value) === oi) opt.classList.add('wrong');
+    });
+    if(selected && Number(selected.value) === item.answer) score++;
+  });
+  document.getElementById('quiz-result').textContent =
+    `你答對了 ${score} / ${QUIZ.length} 題`;
+}
+</script>
+</body>
+</html>
