@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>詞性與句型・互動講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mud:#8B7355;
+  --reed:#C4A882;
+  --tide:#4A7C7E;
+  --sky:#B8D4D8;
+  --soil:#2C1810;
+  --paper:#F7F3EC;
+  --ink:#1A1612;
+  --muted:#6B5E52;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif;
+  line-height:1.8;
+  position:relative;
+  overflow-x:hidden;
+}
+.watermark{
+  position:fixed;
+  font-family:"Noto Serif TC",serif;
+  font-weight:900;
+  color:var(--soil);
+  opacity:0.04;
+  z-index:0;
+  pointer-events:none;
+  user-select:none;
+}
+.wm1{font-size:38vw;top:-8vw;left:-8vw;}
+.wm2{font-size:24vw;bottom:-6vw;right:-6vw;}
+
+header{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:48px 20px 28px;
+  border-bottom:1px solid rgba(44,24,16,0.15);
+}
+header h1{
+  font-family:"Noto Serif TC",serif;
+  font-weight:900;
+  font-size:2.2rem;
+  color:var(--soil);
+  letter-spacing:0.12em;
+}
+header p{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:0.95rem;
+  letter-spacing:0.05em;
+}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(247,243,236,0.94);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(44,24,16,0.15);
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:4px;
+  padding:10px 12px;
+}
+nav button{
+  font-family:"Noto Serif TC",serif;
+  font-size:0.95rem;
+  background:transparent;
+  border:0.5px solid var(--reed);
+  color:var(--mud);
+  padding:9px 18px;
+  border-radius:2px;
+  cursor:pointer;
+  transition:all 0.25s;
+  letter-spacing:0.04em;
+}
+nav button:hover{background:rgba(196,168,130,0.18);}
+nav button.active{
+  background:var(--tide);
+  border-color:var(--tide);
+  color:var(--paper);
+}
+
+main{
+  position:relative;
+  z-index:1;
+  max-width:960px;
+  margin:0 auto;
+  padding:40px 20px 100px;
+}
+section{display:none;animation:fadein 0.4s ease;}
+section.active{display:block;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+.section-title{
+  font-family:"Noto Serif TC",serif;
+  font-weight:700;
+  font-size:1.5rem;
+  color:var(--soil);
+  margin-bottom:6px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.section-title::before{
+  content:"";
+  width:5px;height:22px;
+  background:var(--tide);
+  display:inline-block;
+}
+.section-sub{
+  color:var(--muted);
+  font-size:0.9rem;
+  margin-bottom:24px;
+  padding-left:15px;
+}
+
+.card{
+  background:#fff;
+  border:0.5px solid rgba(44,24,16,0.15);
+  border-radius:3px;
+  padding:22px 24px;
+  margin-bottom:18px;
+}
+.card h3{
+  font-family:"Noto Serif TC",serif;
+  color:var(--tide);
+  font-size:1.05rem;
+  margin-bottom:10px;
+}
+.card p{font-size:0.95rem;}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.tag{
+  background:rgba(184,212,216,0.35);
+  color:var(--soil);
+  font-size:0.82rem;
+  padding:4px 10px;
+  border-radius:2px;
+  border:0.5px solid var(--sky);
+}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media (max-width:640px){.grid2{grid-template-columns:1fr;}}
+
+.example-box{
+  background:var(--paper);
+  border:0.5px dashed var(--reed);
+  padding:14px 16px;
+  margin-top:10px;
+  border-radius:2px;
+  font-size:0.98rem;
+}
+.example-box .parts{margin-top:6px;font-size:0.8rem;color:var(--muted);}
+mark.subj{background:none;border-bottom:2px solid var(--tide);color:var(--soil);font-weight:700;}
+mark.pred{background:none;border-bottom:2px solid var(--mud);color:var(--soil);font-weight:700;}
+mark.obj{background:none;border-bottom:2px dotted var(--muted);color:var(--soil);font-weight:700;}
+mark.comp{background:none;border-bottom:2px solid var(--reed);color:var(--soil);font-weight:700;}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:0.78rem;color:var(--muted);margin:10px 0 20px 15px;}
+.legend span{display:inline-flex;align-items:center;gap:5px;}
+.legend i{width:16px;height:2px;display:inline-block;}
+.li-subj{background:var(--tide);}
+.li-pred{background:var(--mud);}
+.li-obj{background:var(--muted);border-bottom:1px dotted var(--muted);width:16px;height:0;border-top:2px dotted var(--muted);}
+.li-comp{background:var(--reed);}
+
+.quiz-box{
+  background:#fff;
+  border:0.5px solid rgba(44,24,16,0.15);
+  border-radius:3px;
+  padding:22px 24px;
+  margin-top:14px;
+}
+.q-item{margin-bottom:22px;padding-bottom:18px;border-bottom:0.5px solid rgba(44,24,16,0.08);}
+.q-item:last-child{border-bottom:none;}
+.q-text{font-size:0.98rem;margin-bottom:12px;color:var(--ink);}
+.q-text b{color:var(--soil);}
+.opts{display:flex;flex-wrap:wrap;gap:8px;}
+.opt{
+  border:0.5px solid var(--reed);
+  background:transparent;
+  padding:7px 14px;
+  border-radius:2px;
+  cursor:pointer;
+  font-size:0.88rem;
+  font-family:"Noto Sans TC",sans-serif;
+  color:var(--mud);
+  transition:all 0.2s;
+}
+.opt:hover{background:rgba(196,168,130,0.15);}
+.opt.correct{
+  background:var(--tide);
+  border-color:var(--tide);
+  color:#fff;
+}
+.opt.wrong{
+  background:#c96a5a22;
+  border-color:#c96a5a;
+  color:#a34a3d;
+}
+.explain{
+  margin-top:10px;
+  font-size:0.85rem;
+  color:var(--muted);
+  background:var(--paper);
+  padding:10px 14px;
+  border-left:2px solid var(--tide);
+  display:none;
+}
+.explain.show{display:block;}
+
+.seal{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;height:28px;
+  border:2px solid #a63d2e;
+  color:#a63d2e;
+  border-radius:3px;
+  font-family:"Noto Serif TC",serif;
+  font-weight:900;
+  font-size:0.75rem;
+  transform:rotate(-6deg);
+  margin-left:8px;
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.seal.show{opacity:0.88;}
+
+.fill-input{
+  border:none;
+  border-bottom:1.5px solid var(--mud);
+  background:transparent;
+  font-family:"Noto Sans TC",sans-serif;
+  font-size:0.95rem;
+  padding:3px 6px;
+  width:180px;
+  color:var(--soil);
+}
+.fill-input:focus{outline:none;border-color:var(--tide);}
+
+.check-btn{
+  margin-top:10px;
+  background:var(--soil);
+  color:var(--paper);
+  border:none;
+  padding:8px 20px;
+  border-radius:2px;
+  cursor:pointer;
+  font-family:"Noto Serif TC",serif;
+  font-size:0.88rem;
+  letter-spacing:0.05em;
+}
+.check-btn:hover{background:var(--tide);}
+
+.score-bar{
+  position:sticky;
+  bottom:0;
+  z-index:15;
+  background:rgba(247,243,236,0.95);
+  border-top:1px solid rgba(44,24,16,0.15);
+  padding:10px 20px;
+  text-align:center;
+  font-family:"Noto Serif TC",serif;
+  color:var(--soil);
+  font-size:0.9rem;
+  display:none;
+}
+.score-bar.show{display:block;}
+
+.subquiz-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
+.subquiz-nav button{
+  font-size:0.82rem;
+  border:0.5px solid var(--sky);
+  background:transparent;
+  color:var(--muted);
+  padding:6px 14px;
+  border-radius:20px;
+  cursor:pointer;
+}
+.subquiz-nav button.on{background:var(--sky);color:var(--soil);}
+
+table.gram{width:100%;border-collapse:collapse;font-size:0.9rem;margin-top:10px;}
+table.gram th,table.gram td{border:0.5px solid rgba(44,24,16,0.15);padding:8px 10px;text-align:left;}
+table.gram th{background:var(--paper);color:var(--soil);font-family:"Noto Serif TC",serif;}
+</style>
+</head>
+<body>
+
+<div class="watermark wm1">語</div>
+<div class="watermark wm2">法</div>
+
+<header>
+  <h1>詞性與句型・辨識文法</h1>
+  <p>轉品・句子種類・主語判斷・倒裝句　互動講義</p>
+</header>
+
+<nav id="tabNav">
+  <button data-tab="tab1" class="active">詞性總覽</button>
+  <button data-tab="tab2">轉品現象</button>
+  <button data-tab="tab3">句子種類</button>
+  <button data-tab="tab4">主語判斷</button>
+  <button data-tab="tab5">倒裝句</button>
+  <button data-tab="tab6">綜合測驗</button>
+</nav>
+
+<main>
+
+<!-- ===================== TAB 1 詞性總覽 ===================== -->
+<section id="tab1" class="active">
+  <div class="section-title">詞性的分類</div>
+  <div class="section-sub">實詞六類・虛詞四類，先掌握基本分類，才能判斷詞性轉換</div>
+
+  <div class="card">
+    <h3>實詞（凡本身可以表示一種概念的詞）</h3>
+    <div class="grid2">
+      <div class="example-box"><b>名詞</b>——表示人、事、物，或學術上所創造的名稱<div class="parts">例：父、母、天、地、臺灣、美國</div></div>
+      <div class="example-box"><b>動詞</b>——表示人、物的行為、動作，或存在、發展<div class="parts">例：吃、喝、追、趕、等待、喜歡、擁有、欺騙</div></div>
+      <div class="example-box"><b>形容詞</b>——表示人、事、物的性質、狀態，用來修飾名詞<div class="parts">例：黑、白、大、小、新、舊、純潔、整齊、天真</div></div>
+      <div class="example-box"><b>副詞</b>——修飾動詞或形容詞的性質、狀態<div class="parts">例：很、極、最、不、只、一直、一定、已經、必須</div></div>
+      <div class="example-box"><b>代詞</b>——指示、代稱人、事、物及其性質、狀態或動作<div class="parts">例：你、我、這、那、彼、此、誰、何、我們</div></div>
+      <div class="example-box"><b>數量詞</b>——表示人、事、物的數量、單位<div class="parts">數詞：一、十、百、千、半、第一／量詞：個、輛、次、尺、公斤</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>虛詞（本身不能表示概念，作為語言結構工具或表示語氣情感）</h3>
+    <div class="grid2">
+      <div class="example-box"><b>介詞</b>——把名詞、代詞介紹給形容詞或動詞，發生聯絡關係<div class="parts">例：君子不以言舉人。／己所不欲，勿施於人。</div></div>
+      <div class="example-box"><b>連詞</b>——用來連接兩個以上的詞、句，甚至段落<div class="parts">例：人而無信，不知其可也。／禮，與其奢也，寧儉。</div></div>
+      <div class="example-box"><b>助詞</b>——附著在句子中，表示各種語氣<div class="parts">例：宅邊有五柳樹，因以為號焉。／廷尉，天下之平也。</div></div>
+      <div class="example-box"><b>嘆詞</b>——表示說話時的情感，以及呼喚、回應等聲音<div class="parts">例：咦！我現在想想，那時真是太聰明。／噫！菊之愛，陶後鮮有聞。</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>詞性分辨表（以「牛肉麵」為例，觀察詞性如何疊加句子成分）</h3>
+    <table class="gram">
+      <tr><th>詞性</th><th>作用</th><th>範例</th></tr>
+      <tr><td>名詞</td><td>人事物的名稱或專有名稱</td><td>牛肉麵</td></tr>
+      <tr><td>形容詞</td><td>修飾名詞</td><td>美味的牛肉麵</td></tr>
+      <tr><td>動詞</td><td>表示人或物的行為、動作</td><td>我愛美味的牛肉麵</td></tr>
+      <tr><td>副詞</td><td>修飾形容詞／修飾動詞</td><td>我愛超級美味的牛肉麵／我實在非常愛超級美味的牛肉麵</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== TAB 2 詞性轉換（轉品） ===================== -->
+<section id="tab2">
+  <div class="section-title">詞性轉換（轉品）</div>
+  <div class="section-sub">要領：詞語次序對調後，詞性可能改變；判斷依據要看這個詞在句子中的位置與作用</div>
+
+  <div class="card">
+    <h3>示範解析</h3>
+    <div class="example-box">我無法擔負這沉重的<b>負擔</b>。
+      <div class="parts">「擔負」放在主語之後，當動詞；「負擔」放在「的」後面，當名詞。</div>
+    </div>
+    <div class="example-box">能源的<b>耗損</b>相當損耗國力。
+      <div class="parts">「耗損」、「損耗」原都是動詞，但由於位置關係，前者變為名詞，後者不變。</div>
+    </div>
+    <div class="example-box">能贏得你的喜歡是我最大的<b>歡喜</b>。
+      <div class="parts">「喜歡」、「歡喜」原都是動詞，但受到「的」字影響，兩者都轉品變成名詞。</div>
+    </div>
+  </div>
+
+  <div class="quiz-box" id="quiz2">
+    <h3 style="font-family:'Noto Serif TC',serif;color:var(--soil);margin-bottom:14px;">即時操練：下列各句「」中為相同詞語，請依序判斷詞性</h3>
+    <div id="quiz2-items"></div>
+    <button class="check-btn" onclick="checkQuiz('quiz2')">對答案</button>
+    <div class="score-bar" id="score-quiz2"></div>
+  </div>
+</section>
+
+<!-- ===================== TAB 3 句子的種類 ===================== -->
+<section id="tab3">
+  <div class="section-title">句子的種類</div>
+  <div class="section-sub">要領：先找出句子的主要動詞，再判斷句子屬於哪一種基本句型</div>
+  <div class="legend">
+    <span><i class="li-subj"></i>主語</span>
+    <span><i class="li-pred"></i>述語／繫詞</span>
+    <span><i class="li-comp"></i>賓語／表語／斷語</span>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>1. 敘事句（有述語，述語為一般動詞）</h3>
+      <p>結構：主語＋述語＋賓語</p>
+      <div class="example-box"><mark class="subj">他</mark><mark class="pred">笑</mark>了。</div>
+      <div class="example-box"><mark class="subj">吾</mark><mark class="pred">愛</mark><mark class="comp">孟夫子</mark>。</div>
+    </div>
+    <div class="card">
+      <h3>2. 有無句（述語為「有」、「無」）</h3>
+      <p>結構：主語＋述語（有／無）＋賓語</p>
+      <div class="example-box"><mark class="subj">我</mark><mark class="pred">有</mark><mark class="comp">一把吉他</mark>。</div>
+      <div class="example-box"><mark class="subj">天下</mark><mark class="pred">無</mark><mark class="comp">不是的父母</mark>。
+        <div class="parts">說明：「不是」的意思是「錯誤、過失」，非繫詞。</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>3. 判斷句（有繫詞：是、不是、非、叫做、為、乃、即……，有時可省略）</h3>
+      <p>結構：主語＋繫詞＋斷語</p>
+      <div class="example-box"><mark class="subj">母親</mark><mark class="pred">是</mark><mark class="comp">最支持我的人</mark>。
+        <div class="parts">說明：「最支持我的人」是斷語，「支持」不是主要動詞。</div>
+      </div>
+      <div class="example-box"><mark class="subj">人</mark><mark class="pred">非</mark><mark class="comp">聖賢</mark>。</div>
+      <div class="example-box"><mark class="subj">法者</mark>，<mark class="comp">天子所與天下公共也</mark>。
+        <div class="parts">說明：文言文判斷句常省略繫詞，主語＋逗號、句末有「者」、「也」，是常見類型。</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>4. 表態句（沒有述語或繫詞，句子只有修飾主語的形容詞）</h3>
+      <p>結構：主語＋表語（表語為形容詞）</p>
+      <div class="example-box"><mark class="subj">媽媽煮的菜</mark><mark class="comp">香氣四溢</mark>。</div>
+      <div class="example-box"><mark class="subj">環堵</mark><mark class="comp">蕭然</mark>。</div>
+    </div>
+  </div>
+
+  <div class="quiz-box" id="quiz3">
+    <h3 style="font-family:'Noto Serif TC',serif;color:var(--soil);margin-bottom:14px;">句子種類判斷小測驗</h3>
+    <div id="quiz3-items"></div>
+    <button class="check-btn" onclick="checkQuiz('quiz3')">對答案</button>
+    <div class="score-bar" id="score-quiz3"></div>
+  </div>
+</section>
+
+<!-- ===================== TAB 4 主語判斷 ===================== -->
+<section id="tab4">
+  <div class="section-title">主語判斷</div>
+  <div class="section-sub">要領：主要動作由誰做出，或被形容的主要對象是誰</div>
+
+  <div class="card">
+    <h3>一般句（主語在前）</h3>
+    <div class="example-box"><mark class="subj">健康的體力</mark><mark class="pred">是</mark>一生努力成功的基礎。
+      <div class="parts">繫詞（動詞）</div>
+    </div>
+    <div class="example-box"><mark class="subj">天下</mark><mark class="pred">沒有</mark>不散的筵席。
+      <div class="parts">述語（動詞）</div>
+    </div>
+    <div class="example-box"><mark class="subj">古宅庭院中的榕樹</mark><mark class="comp">枝葉茂盛</mark>。
+      <div class="parts">表語（形容詞）</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>倒裝句（主語在後）</h3>
+    <div class="example-box"><mark class="pred">沉默</mark><mark class="subj">是</mark>今晚的康橋。
+      <div class="parts">繫詞（動詞）在前，主語在後<br>說明：還原句為「今晚的康橋是沉默（的狀態）」。</div>
+    </div>
+  </div>
+
+  <div class="quiz-box" id="quiz4">
+    <h3 style="font-family:'Noto Serif TC',serif;color:var(--soil);margin-bottom:14px;">找出下列句子的主語</h3>
+    <div id="quiz4-items"></div>
+    <button class="check-btn" onclick="checkQuiz('quiz4')">對答案</button>
+    <div class="score-bar" id="score-quiz4"></div>
+  </div>
+</section>
+
+<!-- ===================== TAB 5 倒裝句 ===================== -->
+<section id="tab5">
+  <div class="section-title">倒裝句</div>
+  <div class="section-sub">為求強調、平仄、協韻，或修辭效果，而調整正常語序</div>
+
+  <div class="subquiz-nav" id="dz-nav"></div>
+  <div id="dz-content"></div>
+
+  <div class="quiz-box" id="quiz5" style="margin-top:24px;">
+    <h3 style="font-family:'Noto Serif TC',serif;color:var(--soil);margin-bottom:6px;">即時操練：請將下列倒裝句還原</h3>
+    <div class="section-sub" style="padding-left:0;margin-bottom:14px;">例：明亮極了！這中秋的月亮。→ 這中秋的月亮明亮極了！</div>
+    <div id="quiz5-items"></div>
+    <button class="check-btn" onclick="checkFillQuiz('quiz5')">對答案</button>
+    <div class="score-bar" id="score-quiz5"></div>
+  </div>
+</section>
+
+<!-- ===================== TAB 6 綜合測驗 ===================== -->
+<section id="tab6">
+  <div class="section-title">綜合測驗</div>
+  <div class="section-sub">依單元分區作答，可分次挑戰各單元</div>
+
+  <div class="subquiz-nav" id="final-nav"></div>
+  <div id="final-content"></div>
+</section>
+
+</main>
+
+<script>
+/* ---------- Tab navigation ---------- */
+document.querySelectorAll('#tabNav button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#tabNav button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('main > section').forEach(s=>s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ============================================================
+   TAB 2 — 轉品 quiz data
+============================================================ */
+const posOptions = ["名詞","動詞","形容詞","副詞"];
+const quiz2Data = [
+  {
+    text:'「生活」在忙碌緊張的社會，要懂得追求閒適快樂的「生活」。',
+    blanks:[
+      {answer:"動詞",note:"第一個「生活」意為「過生活」，是動詞，帶出後面補語「在忙碌緊張的社會」。"},
+      {answer:"名詞",note:"第二個「生活」前有形容詞「閒適快樂的」修飾，且作「追求」的賓語，是名詞。"}
+    ]
+  },
+  {
+    text:'真正的快樂不是做你「喜歡」的事，而是「喜歡」你做的事。',
+    blanks:[
+      {answer:"動詞",note:"第一個「喜歡」在「你喜歡的」中，仍是動詞，作修飾「事」的關係子句謂語。"},
+      {answer:"動詞",note:"第二個「喜歡」是全句主要動詞，後接賓語「你做的事」，同樣是動詞——此題兩者詞性未變，是位置改變但詞性相同的例外。"}
+    ]
+  },
+  {
+    text:'他「悽愴」地唱出了心中的「悽愴」。',
+    blanks:[
+      {answer:"副詞",note:"第一個「悽愴」後接「地」，修飾動詞「唱」，轉品為副詞。"},
+      {answer:"名詞",note:"第二個「悽愴」前有「心中的」，作「唱出」的賓語，是名詞。"}
+    ]
+  },
+  {
+    text:'經過老闆「清楚」地說明，我已經「清楚」產品失敗的癥結了。',
+    blanks:[
+      {answer:"副詞",note:"第一個「清楚」後接「地」，修飾「說明」，是副詞。"},
+      {answer:"動詞",note:"第二個「清楚」直接帶賓語「產品失敗的癥結」，是動詞（了解、明白之意）。"}
+    ]
+  },
+  {
+    text:'父母經常「叮嚀」我，要我牢記老師的「叮嚀」。',
+    blanks:[
+      {answer:"動詞",note:"第一個「叮嚀」直接帶賓語「我」，是動詞。"},
+      {answer:"名詞",note:"第二個「叮嚀」前有「老師的」，作「牢記」的賓語，是名詞。"}
+    ]
+  },
+  {
+    text:'國一新生既聰明又「規矩」，每個人都能遵守學校的「規矩」。',
+    blanks:[
+      {answer:"形容詞",note:"第一個「規矩」與「聰明」並列，由「既……又……」連接，是形容詞。"},
+      {answer:"名詞",note:"第二個「規矩」前有「學校的」，作「遵守」的賓語，是名詞。"}
+    ]
+  },
+  {
+    text:'中樂透？你別「妄想」了！大家都知道這是天大的「妄想」。',
+    blanks:[
+      {answer:"動詞",note:"第一個「妄想」前有否定副詞「別」，是動詞。"},
+      {answer:"名詞",note:"第二個「妄想」前有「天大的」修飾，是名詞。"}
+    ]
+  },
+  {
+    text:'有些社福人員標榜「人道」，私下卻藉機斂財，盡做些不「人道」的勾當。',
+    blanks:[
+      {answer:"名詞",note:"第一個「人道」作「標榜」的賓語，是名詞。"},
+      {answer:"形容詞",note:"第二個「人道」前有否定副詞「不」，且修飾後面「的勾當」，轉品為形容詞。"}
+    ]
+  },
+  {
+    text:'身為校刊「編輯」，當然要「編輯」能反映同學心聲的優良刊物。',
+    blanks:[
+      {answer:"名詞",note:"第一個「編輯」在「身為校刊編輯」中是職稱，是名詞。"},
+      {answer:"動詞",note:"第二個「編輯」直接帶賓語「能反映同學心聲的優良刊物」，是動詞。"}
+    ]
+  },
+  {
+    text:'他常常不假思索地說出「直率」的話，展現出他的「直率」。',
+    blanks:[
+      {answer:"形容詞",note:"第一個「直率」後接「的」修飾「話」，是形容詞。"},
+      {answer:"名詞",note:"第二個「直率」前有「他的」，作「展現出」的賓語，是名詞。"}
+    ]
+  }
+];
+
+function renderQuiz2(){
+  const container = document.getElementById('quiz2-items');
+  quiz2Data.forEach((item,qi)=>{
+    const div = document.createElement('div');
+    div.className='q-item';
+    let html = `<div class="q-text"><b>${qi+1}.</b> ${item.text}</div>`;
+    item.blanks.forEach((b,bi)=>{
+      html += `<div style="margin:8px 0 4px 20px;">第${bi===0?'一':'二'}個詞性：
+        <div class="opts" data-q="${qi}" data-b="${bi}"></div>
+        <div class="explain" id="exp-2-${qi}-${bi}">${b.note}</div>
+      </div>`;
+    });
+    div.innerHTML = html;
+    container.appendChild(div);
+    item.blanks.forEach((b,bi)=>{
+      const optsDiv = div.querySelector(`.opts[data-q="${qi}"][data-b="${bi}"]`);
+      posOptions.forEach(opt=>{
+        const btn = document.createElement('button');
+        btn.className='opt';
+        btn.textContent=opt;
+        btn.onclick=()=>{
+          optsDiv.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+          if(opt===b.answer){btn.classList.add('correct');}
+          else{btn.classList.add('wrong');
+            [...optsDiv.children].find(o=>o.textContent===b.answer).classList.add('correct');
+          }
+          document.getElementById(`exp-2-${qi}-${bi}`).classList.add('show');
+          optsDiv.dataset.answered="1";
+        };
+        optsDiv.appendChild(btn);
+      });
+    });
+  });
+}
+renderQuiz2();
+
+/* ============================================================
+   TAB 3 — 句子種類 quiz
+============================================================ */
+const quiz3Data = [
+  {text:"母親是最支持我的人。",options:["敘事句","有無句","判斷句","表態句"],answer:"判斷句",note:"有繫詞「是」，主語＋繫詞＋斷語。"},
+  {text:"天下無不是的父母。",options:["敘事句","有無句","判斷句","表態句"],answer:"有無句",note:"述語為「無」。"},
+  {text:"環堵蕭然。",options:["敘事句","有無句","判斷句","表態句"],answer:"表態句",note:"沒有動詞，「蕭然」是形容詞表語。"},
+  {text:"吾愛孟夫子。",options:["敘事句","有無句","判斷句","表態句"],answer:"敘事句",note:"述語「愛」為一般動詞，帶賓語「孟夫子」。"},
+  {text:"人非聖賢。",options:["敘事句","有無句","判斷句","表態句"],answer:"判斷句",note:"繫詞「非」，主語＋繫詞＋斷語。"},
+  {text:"媽媽煮的菜香氣四溢。",options:["敘事句","有無句","判斷句","表態句"],answer:"表態句",note:"「香氣四溢」修飾主語，無主要動詞。"}
+];
+
+function renderQuiz3(){
+  const container = document.getElementById('quiz3-items');
+  quiz3Data.forEach((item,qi)=>{
+    const div = document.createElement('div');
+    div.className='q-item';
+    div.innerHTML = `<div class="q-text"><b>${qi+1}.</b> ${item.text}</div>
+      <div class="opts" data-q="${qi}"></div>
+      <div class="explain" id="exp-3-${qi}">${item.note}</div>`;
+    container.appendChild(div);
+    const optsDiv = div.querySelector(`.opts[data-q="${qi}"]`);
+    item.options.forEach(opt=>{
+      const btn=document.createElement('button');
+      btn.className='opt';
+      btn.textContent=opt;
+      btn.onclick=()=>{
+        optsDiv.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+        if(opt===item.answer){btn.classList.add('correct');}
+        else{btn.classList.add('wrong');
+          [...optsDiv.children].find(o=>o.textContent===item.answer).classList.add('correct');
+        }
+        document.getElementById(`exp-3-${qi}`).classList.add('show');
+      };
+      optsDiv.appendChild(btn);
+    });
+  });
+}
+renderQuiz3();
+
+/* ============================================================
+   TAB 4 — 主語判斷 quiz
+============================================================ */
+const quiz4Data = [
+  {text:"沉默是今晚的康橋。",options:["沉默","是","今晚的康橋"],answer:"今晚的康橋",note:"這是倒裝句，繫詞「是」在前，主語「今晚的康橋」在後，還原句為「今晚的康橋是沉默」。"},
+  {text:"健康的體力是一生努力成功的基礎。",options:["健康的體力","是","一生努力成功的基礎"],answer:"健康的體力",note:"一般句，主語在前，「是」為繫詞。"},
+  {text:"古宅庭院中的榕樹枝葉茂盛。",options:["古宅庭院中的榕樹","枝葉","枝葉茂盛"],answer:"古宅庭院中的榕樹",note:"「枝葉茂盛」整體是表語（形容詞性），主語是「古宅庭院中的榕樹」。"},
+  {text:"天下沒有不散的筵席。",options:["天下","沒有","不散的筵席"],answer:"天下",note:"主語為「天下」，述語「沒有」，賓語「不散的筵席」。"}
+];
+
+function renderQuiz4(){
+  const container = document.getElementById('quiz4-items');
+  quiz4Data.forEach((item,qi)=>{
+    const div = document.createElement('div');
+    div.className='q-item';
+    div.innerHTML = `<div class="q-text"><b>${qi+1}.</b> ${item.text}</div>
+      <div class="opts" data-q="${qi}"></div>
+      <div class="explain" id="exp-4-${qi}">${item.note}</div>`;
+    container.appendChild(div);
+    const optsDiv = div.querySelector(`.opts[data-q="${qi}"]`);
+    item.options.forEach(opt=>{
+      const btn=document.createElement('button');
+      btn.className='opt';
+      btn.textContent=opt;
+      btn.onclick=()=>{
+        optsDiv.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+        if(opt===item.answer){btn.classList.add('correct');}
+        else{btn.classList.add('wrong');
+          [...optsDiv.children].find(o=>o.textContent===item.answer).classList.add('correct');
+        }
+        document.getElementById(`exp-4-${qi}`).classList.add('show');
+      };
+      optsDiv.appendChild(btn);
+    });
+  });
+}
+renderQuiz4();
+
+/* ============================================================
+   TAB 5 — 倒裝句 content + 即時操練
+============================================================ */
+const dzCategories = [
+  {
+    name:"敘事句的倒裝",
+    items:[
+      {title:"① 省略主語（是、之當助詞）",examples:[
+        "唯利是圖 → 唯圖利","唯你是問 → 唯問你","唯命是從 → 唯從命","唯才是用 → 唯用才",
+        "主義是從 → 從主義","馬首是瞻 → 瞻馬首","唯弈秋之為聽 → 唯聽弈秋",
+        "不患人之不己知 → 不患人不知己","先生不知何許人也 → 不知先生何許人也","吾馬賴柔和 → 賴吾馬柔和"
+      ]},
+      {title:"② 沒有省略主語",examples:[
+        "父母唯其疾之憂 → 父母唯憂其疾（之是助詞）","人莫之非 → 人莫非之（之是代詞）",
+        "吾未之見 → 吾未見之（之是代詞）","子何恃而往 → 子恃何而往"
+      ]},
+      {title:"③ 賓語＋主語＋述語",examples:[
+        "白妞的好處，人說不出 → 人說不出白妞的好處","你住的小小島，我正思念 → 我正思念你住的小小島"
+      ]},
+      {title:"④ 句中有「以」字的倒裝",examples:[
+        "徐噴以煙 → 以煙徐噴","事之以禮 → 以禮事之","嚏之以鼻 → （吾）以鼻嚏之",
+        "一言以蔽之 → 以一言蔽之","厚以待人，嚴以律己 → 以厚待人，以嚴律己"
+      ]}
+    ]
+  },
+  {
+    name:"有無句的倒裝",
+    items:[
+      {title:"有無句倒裝",examples:[
+        "何難之有 → 有何難","勠齊伐燕，有諸 → 有勠齊伐燕乎"
+      ]}
+    ]
+  },
+  {
+    name:"判斷句的倒裝",
+    items:[
+      {title:"判斷句倒裝",examples:[
+        "是誰？剛才發問的 → 剛才發問的，是誰","何哉？爾所謂達者 → 爾所謂達者（為）何哉"
+      ]}
+    ]
+  },
+  {
+    name:"表態句的倒裝",
+    items:[
+      {title:"表態句倒裝",examples:[
+        "靜極了，這朝來水溶溶的大道 → 這朝來水溶溶的大道靜極了","甚矣，汝之不惠（慧）→ 汝之不惠（慧），甚矣"
+      ]}
+    ]
+  },
+  {
+    name:"詩詞曲的倒裝",
+    items:[
+      {title:"為平仄、協韻或強調字詞而調整語序",examples:[
+        "欲窮千里目 → 目欲窮千里",
+        "綠樹村邊合，青山郭外斜 → 綠樹合村邊，青山斜郭外（或「村邊合綠樹，郭外斜青山」）",
+        "明月松間照，清泉石上流 → 明月照松間，清泉流石上",
+        "竹喧歸浣女，蓮動下漁舟 → 竹喧浣女歸，蓮動漁舟下（或「浣女歸竹喧，漁舟下蓮動」）",
+        "苔痕上階綠，草色入簾青 → 綠苔痕上階，青草色入簾",
+        "萬里赴戎機，關山度若飛 → 赴萬里戎機，度關山若飛",
+        "日暮鄉關何處是？煙波江上使人愁 → 日暮何處是鄉關？江上煙波使人愁"
+      ]}
+    ]
+  }
+];
+
+function renderDzNav(){
+  const nav = document.getElementById('dz-nav');
+  dzCategories.forEach((cat,ci)=>{
+    const btn=document.createElement('button');
+    btn.textContent=cat.name;
+    if(ci===0)btn.classList.add('on');
+    btn.onclick=()=>{
+      document.querySelectorAll('#dz-nav button').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      renderDzContent(ci);
+    };
+    nav.appendChild(btn);
+  });
+}
+function renderDzContent(ci){
+  const content = document.getElementById('dz-content');
+  content.innerHTML='';
+  dzCategories[ci].items.forEach(group=>{
+    const card=document.createElement('div');
+    card.className='card';
+    let html=`<h3>${group.title}</h3>`;
+    group.examples.forEach(ex=>{
+      html+=`<div class="example-box">${ex}</div>`;
+    });
+    card.innerHTML=html;
+    content.appendChild(card);
+  });
+}
+renderDzNav();
+renderDzContent(0);
+
+const quiz5Data = [
+  {text:"賢哉回也。",answer:"回也賢哉",hint:"（回也，賢哉！）"},
+  {text:"儉以養廉。",answer:"以儉養廉",hint:"「以」字倒裝"},
+  {text:"何罪之有？",answer:"有何罪",hint:"有無句倒裝"},
+  {text:"等你，在雨中。",answer:"在雨中等你",hint:"詩詞語序調整"},
+  {text:"又向前跨了一步，這蒼白的歲月。",answer:"這蒼白的歲月又向前跨了一步",hint:"主語在後的倒裝"}
+];
+
+function renderQuiz5(){
+  const container = document.getElementById('quiz5-items');
+  quiz5Data.forEach((item,qi)=>{
+    const div=document.createElement('div');
+    div.className='q-item';
+    div.innerHTML = `<div class="q-text"><b>${qi+1}.</b> ${item.text}</div>
+      <input type="text" class="fill-input" id="fill-5-${qi}" placeholder="請輸入還原後的句子">
+      <span class="seal" id="seal-5-${qi}">正</span>
+      <div class="explain" id="exp-5-${qi}">參考答案：${item.answer}（${item.hint}）</div>`;
+    container.appendChild(div);
+  });
+}
+renderQuiz5();
+
+function checkFillQuiz(id){
+  let correct=0;
+  quiz5Data.forEach((item,qi)=>{
+    const input = document.getElementById(`fill-5-${qi}`);
+    const seal = document.getElementById(`seal-5-${qi}`);
+    const exp = document.getElementById(`exp-5-${qi}`);
+    const val = input.value.replace(/[，。！？\s]/g,'');
+    const ans = item.answer.replace(/[，。！？\s]/g,'');
+    if(val===ans){seal.classList.add('show');correct++;}
+    exp.classList.add('show');
+  });
+  const bar = document.getElementById('score-'+id);
+  bar.classList.add('show');
+  bar.textContent = `完全正確 ${correct} / ${quiz5Data.length} 題（可對照下方參考答案調整用字）`;
+}
+
+/* generic MC quiz scorer for quiz2/3/4 */
+function checkQuiz(id){
+  const container = document.getElementById(id+'-items');
+  const optsGroups = container.querySelectorAll('.opts');
+  let total = optsGroups.length;
+  let answered = [...optsGroups].filter(g=>g.dataset.answered || g.querySelector('.correct')).length;
+  let correctCount = [...optsGroups].filter(g=>{
+    return g.querySelector('.opt.correct') && !g.querySelector('.opt.wrong');
+  }).length;
+  const bar = document.getElementById('score-'+id);
+  bar.classList.add('show');
+  bar.textContent = `已作答 ${answered} / ${total} 題　一次答對 ${correctCount} 題`;
+}
+
+/* ============================================================
+   TAB 6 — 綜合測驗（分單元）
+============================================================ */
+const finalUnits = [
+  {name:"轉品",data:quiz2Data.map((it,i)=>({
+      type:'pos', text:it.text, blanks:it.blanks
+  }))},
+  {name:"句子種類",data:quiz3Data.map(it=>({type:'mc',...it}))},
+  {name:"主語判斷",data:quiz4Data.map(it=>({type:'mc',...it}))},
+  {name:"倒裝句還原",data:quiz5Data.map(it=>({type:'fill',...it}))}
+];
+
+function renderFinalNav(){
+  const nav = document.getElementById('final-nav');
+  finalUnits.forEach((u,ui)=>{
+    const btn=document.createElement('button');
+    btn.textContent=u.name;
+    if(ui===0)btn.classList.add('on');
+    btn.onclick=()=>{
+      document.querySelectorAll('#final-nav button').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      renderFinalContent(ui);
+    };
+    nav.appendChild(btn);
+  });
+}
+
+function renderFinalContent(ui){
+  const content = document.getElementById('final-content');
+  content.innerHTML='';
+  const box = document.createElement('div');
+  box.className='quiz-box';
+  const uid = 'final'+ui;
+  box.id = uid;
+  const inner = document.createElement('div');
+  inner.id = uid+'-items';
+  box.appendChild(inner);
+
+  finalUnits[ui].data.forEach((item,qi)=>{
+    const div=document.createElement('div');
+    div.className='q-item';
+    if(item.type==='mc'){
+      div.innerHTML = `<div class="q-text"><b>${qi+1}.</b> ${item.text}</div>
+        <div class="opts" data-q="${qi}"></div>
+        <div class="explain" id="exp-${uid}-${qi}">${item.note}</div>`;
+      inner.appendChild(div);
+      const optsDiv = div.querySelector('.opts');
+      item.options.forEach(opt=>{
+        const b=document.createElement('button');
+        b.className='opt';
+        b.textContent=opt;
+        b.onclick=()=>{
+          optsDiv.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+          if(opt===item.answer){b.classList.add('correct');}
+          else{b.classList.add('wrong');
+            [...optsDiv.children].find(o=>o.textContent===item.answer).classList.add('correct');
+          }
+          document.getElementById(`exp-${uid}-${qi}`).classList.add('show');
+        };
+        optsDiv.appendChild(b);
+      });
+    } else if(item.type==='fill'){
+      div.innerHTML = `<div class="q-text"><b>${qi+1}.</b> ${item.text}</div>
+        <input type="text" class="fill-input" id="fill-${uid}-${qi}" placeholder="請輸入還原後的句子">
+        <span class="seal" id="seal-${uid}-${qi}">正</span>
+        <div class="explain" id="exp-${uid}-${qi}">參考答案：${item.answer}（${item.hint}）</div>`;
+      inner.appendChild(div);
+    } else if(item.type==='pos'){
+      let html = `<div class="q-text"><b>${qi+1}.</b> ${item.text}</div>`;
+      item.blanks.forEach((b,bi)=>{
+        html += `<div style="margin:8px 0 4px 20px;">第${bi===0?'一':'二'}個詞性：
+          <div class="opts" data-q="${qi}" data-b="${bi}"></div>
+          <div class="explain" id="exp-${uid}-${qi}-${bi}">${b.note}</div>
+        </div>`;
+      });
+      div.innerHTML = html;
+      inner.appendChild(div);
+      item.blanks.forEach((b,bi)=>{
+        const optsDiv = div.querySelector(`.opts[data-q="${qi}"][data-b="${bi}"]`);
+        posOptions.forEach(opt=>{
+          const btn=document.createElement('button');
+          btn.className='opt';
+          btn.textContent=opt;
+          btn.onclick=()=>{
+            optsDiv.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+            if(opt===b.answer){btn.classList.add('correct');}
+            else{btn.classList.add('wrong');
+              [...optsDiv.children].find(o=>o.textContent===b.answer).classList.add('correct');
+            }
+            document.getElementById(`exp-${uid}-${qi}-${bi}`).classList.add('show');
+          };
+          optsDiv.appendChild(btn);
+        });
+      });
+    }
+  });
+
+  const checkBtn = document.createElement('button');
+  checkBtn.className='check-btn';
+  checkBtn.textContent='對答案';
+  checkBtn.onclick=()=>{
+    if(finalUnits[ui].data[0].type==='fill'){
+      let correct=0;
+      finalUnits[ui].data.forEach((item,qi)=>{
+        const input = document.getElementById(`fill-${uid}-${qi}`);
+        const seal = document.getElementById(`seal-${uid}-${qi}`);
+        const exp = document.getElementById(`exp-${uid}-${qi}`);
+        const val = input.value.replace(/[，。！？\s]/g,'');
+        const ans = item.answer.replace(/[，。！？\s]/g,'');
+        if(val===ans){seal.classList.add('show');correct++;}
+        exp.classList.add('show');
+      });
+      bar.textContent = `完全正確 ${correct} / ${finalUnits[ui].data.length} 題`;
+    } else {
+      const optsGroups = inner.querySelectorAll('.opts');
+      let total = optsGroups.length;
+      let answered = [...optsGroups].filter(g=>g.querySelector('.correct')).length;
+      let correctCount = [...optsGroups].filter(g=>g.querySelector('.opt.correct') && !g.querySelector('.opt.wrong')).length;
+      bar.textContent = `已作答 ${answered} / ${total} 題　一次答對 ${correctCount} 題`;
+    }
+    bar.classList.add('show');
+  };
+  box.appendChild(checkBtn);
+  const bar = document.createElement('div');
+  bar.className='score-bar';
+  box.appendChild(bar);
+  content.appendChild(box);
+}
+
+renderFinalNav();
+renderFinalContent(0);
+</script>
+</body>
+</html>
