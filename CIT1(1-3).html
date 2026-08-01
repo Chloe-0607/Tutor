@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>國一上公民｜第一~三課 複習站</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+  :root{
+    --paper:#faf7ef;
+    --gridline:#e4ddc9;
+    --ink:#2b3a55;
+    --ink-soft:#5c6b87;
+    --highlight-pink:#f6c9c2;
+    --highlight-pink-line:#e8988a;
+    --purple:#769acd;
+    --purple-soft:#c8daee;
+    --paperclip:#c9a13b;
+    --red:#c0503f;
+    --green:#5c8a63;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    font-family:'Noto Sans TC', sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:28px 18px 90px;}
+
+  /* header / spine */
+  header{
+    position:relative;
+    padding:26px 26px 22px 34px;
+    margin-bottom:26px;
+    background:var(--card);
+    border-radius:4px;
+    box-shadow:0 2px 0 var(--gridline), 0 10px 24px -18px rgba(43,58,85,.4);
+  }
+  header::before{
+    content:"";
+    position:absolute; left:0; top:8%; bottom:8%; width:6px;
+    background:repeating-linear-gradient(180deg, var(--paperclip) 0 3px, transparent 3px 22px);
+    border-radius:3px;
+  }
+  header h1{
+    font-family:'Noto Serif TC', serif;
+    font-weight:900;
+    font-size:clamp(24px,4.5vw,34px);
+    margin:0 0 6px;
+    color:var(--ink);
+    letter-spacing:.5px;
+  }
+  header p{margin:0; color:var(--ink-soft); font-size:14.5px;}
+  .tagbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+  .tagbar span{
+    font-size:12.5px; padding:3px 10px; border-radius:100px;
+    background:var(--purple-soft); color:var(--purple); font-weight:700;
+  }
+
+  /* tabs */
+  nav.tabs{
+    display:flex; gap:10px; margin-bottom:22px; flex-wrap:wrap;
+    position:sticky; top:10px; z-index:20;
+  }
+  nav.tabs button{
+    font-family:'Noto Serif TC', serif;
+    font-weight:700;
+    font-size:15px;
+    padding:12px 18px;
+    border:2px solid var(--ink);
+    background:var(--card);
+    color:var(--ink);
+    border-radius:10px 10px 4px 4px;
+    cursor:pointer;
+    transition:.18s;
+    box-shadow:0 3px 0 var(--ink);
+  }
+  nav.tabs button small{display:block;font-family:'Noto Sans TC';font-weight:500;font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+  nav.tabs button.active{
+    background:var(--ink); color:#fff;
+    transform:translateY(2px);
+    box-shadow:0 1px 0 var(--ink);
+  }
+  nav.tabs button.active small{color:#cfd8ea;}
+  nav.tabs button:hover{transform:translateY(1px);}
+
+  .chapter{display:none;}
+  .chapter.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  /* section title = pink highlighter bar, like the notes */
+  .sec-title{
+    display:inline-block;
+    font-family:'Noto Serif TC', serif;
+    font-weight:700;
+    font-size:18px;
+    color:var(--ink);
+    background:linear-gradient(180deg, transparent 55%, var(--highlight-pink) 55%);
+    padding:2px 4px 2px 2px;
+    margin:26px 0 12px;
+  }
+  .sec-title.purple{background:linear-gradient(180deg, transparent 55%, var(--purple-soft) 55%);}
+  .card{
+    background:var(--card);
+    border:1px solid var(--gridline);
+    border-radius:10px;
+    padding:18px 20px;
+    margin-bottom:16px;
+    box-shadow:0 6px 16px -14px rgba(43,58,85,.5);
+  }
+  .card h3{
+    margin:0 0 10px; font-size:15.5px; font-family:'Noto Serif TC',serif;
+    color:var(--purple); border-bottom:1px dashed var(--gridline); padding-bottom:6px;
+  }
+  .card ul{margin:6px 0; padding-left:20px;}
+  .card li{margin-bottom:6px; line-height:1.65; font-size:14.5px;}
+  .card p{line-height:1.7; font-size:14.5px; margin:6px 0;}
+  .key{color:var(--red); font-weight:700;}
+  .key2{color:var(--purple); font-weight:700;}
+  .note{
+    font-size:13px; color:var(--ink-soft); background:var(--purple-soft);
+    border-left:3px solid var(--purple); padding:8px 12px; border-radius:0 6px 6px 0; margin-top:10px;
+  }
+
+  table.compare{width:100%; border-collapse:collapse; font-size:13.5px; margin:8px 0;}
+  table.compare th, table.compare td{
+    border:1px solid var(--gridline); padding:8px 10px; text-align:left; vertical-align:top;
+  }
+  table.compare th{background:var(--purple-soft); color:var(--purple); font-family:'Noto Serif TC',serif;}
+  table.compare tr:nth-child(even) td{background:#fbfaf5;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:640px){.grid2{grid-template-columns:1fr;}}
+
+  /* family tree - signature element */
+  .tree-wrap{overflow-x:auto;}
+  svg.tree{display:block; margin:0 auto; min-width:640px;}
+  .tree-node{cursor:pointer;}
+  .tree-node rect{fill:#fff; stroke:var(--ink); stroke-width:1.6; transition:.15s;}
+  .tree-node:hover rect{fill:var(--purple-soft); stroke:var(--purple);}
+  .tree-node text{font-family:'Noto Sans TC'; font-size:13px; fill:var(--ink); font-weight:700;}
+  .tree-line{stroke:var(--ink-soft); stroke-width:1.4; fill:none;}
+  #tree-info{
+    margin-top:12px; min-height:52px; background:var(--purple-soft); border-radius:8px;
+    padding:12px 16px; font-size:14px; color:var(--ink); border-left:4px solid var(--purple);
+  }
+
+  /* pyramid for maslow */
+  .pyramid{display:flex; flex-direction:column; align-items:center; gap:4px; margin:14px 0;}
+  .pyramid .row{
+    color:#fff; text-align:center; padding:10px 0; border-radius:4px; font-weight:700; font-size:14px;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .pyramid .row span.desc{font-weight:500; font-size:12.5px; opacity:.9;}
+  .p1{width:34%; background:#c0503f;}
+  .p2{width:48%; background:#d47a52;}
+  .p3{width:62%; background:#c9a13b;}
+  .p4{width:76%; background:#7a9a6a;}
+  .p5{width:92%; background:#5c7fa6;}
+
+  /* quiz */
+  .quiz-block{margin-top:30px;}
+  .q{
+    background:var(--card); border:1px solid var(--gridline); border-radius:10px;
+    padding:16px 18px; margin-bottom:14px; border-left:5px solid var(--purple);
+  }
+  .q .qnum{font-family:'Noto Serif TC',serif; font-weight:900; color:var(--purple); margin-right:6px;}
+  .q .scenario{font-size:14.5px; line-height:1.75; margin:4px 0 10px;}
+  .q .ask{font-weight:500; font-size:14.5px; margin-bottom:10px;}
+  .q .reveal-btn{
+    font-size:13px; font-weight:700; color:var(--purple); background:var(--purple-soft);
+    border:1px solid var(--purple); border-radius:100px; padding:6px 16px; cursor:pointer;
+  }
+  .q .reveal-btn:hover{background:var(--purple); color:#fff;}
+  .q .answer{
+    display:none; margin-top:12px; padding:12px 14px; background:#f3f8f2;
+    border-left:4px solid var(--green); border-radius:0 8px 8px 0; font-size:14px; line-height:1.7;
+  }
+  .q .answer.show{display:block; animation:fade .3s ease;}
+  .q .answer .ans-tag{color:var(--green); font-weight:900; margin-right:4px;}
+
+  .final-note{
+    text-align:center; color:var(--ink-soft); font-size:13px; margin-top:40px; padding-top:16px;
+    border-top:1px dashed var(--gridline);
+  }
+  .toggle-all{
+    display:block; margin:0 auto 18px; font-size:13px; font-weight:700; color:#fff;
+    background:var(--ink); border:none; border-radius:100px; padding:8px 20px; cursor:pointer;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>國一上公民 複習站</h1>
+    <p>第一課．個人與人性尊嚴　｜　第二課．和諧的性別關係　｜　第三課．我們都是一家人</p>
+    <div class="tagbar">
+      <span>筆記整理</span><span>情境題練習</span><span>點擊看解析</span>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="ch1">第一課<small>個人與人性尊嚴</small></button>
+    <button class="tab-btn" data-tab="ch2">第二課<small>和諧的性別關係</small></button>
+    <button class="tab-btn" data-tab="ch3">第三課<small>我們都是一家人</small></button>
+    <button class="tab-btn" data-tab="ch-all">綜合測驗<small>1~3 課</small></button>
+  </nav>
+
+  <!-- ============ CHAPTER 1 ============ -->
+  <section class="chapter active" id="ch1">
+
+    <div class="sec-title">1-1 自我發展</div>
+    <div class="card">
+      <h3>自我發展的三步驟</h3>
+      <ul>
+        <li><span class="key">認識自我</span>：透過內省、與他人互動、觀察自身行為等方式，了解及發現自己的優缺點與潛能。這一步是後續發展的基礎。</li>
+        <li><span class="key">肯定自我</span>：在認識自我的基礎上，肯定自身存在的價值，相信「天生我才必有用」。不是盲目自大，而是基於對自身特質的理解，建立正向的自我認同。</li>
+        <li><span class="key">展現自我</span>：將已認識並肯定的能力付諸行動，發揮才能，向社會展現自身價值。最終目標是實現理想生活。</li>
+      </ul>
+      <p class="note">自我發展是<span class="key2">後天學習</span>而來，透過與家庭、學校、社會的互動逐步形塑，並非天生俱來。</p>
+    </div>
+
+    <div class="sec-title">1-2 自我發展與人性尊嚴的關聯</div>
+    <div class="card">
+      <p><span class="key">人性尊嚴</span>：每個人都因身為「人」而擁有不可被剝奪的價值，是個<span class="key">獨立自主</span>的個體，應受<span class="key">平等</span>尊重。</p>
+      <h3 style="margin-top:14px;">關聯</h3>
+      <table class="compare">
+        <tr><th>自我發展</th><th>對應人性尊嚴</th></tr>
+        <tr><td>認識自我</td><td>理解自己是獨立自主的個體</td></tr>
+        <tr><td>肯定自我</td><td>肯定自身存在的價值</td></tr>
+        <tr><td>展現自我</td><td>付出行動，邁向理想生活</td></tr>
+      </table>
+    </div>
+
+    <div class="sec-title">需求層次理論（馬斯洛）</div>
+    <div class="card">
+      <p>由低到高，滿足程度依序影響一個人展現自我的能力。只有底層需求被滿足後，才會追求更高層次的需求：</p>
+      <div class="pyramid">
+        <div class="row p1">自我實現 <span class="desc">自我潛能、實現目標</span></div>
+        <div class="row p2">尊重 <span class="desc">自我與受人尊重</span></div>
+        <div class="row p3">愛與歸屬 <span class="desc">社會需求、被接納、關愛</span></div>
+        <div class="row p4">安全 <span class="desc">受保護、免威脅</span></div>
+        <div class="row p5">生理 <span class="desc">基本生存需求</span></div>
+      </div>
+    </div>
+
+    <div class="sec-title">面對生命的態度</div>
+    <div class="card">
+      <table class="compare">
+        <tr><th>特性</th><th>態度</th><th>舉例</th></tr>
+        <tr><td><span class="key">獨特性</span></td><td>每個人都不同，應尊重差異</td><td>同卵雙胞胎基因相同，仍發展出不同個性與人生</td></tr>
+        <tr><td><span class="key">有限性、不可回逆性、平等性</span></td><td>時間一去不復返，要珍惜當下</td><td>車禍突如其來，想說的話要趁來得及時說出口</td></tr>
+        <tr><td><span class="key">無常性、不完美</span></td><td>接納變動與自身不足</td><td>地震瞬間摧毀家園，學會在逆境中重新站起來</td></tr>
+        <tr><td><span class="key">延續性</span></td><td>生命的影響超越個人長度</td><td>偏鄉醫師過世後，其精神仍持續影響後輩醫學生</td></tr>
+      </table>
+      <p class="note">四種特性共同指向：<span class="key2">珍惜、尊重生命</span>。</p>
+    </div>
+
+    <div class="sec-title">1-3 保障人權以維護人性尊嚴</div>
+    <div class="card">
+      <h3>人權是什麼</h3>
+      <p><span class="key">人權</span>＝人而為人的權利。不分國籍、性別、年齡、種族，只要是「人」就應該享有的基本權利。</p>
+      <h3 style="margin-top:14px;">做法一：每人都有權過有「尊嚴」的生活</h3>
+      <ul>
+        <li>政府提供資源以達成必要條件（如醫療、教育、社會住宅等）</li>
+        <li>身心障礙者也可過著自立生活（如無障礙設施、輔具補助）</li>
+      </ul>
+      <h3 style="margin-top:14px;">做法二：制定法律</h3>
+      <ul>
+        <li>民眾依法主張自己權益，不受他人或政府非法侵害</li>
+        <li>需尊重及維護<span class="key2">自身與他人</span>的人權</li>
+      </ul>
+      <p class="note">維護人性尊嚴 → 落實人權的保障。人權不是政府的恩賜，而是每個人與生俱來的權利。</p>
+    </div>
+
+    <!-- CH1 QUIZ -->
+    <div class="quiz-block">
+      <div class="sec-title purple">第一課 情境題練習</div>
+      <button class="toggle-all" data-target="ch1">全部展開／收合</button>
+
+      <div class="q" data-ch="ch1">
+        <p class="scenario"><span class="qnum">1.</span>2024 年台灣通過《身心障礙者權益保障法》修訂案，擴大輔具補助範圍，讓更多身障者能自行選擇適合的輔具，過著更獨立的生活。這項政策最直接呼應了下列哪一個概念？</p>
+        <p class="ask">(A) 政府透過提供資源，維護人民過有尊嚴生活的權利，落實人權保障　(B) 自我發展中的「展現自我」步驟　(C) 需求層次中的生理需求　(D) 生命的獨特性</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(A)</span>政府擴大輔具補助，讓身障者能過更獨立的生活，正是「提供資源以達成有尊嚴生活的必要條件」，屬於保障人權以維護人性尊嚴的做法。這不是個人自我發展的展現步驟，也不是單純的生理需求。</div>
+      </div>
+
+      <div class="q" data-ch="ch1">
+        <p class="scenario"><span class="qnum">2.</span>小美原本覺得自己「一無是處」，但在一次班級服務競賽中，她發現自己很擅長協調團隊，並且帶領團隊拿下第一名。從此她開始相信自己的能力。這個過程最符合自我發展的哪個階段？</p>
+        <p class="ask">(A) 認識自我　(B) 肯定自我　(C) 展現自我　(D) 尊重他人</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>小美原本不了解自己，透過比賽「發現」自己擅長協調（認識自我），進而「相信自己的能力」（肯定自我）。題目描述的重點是她「開始相信自己的價值」，這正是肯定自我的核心。展現自我則是進一步將能力付諸行動、向外界呈現。</div>
+      </div>
+
+      <div class="q" data-ch="ch1">
+        <p class="scenario"><span class="qnum">3.</span>2024 年中東局勢動盪，大量難民流離失所，缺乏乾淨水源、食物與安全庇護所。從需求層次理論來看，這些難民目前最需要被滿足的是哪些需求？</p>
+        <p class="ask">(A) 自我實現與尊重　(B) 愛與歸屬　(C) 生理與安全　(D) 尊重與愛與歸屬</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(C)</span>缺乏水源、食物屬於生理需求（維持基本生存）；缺乏安全庇護所屬於安全需求（免於暴力與威脅）。根據馬斯洛理論，底層需求未滿足前，人無法追求更高层次的需求。這也呼應了為什麼難民首先被提供的是食物、水和避難所。</div>
+      </div>
+
+      <div class="q" data-ch="ch1">
+        <p class="scenario"><span class="qnum">4.</span>2023 年底，台積電創辦人張忠謀在一場演講中提到：「我們不該因為年齡而否定自己的價值，生命的厚度不在於長度。」這句話最能呼應生命的哪一項特性？</p>
+        <p class="ask">(A) 無常性、不完美　(B) 有限性、不可回逆性　(C) 延續性　(D) 獨特性</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(C)</span>「生命的厚度不在於長度」強調的是生命雖有限，但可以透過個人的影響力、貢獻與精神傳承而延續下去。張忠謀本人年過九十仍在推動產業創新，正說明了生命的價值可以超越時間限制而延續。</div>
+      </div>
+
+      <div class="q" data-ch="ch1">
+        <p class="scenario"><span class="qnum">5.</span>2024 年，某國政府以「國家安全」為由，無預警拘留了多名和平抗議的公民，且未提供法律救濟管道。這些公民可以透過下列哪種方式來主張自己的權利？</p>
+        <p class="ask">(A) 訴諸需求層次理論　(B) 透過法律途徑，依法主張自身權益不受政府非法侵害　(C) 展現自我　(D) 訴諸生命的平等性</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>人權保障的做法之二是「制定法律」，讓人民可以依法對抗政府的不當侵害。當政府濫用公權力、未經法定程序就剝奪人民自由時，公民應透過司法途徑（如提告、聲請人身保護令）來維護自己的權利。</div>
+      </div>
+
+      <div class="q" data-ch="ch1">
+        <p class="scenario"><span class="qnum">6.</span>2024 年初，一名患有自閉症的藝術家在巴黎舉辦個展，作品廣受好評。許多人對他的故事感到驚訝：「原來自閉症患者也能有這麼高的藝術天賦！」這種反應最能說明生命的哪一特性？</p>
+        <p class="ask">(A) 獨特性　(B) 有限性　(C) 平等性　(D) 延續性</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(A)</span>這位藝術家的故事提醒我們，每個人都是獨一無二的個體，不能用既有的刻板印象去預測或限制他人的可能性。生命的獨特性正是說明了每個人的潛能與特質無法被簡單歸類。</div>
+      </div>
+
+      <div class="q" data-ch="ch1">
+        <p class="scenario"><span class="qnum">7.</span>小傑在學校常被同學嘲笑「什麼都不會」，漸漸地他變得封閉、不願與任何人交流。若從自我發展的角度來看，小傑目前最需要的是什麼？</p>
+        <p class="ask">(A) 直接參加更多比賽來展現自我　(B) 先被協助認識自己的優點，進而建立自信　(C) 忽略嘲笑、繼續做原本的事　(D) 轉學以遠離嘲笑的環境</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>自我發展的第一步是「認識自我」——了解並發現自己的優缺點。小傑因為長期被否定，可能已經失去認識自己的能力與勇氣。因此，旁人應該先協助他發現自己的長處，讓他重新建立對自己的認識，然後才能走向肯定自我與展現自我。</div>
+      </div>
+
+      <div class="q" data-ch="ch1">
+        <p class="scenario"><span class="qnum">8.</span>2025 年台灣大罷免案引發社會討論，有學生在社群平台上發表「不配投票的人是垃圾」的言論。從人權的角度來看，這種說法最主要違反了什麼原則？</p>
+        <p class="ask">(A) 人權是政府恩賜的福利，不認同某人就沒資格享有　(B) 人權是「人而為人」即擁有的基本權利，不因政治立場而有差別　(C) 只有成年國民才享有人權　(D) 人權只保障多數人的權利</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>人權的核心原則是「人而為人」即享有，不因政治立場、國籍、年齡等因素而有差別。即使是持不同意見的人，也同樣擁有基本人權。貶低特定群體的言論，正是侵犯人性尊嚴的表現。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CHAPTER 2 ============ -->
+  <section class="chapter" id="ch2">
+
+    <div class="sec-title">2-1 性別差異 → 不平等</div>
+    <div class="card">
+      <table class="compare">
+        <tr><th>生理性別</th><td>依生理結構進行判斷（男女先天結構）</td></tr>
+        <tr><th>社會性別（性別角色）</th><td>依社會文化及大眾所抱持的標準表現出的樣子　ex：男醫生、女護士</td></tr>
+      </table>
+      <table class="compare" style="margin-top:10px;">
+        <tr><th>性別刻板印象</th><td>對某種性別固定、簡化的看法</td></tr>
+        <tr><th>性別偏見</th><td>當未達到社會期望，容易被他人負面評價　ex：帥的女生 → 被稱為男人婆</td></tr>
+        <tr><th>性別歧視</th><td>對某種性別產生偏見，並採取不公平的實際行動　ex：同工不同酬</td></tr>
+      </table>
+    </div>
+
+    <div class="sec-title">2-2 性別差異 → 不公平處境</div>
+    <div class="card">
+      <h3>檢視原則（是否公平的四個角度）</h3>
+      <p>要判斷某件事是否公平，可以從以下四個角度來檢視：</p>
+      <table class="compare">
+        <tr><th>角度</th><th>檢視重點</th><th>舉例說明</th></tr>
+        <tr><td><span class="key2">責任承擔</span></td><td>各項事務的分配是否合理？是否有人因為性別而被強加不合理的工作量？負擔事務的內容是否公平？</td><td>公司裡男性主管和女性主管承擔相同的責任，但女性同時被期望承擔更多「照顧型」的無償工作（如安排團隊聚餐、照顧新人），這屬於責任承擔不公平。</td></tr>
+        <tr><td><span class="key2">貢獻肯定</span></td><td>不同性別的付出與努力，是否獲得同等的認可與讚賞？社會是否對某些性別的貢獻有系統性的忽略或低估？</td><td>科學史上許多女性科學家的研究成果被歸功給男性同事（如羅莎琳．富蘭克林的 DNA 結構研究），這就是貢獻肯定不公平的典型案例。</td></tr>
+        <tr><td><span class="key2">利益分配</span></td><td>相同的付出是否能獲得相同的報酬與資源？薪資、升遷機會、資源取得是否因性別而有差異？</td><td>同工不同酬是最直接的不公平。根據 2024 年勞動部統計，台灣女性整體薪資仍低於男性約 86%，即使扣除產業與年資差異，性別薪資差距依然存在。</td></tr>
+        <tr><td><span class="key2">需求滿足</span></td><td>不同性別的實際需求是否被看見並被滿足？公共設施、政策設計是否能照顧到各種性別的需要？</td><td>公共廁所的男女廁位比例不均、男廁缺乏尿布台、婦產科門診不足等，都是需求未被平等滿足的例子。</td></tr>
+      </table>
+      <h3 style="margin-top:14px;">三種不公平的處境</h3>
+      <table class="compare">
+        <tr><th>類型</th><th>說明</th></tr>
+        <tr><td>性騷擾</td><td>以具有性意味、性別歧視之言行影響他人，使他人感到被冒犯或不安</td></tr>
+        <tr><td>性侵害</td><td>以脅迫或違反被害人意願，發生性行為　ex：#MeToo 運動揭露的大量案例</td></tr>
+        <tr><td>性霸凌</td><td>以暴力對待他人性向、性別特徵者，進行貶抑與排擠</td></tr>
+      </table>
+    </div>
+
+    <div class="sec-title">2-3 促進性別平等落實公平</div>
+    <div class="card">
+      <h3>四大領域的保障法律</h3>
+      <table class="compare">
+        <tr><th>面向</th><th>保障</th><th>相關法律</th></tr>
+        <tr><td>家庭</td><td>性別地位</td><td>民法親屬編</td></tr>
+        <tr><td>學校</td><td>受教權</td><td>性別平等教育法</td></tr>
+        <tr><td>工作場所</td><td>工作權</td><td>性別工作平等法</td></tr>
+        <tr><td>公共場域</td><td>性自主權</td><td>性騷擾防治法</td></tr>
+      </table>
+      <p class="note">校園性平事件處理流程：<span class="key2">申訴 → 受理 → 調查 → 彙報</span></p>
+    </div>
+
+    <!-- CH2 QUIZ -->
+    <div class="quiz-block">
+      <div class="sec-title purple">第二課 情境題練習</div>
+      <button class="toggle-all" data-target="ch2">全部展開／收合</button>
+
+      <div class="q" data-ch="ch2">
+        <p class="scenario"><span class="qnum">1.</span>2024 年，某科技公司被揭發其人工智慧系統在篩選履歷時，自動將女性求職者降分，因為訓練數據中過去錄取的多數為男性。這種現象最直接屬於下列哪一項？</p>
+        <p class="ask">(A) 生理性別差異　(B) 性別歧視　(C) 性別刻板印象而已　(D) 社會性別的自然展現</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>AI 系統因為過去的性別偏見數據而做出不公平的篩選結果，這已經從「看法」變成了「不公平的實際行動」，屬於性別歧視。即使沒有主觀惡意，結果上仍然造成了歧視性的差別待遇。</div>
+      </div>
+
+      <div class="q" data-ch="ch2">
+        <p class="scenario"><span class="qnum">2.</span>2024 年 10 月，台灣女籃國手李孟芳在國際賽事中拿下 MVP，但部分媒體報導仍稱她「打球像男生一樣兇」。這種敘述主要屬於下列何者？</p>
+        <p class="ask">(A) 性別歧視　(B) 性別偏見　(C) 生理性別差異　(D) 性霸凌</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>媒體以「像男生」來形容女運動員的表現，暗示「兇悍」是男性的特質，這是一種基於性別刻板印象的負面評價，屬於性別偏見。若進一步長期以言語或行為貶抑，則可能構成性霸凌。</div>
+      </div>
+
+      <div class="q" data-ch="ch2">
+        <p class="scenario"><span class="qnum">3.</span>根據 2024 年勞動部統計，台灣女性整體薪資約為男性的 86%。若兩家公司 A 和 B 的男女員工做完全相同的工作、年資也相同，但 A 公司的男女薪資差距為 20%、B 公司為 5%。從性別平等檢視原則來看，A 公司在哪個面向的不公平情況更為嚴重？</p>
+        <p class="ask">(A) 責任承擔　(B) 貢獻肯定　(C) 利益分配　(D) 需求滿足</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(C)</span>同工不同酬屬於「利益分配」不公平。A 公司的薪資差距更大，代表其利益分配的不公平程度更嚴重。責任承擔是指工作量是否公平，貢獻肯定是努力是否被肯定，需求滿足是指實際需要是否被照顧到。</div>
+      </div>
+
+      <div class="q" data-ch="ch2">
+        <p class="scenario"><span class="qnum">4.</span>2024 年，台中市政府在市政大樓增設親子廁所，讓爸爸帶幼兒上廁所時有空間可以換尿布、整理衣物。這項措施主要呼應了性別平等檢視原則中的哪一項？</p>
+        <p class="ask">(A) 責任承擔　(B) 貢獻肯定　(C) 利益分配　(D) 需求滿足</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(D)</span>過去公共設施設計多以女性為主要照顧者的假設來規劃，導致男性在獨自照顧幼兒時缺乏便利設施。增設親子廁所正是看見並滿足男性照顧者的實際需求，屬於需求滿足面向的改善。</div>
+      </div>
+
+      <div class="q" data-ch="ch2">
+        <p class="scenario"><span class="qnum">5.</span>2024 年，高雄某高中傳出男學生在社群平台上長期以「娘娘腔」嘲笑一位性向不同的同學，甚至將對方照片惡搞上傳。該同學身心受到嚴重影響，最終需要接受心理諮商。這屬於下列何種不公平處境？</p>
+        <p class="ask">(A) 性騷擾　(B) 性侵害　(C) 性霸凌　(D) 性別偏見而已</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(C)</span>長期以言語嘲笑他人性向、惡搞照片並造成對方身心傷害，這已經超越了單純的性別偏見，屬於以持續性行為對他人性別特徵進行貶抑與傷害，符合性霸凌的定義。</div>
+      </div>
+
+      <div class="q" data-ch="ch2">
+        <p class="scenario"><span class="qnum">6.</span>2024 年，台大舉辦「性別平等講座」，講者提到某大學教授曾對女學生說出具有性暗示的言論，女學生感到被冒犯但不確定該如何處理。請問依照校園性平事件處理流程，她應該優先採取哪個步驟？</p>
+        <p class="ask">(A) 申訴 → 受理 → 調查 → 彙報　(B) 直接在社群平台公開指控　(C) 私下找教授對質　(D) 不予理會、當作沒發生</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(A)</span>校園性平事件有明確的法定處理流程：先向學校提出申訴，學校受理后會組成調查委員會進行調查，最後彙報結果。這個流程保障當事人權益，也確保調查的公正性。直接公開或私下處理都可能讓當事人處於更不利的處境。</div>
+      </div>
+
+      <div class="q" data-ch="ch2">
+        <p class="scenario"><span class="qnum">7.</span>2024 年，日本通過法案允許企業在招聘時不得因性別而差別待遇，違反者可被罰款。若一家台灣企業在應徵條件上寫「限男性」，理由為「這個職位需要體力，所以一直只收男性」，這種做法最主要違反了哪一部法律的保障範圍？</p>
+        <p class="ask">(A) 民法親屬編（性別地位）　(B) 性別平等教育法（受教權）　(C) 性別工作平等法（工作權）　(D) 性騷擾防治法（性自主權）</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(C)</span>應徵條件涉及工作場所的錄用權利，屬於性別工作平等法規範的範圍。該法保障工作權不因性別而受歧視，企業不能以「體力」等理由作為拒絕女性應徵的合法藉口。</div>
+      </div>
+
+      <div class="q" data-ch="ch2">
+        <p class="scenario"><span class="qnum">8.</span>下列關於性別概念與法律的敘述，何者完全正確？</p>
+        <p class="ask">(A) 生理性別會因後天環境而改變；性別角色是依社會文化與大眾標準所形塑，並非天生固定　(B) 性別歧視只是單純的個人看法，沒有實際行動；性騷擾一定伴隨性行為的發生　(C) 性別平等教育法保障的是工作權；性別工作平等法保障的是受教權　(D) 社會性別與生理性別完全相同，都是先天決定的</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(A)</span>生理性別依生理結構判斷，屬先天；社會性別（性別角色）則是後天依社會文化與期待形塑而成。其餘選項皆錯誤：性別歧視須有不公平的「實際行動」；性騷擾未必涉及性行為（性侵害才涉及性行為）；性別平等教育法保障受教權、性別工作平等法保障工作權。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CHAPTER 3 ============ -->
+  <section class="chapter" id="ch3">
+
+    <div class="sec-title">3-1 家庭組成與親屬關係</div>
+    <div class="card">
+      <p><span class="key">家庭</span>：由具有婚姻、血緣或收養等親屬關係的人組成，以永久生活為目的的團體，是<span class="key2">社會組成的基本單位</span>。</p>
+    </div>
+
+    <div class="card">
+      <h3>互動親屬關係圖（點一下節點看說明）</h3>
+      <div class="tree-wrap">
+        <svg class="tree" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
+          <path class="tree-line" d="M360,55 L360,85"/>
+          <path class="tree-line" d="M150,85 L610,85"/>
+          <path class="tree-line" d="M150,85 L150,120"/>
+          <path class="tree-line" d="M360,85 L360,120"/>
+          <path class="tree-line" d="M610,85 L610,120"/>
+          <path class="tree-line" d="M360,155 L235,190"/>
+          <path class="tree-line" d="M360,155 L485,190"/>
+          <path class="tree-line" d="M610,155 L610,190"/>
+
+          <g class="tree-node" data-info="配偶：因婚姻而產生的親屬關係，是家庭組成最核心的一組關係。">
+            <rect x="290" y="18" width="140" height="37" rx="8"/>
+            <text x="360" y="41" text-anchor="middle">親屬關係</text>
+          </g>
+
+          <g class="tree-node" data-info="血親：具有血緣關係的人。分為自然血親（天生血緣）與法定血親（透過收養擬制而來，視同自然血親）。">
+            <rect x="290" y="120" width="140" height="37" rx="8"/>
+            <text x="360" y="143" text-anchor="middle">血親</text>
+          </g>
+          <g class="tree-node" data-info="配偶：夫妻雙方，因結婚而互為配偶，是姻親、血親以外獨立的一類親屬。">
+            <rect x="82" y="120" width="140" height="37" rx="8"/>
+            <text x="150" y="143" text-anchor="middle">配偶</text>
+          </g>
+          <g class="tree-node" data-info="姻親：因婚姻而產生的親屬關係，包含「血親的配偶」「配偶的血親」「配偶的血親的配偶」（ex：妯娌＝兄弟的妻子、連襟＝姐妹的丈夫）。注意：親家是「配偶的父母」，並不屬於姻親。">
+            <rect x="540" y="120" width="140" height="37" rx="8"/>
+            <text x="610" y="143" text-anchor="middle">姻親</text>
+          </g>
+
+          <g class="tree-node" data-info="直系血親：與自己有直接血緣關係者，如生你的人（父母、祖父母）或你所生的人（子女、孫子女）。">
+            <rect x="165" y="190" width="140" height="40" rx="8"/>
+            <text x="235" y="215" text-anchor="middle">直系血親</text>
+          </g>
+          <g class="tree-node" data-info="旁系血親：非直系但仍有血緣關係的其他親屬，如兄弟姊妹、伯叔姑舅姨等。">
+            <rect x="415" y="190" width="140" height="40" rx="8"/>
+            <text x="485" y="215" text-anchor="middle">旁系血親</text>
+          </g>
+          <g class="tree-node" data-info="法定血親（擬制血親）：經由法定程序辦理收養而成立，視同自然血親，享有相同的權利義務。繼父母＝血親的配偶，屬於姻親，並非血親。">
+            <rect x="540" y="190" width="140" height="40" rx="8"/>
+            <text x="610" y="215" text-anchor="middle">法定血親（收養）</text>
+          </g>
+        </svg>
+      </div>
+      <div id="tree-info">點選上方任一方框，查看該親屬關係的說明。</div>
+    </div>
+
+    <div class="card">
+      <h3>民法規範親子間的權利與義務</h3>
+      <ul>
+        <li>賦予父母<span class="key2">親權</span>，得以適當管教及照顧子女</li>
+        <li>父母年老時，子女也應負起照顧之責任</li>
+      </ul>
+    </div>
+
+    <div class="sec-title">3-2 家庭型態</div>
+    <div class="card">
+      <h3>基本型態</h3>
+      <table class="compare">
+        <tr><th>型態</th><th>組成</th><th>又稱</th></tr>
+        <tr><td>小家庭</td><td>一對夫妻及其未婚子女</td><td>核心家庭</td></tr>
+        <tr><td>折衷家庭</td><td>小家庭＋此對夫妻的直系長輩（ex：祖父母）</td><td>三代家庭</td></tr>
+        <tr><td>大家庭</td><td>由數個小家庭組成</td><td>血緣家庭 / 聯合家庭</td></tr>
+      </table>
+      <h3 style="margin-top:14px;">多元 / 新型態家庭</h3>
+      <ul>
+        <li><span class="key2">頂客家庭</span>：不生小孩且雙薪</li>
+        <li><span class="key2">雙薪家庭</span>：夫妻皆有工作收入</li>
+        <li><span class="key2">單親家庭</span>：僅由父或母及子女組成</li>
+        <li><span class="key2">重組家庭</span>：帶著前次婚姻的小孩，再組家庭（繼親）</li>
+        <li><span class="key2">兩地家庭</span>：又稱通勤家庭</li>
+        <li><span class="key2">隔代教養家庭</span>：由祖父母和孫子女組成的家庭</li>
+        <li><span class="key2">新移民家庭</span>：因跨國婚姻組成的家庭</li>
+        <li>其他：同婚家庭、單身家戶、夫婦子姓家</li>
+      </ul>
+      <p class="note">新型態家庭興起的原因：婚姻觀趨向自由、生育觀轉變（少子化）、居住與就業場所變遷、女性就業提升。</p>
+    </div>
+
+    <div class="sec-title">3-3 家庭功能：古今對照</div>
+    <div class="card">
+      <table class="compare">
+        <tr><th>功能</th><th>古</th><th>今</th></tr>
+        <tr><td>生育</td><td>生育多，勞動力充足</td><td>少生、不生、領養</td></tr>
+        <tr><td>教育</td><td>家庭影響最大</td><td>大眾傳播媒體、教育機構取代部分</td></tr>
+        <tr><td>經濟</td><td>自給自足，以生產為主</td><td>以消費為主</td></tr>
+        <tr><td>保護與照顧</td><td>相互支援</td><td>社會福利、醫療與安養機構取代部分</td></tr>
+      </table>
+    </div>
+
+    <div class="sec-title">家庭的衝突</div>
+    <div class="card">
+      <p>常見衝突來源：<span class="key2">意見與習慣</span>、<span class="key2">家務分工</span>、<span class="key2">經濟事務</span>。</p>
+    </div>
+
+    <div class="sec-title">家庭難題與因應</div>
+    <div class="card">
+      <table class="compare">
+        <tr><th>難題</th><th>因應</th></tr>
+        <tr><td>少子化</td><td>政策：生育、養育、教育補助</td></tr>
+        <tr><td>幼兒照顧</td><td>托育補助</td></tr>
+        <tr><td>高齡化</td><td>長照十年計畫</td></tr>
+        <tr><td>老人安養</td><td>三代同堂（居）</td></tr>
+        <tr><td>離婚率上升</td><td>經濟、托育補助</td></tr>
+        <tr><td>跨國婚姻</td><td>教育課程</td></tr>
+        <tr><td>家庭暴力</td><td>停止親權、聲請保護令</td></tr>
+      </table>
+      <h3 style="margin-top:14px;">相關法源比較</h3>
+      <table class="compare">
+        <tr><th>事項</th><th>法源</th></tr>
+        <tr><td>收養</td><td>民法</td></tr>
+        <tr><td>監護宣告</td><td>民法</td></tr>
+        <tr><td>保護令</td><td>家庭暴力防治法</td></tr>
+        <tr><td>停止親權</td><td>民法</td></tr>
+      </table>
+      <p class="note">平權家庭的目標：落實<span class="key2">性別、親子平權</span>。</p>
+    </div>
+
+    <!-- CH3 QUIZ -->
+    <div class="quiz-block">
+      <div class="sec-title purple">第三課 情境題練習</div>
+      <button class="toggle-all" data-target="ch3">全部展開／收合</button>
+
+      <div class="q" data-ch="ch3">
+        <p class="scenario"><span class="qnum">1.</span>2025 年，小華的媽媽再婚，帶著小華與繼父同住，後來小華的哥哥也結婚了。請問小華的繼父與小華的嫂子之間，在法律上的親屬關係分別為何？</p>
+        <p class="ask">(A) 直系血親、姻親（配偶的血親）　(B) 旁系血親、姻親（血親的配偶）　(C) 姻親（血親的配偶）、姻親（配偶的血親的配偶）　(D) 法定血親、旁系血親</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(C)</span>小華的繼父是小華媽媽（血親）的配偶，屬於姻親（血親的配偶）。小華的嫂子是小華哥哥（配偶的血親）的配偶，屬於姻親（配偶的血親的配偶）。直系血親需有血緣或收養關係，旁系血親則是同源血親，兩者皆不符合。</div>
+      </div>
+
+      <div class="q" data-ch="ch3">
+        <p class="scenario"><span class="qnum">2.</span>小明的媽媽在 2024 年再婚，繼父對小明視如己出，但兩人並無血緣關係。請問繼父與小明之間在法律上屬於下列何種關係？</p>
+        <p class="ask">(A) 直系血親　(B) 旁系血親　(C) 姻親（血親的配偶）　(D) 法定血親</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(C)</span>繼父是小明血親（媽媽）的配偶，屬於姻親，而非血親。若繼父依法辦理收養，才能成為法定血親（擬制血親），但題目未提及收養程序。</div>
+      </div>
+
+      <div class="q" data-ch="ch3">
+        <p class="scenario"><span class="qnum">3.</span>2024 年，政府推出「青安貸款」與「社會住宅」政策，幫助年輕夫妻更容易在都市買房或租房。這對夫妻若只與未成年子女同住，他們屬於哪一種家庭型態？若他們決定搬回與祖父母同住，家庭型態又會變成什麼？</p>
+        <p class="ask">(A) 小家庭 → 大家庭　(B) 小家庭 → 折衷家庭　(C) 頂客家庭 → 折衷家庭　(D) 折衷家庭 → 大家庭</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>一對夫妻及其未婚子女同住為小家庭（核心家庭）。搬回與祖父母同住後，等於小家庭加上直系長輩（三代同堂），變為折衷家庭（三代家庭）。大家庭則是由數個小家庭組成，例如兄弟各自成家後仍住在一起。</div>
+      </div>
+
+      <div class="q" data-ch="ch3">
+        <p class="scenario"><span class="qnum">4.</span>2024 年，台灣某偏鄉小學的學生多數由祖父母照顧生活起居，父母在外地打工。老師發現這些孩子的課業表現普遍落後，社區也缺乏完善的托育與課後輔導資源。從家庭型態與家庭難題的角度來看，這些孩子面臨的是哪些問題？</p>
+        <p class="ask">(A) 隔代教養家庭＋少子化　(B) 隔代教養家庭＋幼兒照顧困難　(C) 重組家庭＋高齡化　(D) 兩地家庭＋離婚率上升</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>由祖父母和孫子女組成、實際負責照顧責任的家庭屬於隔代教養家庭。偏鄉缺乏托育與課後輔導資源，正是幼兒照顧困難的體現。少子化是指生育率下降，與題目描述的現象無直接關聯。</div>
+      </div>
+
+      <div class="q" data-ch="ch3">
+        <p class="scenario"><span class="qnum">5.</span>2024 年，台灣推動「共學型青銀共居」計畫，讓大學生的租屋空間與獨居長輩共享，學生以陪伴長輩來折抵部分租金。這項計畫主要回應了下列哪一項家庭難題？</p>
+        <p class="ask">(A) 少子化　(B) 高齡化與老人安養　(C) 離婚率上升　(D) 跨國婚姻</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>青銀共居計畫讓年輕人與獨居長輩共同生活，一方面解決老人的安養與陪伴需求，另一方面也促進代間互動。這正是回應高齡化社會中老人安養的難題。</div>
+      </div>
+
+      <div class="q" data-ch="ch3">
+        <p class="scenario"><span class="qnum">6.</span>2024 年，某縣市爆發一起家庭暴力案件，施暴者被法院裁定停止親權，同時受暴者聲請了保護令。請問這兩項措施分別依據哪一部法律？</p>
+        <p class="ask">(A) 停止親權依民法、保護令依家庭暴力防治法　(B) 兩者皆依民法　(C) 兩者皆依家庭暴力防治法　(D) 停止親權依家庭暴力防治法、保護令依民法</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(A)</span>停止親權的法源為民法（規範親子間的權利義務）；保護令的法源為家庭暴力防治法。這兩個措施的目的不同：停止親權是剝奪施暴者對子女的管教權；保護令則是禁止施暴者接近受暴者。</div>
+      </div>
+
+      <div class="q" data-ch="ch3">
+        <p class="scenario"><span class="qnum">7.</span>2024 年，台灣結婚登記對數再創新低，但同時選擇不生育、專心經營事業與生活品質的夫妻比例卻逐年上升。這些夫妻多數擁有雙份收入、居住在城市、養寵物而非小孩。這種家庭型態稱為？</p>
+        <p class="ask">(A) 折衷家庭　(B) 頂客家庭　(C) 單親家庭　(D) 大家庭</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>不生小孩且雙薪的夫妻家庭，即為頂客家庭（DINK，Double Income No Kids）。這類家庭型態的興起與少子化趨勢、女性就業率提升、婚姻觀趨向自由等因素有關。</div>
+      </div>
+
+      <div class="q" data-ch="ch3">
+        <p class="scenario"><span class="qnum">8.</span>下列有關家庭功能古今變遷的敘述，何者正確？</p>
+        <p class="ask">(A) 古代經濟功能以消費為主、今日以生產為主　(B) 今日生育功能趨向少生、不生或領養，古代則以生育多、勞動力充足為主　(C) 今日保護與照顧功能完全由家庭獨自承擔　(D) 古代教育功能主要由大眾媒體提供</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>今日少子化趨勢明顯，生育功能轉為少生、不生、領養；古代經濟功能是自給自足的生產、教育以家庭為主，今日保護照顧部分則由社福與安養機構分擔。</div>
+      </div>
+
+      <div class="q" data-ch="ch3">
+        <p class="scenario"><span class="qnum">9.</span>2025 年，政府宣布將長照十年計畫的預算擴大 30%，並新增「居家醫療」與「社區日照」兩項服務，希望讓更多長輩能在熟悉的環境中接受照護。這項政策主要是在因應哪一項家庭難題？</p>
+        <p class="ask">(A) 少子化　(B) 高齡化　(C) 離婚率上升　(D) 跨國婚姻</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>長照十年計畫是因應高齡化社會、老人安養需求所推出的政策。居家醫療與社區日照的擴增，正是讓長輩能在熟悉環境中獲得照護，減輕家庭的照顧負擔。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 綜合 1-3 課 ============ -->
+  <section class="chapter" id="ch-all">
+
+    <div class="quiz-block">
+      <div class="sec-title">綜合情境題（1~3 課）</div>
+      <button class="toggle-all" data-target="ch-all">全部展開／收合</button>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">1.</span>2024 年，台灣某科技公司被揭發女性員工薪資平均低於男性同事 14%。一名女性員工發現此事後，在內部會議上提出質疑，卻被主管批評「女生就應該安靜點，不要太強勢」。從性別平等檢視原則來看，主管的言論涉及哪個面向的不公平？該公司的薪資落差又違反了哪個面向？</p>
+        <p class="ask">(A) 責任承擔＋利益分配　(B) 貢獻肯定＋利益分配　(C) 需求滿足＋責任承擔　(D) 利益分配＋需求滿足</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>主管以「女生就應該安靜點」否定女性員工的發聲，屬於貢獻肯定不公平（女性表達意見未被同等肯定）；薪資差距 14% 屬於利益分配不公平（同工不同酬）。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">2.</span>阿明的家庭狀況如下：爸爸因家暴被法院裁定停止親權，媽媽聲請了保護令；阿明平日由爺爺奶奶照顧，爸爸媽媽在外地工作。請問阿明的家庭型態、面臨的難題、以及相關法源依序為何？</p>
+        <p class="ask">(A) 折衷家庭＋離婚率上升＋民法　(B) 隔代教養家庭＋家庭暴力＋家庭暴力防治法＋民法　(C) 重組家庭＋家庭暴力＋民法　(D) 兩地家庭＋家庭暴力＋家庭暴力防治法</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>阿明由祖父母照顧，屬於隔代教養家庭；爸爸家暴涉及家庭暴力難題；停止親權依法源為民法，保護令依法源為家庭暴力防治法。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">3.</span>2024 年，某國中男學生在社團活动中長期被同學嘲笑「男生怎麼會想當護士」，甚至被排擠。該學生因此產生自我懷疑，覺得自己「選錯了路」。從自我發展與性別平等的角度來看，這位學生面臨的困境涉及下列哪些概念？</p>
+        <p class="ask">(A) 性別歧視＋肯定自我受阻　(B) 性別偏見＋認識自我受阻　(C) 性別刻板印象＋展現自我受阻　(D) 性霸凌＋肯定自我受阻</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(C)</span>「男生怎麼會想當護士」是典型的性別刻板印象（對性別的固定看法），而排擠行為使學生不敢將自己的興趣與才能向外呈現，屬於展現自我受阻。尚未構成性霸凌（需有暴力或持續貶抑）。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">4.</span>2025 年，台灣政府擴大「托育補助」範圍，同時也推動「青銀共居」計畫。這兩項政策分別在回應哪一項家庭難題？若某新移民家庭因為語言障礙而難以取得這些資訊，他們還需要額外滿足哪個檢視原則？</p>
+        <p class="ask">(A) 幼兒照顧＋高齡化＋需求滿足　(B) 少子化＋老人安養＋貢獻肯定　(C) 幼兒照顧＋高齡化＋責任承擔　(D) 離婚率上升＋高齡化＋利益分配</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(A)</span>托育補助回應幼兒照顧難題；青銀共居回應高齡化與老人安養難題。新移民家庭因語言障礙難以取得資訊，屬於他們的需求未被看見與滿足，涉及需求滿足原則。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">5.</span>小華是一位身心障礙者，他在學校常因行動不便而被同學嘲笑「走路很奇怪」。小華因此變得封閉，不願參加任何班級活動。從三個課的綜合觀點來看，下列敘述何者正確？</p>
+        <p class="ask">(A) 同學的行為僅屬於性別偏見；小華需要認識自我　(B) 同學的行為屬於性霸凌；小華需要肯定自我　(C) 同學的行為侵犯了小華的人性尊嚴；小華目前最需要的是肯定自我　(D) 學校應提供資源屬於需求層次中的愛與歸屬</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(C)</span>嘲笑身心障礙者侵犯了其人性尊嚴（每個人都應受平等尊重）。小華因長期被否定而封閉，最需要的是肯定自我（重新建立自信）。這不屬於性別相關的偏見或霸凌。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">6.</span>2024 年，某企業規定「女性員工懷孕後必須離職」，理由是「懷孕會影響工作效率」。這項規定同時違反了下列哪些原則與法律？</p>
+        <p class="ask">(A) 性別歧視＋性別工作平等法＋需求滿足　(B) 性別刻板印象＋性別平等教育法＋責任承擔　(C) 性騷擾＋性騷擾防治法＋利益分配　(D) 性別偏見＋民法親屬編＋貢獻肯定</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(A)</span>以懷孕為由要求女性離職屬於性別歧視（不公平的實際行動）；涉及工作場所的錄用權利，違反性別工作平等法；同時，未能依照女性員工的實際需求提供合理工作條件，也違反需求滿足原則。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">7.</span>阿杰的媽媽是一位外籍配偶，阿杰在學校因為媽媽的口音和膚色不同而常被同學取笑。阿杰因此覺得自己「不如別人」，甚至不想帶媽媽來學校。從三課的綜合觀點來看，阿杰面臨的核心問題是什麼？</p>
+        <p class="ask">(A) 阿杰的家庭屬於隔代教養家庭，需要托育補助　(B) 阿杰因家庭背景被嘲笑，自我肯定受阻，且同學的行為侵犯了人性尊嚴　(C) 阿杰的媽媽屬於新移民，需要申請家庭暴力防治法的保護令　(D) 阿杰的家庭屬於重組家庭，教育功能已被學校取代</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>阿杰因為家庭背景（新移民家庭）被嘲笑，導致自我肯定受阻（覺得自己不如別人）。同學的行為是基於差異的歧視，侵犯了每個人應受平等尊重的人性尊嚴。這不是隔代教養或家庭暴力問題。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">8.</span>2024 年，某公司男性員工因需照顧幼子而申請育嬰假，卻被主管以「照顧小孩是媽媽的事」為由拒絕。從性別平等檢視原則來看，主管的拒絕理由涉及哪一種性別概念的不合理延伸？若該員工最終透過法律途徑成功申請到育嬰假，這又體現了哪一項人權保障做法？</p>
+        <p class="ask">(A) 性別刻板印象＋制定法律維護人權　(B) 性別偏見＋政府提供資源　(C) 性別歧視＋政府提供資源　(D) 性別刻板印象＋政府提供資源</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(A)</span>「照顧小孩是媽媽的事」是性別刻板印象（對性別角色的固定看法）。員工透過法律途徑成功申請育嬰假，體現了人權保障做法之二：制定法律，讓民眾依法主張自身權益。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">9.</span>2025 年初，一位 18 歲的年輕人因為參與社會運動被捕，其家人發現政府並未依法定程序告知其家屬，也未提供律師協助。這位年輕人的遭遇同時涉及了哪些概念？</p>
+        <p class="ask">(A) 人性尊嚴受侵害＋人權保障做法一（提供資源）　(B) 人性尊嚴受侵害＋人權保障做法二（制定法律）＋生命的平等性　(C) 自我展現受阻＋需求層次中的尊重需求　(D) 性別歧視＋人權保障做法二</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>未經法定程序拘留、未告知家屬、未提供律師，侵犯了個人的人性尊嚴（獨立自主的個體應受尊重）。人權保障做法之二是制定法律，讓人民可依法主張權益。同時，政府對所有人應平等對待，涉及生命的平等性。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">10.</span>小玲的爸爸媽媽離婚後，小玲跟媽媽住，但媽媽工作很忙，小玲平日由外婆照顧。小玲的媽媽再婚後，新爸爸對小玲很好，但小玲的奶奶卻不願意讓新爸爸來探視。從親屬關係與家庭型態的角度來看，下列敘述何者正確？</p>
+        <p class="ask">(A) 新爸爸與小玲屬於法定血親，奶奶有權阻止他探視　(B) 新爸爸與小玲屬於姻親（血親的配偶），若未辦理收養則非血親　(C) 外婆與小玲屬於旁系血親，因此有照顧義務　(D) 小玲的家庭屬於折衷家庭</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>新爸爸是小玲血親（媽媽）的配偶，屬於姻親，並非血親。若未辦理收養程序，法律上仍非血親關係。外婆與小玲屬於直系血親（非旁系）。小玲的家庭屬於單親家庭加隔代教養的複合型態。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">11.</span>2024 年，某高中爆發一起事件：一名女學生在 IG 上發文抱怨「女生就是要負責做班級美勞」，引發熱議。部分同學認為這是性別偏見，部分同學則認為這是合理分工。若從性別平等檢視原則的「責任承擔」角度來分析，下列哪一項論述最合理？</p>
+        <p class="ask">(A) 美勞屬於女生的專長，由女生負責是合理的責任分配　(B) 班級事務應依個人興趣與能力分配，而非依性別指派，否則即為責任承擔不公平　(C) 只要全班投票通過，由女生負責就不算不公平　(D) 責任承擔只適用於職場，不適用於校園</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>責任承擔檢視的是事務分配是否合理。以性別作為分工的唯一標準，等於強加特定性別不合理的工作量，屬於責任承擔不公平。合理分工應依個人意願與能力，而非性別。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">12.</span>一位偏鄉醫師一生奉獻於當地醫療，過世後當地居民為他設立紀念館。他的兒子繼承了他的志向，也成為一名醫師並回到偏鄉服務。這個故事最能同時呼應生命的哪些特性？</p>
+        <p class="ask">(A) 獨特性＋有限性　(B) 延續性＋獨特性　(C) 延續性＋無常性　(D) 有限性＋平等性</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>醫師的精神與志業透過兒子延續下去，屬於生命的延續性。同時，這位醫師選擇偏鄉醫療的道路是獨一無二的個人選擇，體現了生命的獨特性。故事未涉及無常或平等性的面向。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">13.</span>2024 年，台灣某地方政府在公共建設預算中，將男女廁位的比例從 1:2 調整為 1:1.5。這項措施主要回應了性別平等檢視原則中的哪一項？若某位女學生因此更願意出門參與社團活動，這對她的自我發展有何幫助？</p>
+        <p class="ask">(A) 需求滿足＋有助於認識自我　(B) 需求滿足＋有助於展現自我　(C) 利益分配＋有助於肯定自我　(D) 責任承擔＋有助於展現自我</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>調整廁位比例是為了滿足女性實際需求，屬於需求滿足。女學生因此更願意外出參與活動，能將自己的能力與興趣向外展現，屬於展現自我的推動力。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">14.</span>阿偉的家庭在 2024 年經歷了以下變化：爸爸失業後，媽媽成為家中唯一收入來源；阿偉的姊姊結婚後搬到外地，但每逢過年仍會回娘家；爺爺奶奶則因為健康因素搬入安養機構。請問阿偉家目前的家庭型態最接近哪一種？爺爺奶奶的情況反映了哪一項家庭功能的變遷？</p>
+        <p class="ask">(A) 雙薪家庭＋教育功能被取代　(B) 單親家庭＋保護與照顧功能被取代　(C) 小家庭＋保護與照顧功能被取代　(D) 折衷家庭＋經濟功能轉變</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(C)</span>阿偉與父母同住，屬於小家庭（核心家庭）。爺爺奶奶搬入安養機構，反映了「保護與照顧」功能部分由社會福利與安養機構取代的古今變遷。目前媽媽是家中唯一收入來源，不屬於雙薪家庭。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">15.</span>2024 年，一名男大生在課堂上舉手回答問題，被教授當眾批評「男生就是愛出風頭，答案也是亂猜的」。該學生事後表示：「我從此不敢在課堂上發言了。」從三課的綜合觀點來看，教授的行為與學生的反應分別涉及哪些概念？</p>
+        <p class="ask">(A) 教授：性別偏見；學生：肯定自我受阻　(B) 教授：性別歧視；學生：展現自我受阻　(C) 教授：性別刻板印象；學生：認識自我受阻　(D) 教授：性別歧視；學生：認識自我受阻</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>教授的言論不只是「看法」，而是在公開場合對學生做出不公平的評價與對待，屬於性別歧視（有實際行動）。學生因此不敢發言，是展現自我受阻（無法將能力與想法向外呈現）。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">16.</span>2025 年，台灣推動「數位包容」計畫，提供免費平板與網路給偏鄉學童，同時也針對新移民子女提供母語輔助教材。這兩項措施分別呼應了哪些概念？</p>
+        <p class="ask">(A) 人權保障做法一（提供資源）＋需求滿足　(B) 人權保障做法二（制定法律）＋貢獻肯定　(C) 需求的生理層次＋性別平等　(D) 人權保障做法一（提供資源）＋利益分配</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(A)</span>提供免費平板與網路屬於政府提供資源以達成必要條件，是人權保障做法一。針對新移民子女提供母語教材，是看見並滿足其特殊需求，屬於需求滿足原則。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">17.</span>小琪是一位雙胞胎之一，她與姊姊長得非常像，但個性完全不同：姊姊外向活潑，小琪則內向安靜。小琪的姊姊在班上很受歡迎，小琪卻常因為「不夠活潑」而被忽略。小琪的媽媽安慰她：「你們各有特色，不需要比較。」從三課的角度來看，媽媽的話同時呼應了哪些概念？</p>
+        <p class="ask">(A) 生命的獨特性＋肯定自我　(B) 生命的延續性＋認識自我　(C) 生命的無常性＋展現自我　(D) 生命的平等性＋需求層次中的尊重</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(A)</span>「各有特色，不需要比較」呼應了生命的獨特性——每個人都不同，有其獨特的價值。同時，媽媽的話也在幫助小琪肯定自我（不因與姊姊的比較而否定自己）。</div>
+      </div>
+
+      <div class="q" data-ch="ch-all">
+        <p class="scenario"><span class="qnum">18.</span>2025 年，某企業女員工多次遭到主管以「身材評論」方式開玩笑，令她感到極度不舒服。該員工向公司申訴後，主管不但沒有改進，反而在會議中暗示她是「小題大做」，使她在公司中被同事孤立。若以三課的綜合觀點來分析，下列哪一項敘述最為正確？</p>
+        <p class="ask">(A) 主管的行為屬於性別偏見，該員工目前最需要的是政府提供資源　(B) 主管的行為屬於性騷擾，且以言語孤立受害者，侵犯了她的人性尊嚴　(C) 主管的行為屬於性霸凌，違反了性別平等教育法　(D) 該員工的遭遇屬於需求層次中的生理需求未滿足</p>
+        <button class="reveal-btn">看解析</button>
+        <div class="answer"><span class="ans-tag">答：(B)</span>主管以具有性意味的言論（身材評論）對女員工開玩笑，已使對方感到被冒犯與不安，符合性騷擾的定義。事後主管在會議中暗示員工「小題大做」，導致她被同事孤立，這不僅是性騷擾的後續傷害，更侵犯了每個人應受平等尊重的人性尊嚴。性霸凌通常發生在校園中且以暴力或持續性貶抑為特徵；性別平等教育法適用於學校場域，不適用于職場；此案例也不屬於生理需求層面。</div>
+      </div>
+    </div>
+  </section>
+
+  <p class="final-note">整理自課堂筆記與講義重點．點擊題目下方按鈕即可查看詳解</p>
+</div>
+
+<script>
+  // Tab switching
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const chapters = document.querySelectorAll('.chapter');
+  tabBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabBtns.forEach(b=>b.classList.remove('active'));
+      chapters.forEach(c=>c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  // Reveal answer buttons
+  document.querySelectorAll('.reveal-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const ans = btn.nextElementSibling;
+      const showing = ans.classList.toggle('show');
+      btn.textContent = showing ? '收合解析' : '看解析';
+    });
+  });
+
+  // Toggle-all per chapter
+  document.querySelectorAll('.toggle-all').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const chapter = btn.dataset.target;
+      const answers = document.querySelectorAll('.q[data-ch="'+chapter+'"] .answer');
+      const anyHidden = Array.from(answers).some(a=>!a.classList.contains('show'));
+      answers.forEach(a=>{
+        a.classList.toggle('show', anyHidden);
+        const b = a.previousElementSibling;
+        b.textContent = anyHidden ? '收合解析' : '看解析';
+      });
+    });
+  });
+
+  // Family tree interactivity
+  document.querySelectorAll('.tree-node').forEach(node=>{
+    node.addEventListener('click', ()=>{
+      document.getElementById('tree-info').textContent = node.dataset.info;
+    });
+  });
+
+  // 綜合測驗 tab 開關
+  const allTabBtn = document.querySelector('.tab-btn[data-tab="ch-all"]');
+  if(allTabBtn){
+    allTabBtn.addEventListener('click', ()=>{
+      tabBtns.forEach(b=>b.classList.remove('active'));
+      chapters.forEach(c=>c.classList.remove('active'));
+      allTabBtn.classList.add('active');
+      document.getElementById('ch-all').classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  }
+</script>
+</body>
+</html>
