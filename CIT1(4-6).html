@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>七上公民｜第4～6課 互動講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mud:#8B7355;
+    --reed:#C4A882;
+    --tide:#4A7C7E;
+    --sky:#B8D4D8;
+    --soil:#2C1810;
+    --paper:#F7F3EC;
+    --ink:#1A1612;
+    --seal:#B33A2E;
+    --line: rgba(44,24,16,0.15);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans TC",sans-serif;
+    line-height:1.8;
+    position:relative;
+  }
+  body::before{
+    content:"部落 公民 家庭 校園";
+    position:fixed;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%) rotate(-18deg);
+    font-family:"Noto Serif TC",serif;
+    font-size:9vw;
+    font-weight:900;
+    color:var(--mud);
+    opacity:0.045;
+    white-space:nowrap;
+    pointer-events:none;
+    z-index:0;
+  }
+  header{
+    padding:44px 20px 28px;
+    text-align:center;
+    border-bottom:0.5px solid var(--line);
+    position:relative;
+    z-index:1;
+  }
+  header h1{
+    font-family:"Noto Serif TC",serif;
+    font-weight:900;
+    font-size:clamp(26px,4vw,40px);
+    margin:0 0 8px;
+    letter-spacing:2px;
+  }
+  header p{
+    margin:0;
+    color:var(--mud);
+    font-size:14px;
+    letter-spacing:3px;
+  }
+
+  nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(247,243,236,0.96);
+    backdrop-filter:blur(6px);
+    border-bottom:0.5px solid var(--line);
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:6px;
+    padding:12px 10px;
+  }
+  nav button{
+    font-family:"Noto Serif TC",serif;
+    font-weight:700;
+    font-size:14px;
+    padding:9px 18px;
+    border-radius:999px;
+    border:0.5px solid var(--mud);
+    background:transparent;
+    color:var(--soil);
+    cursor:pointer;
+    transition:.25s;
+    letter-spacing:1px;
+  }
+  nav button.active{
+    background:var(--tide);
+    border-color:var(--tide);
+    color:#fff;
+  }
+  nav button:hover{ border-color:var(--tide); }
+
+  main{
+    max-width:880px;
+    margin:0 auto;
+    padding:30px 18px 100px;
+    position:relative;
+    z-index:1;
+  }
+  .section{ display:none; animation:fade .35s ease; }
+  .section.active{ display:block; }
+  @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .lesson-title{
+    font-family:"Noto Serif TC",serif;
+    font-weight:900;
+    font-size:24px;
+    color:var(--soil);
+    border-left:6px solid var(--tide);
+    padding-left:14px;
+    margin:36px 0 6px;
+  }
+  .lesson-sub{
+    color:var(--mud);
+    font-size:13px;
+    margin:0 0 20px 20px;
+    letter-spacing:1px;
+  }
+
+  .notes-toggle{
+    display:flex; align-items:center; gap:8px; cursor:pointer;
+    font-family:"Noto Serif TC"; font-weight:700; color:var(--soil);
+    background:var(--sky); border:0.5px solid var(--tide);
+    border-radius:999px; padding:8px 18px; margin-bottom:14px; width:fit-content;
+    font-size:14px; letter-spacing:1px; user-select:none;
+  }
+  .notes-toggle .arrow{ transition:.25s; display:inline-block; }
+  .notes-toggle.open .arrow{ transform:rotate(90deg); }
+
+  .notes-wrap{ max-height:0; overflow:hidden; transition:max-height .4s ease; }
+  .notes-wrap.open{ max-height:6000px; }
+
+  .notes-block{
+    background:#fff; border:0.5px solid var(--line); border-radius:12px;
+    padding:6px 24px 20px; margin-bottom:22px;
+  }
+  .note-card{ padding:16px 0; border-bottom:0.5px dashed var(--line); }
+  .note-card:last-child{ border-bottom:none; }
+  .note-card h3{
+    font-family:"Noto Serif TC"; font-size:16.5px; color:var(--tide);
+    margin:0 0 8px; display:flex; align-items:center; gap:8px;
+  }
+  .note-card h3::before{
+    content:"◆"; color:var(--reed); font-size:12px;
+  }
+  .note-card ul{ margin:6px 0; padding-left:20px; }
+  .note-card li{ margin-bottom:4px; font-size:14px; color:#3a2c20; }
+  .note-card p{ margin:6px 0; font-size:14px; color:#3a2c20; }
+  .note-card b{ color:var(--soil); }
+
+  .note-table{
+    width:100%; border-collapse:collapse; margin:10px 0; font-size:13px;
+  }
+  .note-table th, .note-table td{
+    border:0.5px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top;
+  }
+  .note-table th{ background:var(--paper); color:var(--soil); font-family:"Noto Serif TC"; }
+  .note-table td.hl{ color:var(--tide); font-weight:700; }
+
+  .flow-steps{
+    display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:8px 0; font-size:13.5px;
+  }
+  .flow-steps span.step{
+    background:var(--paper); border:0.5px solid var(--mud); border-radius:8px;
+    padding:5px 10px; color:var(--soil);
+  }
+  .flow-steps span.arrow{ color:var(--reed); font-weight:700; }
+
+
+  .scoreboard{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#fff;
+    border:0.5px solid var(--line);
+    border-radius:10px;
+    padding:14px 20px;
+    margin-bottom:22px;
+    font-family:"Noto Serif TC",serif;
+    box-shadow:0 1px 3px rgba(44,24,16,.05);
+  }
+  .scoreboard .num{ color:var(--tide); font-weight:900; font-size:20px; }
+  .progress-bar{
+    height:6px; background:var(--sky); border-radius:6px; overflow:hidden; flex:1; margin:0 16px;
+  }
+  .progress-fill{ height:100%; background:var(--tide); width:0%; transition:width .4s; }
+  .reset-btn{
+    border:0.5px solid var(--mud); background:none; color:var(--mud);
+    border-radius:999px; padding:6px 14px; cursor:pointer; font-size:12px; font-family:"Noto Sans TC";
+  }
+
+  .passage{
+    background:#fff;
+    border:0.5px solid var(--line);
+    border-left:4px solid var(--reed);
+    border-radius:8px;
+    padding:18px 22px;
+    margin:0 0 18px;
+    font-size:14.5px;
+    color:#3a2c20;
+  }
+  .passage b{ color:var(--soil); }
+
+  .qcard{
+    background:#fff;
+    border:0.5px solid var(--line);
+    border-radius:12px;
+    padding:20px 22px;
+    margin-bottom:16px;
+    position:relative;
+    overflow:hidden;
+  }
+  .qhead{
+    display:flex; gap:10px; align-items:flex-start; margin-bottom:14px;
+  }
+  .qnum{
+    flex-shrink:0;
+    width:28px; height:28px; border-radius:50%;
+    background:var(--soil); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Noto Serif TC"; font-weight:700; font-size:13px;
+  }
+  .qtext{ font-weight:500; font-size:15.5px; padding-top:3px;}
+  .tag{
+    display:inline-block; font-size:10.5px; padding:1px 8px; border-radius:999px;
+    border:0.5px solid var(--tide); color:var(--tide); margin-left:6px; vertical-align:middle;
+  }
+  .options{ display:flex; flex-direction:column; gap:8px; margin-left:38px; }
+  .opt{
+    display:flex; align-items:center; gap:10px;
+    border:0.5px solid var(--line); border-radius:8px;
+    padding:9px 12px; cursor:pointer; font-size:14.5px;
+    transition:.2s;
+  }
+  .opt:hover{ border-color:var(--tide); background:rgba(184,212,216,0.15); }
+  .opt input{ accent-color:var(--tide); }
+  .opt.correct{ border-color:var(--tide); background:rgba(74,124,126,0.1); font-weight:700; }
+  .opt.wrong{ border-color:var(--seal); background:rgba(179,58,46,0.08); text-decoration:line-through; color:#9a6b63; }
+
+  .btnrow{ margin:14px 0 0 38px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .check-btn{
+    background:var(--soil); color:#fff; border:none; border-radius:999px;
+    padding:8px 20px; font-size:13px; cursor:pointer; font-family:"Noto Serif TC"; font-weight:700;
+    letter-spacing:1px;
+  }
+  .check-btn:disabled{ opacity:.4; cursor:default; }
+  .feedback{
+    margin:12px 0 0 38px; padding:10px 14px; border-radius:8px; font-size:13.5px; display:none;
+  }
+  .feedback.show{ display:block; }
+  .feedback.ok{ background:rgba(74,124,126,0.12); color:var(--tide); }
+  .feedback.no{ background:rgba(179,58,46,0.08); color:var(--seal); }
+  .explain{ margin-top:6px; color:#5c4a3d; font-size:13px; }
+
+  .seal{
+    position:absolute; top:14px; right:18px;
+    width:56px; height:56px; border-radius:50%;
+    border:3px solid var(--seal); color:var(--seal);
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Noto Serif TC"; font-weight:900; font-size:14px;
+    transform:rotate(-14deg) scale(0);
+    opacity:0;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1), opacity .2s;
+    letter-spacing:1px;
+    pointer-events:none;
+  }
+  .seal.show{ transform:rotate(-14deg) scale(1); opacity:0.9; }
+
+  .final-summary{
+    text-align:center; padding:26px; margin-top:10px;
+    border:0.5px dashed var(--mud); border-radius:12px; display:none;
+    font-family:"Noto Serif TC"; color:var(--soil);
+  }
+  .final-summary.show{ display:block; }
+  .final-summary .big{ font-size:34px; font-weight:900; color:var(--tide); }
+
+  footer{
+    text-align:center; padding:30px; color:var(--mud); font-size:12px; letter-spacing:2px;
+    border-top:0.5px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>公民七上互動講義</h1>
+  <p>平權家庭　校園生活與公民參與　部落與公民參與</p>
+</header>
+
+<nav id="tabNav"></nav>
+
+<main id="mainArea"></main>
+
+<footer>七年級上學期公民科　互動式複習講義</footer>
+
+<script>
+/* ============ 資料區 ============ */
+const DATA = {
+ch4: {
+  title:"第4課　平權家庭",
+  sub:"4-1 家務勞動的分擔看性別平權　／　4-2 親子間的權利與義務　／　4-3 公權力如何協助家庭發揮職能",
+  questions:[
+    {type:"single", q:"依據美國全職媽媽家務勞動年薪推算的資料，最能凸顯下列哪一項事實？", opts:["家務勞動沒有實質經濟價值","家務勞動應被視為有價值的貢獻，值得肯定","全職媽媽應該外出工作賺錢","家事分工與性別無關"], correct:1, exp:"將無償的家務勞動換算為市場薪資，是為了凸顯其經濟價值長期被忽視。"},
+    {type:"multi", q:"下列哪些做法符合家務分工中「性別平權」的精神？（複選）", opts:["家事由夫妻共同分擔","家事只能由女性負責","依個人專長與時間彈性分工","尊重每位家庭成員的意願","肯定家務勞動的價值"], correct:[0,2,3,4], exp:"性別平權強調依能力與意願分工，而非以性別作為分配家務的唯一標準。"},
+    {type:"single", q:"依現行民法親屬編規定，夫妻住所應如何決定？", opts:["以夫的住所為主","由夫妻雙方協議","以妻的住所為主","由法院逕行指定"], correct:1, exp:"修法後住所改為由夫妻雙方協議決定，體現平權精神。"},
+    {type:"single", q:"依修正後的民法規定，未成年子女的親權由誰行使？", opts:["由父單獨行使","由母單獨行使","由父母共同行使負擔","由祖父母代為行使"], correct:2, exp:"親權修正為父母共同行使負擔，不再僅由父親行使。"},
+    {type:"single", q:"民法親屬編由「以夫的住所為主」修正為「夫妻協議」，其修法理由最可能是基於什麼？", opts:["基於性別平權","考量兒童人權","基於經濟考量","基於傳統習俗"], correct:0, exp:"住所、生活費分擔等修正，主要是為落實夫妻平等的性別平權精神。"},
+    {type:"single", q:"當父母對未成年子女重大事項的意見不一致時，法律規定應以何者作為優先考量？", opts:["父親的意見優先","母親的意見優先","子女的最佳利益","由抽籤決定"], correct:2, exp:"民法規定應以「子女最佳利益」作為判斷依據，而非以父或母任一方意見為主。"},
+    {type:"single", q:"根據衛生福利部近年統計，家暴案件出現下列哪一項趨勢？", opts:["配偶施暴比例持續攀升，其他成員施暴比例下降","其他家庭成員（如直系血親）施暴比例逐漸多過配偶","家暴通報件數逐年遞減","只有配偶之間會發生家暴"], correct:1, exp:"自2016年起，其他家庭成員施暴比例已多過配偶，直系血親施暴約占最大宗。"},
+    {type:"multi", q:"若遭遇家庭暴力，下列哪些是正確的求助方式？（複選）", opts:["撥打110報警","撥打113通報","向家庭暴力及性侵害防治中心（家防中心）求助","選擇隱忍，獨自處理","向社工、村里幹事等責任通報人員求助"], correct:[0,1,2,4], exp:"110、113與家防中心皆為正式求助管道，隱忍不處理反而可能讓傷害持續。"},
+    {type:"single", q:"「看到疑似家暴事件就熱心通報」，這種「雞婆」精神在防治家暴上的意義為何？", opts:["過度干涉他人家務事，應該避免","展現對身邊人的關心，有助及早發現並協助處理","只需要關心自己的家人即可","與家暴防治工作無關"], correct:1, exp:"多一分關心、及時通報，可以讓公權力更早介入，避免悲劇發生。"},
+    {type:"single", q:"依兒童及少年福利與權益保障法規定，成年人故意對兒少犯罪，其刑責應如何處理？", opts:["得減輕其刑","應加重其刑至二分之一","不影響量刑輕重","完全由被害人決定"], correct:1, exp:"法律明定成年人故意對兒少犯罪應加重其刑，以強化對兒少的保護。"},
+    {type:"single", q:"下列何者不屬於家庭暴力及性侵害防治中心（家防中心）所提供的協助？", opts:["社工陪伴與輔導","緊急庇護安置","法律諮詢扶助","代替家庭成員決定財產分配方式"], correct:3, exp:"家防中心提供的是保護、輔導與資源轉介，並不介入家庭財產分配的決定。"},
+    {type:"single", q:"政府增加責任通報人員（如納入移民業務人員、村里幹事）的主要目的為何？", opts:["讓更多人力能及早發現並協助通報家暴事件","減少家暴通報的數量","讓政府減少介入家庭事務","增加行政流程的複雜度"], correct:0, exp:"擴大責任通報人員範圍，可以讓潛藏的家暴案件更容易被發現與介入。"}
+  ]
+},
+ch5: {
+  title:"第5課　校園生活與公民參與",
+  sub:"5-1 校園中的權利與維護　／　5-2 如何參與校園公共事務",
+  questions:[
+    {type:"single", q:"依教育基本法規定，學生不受任何形式的霸凌行為，其主要目的為何？", opts:["避免學生身心受到傷害","增加班級間的競爭","減少師生互動機會","限制學生的言論自由"], correct:0, exp:"教育基本法保障學生免於霸凌，目的在維護學生的人格發展與身心安全。"},
+    {type:"single", q:"「有意圖且長期性地對他人做出排擠、欺負、騷擾或戲弄等行為」，是下列何者的定義？", opts:["體罰","霸凌","性騷擾","誹謗"], correct:1, exp:"霸凌強調「有意圖」且「長期性」，與單一衝突事件不同。"},
+    {type:"multi", q:"下列何者屬於學生「身體自主權」的保障範圍？（複選）", opts:["不受任何形式的體罰","不受霸凌行為侵害","不受性騷擾侵害","他人可任意觸碰自己的身體","自己的身體不受他人強迫觸碰"], correct:[0,1,2,4], exp:"身體自主權強調自己的身體不受他人未經同意的強迫或侵害。"},
+    {type:"single", q:"依校園性騷擾事件的處理流程，下列排序何者正確？", opts:["提出申訴→受理申訴→調查輔導→彙報單位","調查輔導→提出申訴→受理申訴→彙報單位","彙報單位→提出申訴→調查輔導→受理申訴","受理申訴→彙報單位→提出申訴→調查輔導"], correct:0, exp:"流程依序為：被害人或其父母、檢舉人提出申訴→學務處等單位受理→性別平等委員會調查輔導→結案建檔彙報教育主管機關。"},
+    {type:"single", q:"依校園性騷擾處理流程，通常由哪個單位負責受理申訴案件？", opts:["學務處（教官處或訓導處）","家長會","導師個人","校長室秘書"], correct:0, exp:"受理申訴屬學務處職責，之後再交由學校性別平等委員會調查輔導。"},
+    {type:"single", q:"若同學發現自己遭到不當觸碰卻被要求保密，最應該採取下列哪一項做法？", opts:["保持沉默，避免造成他人困擾","勇敢說出來，向信任的師長或家人求助","自己默默忍耐處理","認為是自己的錯而自責"], correct:1, exp:"面對疑似性騷擾，應主動求助，而非因對方要求保密而隱忍。"},
+    {type:"single", q:"學生自治的推展步驟，正確順序為何？", opts:["成立自治組織→訂定自治規範→推展自治活動","推展自治活動→成立自治組織→訂定自治規範","訂定自治規範→推展自治活動→成立自治組織","成立自治組織→推展自治活動→訂定自治規範"], correct:0, exp:"須先有組織（如班會、社團），才能訂定規範（班規、社團章程），最後才推展活動。"},
+    {type:"single", q:"開會程序中，負責「宣達會議程序」的角色是？", opts:["主席","司儀","紀錄","導師"], correct:1, exp:"司儀負責宣達會議程序；主席主持會議並裁決問題；紀錄則詳實記錄會議內容。"},
+    {type:"single", q:"下列何者不屬於會議主席的職責？", opts:["主持會議","維持會場秩序，裁決權宜與秩序問題","處理提案表決並宣布結果","代表全體成員發言並參與表決"], correct:3, exp:"依會議規範，主席以主持表決為原則，通常不參加表決，以維持中立。"},
+    {type:"single", q:"依會議規範，「權宜問題」與「秩序問題」相比，處理的優先順序為何？", opts:["秩序問題優先於權宜問題處理","權宜問題優先於秩序問題處理","兩者依提出順序處理即可","由導師決定優先順序"], correct:1, exp:"權宜問題涉及影響全體或個人權益的緊急事件，須優先於秩序問題處理。"},
+    {type:"single", q:"「會議進行中，同學臨時提議先討論班遊地點」，這屬於會議中的何種提案？", opts:["提案","臨時動議","權宜問題","秩序問題"], correct:1, exp:"臨時動議是在開會中，與原提案無關而臨時提出的議案。"},
+    {type:"single", q:"承上題，此臨時動議依規定應如何提出才符合程序？", opts:["須事先以書面提出，並有一人以上附署","可於會議中口頭提出，並須有一人以上附議","不需任何人附議即可自動成立","只有主席才能提出臨時動議"], correct:1, exp:"臨時動議可口頭提出，但仍須有一人以上附議才能成立討論。"},
+    {type:"single", q:"表決結果同票數時，若涉及「對人」的表決（如選舉），應如何處理？", opts:["以抽籤決定","由主席逕行裁決","重新選舉主席","由年紀最長者決定"], correct:0, exp:"對人表決同票時以抽籤決定；對事表決同票，則由主席裁決。"}
+  ]
+},
+ch6: {
+  title:"第6課　部落與公民參與",
+  sub:"6-1 部落的意義與重要性　／　6-2 部落中的公民參與",
+  questions:[
+    {type:"single", q:"我國原住民人口約占總人口的多少比例？", opts:["約2.5%","約10%","約25%","約50%"], correct:0, exp:"我國原住民人口約58萬人，占總人口約2.5%。"},
+    {type:"single", q:"目前經政府認定的原住民族共有幾族？", opts:["12族","14族","16族","20族"], correct:2, exp:"目前政府已認定16個原住民族。"},
+    {type:"single", q:"依原住民族基本法規定，「部落」的定義是指原住民在一定地域內建立的什麼樣的團體？", opts:["純粹依血緣關係組成的家族團體","依傳統規範共同生活或組成的團體","政府劃分的行政區域","任意集會臨時形成的團體"], correct:1, exp:"部落是原住民依傳統規範，在某地區共同生活所組成的團體，須經政府核定。"},
+    {type:"single", q:"目前經政府核定的部落約有多少個？由哪個單位負責核定？", opts:["約300個，由地方政府核定","約500個，由內政部核定","約737個，由原住民族委員會核定","約1000個，由教育部核定"], correct:2, exp:"目前約有737個部落經原住民族委員會核定。"},
+    {type:"single", q:"部落作為「文化認同的根源」，其意義主要是指下列何者？", opts:["部落是原住民傳統的生活空間與信仰重心","部落只是政府劃定的行政單位","部落純粹是觀光旅遊的景點","部落與族人的文化認同無關"], correct:0, exp:"部落承載傳統生活方式與信仰，是族人建立文化認同的重要根源。"},
+    {type:"single", q:"下列何者最能作為部落是「文化認同根源」的例子？", opts:["招開部落會議","舉行歲時祭儀（如豐年祭）","訂定部落自治規範","進行生產資源分配"], correct:1, exp:"豐年祭等歲時祭儀是族人凝聚文化認同、傳承信仰的具體展現。"},
+    {type:"single", q:"部落作為「生產、分配的單位」，其意義為何？", opts:["族人依大自然共存，重視共享與互助","完全依政府分配的資源運作","僅重視個人利益的極大化","與部落的經濟活動無關"], correct:0, exp:"部落傳統上以共享互助的方式進行資源生產與分配，展現與自然共存的智慧。"},
+    {type:"single", q:"部落作為「自治的基礎」，是因為每一族皆有其特有文化與什麼樣的制度？", opts:["貨幣制度","政治制度（如部落會議）","稅收制度","教育學制"], correct:1, exp:"各族擁有各自的傳統政治制度，如部落會議，是部落自治的基礎。"},
+    {type:"single", q:"「部落傳統文化的斷層」問題，其主要成因為何？", opts:["族人融入現代環境，與傳統文化逐漸脫節","部落經濟過度發展造成文化流失","傳統領域範圍過大難以管理","現代法律過度保護原住民文化"], correct:0, exp:"族人生活型態改變、融入現代社會，容易造成與傳統文化脫節的現象。"},
+    {type:"single", q:"為解決傳統文化斷層問題，政府修正了哪一項辦法，使原住民歲時祭儀時可以放假一日？", opts:["紀念日及節日實施辦法","勞動基準法","原住民族教育法","憲法增修條文"], correct:0, exp:"內政部修正紀念日及節日實施辦法，讓原住民得於歲時祭儀時放假一日，有助文化傳承。"},
+    {type:"single", q:"面對「部落經濟停滯」問題，下列哪一項是排灣族發展特色產業以振興部落經濟的例子？", opts:["琉璃珠文化","陶壺文化","刺繡文化","竹編文化"], correct:0, exp:"排灣族發展「琉璃珠」文化產業，是找到特色產業帶動部落經濟的例子。"},
+    {type:"single", q:"「傳統領域的爭議」問題，主要肇因於下列何者？", opts:["歷史發展過程使傳統領域變為公有地或私有地","原住民不願意保護自己的土地","政府從未開發任何土地","傳統領域已經全數歸還原住民"], correct:0, exp:"因歷史發展過程，部落傳統領域現已多屬公有或私有土地，導致開發時容易與族人產生爭議。"},
+    {type:"single", q:"「文化與法律的衝突」最典型的例子為何？", opts:["狩獵文化（如持用獵槍）與現代法律規範間的衝突","部落會議與地方政府會議時間衝突","傳統服飾與現代服飾流行的衝突","部落語言與國語教學時數的衝突"], correct:0, exp:"原住民傳統狩獵文化常因現代槍砲彈藥刀械管制等法律規範，而產生文化與法律的衝突。"},
+    {type:"single", q:"面對部落公民參與所面臨的種種挑戰，可透過下列哪一種方式尋求解決？", opts:["完全放棄部落傳統文化","透過原住民族運動表達訴求，促使政府推動相關政策","禁止部落青年返鄉發展","減少部落的自治權限"], correct:1, exp:"透過原住民族運動，公民表達訴求、政府推動政策，是解決部落公民參與挑戰的重要途徑。"}
+  ]
+}
+};
+
+const FINAL = {
+  title:"綜合情境測驗",
+  sub:"橫跨第4～6課：平權家庭・校園生活・部落與公民參與（共15題）",
+  groups:[
+    {
+      passage:"位於某溪畔的部落，因居住地勢低窪，每逢颱風季節屢遭淹水之苦。族人在政府輔導下，歷經多年溝通與抗爭，最終促成政府與族人共同討論遷居方案。新家園的規劃由族人親自參與設計，保留傳統家屋樣式，並成立協會持續推動部落文化的傳承與產業發展。",
+      questions:[
+        {type:"single", q:"從上述部落遷居的過程可以看出，族人展現了下列哪一項公民參與的精神？", opts:["完全服從政府安排，不表達任何意見","透過溝通與參與，共同決定攸關自身權益的事務","拒絕與政府進行任何往來","只關心眼前利益，不顧及文化傳承"], correct:1, exp:"族人歷經抗爭與溝通，最終參與新家園的規劃設計，正是公民參與精神的展現。"},
+        {type:"single", q:"族人堅持新家園要保留傳統家屋樣式，最能顯示部落與什麼之間的關係？", opts:["部落與政府之間的對立關係","部落與土地、文化之間深厚的連結","部落與觀光產業的合作關係","部落與其他部落之間的競爭關係"], correct:1, exp:"保留傳統家屋樣式，展現族人對部落文化與土地的深厚情感與認同。"},
+        {type:"single", q:"此案例中，族人「成立協會」持續推動部落文化與產業，屬於下列哪一種公民社會參與的型式？", opts:["志願結社","政黨政治","司法訴訟","選舉投票"], correct:0, exp:"成立協會屬於自主、非營利性質的志願結社，用以擴大公共參與的影響力。"},
+        {type:"single", q:"若你是部落青年，希望協助部落傳承文化，下列哪一種作法最為適當？", opts:["離開部落，不再過問部落事務","積極參與部落活動，發揚部落文化","要求部落完全接受主流文化","拒絕與外界進行任何交流"], correct:1, exp:"積極參與部落活動、傳承文化，是青年世代守護部落文化最實際的做法。"}
+      ]
+    },
+    {
+      passage:"某部落曾因天災導致部落遭受重創，族人被迫遷居他處。倖存的族人並未因此放棄自己的文化，反而積極投入部落產業與傳統技藝的復振工作，並在尋根過程中重新確認自己的族群身分，進而舉辦文化節活動，讓青年世代重返部落，共同傳承文化香火。",
+      questions:[
+        {type:"single", q:"上述部落族人面對天災重創後的作法，最能展現部落的哪一項重要性？", opts:["部落是生產分配的單位","部落是文化認同的根源","部落是行政管理的單位","部落只是觀光資源"], correct:1, exp:"族人在重建過程中重新確認族群身分、復振文化，正是「文化認同根源」的展現。"},
+        {type:"single", q:"部落舉辦文化節活動，邀請青年返鄉參與，其主要目的為何？", opts:["增加部落的觀光收入","凝聚族人向心力，傳承部落文化","讓青年重新遷入部落居住","減少部落與外界的往來"], correct:1, exp:"文化節活動的核心目的在凝聚族人認同、傳承文化，而非單純追求觀光收入。"},
+        {type:"single", q:"此部落在重建過程中重新確認自己的族群身分，這說明了下列何者？", opts:["部落文化的傳承有助於族人建立自我認同","部落文化不重要，族群身分無需釐清","只要遷居就會自動失去原本的族群身分","族群身分完全由政府單方面決定"], correct:0, exp:"透過尋根與文化復振，族人得以重新確認並強化自身的族群認同。"}
+      ]
+    },
+    {
+      passage:"七年三班班會正在討論班服圖案，主席依會議規範開會，先選出司儀與紀錄，接著進行提案討論。討論過程中，有同學提出臨時動議，希望先討論班遊地點；主席徵求附議後，同意先處理臨時動議。動議討論完畢後，回到原提案討論，兩個設計方案經表決後票數相同。",
+      questions:[
+        {type:"single", q:"上述班會中，同學提出討論班遊地點的臨時動議，依會議規範應符合下列哪一項條件？", opts:["須於開會前以書面提出","可於開會中口頭提出，並須有一人以上附議","不需任何附議即可自動成立","只能由主席本人提出"], correct:1, exp:"臨時動議可於會議進行中口頭提出，但仍須有一人以上附議才能成立討論。"},
+        {type:"single", q:"主席在處理臨時動議與原提案的先後順序時，其角色定位最符合下列何者？", opts:["主席可依個人喜好決定討論順序，不受規範限制","主席應依會議規範公正處理程序，維持會議秩序","主席應該讓提出動議的同學決定所有事情","主席應該直接否決任何臨時動議"], correct:1, exp:"主席的職責在依會議規範公正主持，而非憑個人好惡決定議事順序。"},
+        {type:"single", q:"兩個設計方案表決後票數相同，依會議規範，「對事」的表決同票，應如何處理？", opts:["以抽籤決定","由主席裁決","重新選舉主席","由導師直接決定"], correct:1, exp:"對事表決同票時由主席裁決；對人表決同票，則以抽籤決定。"},
+        {type:"single", q:"此班會中的司儀，其主要任務為何？", opts:["主持會議並裁決權宜問題","宣達會議程序","代表全班進行表決","詳實記錄會議內容"], correct:1, exp:"司儀負責宣達會議程序，主持與裁決屬主席職責，記錄則由紀錄負責。"}
+      ]
+    },
+    {
+      passage:"某校原本規定學生服裝儀容須完全符合校規，未有彈性調整空間。後來，學校依據相關規定，透過舉辦公聽會、說明會與問卷調查等方式，廣納學生與家長意見，重新訂定服裝儀容規範，兼顧健康安全與學生個別需求。",
+      questions:[
+        {type:"single", q:"此校修訂服裝儀容規範的過程，最符合下列哪一項精神？", opts:["由校方片面決定，學生無需參與","透過民主參與程序，共同建立友善校園文化","完全採用學生意見，不考慮健康安全","維持原本規定，不做任何調整"], correct:1, exp:"透過公聽會、問卷調查等方式廣納意見，正是校園民主參與的具體展現。"},
+        {type:"single", q:"學生透過公聽會、問卷調查等方式表達對服裝儀容規定的意見，屬於學生的哪一項權利與行動？", opts:["財產權的行使","參與校園公共事務、表達意見的權利","隱私權的行使","單純的身體自主權"], correct:1, exp:"學生表達意見、參與校規訂定，屬於參與校園公共事務的具體表現。"}
+      ]
+    },
+    {
+      passage:"小安的爸爸因工作壓力大，時常在家中對媽媽與小安發脾氣，甚至有肢體衝突的情況發生。小安的導師發現小安上課精神不濟且身上有不明瘀傷，便進一步關心並協助通報相關單位處理。",
+      questions:[
+        {type:"single", q:"小安的導師發現異狀後主動關心並協助通報，符合下列哪一項制度精神？", opts:["責任通報制度，讓更多人得以及早介入協助","導師應該避免介入學生的家庭事務","只有警察才能通報家暴事件","通報家暴屬於違法行為"], correct:0, exp:"導師屬於責任通報人員之一，主動關心並通報是落實家暴防治責任通報制度的展現。"},
+        {type:"single", q:"若小安一家人遭遇家庭暴力，依現行制度，下列哪一項求助方式最為適當？", opts:["忍耐不對外求助，以維持家庭表面和諧","撥打113或110，向家庭暴力及性侵害防治中心求助","責怪媽媽沒有處理好家庭關係","要求小安自行離家出走"], correct:1, exp:"面對家庭暴力，應主動撥打113、110或向家防中心求助，而非隱忍或逃避。"}
+      ]
+    }
+  ]
+};
+
+const NOTES = {
+ch4:[
+  {h:"4-1　家務勞動的分擔看性別平權", body:`
+    <ul>
+      <li>全職媽媽的家務勞動（備餐、接送、課業輔導、家庭財務管理等）換算為市場薪資後，具有相當可觀的<b>經濟價值</b>，不應被視為理所當然。</li>
+      <li><b>性別平權</b>的家務分工，應依個人專長、時間與意願彈性分擔，而非以性別作為分配家事的唯一標準。</li>
+    </ul>`},
+  {h:"4-2　親子間的權利與義務", body:`
+    <p><b>民法親屬編修正前後對照表</b>（依平權家庭概念修正）</p>
+    <table class="note-table">
+      <tr><th>項目</th><th>修正前</th><th>修正後</th></tr>
+      <tr><td>住所</td><td>以夫之住所為主</td><td class="hl">由夫妻雙方協議</td></tr>
+      <tr><td>生活費</td><td>由夫負責</td><td class="hl">各依經濟能力共同分擔</td></tr>
+      <tr><td>子女姓氏</td><td>子女從父姓</td><td class="hl">由父母雙方協議之</td></tr>
+      <tr><td>未成年子女親權</td><td>由父行使之</td><td class="hl">由父母共同行使負擔</td></tr>
+    </table>
+    <p>修正理由：主要<b>基於性別平權</b>；子女姓氏、親權相關規定亦<b>考量兒童人權</b>。</p>
+    <p>父母對子女重大事項意見不一致時，應以<b>子女的最佳利益</b>作為考量。</p>`},
+  {h:"4-3　公權力如何協助家庭發揮職能", body:`
+    <ul>
+      <li>依衛福部統計，家暴通報每年約13萬件；婚姻／離婚／同居關係暴力占比超過50%，但<b>自2016年起，其他家庭成員施暴比例已多過配偶</b>（直系血親施暴約占40%）。</li>
+      <li>家暴數量增加的原因：①政府宣導使民眾更懂得求助；②修法擴大<b>責任通報人員</b>範圍（如移民業務人員、村里幹事），讓更多人能及早介入。</li>
+      <li>求助管道：<b>撥打110</b>（報警）、<b>撥打113</b>（通報）、向<b>家庭暴力及性侵害防治中心（家防中心）</b>求助。</li>
+      <li>依《兒童及少年福利與權益保障法》，成年人故意對兒少犯罪，<b>可加重其刑至二分之一</b>。</li>
+    </ul>`}
+],
+ch5:[
+  {h:"5-1　校園中的權利與維護", body:`
+    <p><b>學生的權利與相對責任</b></p>
+    <table class="note-table">
+      <tr><th>權利</th><th>內容</th><th>相對責任</th></tr>
+      <tr><td>學習</td><td>受教權、學習權</td><td>不干擾其他同學的學習權</td></tr>
+      <tr><td>身體自主</td><td>個人身體不受體罰、霸凌、性騷擾</td><td>不霸凌他人</td></tr>
+      <tr><td>名譽和隱私</td><td>名譽權、隱私權</td><td>不辱罵他人、不擅自翻閱他人物品</td></tr>
+      <tr><td>財產</td><td>財產權</td><td>不攜帶妨害教學或干擾學習的物品</td></tr>
+    </table>
+    <p><b>霸凌的定義：</b>有意圖且長期性地對他人做出排擠、欺負、騷擾或戲弄等行為。</p>
+    <p><b>校園性騷擾處理流程</b></p>
+    <div class="flow-steps">
+      <span class="step">① 提出申訴（被害人／其父母／檢舉人）</span><span class="arrow">→</span>
+      <span class="step">② 受理單位（學務處：教官處或訓導處）</span><span class="arrow">→</span>
+      <span class="step">③ 調查輔導（學校性別平等委員會）</span><span class="arrow">→</span>
+      <span class="step">④ 彙報單位（結案建檔後彙報教育主管機關）</span>
+    </div>`},
+  {h:"5-2　如何參與校園公共事務", body:`
+    <p><b>參與校園公共事務的三種方式</b></p>
+    <ul>
+      <li><b>遵守共同規範</b>：制定班級公約、遵守課堂秩序，維護他人上課權利。</li>
+      <li><b>學生自治</b>：成立自治組織（班會、社團）→訂定自治規範（班級公約、社團章程）→推展自治活動（舉辦社團活動）。</li>
+      <li><b>民主法治養成（會議）</b>：依行政院內政部頒布的《會議規範》進行。</li>
+    </ul>
+    <p><b>會議角色與職責</b></p>
+    <table class="note-table">
+      <tr><th>角色</th><th>職責</th></tr>
+      <tr><td>主席</td><td>主持會議、維持秩序、裁決權宜與秩序問題、處理提案表決並宣布結果；原則上<b>不參加表決</b></td></tr>
+      <tr><td>司儀</td><td>宣達會議程序</td></tr>
+      <tr><td>紀錄</td><td>詳實紀錄會議內容</td></tr>
+      <tr><td>導師</td><td>站在指導立場，提示會議規則，不參與意見表決</td></tr>
+    </table>
+    <p><b>權宜問題 vs 秩序問題</b></p>
+    <table class="note-table">
+      <tr><th></th><th>權宜問題</th><th>秩序問題</th></tr>
+      <tr><td>提出時機</td><td>會場緊急事件，足以影響全體／個人權益</td><td>議題程序錯誤，足以破壞議事規則</td></tr>
+      <tr><td>目的</td><td>排除阻礙會議的事</td><td>改正會議進行中的錯誤</td></tr>
+      <tr><td>例子</td><td>喧鬧、地震火災等</td><td>發言超範圍、發言順序錯誤</td></tr>
+    </table>
+    <p>★ <b>權宜問題優先於秩序問題</b>處理。</p>
+    <p><b>開會流程</b></p>
+    <div class="flow-steps">
+      <span class="step">選出主席、司儀、紀錄</span><span class="arrow">→</span>
+      <span class="step">宣布開會</span><span class="arrow">→</span>
+      <span class="step">報告事項</span><span class="arrow">→</span>
+      <span class="step">討論事項（提議／討論／表決）</span><span class="arrow">→</span>
+      <span class="step">臨時動議</span><span class="arrow">→</span>
+      <span class="step">散會</span>
+    </div>
+    <p><b>提案 vs 動議</b>：提案於<b>開會前</b>以<b>書面</b>提出，須一人以上<b>附署</b>；動議於<b>開會中</b>以<b>口頭</b>提出，須一人以上<b>附議</b>。</p>
+    <p><b>表決同票時的處理</b>：對人表決（如選舉）→<b>抽籤決定</b>；對事表決（如提案）→<b>主席裁決</b>。</p>
+    <p>結論：重視自己與他人的權利；權利不是為了個人私利，而是要培養<b>同理心</b>。</p>`}
+],
+ch6:[
+  {h:"6-1　部落的意義與重要性", body:`
+    <ul>
+      <li>我國原住民約<b>58萬人</b>，占總人口約<b>2.5%</b>；目前經政府認定共<b>16族</b>。</li>
+      <li>各族大多同一祖先、血緣相近，以「<b>部落</b>」為基礎組成生活團體。</li>
+      <li><b>原住民族基本法</b>：目的在尊重多元文化、促進傳承；內容訂定部落的定義與權利。部落＝原住民在某地區依傳統規範共同生活所組成的團體，須經政府核定（目前約<b>737個</b>），由<b>原住民族委員會</b>核定。</li>
+    </ul>
+    <p><b>部落的重要性</b></p>
+    <table class="note-table">
+      <tr><th></th><th>文化認同的根源</th><th>生產、分配的單位</th><th>自治的基礎</th></tr>
+      <tr><td>定義</td><td>部落是傳統的生活空間、信仰重心</td><td>依大自然共存、重視共享互助</td><td>每族有其特有文化與政治制度</td></tr>
+      <tr><td>舉例</td><td>歲時祭儀（如豐年祭）</td><td>排灣族：頭目與族人的互動</td><td>招開部落會議；原住民族基本法規定</td></tr>
+    </table>`},
+  {h:"6-2　部落中的公民參與（挑戰與解決）", body:`
+    <table class="note-table">
+      <tr><th>挑戰</th><th>說明</th><th>例子／解決方式</th></tr>
+      <tr><td>傳統文化的斷層</td><td>族人融入現代環境，與文化脫節</td><td>回部落進行傳承活動；政府修正紀念日及節日實施辦法，讓原住民歲時祭儀時可放假1日</td></tr>
+      <tr><td>部落經濟的停滯</td><td>找不到特色高的產業</td><td>排灣族發展「琉璃珠」文化產業</td></tr>
+      <tr><td>傳統領域的爭議</td><td>因歷史發展，領域現成為公有或私有土地</td><td>政府欲開發時，族人抗議爭取權益</td></tr>
+      <tr><td>文化與法律的衝突</td><td>原住民傳統文化與現代法律規範相衝突</td><td>狩獵文化（持用獵槍）與槍砲彈藥管制法規</td></tr>
+    </table>
+    <p><b>總結（解決之道）</b>：透過<b>原住民族運動</b>——</p>
+    <ul>
+      <li>公民：積極表達訴求</li>
+      <li>政府：推動相關政策</li>
+    </ul>`}
+]
+};
+
+function renderNotes(container, key){
+  const notes = NOTES[key];
+  if(!notes) return;
+
+  const toggle = document.createElement("div");
+  toggle.className = "notes-toggle";
+  toggle.innerHTML = `<span class="arrow">▶</span> 課文重點整理`;
+  container.appendChild(toggle);
+
+  const wrap = document.createElement("div");
+  wrap.className = "notes-wrap";
+  const block = document.createElement("div");
+  block.className = "notes-block";
+  notes.forEach(n=>{
+    const card = document.createElement("div");
+    card.className = "note-card";
+    card.innerHTML = `<h3>${n.h}</h3>${n.body}`;
+    block.appendChild(card);
+  });
+  wrap.appendChild(block);
+  container.appendChild(wrap);
+
+  toggle.onclick = ()=>{
+    toggle.classList.toggle("open");
+    wrap.classList.toggle("open");
+  };
+}
+
+/* ============ 渲染邏輯 ============ */
+const tabsMeta = [
+  {key:"ch4", label:"第4課　平權家庭"},
+  {key:"ch5", label:"第5課　校園生活"},
+  {key:"ch6", label:"第6課　部落參與"},
+  {key:"final", label:"綜合情境測驗"}
+];
+
+const nav = document.getElementById("tabNav");
+const main = document.getElementById("mainArea");
+
+tabsMeta.forEach((t,i)=>{
+  const b = document.createElement("button");
+  b.textContent = t.label;
+  b.dataset.key = t.key;
+  if(i===0) b.classList.add("active");
+  b.onclick = ()=> switchTab(t.key);
+  nav.appendChild(b);
+});
+
+function switchTab(key){
+  document.querySelectorAll("nav button").forEach(b=> b.classList.toggle("active", b.dataset.key===key));
+  document.querySelectorAll(".section").forEach(s=> s.classList.toggle("active", s.id==="sec-"+key));
+}
+
+function optLabel(i){ return "ABCDE"[i]; }
+
+function buildQuestionCard(q, idx, sectionKey, counters){
+  const card = document.createElement("div");
+  card.className = "qcard";
+
+  const seal = document.createElement("div");
+  seal.className = "seal";
+  seal.textContent = "答對";
+  card.appendChild(seal);
+
+  const head = document.createElement("div");
+  head.className = "qhead";
+  const num = document.createElement("div");
+  num.className = "qnum";
+  num.textContent = idx+1;
+  const qt = document.createElement("div");
+  qt.className = "qtext";
+  qt.innerHTML = q.q + (q.type==="multi" ? '<span class="tag">複選</span>' : '');
+  head.appendChild(num); head.appendChild(qt);
+  card.appendChild(head);
+
+  const optsWrap = document.createElement("div");
+  optsWrap.className = "options";
+  const inputType = q.type==="multi" ? "checkbox" : "radio";
+  const inputName = sectionKey+"-q"+idx;
+
+  q.opts.forEach((optText, oi)=>{
+    const label = document.createElement("label");
+    label.className = "opt";
+    label.innerHTML = `<input type="${inputType}" name="${inputName}" value="${oi}"> <span>(${optLabel(oi)}) ${optText}</span>`;
+    optsWrap.appendChild(label);
+  });
+  card.appendChild(optsWrap);
+
+  const btnrow = document.createElement("div");
+  btnrow.className = "btnrow";
+  const checkBtn = document.createElement("button");
+  checkBtn.className = "check-btn";
+  checkBtn.textContent = "檢查答案";
+  btnrow.appendChild(checkBtn);
+  card.appendChild(btnrow);
+
+  const feedback = document.createElement("div");
+  feedback.className = "feedback";
+  feedback.innerHTML = `<div class="fbmain"></div><div class="explain">${q.exp||""}</div>`;
+  card.appendChild(feedback);
+
+  let answered = false;
+
+  checkBtn.onclick = ()=>{
+    if(answered) return;
+    const inputs = optsWrap.querySelectorAll("input");
+    const selected = Array.from(inputs).filter(i=>i.checked).map(i=>parseInt(i.value));
+    if(selected.length===0){ return; }
+    answered = true;
+    checkBtn.disabled = true;
+
+    const correctArr = Array.isArray(q.correct) ? q.correct : [q.correct];
+    const isCorrect = selected.length===correctArr.length && selected.every(s=>correctArr.includes(s));
+
+    inputs.forEach(inp=>{
+      const oi = parseInt(inp.value);
+      const label = inp.closest(".opt");
+      inp.disabled = true;
+      if(correctArr.includes(oi)) label.classList.add("correct");
+      else if(inp.checked) label.classList.add("wrong");
+    });
+
+    feedback.classList.add("show");
+    feedback.classList.add(isCorrect ? "ok" : "no");
+    feedback.querySelector(".fbmain").textContent = isCorrect ? "✓ 答對了！" : "✗ 答錯了，正確答案已標示為綠色框線。";
+
+    if(isCorrect){
+      seal.classList.add("show");
+      counters.correct++;
+    }
+    counters.answered++;
+    updateScoreboard(sectionKey, counters);
+  };
+
+  return card;
+}
+
+function updateScoreboard(sectionKey, counters){
+  const sb = document.getElementById("sb-"+sectionKey);
+  if(!sb) return;
+  sb.querySelector(".num").textContent = counters.correct + " / " + counters.total;
+  const pct = counters.total ? Math.round((counters.answered/counters.total)*100) : 0;
+  sb.querySelector(".progress-fill").style.width = pct + "%";
+
+  if(counters.answered === counters.total){
+    const fs = document.getElementById("fs-"+sectionKey);
+    if(fs){
+      fs.classList.add("show");
+      const rate = Math.round((counters.correct/counters.total)*100);
+      fs.querySelector(".big").textContent = rate + "%";
+      fs.querySelector(".msg").textContent = rate>=80 ? "太棒了，已充分掌握本課重點！" : (rate>=60 ? "還不錯，再複習一下錯誤的題目吧！" : "建議重新閱讀筆記後再挑戰一次！");
+    }
+  }
+}
+
+function resetSection(sectionKey){
+  const sec = document.getElementById("sec-"+sectionKey);
+  sec.remove();
+  if(sectionKey==="final") renderFinal();
+  else renderLesson(sectionKey);
+  switchTab(sectionKey);
+}
+
+function makeScoreboard(sectionKey, total){
+  const sb = document.createElement("div");
+  sb.className = "scoreboard";
+  sb.id = "sb-"+sectionKey;
+  sb.innerHTML = `
+    <span class="num">0 / ${total}</span>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <button class="reset-btn">重新測驗</button>
+  `;
+  sb.querySelector(".reset-btn").onclick = ()=> resetSection(sectionKey);
+  return sb;
+}
+
+function makeFinalSummary(sectionKey){
+  const fs = document.createElement("div");
+  fs.className = "final-summary";
+  fs.id = "fs-"+sectionKey;
+  fs.innerHTML = `<div>本回答對率</div><div class="big">0%</div><div class="msg"></div>`;
+  return fs;
+}
+
+function renderLesson(key){
+  const data = DATA[key];
+  const sec = document.createElement("div");
+  sec.className = "section";
+  sec.id = "sec-"+key;
+
+  const h = document.createElement("div");
+  h.className = "lesson-title";
+  h.textContent = data.title;
+  sec.appendChild(h);
+
+  const sub = document.createElement("div");
+  sub.className = "lesson-sub";
+  sub.textContent = data.sub;
+  sec.appendChild(sub);
+
+  renderNotes(sec, key);
+
+  const counters = {correct:0, answered:0, total:data.questions.length};
+  sec.appendChild(makeScoreboard(key, counters.total));
+
+  data.questions.forEach((q, idx)=>{
+    sec.appendChild(buildQuestionCard(q, idx, key, counters));
+  });
+
+  sec.appendChild(makeFinalSummary(key));
+  main.appendChild(sec);
+}
+
+function renderFinal(){
+  const sec = document.createElement("div");
+  sec.className = "section";
+  sec.id = "sec-final";
+
+  const h = document.createElement("div");
+  h.className = "lesson-title";
+  h.textContent = FINAL.title;
+  sec.appendChild(h);
+
+  const sub = document.createElement("div");
+  sub.className = "lesson-sub";
+  sub.textContent = FINAL.sub;
+  sec.appendChild(sub);
+
+  let total = 0;
+  FINAL.groups.forEach(g=> total += g.questions.length);
+  const counters = {correct:0, answered:0, total};
+  sec.appendChild(makeScoreboard("final", total));
+
+  let qIdx = 0;
+  FINAL.groups.forEach(g=>{
+    const p = document.createElement("div");
+    p.className = "passage";
+    p.innerHTML = "<b>閱讀情境：</b>" + g.passage;
+    sec.appendChild(p);
+    g.questions.forEach(q=>{
+      sec.appendChild(buildQuestionCard(q, qIdx, "final", counters));
+      qIdx++;
+    });
+  });
+
+  sec.appendChild(makeFinalSummary("final"));
+  main.appendChild(sec);
+}
+
+/* 初始渲染 */
+renderLesson("ch4");
+renderLesson("ch5");
+renderLesson("ch6");
+renderFinal();
+switchTab("ch4");
+</script>
+</body>
+</html>
