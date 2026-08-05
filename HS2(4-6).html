@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民主的挑戰 · 互動講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2ECDD;
+    --paper-deep:#E6DAB9;
+    --ink:#2B2620;
+    --ink-soft:#7A705D;
+    --red:#9C3B2E;
+    --red-deep:#7A2C21;
+    --gold:#AD8A3E;
+    --gold-deep:#8C6F2E;
+    --green:#3F5D45;
+    --green-deep:#2C4531;
+    --indigo:#3D5266;
+    --indigo-deep:#2C3C4D;
+    --line:#D9CBA9;
+    --card:#FFFDF6;
+    --seal:#9C3B2E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans TC',sans-serif;
+    line-height:1.75;
+    position:relative;
+    min-height:100vh;
+  }
+  body::before{
+    content:"憲";
+    position:fixed;
+    top:-4vw; right:-4vw;
+    font-family:'Noto Serif TC',serif;
+    font-size:38vw;
+    font-weight:900;
+    color:var(--red);
+    opacity:0.045;
+    z-index:0;
+    pointer-events:none;
+    line-height:1;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px 80px;position:relative;z-index:1;}
+
+  /* Header */
+  header{
+    padding:56px 0 32px;
+    text-align:center;
+    border-bottom:0.5px solid var(--red);
+    margin-bottom:28px;
+  }
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:0.35em;
+    color:var(--gold-deep);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:clamp(30px,5vw,46px);
+    color:var(--ink);
+    letter-spacing:0.04em;
+  }
+  header p{
+    margin-top:12px;
+    color:var(--ink-soft);
+    font-size:15px;
+  }
+
+  .stats{
+    display:flex;
+    justify-content:center;
+    gap:32px;
+    margin-top:26px;
+    flex-wrap:wrap;
+  }
+  .stat{text-align:center;min-width:80px;}
+  .stat .num{
+    font-family:'Noto Serif TC',serif;
+    font-size:26px;
+    font-weight:700;
+    color:var(--red-deep);
+  }
+  .stat .lab{font-size:12px;color:var(--ink-soft);letter-spacing:0.08em;}
+
+  /* Tabs */
+  .tabs{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(242,236,221,0.95);
+    backdrop-filter:blur(6px);
+    display:flex;
+    gap:6px;
+    padding:14px 0;
+    border-bottom:0.5px solid var(--line);
+    margin-bottom:36px;
+    overflow-x:auto;
+  }
+  .tab-btn{
+    flex:1 1 0;
+    min-width:130px;
+    background:transparent;
+    border:0.5px solid var(--red);
+    color:var(--ink-soft);
+    font-family:'Noto Sans TC',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:11px 10px;
+    cursor:pointer;
+    letter-spacing:0.02em;
+    transition:all .25s ease;
+    white-space:nowrap;
+    text-align:center;
+  }
+  .tab-btn .tag{display:block;font-size:11px;color:var(--red-deep);letter-spacing:0.15em;margin-bottom:2px;}
+  .tab-btn:hover{border-color:var(--red-deep);color:var(--red-deep);}
+  .tab-btn.active{
+    background:var(--red-deep);
+    border-color:var(--red-deep);
+    color:#fff;
+  }
+  .tab-btn.active .tag{color:#F3DCC9;}
+
+  /* Sections */
+  .chapter{display:none;animation:fade .4s ease;}
+  .chapter.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .chapter-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;}
+  .chapter-num{
+    font-family:'Noto Serif TC',serif;
+    font-size:15px;
+    color:var(--red-deep);
+    font-weight:700;
+    letter-spacing:0.08em;
+    border:0.5px solid var(--red-deep);
+    padding:2px 10px;
+  }
+  .chapter-head h2{
+    font-family:'Noto Serif TC',serif;
+    font-size:clamp(22px,3.4vw,30px);
+    color:var(--ink);
+    font-weight:700;
+  }
+  .chapter-sub{color:var(--ink-soft);font-size:14px;margin-bottom:28px;padding-left:2px;}
+
+  /* Key point cards */
+  .points{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-bottom:44px;
+  }
+  .point-card{
+    background:var(--card);
+    border:0.5px solid var(--line);
+    padding:20px 22px;
+    position:relative;
+  }
+  .point-card.wide{grid-column:1 / -1;}
+  .point-card h3{
+    font-family:'Noto Serif TC',serif;
+    font-size:16px;
+    color:var(--red-deep);
+    font-weight:700;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .point-card h3::before{
+    content:"";
+    width:6px;height:6px;
+    background:var(--green);
+    display:inline-block;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .point-card p, .point-card li{font-size:14px;color:var(--ink);}
+  .point-card ul{padding-left:18px;margin-top:4px;margin-bottom:14px;}
+  .point-card .note{
+    margin-top:10px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    border-top:0.5px dashed var(--gold);
+    padding-top:8px;
+  }
+  .point-card .note .tlabel{display:block;font-size:11px;letter-spacing:0.12em;color:var(--gold-deep);margin-bottom:5px;font-weight:700;}
+  .point-card b{color:var(--seal);font-weight:700;}
+
+  /* Generic data tables (multi-column) */
+  .table-wrap{overflow-x:auto;margin-bottom:14px;border:0.5px solid var(--line);}
+  table{width:100%;border-collapse:collapse;background:var(--card);font-size:.86rem;}
+  thead th{background:var(--green);color:#fff;text-align:left;padding:10px 14px;font-family:'Noto Serif TC',serif;font-weight:600;letter-spacing:.03em;}
+  tbody td{padding:10px 14px;border-top:1px solid var(--line);}
+  tbody tr:nth-child(even){background:#F5EFDE;}
+  td.wc{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--red-deep);font-size:.92rem;white-space:nowrap;}
+  .point-card p{margin-bottom:14px;}
+  .point-card .table-wrap{margin-top:16px;margin-bottom:16px;}
+  .point-card p + .table-wrap{margin-top:18px;}
+  tbody td ul{padding-left:18px;margin:0;}
+  tbody td ul li{margin-bottom:4px;}
+  tbody td ul li:last-child{margin-bottom:0;}
+
+  /* Trap / 易混淆 boxes */
+  .trap{background:#F6EEDD;border:0.5px solid var(--gold);padding:16px 20px;margin-bottom:14px;font-size:.92rem;}
+  .trap b{color:var(--gold-deep);}
+
+  /* Timeline */
+  .tl-legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:24px;font-size:.85rem;color:var(--ink-soft);}
+  .tl-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .dot.pol{background:var(--red);}
+  .dot.eco{background:var(--gold-deep);}
+  .dot.dip{background:var(--indigo);}
+  .dot.dem{background:var(--green);}
+  .timeline{position:relative;padding-left:26px;border-left:2px solid var(--line);margin-bottom:20px;}
+  .tl-item{position:relative;margin-bottom:20px;}
+  .tl-item::before{content:"";position:absolute;left:-32px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid var(--card);}
+  .tl-item.pol::before{background:var(--red);}
+  .tl-item.eco::before{background:var(--gold-deep);}
+  .tl-item.dip::before{background:var(--indigo);}
+  .tl-item.dem::before{background:var(--green);}
+  .tl-year{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--ink);font-size:1rem;margin-right:8px;}
+  .tl-text{color:var(--ink-soft);font-size:.94rem;}
+  .tl-period-tag{display:inline-block;font-size:.72rem;letter-spacing:.05em;padding:2px 8px;border-radius:99px;margin-left:8px;border:1px solid currentColor;vertical-align:2px;}
+  .tl-item.major{padding:10px 14px;background:var(--paper-deep);border:1px solid var(--line);border-radius:6px;margin-left:-4px;}
+  .tl-item.major::before{width:18px;height:18px;left:-36px;top:6px;box-shadow:0 0 0 4px rgba(156,59,46,.15);}
+  .tl-item.major .tl-year{font-size:1.15rem;color:var(--red-deep);}
+  .tl-item.major .tl-text{font-weight:700;color:var(--ink);}
+
+  /* Matching game */
+  .match-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:10px;}
+  @media(max-width:640px){.match-grid{grid-template-columns:repeat(2,1fr);}}
+  .match-card{aspect-ratio:1/1;border-radius:8px;cursor:pointer;position:relative;perspective:600px;}
+  .match-card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.2,1);}
+  .match-card.flipped .match-card-inner{transform:rotateY(180deg);}
+  .match-card.matched .match-card-inner{transform:rotateY(180deg);}
+  .match-face{position:absolute;inset:0;border-radius:8px;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;font-size:.82rem;text-align:center;padding:10px;font-weight:600;}
+  .match-front{background:linear-gradient(135deg,var(--green),var(--green-deep));color:#fff;font-family:'Noto Serif TC',serif;font-size:1.3rem;}
+  .match-back{background:var(--card);border:2px solid var(--green);color:var(--ink);transform:rotateY(180deg);}
+  .match-card.matched .match-back{border-color:var(--red-deep);background:#F7E7E2;}
+  #match-status{text-align:center;color:var(--green-deep);font-weight:700;margin:14px 0 44px;font-family:'Noto Serif TC',serif;min-height:24px;}
+
+  /* Quiz */
+  .quiz-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+    border-top:0.5px solid var(--red);
+    padding-top:28px;
+  }
+  .quiz-head h3{font-family:'Noto Serif TC',serif;font-size:20px;color:var(--ink);}
+  .quiz-score{
+    font-size:13px;
+    color:var(--red-deep);
+    font-weight:600;
+    border:0.5px solid var(--red-deep);
+    padding:4px 12px;
+  }
+  .q-card{
+    background:var(--card);
+    border:0.5px solid var(--line);
+    padding:20px 22px 22px;
+    margin-bottom:16px;
+    position:relative;
+  }
+  .q-num{
+    font-family:'Noto Serif TC',serif;
+    font-size:12px;
+    color:var(--red-deep);
+    letter-spacing:0.1em;
+    margin-bottom:6px;
+    font-weight:700;
+  }
+  .q-text{font-size:15.5px;font-weight:500;color:var(--ink);margin-bottom:14px;}
+  .options{display:grid;gap:8px;}
+  .opt{
+    text-align:left;
+    background:var(--paper);
+    border:0.5px solid var(--ink-soft);
+    color:var(--ink);
+    padding:10px 14px;
+    font-size:14px;
+    font-family:'Noto Sans TC',sans-serif;
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .opt:hover{border-color:var(--red-deep);background:#fff;}
+  .opt.correct{border-color:var(--green-deep);background:#EAF1E9;color:var(--green-deep);font-weight:700;}
+  .opt.wrong{border-color:var(--ink-soft);background:#eee9e1;color:var(--ink-soft);text-decoration:line-through;}
+  .opt.disabled{cursor:default;}
+  .feedback{
+    display:none;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:0.5px dashed var(--gold);
+    font-size:13.5px;
+    color:var(--ink-soft);
+    align-items:center;
+    gap:10px;
+  }
+  .feedback.show{display:flex;}
+  .seal{
+    flex-shrink:0;
+    width:auto;
+    border:1.5px solid var(--seal);
+    color:var(--seal);
+    border-radius:6px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:5px 10px;
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:12.5px;
+    letter-spacing:0.1em;
+    white-space:nowrap;
+  }
+
+  footer{text-align:center;padding:40px 20px 60px;color:var(--ink-soft);font-size:.85rem;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">互動講義 · 臺灣的歷史（下）</div>
+    <h1>民主的挑戰</h1>
+    <p>政治民主化・經濟起飛與社會文化・外交轉折與兩岸關係（第4〜6課）</p>
+    <div class="stats">
+      <div class="stat"><div class="num">3</div><div class="lab">課節</div></div>
+      <div class="stat"><div class="num" id="totalQCount">0</div><div class="lab">題目</div></div>
+      <div class="stat"><div class="num" id="globalScore">0</div><div class="lab">已答對</div></div>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab-btn active" data-target="ch0"><span class="tag">總覽</span>時間線</button>
+    <button class="tab-btn" data-target="ch1"><span class="tag">第4課</span>民主的挑戰</button>
+    <button class="tab-btn" data-target="ch2"><span class="tag">第5課</span>經濟起飛與社會文化</button>
+    <button class="tab-btn" data-target="ch3"><span class="tag">第6課</span>外交轉折與兩岸關係</button>
+    <button class="tab-btn" data-target="ch4"><span class="tag">總複習</span>考點＋遊戲</button>
+  </nav>
+
+  <!-- ===================== CHAPTER 0：總時間線 ===================== -->
+  <section class="chapter active" id="ch0">
+    <div class="chapter-head"><span class="chapter-num">總覽</span><h2>戰後臺灣大事年表（民國34年〜105年）</h2></div>
+    <p class="chapter-sub">四條軸線並行：政治統治／民主運動／經濟發展（第5課）／外交關係（第6課）。</p>
+
+    <div class="tl-legend">
+      <span><span class="dot pol"></span>政治統治與衝突</span>
+      <span><span class="dot dem"></span>民主化運動</span>
+      <span><span class="dot eco"></span>經濟發展（第5課）</span>
+      <span><span class="dot dip"></span>外交關係（第6課）</span>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item pol major"><span class="tl-year">民國34年（1945）</span><span class="tl-text">臺灣光復，中華民國接收臺灣、澎湖，設臺灣省行政長官公署（陳儀）</span></div>
+      <div class="tl-item pol major"><span class="tl-year">民國36年（1947）</span><span class="tl-text">查緝私菸誤傷民眾引爆民怨，二二八事件爆發，政府派兵鎮壓並展開清鄉</span></div>
+      <div class="tl-item pol"><span class="tl-year">民國37年（1948）</span><span class="tl-text">制定動員戡亂時期臨時條款，擴大總統職權、不受連任限制</span></div>
+      <div class="tl-item pol major"><span class="tl-year">民國38年（1949）</span><span class="tl-text">5月頒布戒嚴令；年底中央政府遷臺</span></div>
+      <div class="tl-item eco"><span class="tl-year">民國38〜42年</span><span class="tl-text">土地改革三部曲：三七五減租→公地放領→耕者有其田</span></div>
+      <div class="tl-item dip"><span class="tl-year">民國39年（1950）</span><span class="tl-text">韓戰爆發，美國第七艦隊協防臺灣海峽，美援陸續到位</span></div>
+      <div class="tl-item pol"><span class="tl-year">民國39年起</span><span class="tl-text">實施地方自治，開放縣市長與地方民代選舉，但省市首長仍官派</span></div>
+      <div class="tl-item pol"><span class="tl-year">民國40、50年代</span><span class="tl-text">情治機關未經正常司法程序逮捕、審判人民，造成大量白色恐怖冤案</span></div>
+      <div class="tl-item dem"><span class="tl-year">民國49年（1960）</span><span class="tl-text">雷震事件：創辦《自由中國》雜誌、籌組中國民主黨，遭逮捕入獄</span></div>
+      <div class="tl-item eco"><span class="tl-year">民國55年（1966）</span><span class="tl-text">設立高雄加工出口區，發展勞力密集的出口導向產業</span></div>
+      <div class="tl-item dip major"><span class="tl-year">民國60年（1971）</span><span class="tl-text">聯合國大會通過2758號決議，中華民國退出聯合國</span></div>
+      <div class="tl-item dip"><span class="tl-year">民國61年（1972）</span><span class="tl-text">中日斷交，日本轉與中華人民共和國建交</span></div>
+      <div class="tl-item eco"><span class="tl-year">民國62〜68年</span><span class="tl-text">蔣經國推動十大建設，因應能源危機、強化基礎建設</span></div>
+      <div class="tl-item dip major"><span class="tl-year">民國68年（1979）</span><span class="tl-text">中美斷交，美國轉與中華人民共和國建交，同年通過《臺灣關係法》</span></div>
+      <div class="tl-item dem major"><span class="tl-year">民國68年（1979）</span><span class="tl-text">美麗島事件，《美麗島》雜誌社於高雄舉辦紀念大會，爆發憲警衝突</span></div>
+      <div class="tl-item eco"><span class="tl-year">民國69年（1980）</span><span class="tl-text">設立新竹科學工業園區，產業由勞力密集轉向技術密集</span></div>
+      <div class="tl-item dem"><span class="tl-year">民國75年（1986）</span><span class="tl-text">黨外人士突破黨禁，成立民主進步黨，是戰後第一個實質反對黨</span></div>
+      <div class="tl-item pol major"><span class="tl-year">民國76年（1987）</span><span class="tl-text">蔣經國宣布解除戒嚴、開放黨禁報禁；年底開放民眾赴大陸探親</span></div>
+      <div class="tl-item pol"><span class="tl-year">民國77年（1988）</span><span class="tl-text">蔣經國逝世，李登輝繼任，成為首位臺灣出生的總統</span></div>
+      <div class="tl-item dem major"><span class="tl-year">民國79年（1990）</span><span class="tl-text">三月學運（野百合學運），大學生要求廢除臨時條款、國會全面改選</span></div>
+      <div class="tl-item pol"><span class="tl-year">民國80年（1991）</span><span class="tl-text">廢除動員戡亂時期臨時條款，展開修憲與中央民代全面改選</span></div>
+      <div class="tl-item pol major"><span class="tl-year">民國82年（1993）</span><span class="tl-text">辜汪會談：海基會（辜振甫）與海協會（汪道涵）代表兩岸協商</span></div>
+      <div class="tl-item pol major"><span class="tl-year">民國85年（1996）</span><span class="tl-text">舉行首次人民直選總統，李登輝、連戰當選</span></div>
+      <div class="tl-item dem major"><span class="tl-year">民國89年（2000）</span><span class="tl-text">陳水扁當選總統，是首次政黨輪替</span></div>
+      <div class="tl-item dem"><span class="tl-year">民國97年（2008）</span><span class="tl-text">馬英九當選總統，為第二次政黨輪替</span></div>
+      <div class="tl-item dem"><span class="tl-year">民國105年（2016）</span><span class="tl-text">蔡英文當選總統，首位女性總統，第三次政黨輪替</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== CHAPTER 1：第4課 民主的挑戰 ===================== -->
+  <section class="chapter" id="ch1">
+    <div class="chapter-head"><span class="chapter-num">第4課</span><h2>民主的挑戰</h2></div>
+    <p class="chapter-sub">戰後初期與二二八事件、戒嚴體制與白色恐怖、政治民主化的歷程。</p>
+
+    <div class="points">
+      <div class="point-card wide">
+        <h3>戰後初期局勢與二二八事件</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>時間</th><th>事件</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">民34年8月</td><td>日本無條件投降；10月25日臺灣、澎湖由中華民國接收，訂為「<b>臺灣光復節</b>」</td></tr>
+              <tr><td class="wc">接收後</td><td>設<b>臺灣省行政長官公署</b>，<b>陳儀</b>任行政長官，行政、軍事大權集於一身；加上物價飛漲、社會秩序不穩，民怨一觸即發</td></tr>
+              <tr><td class="wc">民36.2.27</td><td>公署專賣局查緝私菸，誤傷、誤殺民眾</td></tr>
+              <tr><td class="wc">民36.2.28起</td><td>全臺爆發衝突，史稱<b>二二八事件</b>；地方仕紳組「二二八事件處理委員會」提出改革訴求</td></tr>
+              <tr><td class="wc">事件後</td><td>中央派兵鎮壓並展開「<b>清鄉</b>」，造成大量傷亡；陳儀被免職，改設臺灣省政府</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <span class="tlabel">記憶點</span>
+          清鄉＝軍警藉清查戶口、收繳武器掃蕩「反政府分子」，過程未經正當程序，是二二八事件傷亡擴大的重要原因，不要與「戒嚴」或「白色恐怖」混為一談。
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>戒嚴體制與白色恐怖</h3>
+        <ul>
+          <li>民37年，政府因應<b>國共內戰</b>制定<b>動員戡亂時期臨時條款</b>，擴大總統職權、不受連任限制</li>
+          <li>民38年，政府發布<b>戒嚴令</b>，限制人民言論、出版、集會、結社等自由；同年底中央政府遷臺</li>
+          <li>戒嚴期間，情治單位常未依法律程序逮捕、也未經正常公開審判便定罪，造成大量「<b>白色恐怖</b>」冤案，社會人人自危</li>
+          <li>此時期政府也統稱原住民為「山地同胞」，推行國語運動，使各族語言逐漸消失</li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>概念</th><th>本質</th><th>解除／廢除時間</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">戒嚴令</td><td>限制人民言論、出版、集會、結社等<b>自由權利</b>的行政命令</td><td>民國76年（1987）解除</td></tr>
+              <tr><td class="wc">動員戡亂時期臨時條款</td><td>擴大<b>總統職權</b>（不受連任限制、緊急處分權）的憲法臨時性條款</td><td>民國80年（1991）廢除</td></tr>
+              <tr><td class="wc">萬年國會</td><td>中央民意代表<b>長期未改選</b>的現象（是結果，而非單一法令）</td><td>民國80年代初全面改選</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <span class="tlabel">易混淆</span>
+          戒嚴令限制「自由權利」、民國76年解除；臨時條款擴大「總統職權」、民國80年廢除——兩者性質與廢止時間都不同，是最容易考混的一組概念。
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>政治民主化的歷程</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>時間</th><th>事件</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">民39年起</td><td>實行<b>地方自治</b>，但省主席、直轄市長仍官派；中央總統與國會長期未全面改選，形成「萬年國會」</td></tr>
+              <tr><td class="wc">民49年</td><td><b>雷震事件</b>：創辦《自由中國》、籌組中國民主黨失敗入獄</td></tr>
+              <tr><td class="wc">民68年</td><td><b>美麗島事件</b>（高雄）：黨外人士被捕，卻讓民主與人權議題受到社會關注</td></tr>
+              <tr><td class="wc">民75年</td><td>黨外人士突破黨禁，成立<b>民主進步黨</b>（戰後第一個實質反對黨）</td></tr>
+              <tr><td class="wc">民76年</td><td>蔣經國總統宣布<b>解除戒嚴</b>，開放黨禁、報禁</td></tr>
+              <tr><td class="wc">民77年</td><td>蔣經國逝世，<b>李登輝</b>繼任總統</td></tr>
+              <tr><td class="wc">民79〜80年</td><td><b>三月學運（野百合學運）</b>→促成廢除臨時條款、國會全面改選</td></tr>
+              <tr><td class="wc">民85年</td><td>首次<b>人民直選總統</b></td></tr>
+              <tr><td class="wc">民89年</td><td>陳水扁當選，<b>首次政黨輪替</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <span class="tlabel">關鍵分水嶺</span>
+          蔣經國總統任內同時完成「<b>解嚴</b>」與「<b>開放大陸探親</b>」（民國76年），是兩岸關係從政治對峙轉向兩岸交流的分水嶺，也是最常考的時間點，不要誤記為李登輝。
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>歷任總統任期與重大事件對照</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>總統</th><th>任期</th><th>重大事件</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">蔣中正</td><td>民國37〜49年間陸續連任</td><td>遷臺、頒布戒嚴令與臨時條款、韓戰後美援、土地改革、地方自治開放</td></tr>
+              <tr><td class="wc">蔣經國</td><td>民國67〜77年在任</td><td>十大建設（行政院長任內）、退出聯合國後外交轉折、美麗島事件、<b>解除戒嚴</b>、開放探親</td></tr>
+              <tr><td class="wc">李登輝</td><td>民國77〜89年在任</td><td>三月學運、廢除臨時條款、國會全面改選、<b>首次總統直選</b>、辜汪會談</td></tr>
+              <tr><td class="wc">陳水扁</td><td>民國89〜97年在任</td><td><b>首次政黨輪替</b></td></tr>
+              <tr><td class="wc">馬英九</td><td>民國97〜105年在任</td><td>第二次政黨輪替</td></tr>
+              <tr><td class="wc">蔡英文</td><td>民國105年起</td><td>首位女性總統，第三次政黨輪替</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-head">
+      <h3>章節自我測驗</h3>
+      <div class="quiz-score">本章答對 <span class="score-display" data-chapter="ch1">0</span> / <span class="score-total" data-chapter="ch1">0</span></div>
+    </div>
+    <div class="quiz-list" id="quiz-ch1"></div>
+  </section>
+
+  <!-- ===================== CHAPTER 2：第5課 經濟起飛與社會文化 ===================== -->
+  <section class="chapter" id="ch2">
+    <div class="chapter-head"><span class="chapter-num">第5課</span><h2>經濟起飛與社會文化</h2></div>
+    <p class="chapter-sub">經濟政策五階段的順序與內容，以及文化政策從同化走向多元的方向判斷。</p>
+
+    <div class="points">
+      <div class="point-card wide">
+        <h3>經濟政策五階段</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>階段</th><th>時間</th><th>核心內容</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">土地改革</td><td>民38〜42年</td><td>三七五減租→公地放領→耕者有其田，讓佃農逐漸取得自有土地</td></tr>
+              <tr><td class="wc">進口替代</td><td>民40年代</td><td>扶植國內輕工業、限制外國商品進口</td></tr>
+              <tr><td class="wc">出口導向</td><td>民50年代</td><td>設加工出口區（高雄前鎮），核心目的是拓展外銷，經濟型態由農業轉為工業為主</td></tr>
+              <tr><td class="wc">十大建設</td><td>民60年代</td><td>蔣經國提出，因應石油危機、強化基礎建設</td></tr>
+              <tr><td class="wc">產業升級</td><td>民70年代起</td><td>以新竹科學園區為核心，發展高科技產業（新竹科學園區內高科技產業員工為代表圖像）</td></tr>
+              <tr><td class="wc">自由化、國際化</td><td>民80年代以後</td><td>先後加入「亞太經濟合作會議」（APEC）與「世界貿易組織」（WTO）；企業因生產成本提高、勞力不足而任用國際移工，並推動「南向政策」投資東南亞市場</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <span class="tlabel">記憶口訣</span>
+          一條時間河流：先穩定土地→再扶植輕工業→接著拚外銷→然後拚基礎建設→再拚高科技→最後拚自由化國際化。每階段目的關鍵字不同：穩定→替代→外銷→建設→升級→自由化。
+        </div>
+        <div class="trap"><b>易混淆①</b>　三七五減租等屬於「土地改革」，常與「發行新臺幣（穩定物價）」搞混，後者屬幣制改革，並非土地改革。</div>
+        <div class="trap"><b>易混淆②</b>　加工出口區的核心是「拓展外銷」，不是「限制進口」（限制進口是進口替代階段的特徵）。</div>
+        <div class="trap"><b>易混淆③</b>　十大建設由<b>蔣經國</b>提出，常誤記為蔣中正；「產業升級」（新竹科學園區）與「自由化、國際化」（加入WTO、APEC）是不同、且先後相接的兩個階段，不要混為一談。</div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>都市化、鄉村問題與社會運動</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>面向</th><th>現象／問題</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">都市化</td><td>工作機會多、生活便利→人口集中都市；衍生<b>空氣汙染、噪音、城鄉差距</b>等問題</td></tr>
+              <tr><td class="wc">鄉村問題</td><td>農村、部落、山村、漁村人口<b>外移、老化</b>→人力不足、<b>隔代教養</b>問題浮現</td></tr>
+              <tr><td class="wc">進城勞工</td><td>適應不良，或遭雇主剝削欺壓，造成新的社會問題</td></tr>
+              <tr><td class="wc">社會運動<br>（民70年代起，解嚴後蓬勃）</td><td>
+                <ul>
+                  <li><b>環保</b>團體：反<b>六輕</b>（宜蘭居民抗拒台塑設「第六套輕油裂解廠」）、反<b>核四</b></li>
+                  <li><b>勞工</b>團體：訴求保障工作權益</li>
+                  <li><b>女權</b>團體：主張改革法律、落實兩性平權</li>
+                </ul>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <span class="tlabel">易混淆</span>
+          「都市端」問題（汙染、噪音、城鄉差距）與「鄉村端」問題（人力不足、隔代教養）是一體兩面，注意題目問的是哪一端。
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>文化政策：同化政策與多元文化</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>時期</th><th>特徵／代表事件</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">戰後初期<br>（同化政策）</td><td>提倡<b>中華文化</b>，限制本土語言、文學、音樂；原住民統稱「山地同胞」；推行<b>國語運動</b>、禁說方言</td></tr>
+              <tr><td class="wc">韓戰後</td><td><b>美國流行文化</b>傳入（駐臺美軍廣播電臺，即今<b>ICRT</b>前身），逐漸融入臺灣社會</td></tr>
+              <tr><td class="wc">民60年代</td><td><b>鄉土文學</b>興起：關懷農民、勞工等小人物，代表作家<b>黃春明</b>〈兒子的大玩偶〉、<b>王拓</b>〈金水嬸〉</td></tr>
+              <tr><td class="wc">民70年代以後<br>（走向多元）</td><td>
+                <ul>
+                  <li>原住民運動爭取「正名」與「自治」→「山胞」修正為「<b>原住民</b>」</li>
+                  <li>客家族群發起「<b>還我客家話</b>」運動（民77），提倡母語運動</li>
+                  <li><b>新住民、國際移工</b>增多，文化發展更豐富多樣</li>
+                </ul>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <span class="tlabel">判斷原則</span>
+          看到「國語運動」「禁說方言」「提倡中華文化」＝<b>同化政策</b>；看到「還我客家話」「原住民正名」「新住民文化」「鄉土文學」＝<b>多元文化／本土意識</b>的例證。題目常用「最無法印證」「不正確」等反向問法，作答前先圈出否定詞。
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-head">
+      <h3>章節自我測驗</h3>
+      <div class="quiz-score">本章答對 <span class="score-display" data-chapter="ch2">0</span> / <span class="score-total" data-chapter="ch2">0</span></div>
+    </div>
+    <div class="quiz-list" id="quiz-ch2"></div>
+  </section>
+
+  <!-- ===================== CHAPTER 3：第6課 外交轉折與兩岸關係 ===================== -->
+  <section class="chapter" id="ch3">
+    <div class="chapter-head"><span class="chapter-num">第6課</span><h2>外交轉折與兩岸關係</h2></div>
+    <p class="chapter-sub">外交政策與兩岸關係的三階段時間軸，以及兩岸交流機構「誰是誰」的分辨。</p>
+
+    <div class="points">
+      <div class="point-card wide">
+        <h3>外交政策與兩岸關係三階段</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>類別</th><th>第一階段</th><th>第二階段</th><th>第三階段</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">外交政策</td><td>鞏固外交（民38〜60年，蔣中正）</td><td>彈性外交（民60〜77年，蔣經國）</td><td>務實外交（民77年起，李登輝起）</td></tr>
+              <tr><td class="wc">兩岸關係</td><td>武力對抗（民38〜68年）：光復大陸 vs 武力解放臺灣</td><td>政治對峙（民68〜76年）：三不政策 vs 一國兩制／和平統戰</td><td>兩岸交流（民76年起）：開放探親、小三通、大三通</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <span class="tlabel">關鍵記憶點</span>
+          蔣經國總統任內同時完成「解嚴」與「開放大陸探親」（民國76年），是兩岸關係從「政治對峙」轉向「兩岸交流」的分水嶺。外交上：民國60年退出聯合國→61年中日斷交→68年中美斷交，一連串挫折使兩岸政策也隨之轉趨強硬（三不政策）。
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>外交政策三階段細節</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>階段</th><th>關鍵事件（依時間序）</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">鞏固外交<br>民38〜60年</td><td>
+                <ul>
+                  <li>民39年<b>韓戰</b>爆發→美國派<b>第七艦隊</b>協防臺灣海峽</li>
+                  <li>民43年簽<b>中美共同防禦條約</b>→臺灣納入東亞反共防衛體系</li>
+                  <li>民40〜54年<b>美援</b>近<b>15億美元</b>（經濟＋軍事，含美軍顧問團）</li>
+                  <li>目標：確保臺灣，光復大陸</li>
+                </ul>
+              </td></tr>
+              <tr><td class="wc">彈性外交<br>民60〜77年</td><td>
+                <ul>
+                  <li>民60年<b>中華人民共和國取代我國</b>，獲聯合國「中國席位」→友邦陸續斷交</li>
+                  <li>民68年<b>美國與我國斷交</b>→另訂<b>臺灣關係法</b>維持非官方往來</li>
+                  <li>轉向：與無邦交國發展經貿、文化交流，仍堅持中華民國是中國唯一合法政府</li>
+                </ul>
+              </td></tr>
+              <tr><td class="wc">務實外交<br>民77年〜現今</td><td>
+                <ul>
+                  <li><b>李登輝</b>繼任後推動，不再堅持代表中國唯一合法政府</li>
+                  <li>強調兩岸分裂分治，以經濟與民主成就突破外交封鎖</li>
+                  <li>免簽證國家大增，但國際空間仍受中國打壓</li>
+                </ul>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>兩岸關係三階段細節</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>階段</th><th>關鍵事件（依時間序）</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">武力對抗<br>民38〜68年</td><td>
+                <ul>
+                  <li>民38.10.1中華人民共和國成立→武力犯<b>金門</b>→<b>古寧頭戰役</b>（國軍獲勝）</li>
+                  <li>民38.12中華民國政府遷臺，兩岸分裂分治</li>
+                  <li>民47.8.23共軍猛烈炮擊金門→<b>八二三炮戰</b>（此後不再大規模武力對抗）</li>
+                  <li>對抗口號：中共「武力解放臺灣」ｖｓ我方「光復大陸」</li>
+                </ul>
+              </td></tr>
+              <tr><td class="wc">政治對峙<br>民68〜76年</td><td>
+                <ul>
+                  <li>民68年中共與美國建交→對我改採「<b>和平統戰</b>」＋提出「<b>一國兩制</b>」</li>
+                  <li>我方堅持「<b>三不政策</b>」：不接觸、不談判、不妥協</li>
+                  <li>軍事衝突趨緩，但政治立場仍持續對峙</li>
+                </ul>
+              </td></tr>
+              <tr><td class="wc">兩岸交流<br>民76年〜現今</td><td>
+                <ul>
+                  <li>民76解嚴＋<b>開放赴陸探親</b>，揭開兩岸交流序幕</li>
+                  <li>我方設<b>陸委會</b>（委託<b>海基會</b>）；對岸設國台辦（委託海協會）</li>
+                  <li>民80年起金門、馬祖、澎湖與福建通航、通郵、通商，稱「<b>小三通</b>」</li>
+                  <li>民97年全面開放，稱「<b>大三通</b>」</li>
+                  <li>金馬獎之名源自「金門、馬祖」字首，已成兩岸文化交流重要場域</li>
+                </ul>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <span class="tlabel">小幫手補充：一國兩制</span>
+          「一國」指中華人民共和國；「兩制」指中國大陸與臺灣可各自實行不同政治、經濟制度，但臺灣僅享有<b>中共規定範圍內</b>的自治——這項主張並未尊重我國政府擁有主權的事實，不利於兩岸對等溝通。
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>兩岸交流機構「誰是誰」</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th>我方（中華民國）</th><th>對岸（中華人民共和國）</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">官方機構<br>（處理政策，不能直接接觸對岸官方）</td><td>陸委會（大陸委員會）</td><td>國台辦</td></tr>
+              <tr><td class="wc">民間／半官方機構<br>（實際出面協商、簽協議）</td><td>海基會（辜振甫＝首任董事長）</td><td>海協會（汪道涵＝會長）</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <span class="tlabel">記憶口訣</span>
+          「陸對國，海對海」——陸委會對國台辦（官方對官方），海基會對海協會（民間對民間）。民國82年<b>辜汪會談</b>＝海基會 vs 海協會，不是陸委會對國台辦。
+        </div>
+        <div class="trap"><b>常見錯誤</b>　學生容易把「我方／中共方」與「官方／民間」兩個分類軸混在一起，例如誤以為「對岸民間機構」是陸委會——陸委會其實是我方的官方機構。</div>
+      </div>
+    </div>
+
+    <div class="quiz-head">
+      <h3>章節自我測驗</h3>
+      <div class="quiz-score">本章答對 <span class="score-display" data-chapter="ch3">0</span> / <span class="score-total" data-chapter="ch3">0</span></div>
+    </div>
+    <div class="quiz-list" id="quiz-ch3"></div>
+  </section>
+
+  <!-- ===================== CHAPTER 4：總複習（考點整理＋配對遊戲） ===================== -->
+  <section class="chapter" id="ch4">
+    <div class="chapter-head"><span class="chapter-num">總複習</span><h2>考點整理與記憶配對</h2></div>
+    <p class="chapter-sub">四大易混淆概念、關鍵人物總表，以及配對小遊戲，考前務必再確認一次。</p>
+
+    <div class="points">
+      <div class="point-card wide">
+        <h3>四大易混淆比較</h3>
+        <div class="trap"><b>戒嚴令 ≠ 動員戡亂時期臨時條款</b>　戒嚴令限制「自由權利」（民76年解除）；臨時條款擴大「總統職權」（民80年廢除），性質與時間都不同。</div>
+        <div class="trap"><b>陸委會／國台辦（官方） ≠ 海基會／海協會（民間）</b>　「陸對國，海對海」；辜汪會談是海基會對海協會，不是陸委會。</div>
+        <div class="trap"><b>外交三階段 ≠ 兩岸三階段（但年代對應）</b>　鞏固外交／武力對抗（蔣中正）→彈性外交／政治對峙（蔣經國）→務實外交／兩岸交流（李登輝起），關鍵分水嶺是民國76年蔣經國「解嚴＋開放探親」。</div>
+        <div class="trap"><b>同化政策 ≠ 多元文化</b>　國語運動、禁說方言、提倡中華文化＝同化；客家電視台、原住民正名、新住民文化＝多元文化的例證。</div>
+        <div class="trap"><b>經濟五階段順序</b>　土地改革→進口替代→出口導向→十大建設→產業升級（→自由化、國際化），目的關鍵字依序是：穩定→替代→外銷→建設→升級。</div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>關鍵人物總表</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>人物</th><th>身分</th><th>重要事蹟</th></tr></thead>
+            <tbody>
+              <tr><td class="wc">陳儀</td><td>臺灣省行政長官</td><td>戰後初期治臺，權力集中，二二八事件後被免職</td></tr>
+              <tr><td class="wc">雷震</td><td>《自由中國》創辦人</td><td>民國49年籌組中國民主黨遭逮捕，史稱雷震事件</td></tr>
+              <tr><td class="wc">蔣中正</td><td>總統（民37〜49年間陸續連任）</td><td>遷臺、頒布戒嚴令與臨時條款、土地改革、鞏固外交</td></tr>
+              <tr><td class="wc">蔣經國</td><td>總統（民67〜77年在任）</td><td>十大建設、彈性外交、美麗島事件、<b>解除戒嚴＋開放探親</b>（民76）</td></tr>
+              <tr><td class="wc">李登輝</td><td>總統（民77〜89年在任）</td><td>三月學運、廢除臨時條款、<b>首次總統直選</b>、辜汪會談、務實外交</td></tr>
+              <tr><td class="wc">陳水扁</td><td>總統（民89〜97年在任）</td><td>首次政黨輪替</td></tr>
+              <tr><td class="wc">辜振甫</td><td>海基會首任董事長</td><td>民國82年代表我方參與辜汪會談</td></tr>
+              <tr><td class="wc">汪道涵</td><td>海協會會長</td><td>民國82年代表對岸參與辜汪會談</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="point-card wide">
+        <h3>記憶配對小遊戲</h3>
+        <p style="margin-bottom:14px;">翻開卡片找出「關鍵詞」與「說明」的配對，全部配對成功即完成。</p>
+        <div class="match-grid" id="matchGrid"></div>
+        <div id="match-status"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>民主的挑戰（第4〜6課）· 互動講義　整理自國中歷史課本第4單元及第五、六章重點延伸</footer>
+</div>
+
+<script>
+/* ---------- tab switching ---------- */
+const tabButtons = document.querySelectorAll('.tab-btn');
+const chapters = document.querySelectorAll('.chapter');
+tabButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabButtons.forEach(b=>b.classList.remove('active'));
+    chapters.forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ---------- quiz data ---------- */
+const QUIZ_DATA = {
+  ch1: [
+    {q:"民國34年10月25日，臺灣、澎湖由何政府接收與治理？",opts:["日本政府","中華民國政府","中華人民共和國政府","美國軍政府"],a:1,note:"此日訂為「臺灣光復節」，受降典禮於臺北公會堂（今臺北中山堂）舉行。"},
+    {q:"戰後初期治臺的最高機構是下列何者？",opts:["臺灣總督府","臺灣省政府","臺灣省行政長官公署","臺灣省議會"],a:2,note:"由陳儀擔任行政長官，集行政、軍事大權於一身，權力集中程度類似日治時期的臺灣總督。"},
+    {q:"二二八事件的導火線，與下列何種公務機關的查緝行動有關？",opts:["警察局","專賣局","稅捐處","憲兵隊"],a:1,note:"民國36年2月27日，行政長官公署專賣局查緝私菸時誤傷、誤殺民眾，引爆群眾憤慨。"},
+    {q:"二二八事件後，中央政府展開「清鄉」，其主要作法為何？",opts:["興建道路橋梁","藉清查戶口、收繳武器掃蕩反政府分子","推動土地改革","舉辦地方選舉"],a:1,note:"執行過程未經正當程序，多有濫用，造成許多冤案。"},
+    {q:"「動員戡亂時期臨時條款」制定的主要背景是？",opts:["二二八事件","國共內戰","韓戰爆發","中美斷交"],a:1,note:"民國37年因應國共內戰而制定，擴大總統職權、不受連任次數限制。"},
+    {q:"下列何者不是戒嚴令限制人民的自由項目？",opts:["言論自由","出版自由","信仰宗教自由","集會結社自由"],a:2,note:"戒嚴令主要限制言論、出版、集會、結社等自由，並未直接限制宗教信仰自由。"},
+    {q:"「白色恐怖」時期，情治機關逮捕人民最主要的問題是？",opts:["逮捕人數過少","未經正常法律程序與公開審判","只逮捕外國人","逮捕後立即釋放"],a:1,note:"未依法律程序逮捕、未經正常公開司法審判便定罪，是白色恐怖侵害人權的核心問題。"},
+    {q:"戰後政府對原住民的政策，下列敘述何者錯誤？",opts:["統稱原住民為「山地同胞」","要求以漢名登記戶籍","積極保存並推廣原住民各族語言","劃設山林保護區或國家公園"],a:2,note:"政府推行國語運動，反而造成各族群語言逐漸消失，並非積極保存推廣。"},
+    {q:"民國49年創辦《自由中國》雜誌、籌組「中國民主黨」而遭逮捕入獄的是？",opts:["陳儀","雷震","蔣經國","李登輝"],a:1,note:"史稱「雷震事件」，是戒嚴時期組黨運動最早、也最受挫折的案例之一。"},
+    {q:"民國68年爆發於高雄、多名黨外人士遭逮捕入獄的事件是？",opts:["雷震事件","二二八事件","美麗島事件","三月學運"],a:2,note:"因《美麗島》雜誌社舉辦「國際人權日紀念大會」而爆發憲警與民眾衝突。"},
+    {q:"民國75年成立、是戰後第一個實質運作反對黨的是？",opts:["中國民主黨","民主進步黨","中國國民黨","臺灣民眾黨"],a:1,note:"黨外人士突破黨禁，於民國75年成立民主進步黨。"},
+    {q:"宣布解除戒嚴、開放黨禁報禁的總統是？",opts:["蔣中正","蔣經國","李登輝","陳水扁"],a:1,note:"蔣經國於民國76年（1987）宣布解嚴，同年底並開放大陸探親。"},
+    {q:"民國79年學生於中正紀念堂廣場發起的學運，又稱為？",opts:["太陽花學運","野百合學運","五四運動","保釣運動"],a:1,note:"因以臺灣野百合作為精神象徵，稱為「野百合學運」，即三月學運。"},
+    {q:"臺灣「首次人民直選總統」發生於民國幾年？",opts:["76年","80年","85年","89年"],a:2,note:"民國85年（1996）舉行首次總統直選，李登輝、連戰當選。"},
+    {q:"民國89年陳水扁當選總統，此事件的歷史意義為？",opts:["首次總統直選","首次政黨輪替","廢除臨時條款","解除戒嚴"],a:1,note:"這是中華民國政府遷臺以來首次政黨輪替，民主進步黨首度執政。"}
+  ],
+  ch2: [
+    {q:"政府於民國40年代推行「三七五減租、公地放領、耕者有其田」，其主要目的為何？",opts:["穩定物價","使佃農逐漸取得自有土地","發展重工業","加入國際貿易組織"],a:1,note:"土地改革三部曲的核心目的，是讓佃農逐漸取得自有土地，穩定農村社會。"},
+    {q:"高雄設立全國第一個加工出口區，其經濟政策階段與核心目的依序為何？",opts:["進口替代；限制進口","出口導向；拓展外銷、轉型為工業經濟","十大建設；發展重工業","產業升級；發展半導體"],a:1,note:"加工出口區屬於出口導向階段，核心目的是拓展外銷，使經濟型態由農業轉為工業為主。"},
+    {q:"「行政院院長提出十大建設計畫」一事，發生於下列哪一階段，由誰提出？",opts:["出口導向；蔣中正","十大建設；蔣經國","產業升級；李登輝","自由化；陳水扁"],a:1,note:"十大建設由蔣經國提出，因應石油危機、強化基礎建設，常誤記為蔣中正。"},
+    {q:"新竹科學工業園區的設立，最能代表台灣經濟發展邁入下列哪一階段？",opts:["進口替代","出口導向","產業升級","土地改革"],a:2,note:"新竹科學園區以發展高科技產業為核心，代表經濟發展邁入產業升級階段。"},
+    {q:"「限制外國商品進口、扶植國內民生輕工業」是下列哪一階段的特徵？",opts:["進口替代","出口導向","十大建設","自由化、國際化"],a:0,note:"進口替代階段的特徵是限制外國商品進口、扶植國內輕工業，常與出口導向順序顛倒。"},
+    {q:"十大建設的推動，主要是為了因應下列哪一國際情勢？",opts:["韓戰爆發","石油危機造成全球經濟不景氣","中美斷交","加入世界貿易組織"],a:1,note:"十大建設是為了因應1970年代石油危機造成的全球經濟不景氣，強化基礎建設。"},
+    {q:"下列何者「最無法」用來印證臺灣社會邁向多元文化發展？",opts:["學校推行國語運動，禁說方言","成立客家電視台","重視原住民族正名運動","尊重新住民文化"],a:0,note:"推行國語運動、禁說方言屬於同化政策，不是多元文化的例證。"},
+    {q:"「鄉土文學」興起的背景，下列敘述何者正確？",opts:["興起於民國50年代","主張全面推行中華文化","反映本土意識抬頭、關懷臺灣土地與人民","為清除日本殖民統治的影響而生"],a:2,note:"鄉土文學反映本土意識抬頭，關懷臺灣土地與人民，是多元文化發展的一環。"},
+    {q:"下列何者「不正確」反映臺灣文化由「一元」走向「多元」的過程？",opts:["原住民族正名運動","新住民文化逐漸受到重視","持續加強國語推行、禁止方言教學","地方文史與鄉土教育受到重視"],a:2,note:"持續加強國語推行、禁止方言教學是同化政策的方向，與「走向多元」相反。"},
+    {q:"街道上出現「泰式料理」「越南小吃」等異國招牌，此現象與下列何者關係最密切？",opts:["中華民國政府的推廣","新住民引進母國文化","日本殖民統治的影響","美國流行文化的傳入"],a:1,note:"這是新住民引進母國文化的具體例證，也是臺灣邁向多元文化的展現。"},
+    {q:"下列關於臺灣「都市化」現象的敘述，何者正確？",opts:["都市人口因工作機會多、生活便利而集中，但衍生空氣汙染、噪音、城鄉差距等問題","都市化使農村人力更加充足","都市化與隔代教養問題無關","都市化只發生於日治時期"],a:0,note:"都市化雖帶來便利與就業機會，卻也造成環境與城鄉差距等社會問題。"},
+    {q:"民國70年代以後，因經濟發展帶來的環保問題，宜蘭居民抗拒台塑設廠而形成的社會運動，其抗爭對象為下列何者？",opts:["核四廠","第六套輕油裂解廠（六輕）","加工出口區","新竹科學園區"],a:1,note:"宜蘭居民長期抗議台塑於宜蘭設置「六輕」，最終台塑改於雲林麥寮設廠。"},
+    {q:"〈兒子的大玩偶〉、〈金水嬸〉等關懷農民、勞工等小人物遭遇的作品，屬於下列哪一種文學風潮？",opts:["鄉土文學","武俠小說","日治時期新文學","現代主義文學"],a:0,note:"鄉土文學興起於民國60年代，黃春明、王拓為代表作家，反映本土意識抬頭。"},
+    {q:"政府將「山胞」修正為「原住民」，是下列哪一項運動具體成果的展現？",opts:["還我客家話運動","原住民正名運動","三月學運","美麗島事件"],a:1,note:"原住民運動以爭取「正名」與「自治」為目標，日後透過法律修訂使原住民族權益更受保障。"},
+    {q:"民國77年客家族群發起「還我客家話」遊行，主要訴求為何？",opts:["主張客家話在電視廣播中使用","要求設立客家自治區","反對國語運動","爭取原住民自治"],a:0,note:"還我客家話運動旨在提倡客語傳統文化的維護，主張客家話能在電視廣播中使用。"}
+  ],
+  ch3: [
+    {q:"民國82年辜汪會談中，代表中共出席的汪道涵，其身分相當於我方哪一機構的負責人？",opts:["陸委會主委","海基會董事長","國台辦主任","海協會會長"],a:1,note:"汪道涵是對岸海協會會長，與我方海基會董事長辜振甫對談，「海對海」。"},
+    {q:"「大陸委員會」與「國台辦」的共同性質為何？",opts:["皆為民間團體","皆為兩岸官方主管機構","皆負責簽署協議","皆設立於兩岸交流時期之前"],a:1,note:"陸委會與國台辦分別是我方、對岸的官方主管機構，「陸對國」。"},
+    {q:"小華的父親在中國經商失蹤，家人最應尋求下列哪一機構協助？",opts:["國台辦","海協會","海基會","陸委會"],a:2,note:"海基會是我方負責實際出面協商、處理民間事務的機構。"},
+    {q:"下列配對何者「錯誤」？",opts:["我方官方—陸委會","我方民間—海基會","對岸官方—國台辦","對岸民間—陸委會"],a:3,note:"陸委會是我方官方機構，不是對岸民間機構；對岸民間機構應為海協會。"},
+    {q:"下列關於「彈性外交」時期的敘述，何者正確？",opts:["由蔣中正總統提出","強調漢賊不兩立","在蔣經國總統任內推動，爭取與無邦交國實質關係","以加入聯合國為目標"],a:2,note:"彈性外交是蔣經國總統任內推動，爭取與無邦交國維持實質關係。"},
+    {q:"兩岸關係從「政治對峙」轉為「兩岸交流」的關鍵年代與事件為何？",opts:["民國68年，中美斷交","民國76年，解嚴並開放探親","民國82年，辜汪會談","民國97年，三通"],a:1,note:"民國76年蔣經國宣布解嚴並開放大陸探親，是兩岸關係的關鍵分水嶺。"},
+    {q:"中華民國退出聯合國發生於民國幾年？此後外交政策受到何種衝擊？",opts:["民國50年；邦交國大幅增加","民國60年；邦交國逐漸減少","民國68年；與美國建交","民國76年；解除戒嚴"],a:1,note:"民國60年退出聯合國後，邦交國逐漸減少，外交陷入孤立的開端。"},
+    {q:"下列事件依時間先後排列，何者正確？甲、中美斷交　乙、退出聯合國　丙、解除戒嚴並開放探親　丁、辜汪會談",opts:["甲乙丙丁","乙甲丙丁","乙丙甲丁","甲丙乙丁"],a:1,note:"正確順序為退出聯合國（民60）→中美斷交（民68）→解嚴開放探親（民76）→辜汪會談（民82）。"},
+    {q:"民國68年中美斷交後，中共對臺政策轉變為下列何者？",opts:["武力解放臺灣","和平統戰","三不政策","兩岸三通"],a:1,note:"中美斷交後，中共對臺政策由武力對抗轉為和平統戰，進入政治對峙時期。"},
+    {q:"我國於民國91年加入WTO後，葡萄酒等進口商品選擇變多、價格變便宜，這最能反映下列哪一經濟發展目標？",opts:["進口替代","出口導向","十大建設","自由化、國際化"],a:3,note:"加入WTO（世界貿易組織）屬於自由化、國際化階段，與產業升級是不同階段。"},
+    {q:"民國68年美國與我國斷交後，美國國會通過下列哪一項法案，作為維持雙方非官方往來及維護臺海和平的法律基礎？",opts:["《中美共同防禦條約》","《臺灣關係法》","《動員戡亂時期臨時條款》","《國家安全法》"],a:1,note:"民國68年美國與我國斷交後，美國國會另訂《臺灣關係法》，以維持雙方在經貿、文化等方面的非官方往來，並持續關切臺海安全。"},
+    {q:"「中美共同防禦條約」簽訂於民國幾年，其歷史意義為何？",opts:["民國38年；宣布戒嚴","民國43年；將臺灣納入東亞反共防衛體系","民國60年；退出聯合國","民國68年；中美斷交"],a:1,note:"民國43年簽訂中美共同防禦條約，正式將臺灣納入東亞反共防衛體系的一環，臺海局勢漸趨穩定。"},
+    {q:"民國40〜54年間，美國提供我國近15億美元的經濟援助，這種援助總稱為？",opts:["美援","僑匯","外資","公債"],a:0,note:"這段期間美國提供的經濟、軍事援助總稱為「美援」，是鞏固外交時期的重要支柱。"},
+    {q:"民國38年，國軍在下列何地激戰後獲勝，史稱「古寧頭戰役」？",opts:["馬祖","金門","澎湖","臺北"],a:1,note:"民國38年中華人民共和國成立後即以武力進犯金門，國軍激戰後獲勝，史稱古寧頭戰役。"},
+    {q:"民國47年8月23日，共軍猛烈炮擊金門、國軍奮力抵抗的事件，史稱？",opts:["古寧頭戰役","八二三炮戰","美麗島事件","辜汪會談"],a:1,note:"八二三炮戰後，兩岸雖偶有零星軍事衝突，但不再出現大規模的武力對抗。"},
+    {q:"金門、馬祖、澎湖與福建自民國80年起展開小範圍直接通航、通郵、通商，俗稱？",opts:["大三通","小三通","一國兩制","三不政策"],a:1,note:"民國80年起實施的小範圍三通稱為「小三通」，民國97年才全面開放「大三通」。"},
+    {q:"下列關於「一國兩制」的敘述，何者正確？",opts:["是我方政府對中國大陸提出的主張","「兩制」指臺灣與中國大陸可各自實行不同政治經濟制度，但臺灣僅享一定範圍內的自治","此主張充分尊重我國政府擁有主權的事實","是務實外交時期我方採行的政策"],a:1,note:"一國兩制是中華人民共和國對臺灣提出的策略，主張臺灣僅享有中共規定範圍內的自治，未尊重我國主權。"}
+  ]
+};
+
+let globalCorrect = 0;
+let totalQuestions = 0;
+
+function buildQuiz(chapterId){
+  const container = document.getElementById('quiz-' + chapterId);
+  const items = QUIZ_DATA[chapterId];
+  totalQuestions += items.length;
+  document.querySelectorAll(`.score-total[data-chapter="${chapterId}"]`).forEach(el=>el.textContent=items.length);
+
+  items.forEach((item, idx)=>{
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `
+      <div class="q-num">第 ${idx+1} 題</div>
+      <div class="q-text">${item.q}</div>
+      <div class="options"></div>
+      <div class="feedback"><div class="seal">正解</div><div class="fb-text"></div></div>
+    `;
+    const optsWrap = card.querySelector('.options');
+    item.opts.forEach((optText, oIdx)=>{
+      const optBtn = document.createElement('button');
+      optBtn.className = 'opt';
+      optBtn.textContent = optText;
+      optBtn.addEventListener('click', ()=>{
+        if(optBtn.classList.contains('locked')) return;
+        const allOpts = optsWrap.querySelectorAll('.opt');
+        allOpts.forEach(o=>o.classList.add('disabled','locked'));
+        if(oIdx === item.a){
+          optBtn.classList.add('correct');
+          globalCorrect++;
+          document.getElementById('globalScore').textContent = globalCorrect;
+          const scoreEl = card.closest('.chapter').querySelector(`.score-display[data-chapter="${chapterId}"]`);
+          scoreEl.textContent = parseInt(scoreEl.textContent) + 1;
+        } else {
+          optBtn.classList.add('wrong');
+          allOpts[item.a].classList.add('correct');
+        }
+        const fb = card.querySelector('.feedback');
+        fb.querySelector('.fb-text').textContent = item.note;
+        fb.classList.add('show');
+      });
+      optsWrap.appendChild(optBtn);
+    });
+    container.appendChild(card);
+  });
+}
+
+['ch1','ch2','ch3'].forEach(buildQuiz);
+document.getElementById('totalQCount').textContent = totalQuestions;
+
+/* ---------- matching game ---------- */
+const MATCH_PAIRS = [
+  {term:'二二八事件', def:'民國36年查緝私菸誤傷民眾引發的全臺衝突'},
+  {term:'蔣經國', def:'解除戒嚴＋開放大陸探親（民國76年）'},
+  {term:'美麗島事件', def:'民國68年高雄爆發的憲警與民眾衝突'},
+  {term:'加工出口區', def:'民國55年設於高雄，發展出口導向經濟'},
+  {term:'新竹科學園區', def:'民國69年設立，帶動產業升級'},
+  {term:'海基會', def:'我方民間機構，首任董事長辜振甫'},
+  {term:'陸委會', def:'我方官方機構，對應對岸國台辦'},
+  {term:'退出聯合國', def:'民國60年，我國外交陷入孤立的開端'}
+];
+let matchCards = [];
+MATCH_PAIRS.forEach((p,i)=>{
+  matchCards.push({id:'t'+i, pair:i, type:'term', text:p.term});
+  matchCards.push({id:'d'+i, pair:i, type:'def', text:p.def});
+});
+matchCards = matchCards.sort(()=>Math.random()-0.5);
+
+const grid = document.getElementById('matchGrid');
+let flipped = [];
+let lockBoard = false;
+let matchedCount = 0;
+
+matchCards.forEach(card=>{
+  const el = document.createElement('div');
+  el.className='match-card';
+  el.dataset.pair = card.pair;
+  el.dataset.id = card.id;
+  el.innerHTML = `
+    <div class="match-card-inner">
+      <div class="match-face match-front">憲</div>
+      <div class="match-face match-back">${card.text}</div>
+    </div>`;
+  el.addEventListener('click', ()=>onCardClick(el));
+  grid.appendChild(el);
+});
+
+function onCardClick(el){
+  if(lockBoard || el.classList.contains('flipped') || el.classList.contains('matched')) return;
+  el.classList.add('flipped');
+  flipped.push(el);
+  if(flipped.length === 2){
+    lockBoard = true;
+    const [a,b] = flipped;
+    if(a.dataset.pair === b.dataset.pair && a.dataset.id !== b.dataset.id){
+      a.classList.add('matched'); b.classList.add('matched');
+      matchedCount++;
+      flipped = []; lockBoard = false;
+      if(matchedCount === MATCH_PAIRS.length){
+        document.getElementById('match-status').textContent = '全部配對成功！';
+      }
+    } else {
+      setTimeout(()=>{
+        a.classList.remove('flipped'); b.classList.remove('flipped');
+        flipped = []; lockBoard = false;
+      }, 800);
+    }
+  }
+}
+</script>
+</body>
+</html>
