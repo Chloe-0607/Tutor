@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>晚遊六橋待月記｜互動國文講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --willow:#5C7A4A; --peach:#E8A796; --mist:#AFC8CE; --moon:#D9A441;
+  --soil:#26241D; --paper:#F7F4EC; --ink:#201D18; --muted:#6B6255;
+  --seal:#B2503A; --card:#FFFFFF; --line:#E4DBC6;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Noto Sans TC',sans-serif; line-height:1.75;
+}
+h1,h2,h3,.serif{font-family:'Noto Serif TC',serif;}
+
+/* ---- HERO ---- */
+.hero{position:relative; text-align:center; padding:56px 20px 36px; border-bottom:1px solid var(--mist); overflow:hidden;}
+.hero::before{
+  content:"湖"; position:absolute; top:-46px; right:-14px; font-family:'Noto Serif TC',serif;
+  font-size:240px; color:var(--willow); opacity:.12; font-weight:900; pointer-events:none;
+}
+.eyebrow{letter-spacing:6px; font-size:12.5px; color:var(--seal); font-weight:700; margin-bottom:10px;}
+.hero h1{font-size:clamp(30px,5.4vw,48px); color:var(--soil); margin:0 0 8px; font-weight:900; letter-spacing:.06em;}
+.hero .byline{font-size:13.5px; color:var(--muted); letter-spacing:.15em; margin-bottom:16px;}
+.hero p.lead{max-width:620px; margin:0 auto; color:var(--muted); font-size:14.5px;}
+
+/* ---- CONTROLS ---- */
+.controls{
+  position:sticky; top:0; z-index:56; background:rgba(247,244,236,.95); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--mist); padding:10px 18px; display:flex; align-items:center;
+  justify-content:center; gap:24px; flex-wrap:wrap; font-size:12.5px; color:var(--muted);
+}
+.controls label{display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none;}
+.switch{position:relative; width:36px; height:20px; border-radius:99px; background:var(--mist); transition:background .2s;}
+.switch::after{content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#fff; transition:transform .2s; box-shadow:0 1px 2px rgba(0,0,0,.3);}
+input[type=checkbox]{display:none;}
+input[type=checkbox]:checked + .switch{background:var(--willow);}
+input[type=checkbox]:checked + .switch::after{transform:translateX(16px);}
+#score{color:var(--seal); font-weight:700;}
+
+main{max-width:940px; margin:0 auto; padding:28px 18px 100px;}
+
+/* ---- SECTION HEADINGS ---- */
+.section-block{margin-bottom:44px;}
+.section-title{
+  font-size:22px; font-weight:700; color:var(--soil); border-bottom:2px solid var(--willow);
+  padding-bottom:8px; margin-bottom:20px; display:flex; align-items:center; gap:10px;
+}
+  .section-title span{font-size:13px; color:var(--seal); font-weight:normal; letter-spacing:.05em;}
+.section-intro{font-size:13.5px; color:var(--muted); margin:0 0 16px;}
+
+/* ---- 古文常用字表格 ---- */
+.char-table-wrap{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 6px 18px -16px rgba(38,36,29,.45);}
+.char-table-scroll{overflow-x:auto;}
+.char-table{width:100%; min-width:680px; border-collapse:collapse; font-size:14px; line-height:1.75;}
+.char-table caption{caption-side:top; padding:18px 22px 8px; text-align:left; color:var(--soil); font-family:'Noto Serif TC',serif; font-size:18px; font-weight:700;}
+.char-table th{background:#EFE9D8; color:var(--soil); font-family:'Noto Serif TC',serif; font-size:15px; font-weight:700; text-align:left; padding:12px 16px; border-bottom:2px solid var(--willow);}
+.char-table td{padding:11px 16px; border-bottom:1px solid var(--line); vertical-align:top;}
+.char-table tr:last-child td{border-bottom:none;}
+.char-table tbody tr:nth-child(even){background:#FBFAF5;}
+.char-table tbody tr:hover{background:#F2EEDF;}
+.char-table .example{font-family:'Noto Serif TC',serif; color:var(--ink); font-size:15px;}
+.char-table .target{color:var(--seal); font-weight:700; border-bottom:1px dotted var(--seal);}
+.char-table .pos{color:var(--willow); font-weight:700; white-space:nowrap;}
+.char-table .meaning{color:var(--muted);}
+.char-table-note{margin:12px 2px 0; color:var(--muted); font-size:12.5px;}
+
+/* ---- 背景 ---- */
+.context-card{background:var(--card); border:1px solid var(--line); border-left:5px solid var(--seal); border-radius:12px; padding:22px 26px; margin-bottom:18px;}
+.context-card b{color:var(--seal);}
+.context-card p{margin:0 0 10px; font-size:14.5px;}
+.context-card p:last-child{margin-bottom:0;}
+.quote-strip{display:flex; gap:12px; align-items:center; background:#EFE9D8; border-radius:10px; padding:14px 18px; margin-top:14px; font-family:'Noto Serif TC',serif; color:var(--soil); font-size:14.5px;}
+
+/* ---- 課文 ---- */
+.passage{background:var(--card); border:1px solid var(--line); border-radius:14px; margin-bottom:18px; overflow:hidden;}
+.passage-head{display:flex; align-items:center; justify-content:space-between; padding:12px 20px; background:#EFE9D8; border-bottom:1px solid var(--line);}
+.passage-head .ptitle{font-weight:700; color:var(--willow); font-size:13px; letter-spacing:.05em;}
+.passage-head button{font-size:11.5px; background:var(--paper); color:var(--ink); border:1px solid var(--muted); padding:5px 13px; border-radius:20px; cursor:pointer;}
+.passage-head button:hover{background:var(--mist); color:#fff;}
+.passage-body{padding:22px 24px;}
+.classical{font-family:'Noto Serif TC',serif; font-size:1.14rem; line-height:2.5; color:var(--ink);}
+.classical ruby{ruby-position:over;}
+.classical rt{font-size:.48em; font-family:'Noto Sans TC',sans-serif; color:var(--seal); font-weight:600; letter-spacing:0;}
+body.hide-zhuyin .classical rt{display:none;}
+.classical .gloss{color:var(--seal); font-weight:600; border-bottom:1px dotted var(--seal); cursor:pointer; padding:0 1px; border-radius:3px; transition:background .15s;}
+.classical .gloss:hover{background:#F2E4DC;}
+.classical .gloss.active{background:#EFD9C9;}
+.classical .fnmark{color:var(--seal); font-weight:700; font-size:.62em; margin-left:1px; cursor:pointer;}
+.notes-hint{margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); font-size:12px; color:var(--muted); display:flex; align-items:center; gap:6px;}
+.notes-hint .dot{width:10px; height:10px; border-radius:50%; background:var(--seal); border-bottom:none; display:inline-block; opacity:.8;}
+#glossTip{
+  position:fixed; z-index:80; max-width:280px; background:var(--soil); color:var(--paper);
+  padding:12px 15px; border-radius:10px; font-size:13px; line-height:1.75; box-shadow:0 12px 28px rgba(0,0,0,.32);
+  opacity:0; transform:translateY(6px); pointer-events:none; transition:opacity .18s ease, transform .18s ease;
+  font-family:'Noto Sans TC',sans-serif;
+}
+#glossTip.show{opacity:1; transform:translateY(0); pointer-events:auto;}
+#glossTip::before{content:""; position:absolute; top:-6px; left:18px; width:12px; height:12px; background:var(--soil); transform:rotate(45deg);}
+#glossTip.arrow-below::before{top:auto; bottom:-6px; transform:rotate(45deg);}
+.translation{overflow:hidden; max-height:0; opacity:0; transition:max-height .4s ease, opacity .4s ease;
+  font-size:13.5px; color:var(--muted); border-left:3px solid var(--willow); padding-left:0; margin-top:0;}
+.translation.show{max-height:400px; opacity:1; padding:14px 0 0 16px; margin-top:14px;}
+body.show-all-trans .translation{max-height:400px; opacity:1; padding:14px 0 0 16px; margin-top:14px;}
+.translation .tlabel{display:block; font-size:11px; letter-spacing:.15em; color:var(--willow); margin-bottom:6px; font-weight:700;}
+
+/* ---- 三、西湖時刻探索（取代原本的名句配對遊戲） ---- */
+.guess-wrap{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 26px; margin-bottom:22px;}
+.guess-title{font-weight:700; font-size:15px; color:var(--soil); margin-bottom:14px;}
+.guess-btns{display:flex; flex-wrap:wrap; gap:10px;}
+.guess-btn{font-family:inherit; font-size:13.5px; padding:9px 18px; border-radius:20px; border:1px solid var(--muted); background:var(--paper); color:var(--ink); cursor:pointer; transition:.15s;}
+.guess-btn:hover:not(:disabled){border-color:var(--willow); background:#EFE9D8;}
+.guess-btn:disabled{cursor:default; opacity:.55;}
+.guess-btn.right{background:#EAF1E4; border-color:var(--willow); color:var(--willow); font-weight:700;}
+.guess-btn.miss{background:#F7ECE7; border-color:var(--seal); color:var(--seal); text-decoration:line-through;}
+#guessResult{margin-top:14px; font-size:13.5px; color:var(--muted); min-height:20px; line-height:1.85;}
+#guessResult b{color:var(--seal);}
+
+.time-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:16px;}
+.time-card{border-radius:14px; border:1px solid var(--line); overflow:hidden; cursor:pointer; background:var(--card); transition:box-shadow .2s, transform .2s;}
+.time-card:hover{box-shadow:0 10px 26px -14px rgba(38,36,29,.35); transform:translateY(-2px);}
+.time-head{padding:16px 18px; color:#fff; position:relative;}
+.time-head .thlabel{font-family:'Noto Serif TC',serif; font-weight:900; font-size:17px; display:block; margin-bottom:3px;}
+.time-head .thsub{font-size:11.5px; opacity:.9; letter-spacing:.06em;}
+.time-head .badge{position:absolute; top:12px; right:14px; font-size:10.5px; font-weight:700; letter-spacing:.06em; background:rgba(255,255,255,.24); padding:3px 10px; border-radius:20px;}
+.tc-dawn .time-head{background:linear-gradient(135deg,#B7A9D8,#E8C9A0);}
+.tc-noon .time-head{background:linear-gradient(135deg,#E8A796,#D9A441);}
+.tc-dusk .time-head{background:linear-gradient(135deg,#D9A441,#B2503A);}
+.tc-moon .time-head{background:linear-gradient(135deg,#2C3E52,#5C7A9A);}
+.time-body{padding:0 18px; max-height:0; opacity:0; overflow:hidden; transition:max-height .35s ease, opacity .35s ease, padding .35s ease;}
+.time-card.open .time-body{max-height:420px; opacity:1; padding:16px 18px 18px;}
+.time-quote{font-family:'Noto Serif TC',serif; font-size:14.5px; color:var(--soil); margin-bottom:8px; line-height:1.85;}
+.time-trans{font-size:12.5px; color:var(--muted); margin-bottom:8px; line-height:1.8;}
+.time-note{font-size:12.5px; color:var(--muted); padding-top:8px; border-top:1px dashed var(--line); line-height:1.8;}
+.time-toggle-hint{font-size:11px; color:var(--muted); text-align:center; padding:6px 0; opacity:.75;}
+
+/* ---- QUIZ ---- */
+.quiz-card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-bottom:16px;}
+.quiz-q{font-weight:700; font-size:15px; margin-bottom:12px;}
+.quiz-q .qnum{color:var(--seal); margin-right:6px;}
+.tag{display:inline-block; font-size:10.5px; padding:2px 10px; border-radius:20px; background:var(--willow); color:#fff; margin-left:6px; font-weight:500;}
+.opt{display:block; width:100%; text-align:left; padding:10px 14px; margin-bottom:7px; border:1px solid var(--mist); background:#fff; border-radius:6px; cursor:pointer; font-family:inherit; font-size:14px; color:var(--ink); transition:.15s;}
+.opt:hover{border-color:var(--willow);}
+.opt.correct{background:#EAF1E4; border-color:var(--willow); font-weight:700; position:relative;}
+.opt.correct::after{content:"對"; position:absolute; right:12px; top:50%; transform:translateY(-50%) rotate(-6deg); color:var(--willow); border:1.5px solid var(--willow); border-radius:4px; padding:0 5px; font-size:11px; font-family:'Noto Serif TC',serif;}
+.opt.wrong{background:#F7ECE7; border-color:var(--seal); text-decoration:line-through; color:var(--muted);}
+.opt[disabled]{cursor:default;}
+.explain{display:none; margin-top:10px; padding:11px 14px; border-radius:6px; background:#F2EEDF; border-left:3px solid var(--muted); font-size:13.5px; color:var(--ink);}
+.explain.show{display:block;}
+.explain b{color:var(--seal);}
+#quiz-celebrate{text-align:center; font-family:'Noto Serif TC',serif; font-size:16px; color:var(--willow); font-weight:700; margin-top:18px; min-height:26px;}
+
+footer{text-align:center; padding:30px 20px 100px; font-size:12px; color:var(--muted);}
+@media(max-width:640px){.passage-body{padding:18px;} .hero::before{font-size:150px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">互動國文講義</div>
+  <h1>晚遊六橋待月記</h1>
+  <div class="byline">明．袁宏道 ．《袁中郎全集》</div>
+  <p class="lead">袁宏道辭官漫遊西湖，卻獨獨鍾情於清晨、黃昏與月夜下的湖光山色，對世人只在午後喧鬧時段遊湖不以為然。全文由白日的桃花、遊人寫到夜晚的月景，層層鋪墊，展現「獨抒性靈，不拘格套」的獨特審美。</p>
+</div>
+
+<div class="controls">
+  <label>
+    <input type="checkbox" id="toggleZhuyin" checked onchange="document.body.classList.toggle('hide-zhuyin', !this.checked)">
+    <span class="switch"></span>
+    顯示注音
+  </label>
+  <label>
+    <input type="checkbox" id="toggleTrans" onchange="document.body.classList.toggle('show-all-trans', this.checked)">
+    <span class="switch"></span>
+    全文顯示語譯
+  </label>
+  <span id="progress">測驗已作答 <span id="answered">0</span> / <span id="total">0</span>　正確 <span id="score">0</span> 題</span>
+</div>
+
+<main>
+
+  <!-- ============ 1. 寫作背景 ============ -->
+  <section class="section-block" id="sec-bg">
+    <h2 class="section-title">一、 寫作背景 <span>Background & History</span></h2>
+    <p class="section-intro">辭官解脫之後，才看得見真正的西湖。</p>
+    <div class="context-card">
+      <p><b>袁宏道</b>（1568－1610），字中郎，號石公，湖廣公安（今湖北公安）人，與兄袁宗道、弟袁中道合稱「公安三袁」，同為晚明「公安派」領袖。他反對前後七子「文必秦漢，詩必盛唐」的復古模擬之風，提出「獨抒性靈，不拘格套」的「性靈說」，主張文學應直抒個人真情實感，不受格律套式束縛。</p>
+      <p>萬曆二十五年（1597），袁宏道多次陳情終於辭去吳縣知縣一職，如脫籠之鳥，遍遊江南山水。是年春天，他首次遊覽嚮往已久的西湖，流連忘返，一連寫下十六篇西湖遊記，本文即為其中一篇。文中他不隨俗人擠在午後熱鬧時段賞湖，反而偏愛清晨、黃昏與月夜的幽靜之美，甚至捨棄眾人追捧的名梅、獨戀無人在意的桃花，處處可見其「獨抒性靈」的真性情。</p>
+      <div class="quote-strip">「此樂留與山僧遊客受用，安可為俗士道哉！」</div>
+    </div>
+  </section>
+
+  <!-- ============ 2. 課文與注釋 ============ -->
+  <section class="section-block" id="sec-text">
+    <h2 class="section-title">二、 課文與注釋 <span>Text & Notes</span></h2>
+    <p class="section-intro">全文依內容分為四段，文中<span style="color:var(--seal); font-weight:600;">標色詞語</span>可點擊查看注釋，點擊段落右上角按鈕則可展開語譯。</p>
+    <div id="passageList"></div>
+  </section>
+
+  <!-- ============ 3. 古文常用字辨析 ============ -->
+  <section class="section-block" id="sec-common-words">
+    <h2 class="section-title">三、 古文常用字辨析 <span>Classical Chinese Function Words</span></h2>
+    <p class="section-intro">同一個「為」字在本文中有不同的詞性與意義，須依前後文判讀。請觀察下表，掌握「為」在判斷、被動、對象與比喻等語境中的用法。</p>
+    <div class="char-table-wrap">
+      <div class="char-table-scroll">
+        <table class="char-table">
+          <caption>「為」的用法整理</caption>
+          <thead>
+            <tr>
+              <th scope="col">例句</th>
+              <th scope="col">詞性</th>
+              <th scope="col">詞義</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="example">西湖最盛，<span class="target">為</span>春<span class="target">為</span>月</td>
+              <td class="pos">動詞</td>
+              <td class="meaning">是</td>
+            </tr>
+            <tr>
+              <td class="example">一日之盛，<span class="target">為</span>朝煙，<span class="target">為</span>夕嵐</td>
+              <td class="pos">動詞</td>
+              <td class="meaning">是、指的是</td>
+            </tr>
+            <tr>
+              <td class="example">梅花<span class="target">為</span>寒所勒</td>
+              <td class="pos">介詞</td>
+              <td class="meaning">被，與「所」組成被動句</td>
+            </tr>
+            <tr>
+              <td class="example">與杏桃相次開發，尤<span class="target">為</span>奇觀</td>
+              <td class="pos">動詞</td>
+              <td class="meaning">算是、成為</td>
+            </tr>
+            <tr>
+              <td class="example">石簣數<span class="target">為</span>余言</td>
+              <td class="pos">介詞</td>
+              <td class="meaning">對、向</td>
+            </tr>
+            <tr>
+              <td class="example">余時<span class="target">為</span>桃花所戀，竟不忍去湖上</td>
+              <td class="pos">介詞</td>
+              <td class="meaning">被，與「所」組成被動句</td>
+            </tr>
+            <tr>
+              <td class="example">歌吹<span class="target">為</span>風，粉汗<span class="target">為</span>雨</td>
+              <td class="pos">動詞</td>
+              <td class="meaning">成為、如同</td>
+            </tr>
+            <tr>
+              <td class="example">此樂留與山僧遊客受用，安可<span class="target">為</span>俗士道哉</td>
+              <td class="pos">介詞</td>
+              <td class="meaning">向、對</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="char-table-note">判讀提示：「為＋名詞」常可譯為「是」或「成為」；「為＋所＋動詞」通常譯為「被」；「為＋人」則常表示動作的對象，可譯為「對、向」。</p>
+  </section>
+
+  <!-- ============ 4. 西湖時刻探索（取代名句配對遊戲，換個互動模式） ============ -->
+  <section class="section-block" id="sec-explore">
+    <h2 class="section-title">四、 西湖時刻探索 <span>Time Explorer</span></h2>
+    <p class="section-intro">全文其實藏著一條時間軸：朝煙、午未申人潮、夕嵐、月景。先猜猜看作者心中最美的時刻，再逐一點開下方卡片，比對你的答案與原文怎麼說。</p>
+    <div class="guess-wrap">
+      <div class="guess-title">🌓 你猜，袁宏道心中西湖「最美」的時刻是？</div>
+      <div class="guess-btns" id="guessBtns"></div>
+      <div id="guessResult"></div>
+    </div>
+    <div class="time-grid" id="timeGrid"></div>
+  </section>
+
+  <!-- ============ 5. 綜合自我測驗 ============ -->
+  <section class="section-block" id="sec-quiz">
+    <h2 class="section-title">五、 綜合自我測驗 <span>Quiz</span></h2>
+    <p class="section-intro">精選 8 題測驗，涵蓋字音字形、修辭鑑賞、文意理解與文學常識，點選選項即時檢定對錯。</p>
+    <div id="quizList"></div>
+    <div id="quiz-celebrate"></div>
+  </section>
+
+</main>
+
+<footer>晚遊六橋待月記．互動國文講義　｜　原文據通行本整理，僅供學習使用</footer>
+
+<script>
+/* ============ 課文資料 ============ */
+const passages = [
+{
+  no:1, title:"第一段．西湖最盛，朝煙夕嵐",
+  text:`西湖最盛，為春為月。<span class="gloss" data-def="一天之中最美好的時刻。">一日之盛</span>，為朝煙，為夕<ruby>嵐<rt>ㄌㄢˊ</rt></ruby>。今歲春雪甚盛，梅花<span class="gloss" data-def="被寒氣抑制、延後開放。勒，抑制、拖延之意。">為寒所勒</span>，與杏桃相次開發，尤為奇觀。<span class="gloss" data-def="陶望齡，字周望，號石簣，明代文學家，袁宏道摯友，同為公安派作家。">石<ruby>簣<rt>ㄎㄨㄟˋ</rt></ruby></span>數為余言：「傅金吾園中梅，<span class="gloss" data-def="南宋張鎡（字功甫）玉照堂中的名貴古梅；玉照堂為其園林，以栽植名梅著稱。">張功甫玉照堂故物</span>也，急往觀之。」余時<span class="gloss" data-def="被桃花所吸引、留戀，捨不得離開。">為桃花所戀</span>，竟不忍去湖上。`,
+  trans:"西湖最美的時候，是春天與月夜。一天之中最美的時刻，是清晨的煙霧與傍晚的山嵐。今年春天下的雪特別多，梅花被寒氣抑制而延後開放，恰好與杏花、桃花相繼盛開，特別是難得一見的奇景。石簣多次跟我說：「傅金吾園中的梅花，是張功甫玉照堂裡遺留下來的名貴古梅，你該趕快去看看。」我當時卻迷戀著桃花，竟捨不得離開西湖。"
+},
+{
+  no:2, title:"第二段．由斷橋至蘇隄，遊人如織",
+  text:`由斷橋至蘇<ruby>隄<rt>ㄊㄧˊ</rt></ruby>一帶，<span class="gloss" data-def="形容柳樹翠綠、桃花嫣紅，遠望如輕煙薄霧籠罩湖面。">綠煙紅霧</span>，<ruby>瀰<rt>ㄇㄧˊ</rt></ruby>漫二十餘里。<span class="gloss" data-def="歌聲樂音隨風飄揚，遊人臉上的脂粉與汗水如雨水般流淌，形容遊人眾多、場面熱鬧喧騰。">歌吹為風，粉汗為雨</span>，<ruby>羅紈<rt>ㄌㄨㄛˊ ㄨㄢˊ</rt></ruby>之盛，多於隄畔之草，<ruby>豔冶<rt>ㄧㄢˋ ㄧㄝˇ</rt></ruby>極矣。`,
+  trans:"從斷橋到蘇隄一帶，綠柳如煙、桃花似霧，瀰漫綿延二十多里。歌聲樂音隨風飄揚，遊人的脂粉與汗水如雨水般滴落，穿著綾羅綢緞的遊客，比堤岸邊的青草還要繁多，景色豔麗極了。"
+},
+{
+  no:3, title:"第三段．俗客只賞午未申，錯過湖光真味",
+  text:`然杭人遊湖，止<span class="gloss" data-def="約當上午十一時至下午五時，即中午到傍晚前的一段時間。">午、未、申三時</span>。其實湖光染翠之工，山嵐設色之妙，皆在朝日始出，<span class="gloss" data-def="夕陽，指太陽將落未落之時；舂，本指搗米，此處借代日暮時分。">夕舂</span>未下，始極其濃媚。`,
+  trans:"然而杭州人遊西湖，卻只挑中午到傍晚這一段時間。其實湖光染上翠色的巧妙、山嵐渲染景致的奇妙，都在旭日剛剛升起、夕陽尚未落下的時刻，才展現得最為濃郁嫵媚。"
+},
+{
+  no:4, title:"第四段．月景尤美，俗士難解",
+  text:`月景尤不可言，<span class="gloss" data-def="以擬人手法形容花的姿態、柳的情韻，彷彿具有人的神情意態。">花態柳情</span>，<span class="gloss" data-def="同樣以擬人手法描寫山的容顏、水的意境，賦予山水人的風神情味。">山容水意</span>，別是一種趣味。此樂留與<span class="gloss" data-def="山中的僧人與真正懂得欣賞美景的雅緻遊客，指代真正的知音。">山僧遊客</span>受用，安可為<span class="gloss" data-def="庸俗淺薄、不懂得欣賞真正美景的人。">俗士</span>道哉！`,
+  trans:"月光下的景色更是美得難以言喻，花的姿態、柳的情韻、山的容顏、水的意境，別有一番趣味。這樣的快樂，只留給山中僧人與真正的雅士享用，怎麼能夠向那些庸俗之人說明白呢！"
+}
+];
+
+/* ============ 課文渲染 ============ */
+const passageList = document.getElementById('passageList');
+function renderPassages(){
+  passageList.innerHTML = '';
+  passages.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'passage';
+    card.innerHTML = `
+      <div class="passage-head">
+        <span class="ptitle">${p.title}</span>
+        <button data-i="${p.no}">查看語譯</button>
+      </div>
+      <div class="passage-body">
+        <div class="classical">${p.text}</div>
+        <div class="notes-hint"><span class="dot"></span>點擊<span style="color:var(--seal); font-weight:600;">標色詞語</span>或右上角數字，查看該處注釋</div>
+        <div class="translation" id="trans-${p.no}"><span class="tlabel">白話語譯</span>${p.trans}</div>
+      </div>`;
+    card.querySelector('button').addEventListener('click', (e)=>{
+      document.getElementById('trans-'+p.no).classList.toggle('show');
+      e.target.textContent = document.getElementById('trans-'+p.no).classList.contains('show') ? '收合語譯' : '查看語譯';
+    });
+    passageList.appendChild(card);
+
+    const classicalEl = card.querySelector('.classical');
+    const glossEls = classicalEl.querySelectorAll('.gloss');
+    glossEls.forEach((el, idx)=>{
+      const n = idx + 1;
+      const mark = document.createElement('sup');
+      mark.className = 'fnmark';
+      mark.textContent = n;
+      el.after(mark);
+      const trigger = (ev)=>{
+        ev.stopPropagation();
+        toggleGlossTip(el, el.dataset.def);
+      };
+      el.addEventListener('click', trigger);
+      mark.addEventListener('click', trigger);
+    });
+  });
+}
+renderPassages();
+
+/* ============ 注釋提示框（點擊才出現） ============ */
+const glossTip = document.createElement('div');
+glossTip.id = 'glossTip';
+document.body.appendChild(glossTip);
+let activeGlossEl = null;
+
+function toggleGlossTip(el, defText){
+  if(activeGlossEl === el){
+    hideGlossTip();
+    return;
+  }
+  if(activeGlossEl) activeGlossEl.classList.remove('active');
+  activeGlossEl = el;
+  el.classList.add('active');
+  glossTip.textContent = defText;
+  glossTip.classList.remove('arrow-below');
+
+  const rect = el.getBoundingClientRect();
+  const tipWidth = 280;
+  let left = rect.left;
+  if(left + tipWidth > window.innerWidth - 12) left = window.innerWidth - tipWidth - 12;
+  if(left < 12) left = 12;
+  glossTip.style.left = left + 'px';
+
+  glossTip.style.visibility = 'hidden';
+  glossTip.classList.add('show');
+  const tipHeight = glossTip.offsetHeight;
+  glossTip.style.visibility = '';
+
+  let top = rect.bottom + 10;
+  if(top + tipHeight > window.innerHeight - 12){
+    top = rect.top - tipHeight - 10;
+    glossTip.classList.add('arrow-below');
+  }
+  glossTip.style.top = top + 'px';
+}
+function hideGlossTip(){
+  glossTip.classList.remove('show');
+  if(activeGlossEl) activeGlossEl.classList.remove('active');
+  activeGlossEl = null;
+}
+document.addEventListener('click', (e)=>{
+  if(activeGlossEl && !glossTip.contains(e.target)) hideGlossTip();
+});
+document.addEventListener('scroll', hideGlossTip, {passive:true});
+
+/* ============ 三、西湖時刻探索 ============ */
+const TIMESTOPS = [
+  {id:'dawn', mood:'tc-dawn', label:'朝煙', sub:'清晨日出前', badge:'雅士獨賞',
+   quote:'一日之盛，為朝煙，為夕嵐。', trans:'一天之中最美的時刻，是清晨的煙霧與傍晚的山嵐。',
+   note:'旭日將升未升，湖面水氣氤氳，色調最為溫柔淡雅——這是作者心中「一日之盛」的起點，卻是俗客最容易睡過頭、錯過的時刻。'},
+  {id:'noon', mood:'tc-noon', label:'午、未、申三時', sub:'約上午11時～下午5時', badge:'俗士最愛',
+   quote:'然杭人遊湖，止午、未、申三時。', trans:'然而杭州人遊西湖，卻只挑中午到傍晚這段時間。',
+   note:'正是遊人如織、羅紈粉汗、歌吹喧騰的熱鬧時段——熱鬧有餘，卻錯過了湖光山色最細膩的光影變化。'},
+  {id:'dusk', mood:'tc-dusk', label:'夕嵐．夕舂', sub:'夕陽將落未落', badge:'雅士獨賞',
+   quote:'皆在朝日始出，夕舂未下，始極其濃媚。', trans:'（湖光山色的精妙）都在旭日剛升起、夕陽尚未落下的那一刻，才展現得最為濃郁嫵媚。',
+   note:'與朝煙相對應的另一端——夕陽餘暉未盡，山嵐染上晚霞般的色澤，是作者眼中被俗客忽略的「濃媚」時刻。'},
+  {id:'moon', mood:'tc-moon', label:'月景', sub:'入夜月出', badge:'作者最愛',
+   quote:'月景尤不可言，花態柳情，山容水意，別是一種趣味。', trans:'月光下的景色更是美得難以言喻，花的姿態、柳的情韻、山的容顏、水的意境，別有一番趣味。',
+   note:'全文情感的最高點——月景之美超越言語，只留給「山僧遊客」（真正懂得欣賞的人）享用，俗士則無緣得見，也無從領會。'}
+];
+const ANSWER_ID = 'moon';
+
+const guessBtns = document.getElementById('guessBtns');
+TIMESTOPS.forEach(t=>{
+  const btn = document.createElement('button');
+  btn.className = 'guess-btn';
+  btn.textContent = t.label;
+  btn.addEventListener('click', ()=>{
+    const all = guessBtns.querySelectorAll('.guess-btn');
+    all.forEach(b=>b.disabled = true);
+    if(t.id === ANSWER_ID){
+      btn.classList.add('right');
+    } else {
+      btn.classList.add('miss');
+      const rightBtn = Array.from(all).find(b => b.textContent === TIMESTOPS.find(x=>x.id===ANSWER_ID).label);
+      if(rightBtn) rightBtn.classList.add('right');
+    }
+    const result = document.getElementById('guessResult');
+    if(t.id === ANSWER_ID){
+      result.innerHTML = '🎉 答對了！袁宏道確實獨鍾<b>月景</b>——文中說「月景尤不可言」，美到連文字都難以形容。點下方卡片看看四個時刻各自的原文與賞析吧！';
+    } else {
+      result.innerHTML = `你選的是「${t.label}」，但原文中作者最鍾情的其實是 <b>月景</b>──「月景尤不可言，花態柳情，山容水意，別是一種趣味」。點下方卡片逐一比對四個時刻的差異吧！`;
+    }
+    document.querySelectorAll('.time-card').forEach(c=>c.classList.remove('open'));
+    const target = document.querySelector('.time-card[data-id="'+ANSWER_ID+'"]');
+    if(target) target.classList.add('open');
+  });
+  guessBtns.appendChild(btn);
+});
+
+const timeGrid = document.getElementById('timeGrid');
+TIMESTOPS.forEach(t=>{
+  const card = document.createElement('div');
+  card.className = 'time-card ' + t.mood;
+  card.dataset.id = t.id;
+  card.innerHTML = `
+    <div class="time-head">
+      <span class="badge">${t.badge}</span>
+      <span class="thlabel">${t.label}</span>
+      <span class="thsub">${t.sub}</span>
+    </div>
+    <div class="time-body">
+      <div class="time-quote">「${t.quote}」</div>
+      <div class="time-trans">${t.trans}</div>
+      <div class="time-note">${t.note}</div>
+    </div>
+    <div class="time-toggle-hint">點擊展開／收合</div>`;
+  card.addEventListener('click', ()=> card.classList.toggle('open'));
+  timeGrid.appendChild(card);
+});
+
+/* ============ 自我測驗 ============ */
+const QUIZ = [
+  {tag:"字音字形", q:"1.「為夕嵐」的「嵐」字讀音，下列何者正確？", opts:["音ㄌㄢˊ，山中霧氣","音ㄌㄢˇ，遮蔽","音ㄌㄧㄢˊ，連綿","音ㄌㄢˋ，浮濫"], a:0, ex:"「嵐」讀音為ㄌㄢˊ，指山間的霧氣，「夕嵐」即傍晚山間的霧氣。"},
+  {tag:"字音字形", q:"2.「夕舂未下」的「舂」字讀音及意義，下列何者正確？", opts:["音ㄔㄨㄥ，本指搗米，此處借代日暮夕陽","音ㄔㄨㄥ，指撞擊之聲","音ㄕㄨㄥ，指鬆動","音ㄓㄨㄥ，通「終」"], a:0, ex:"「舂」讀音為ㄔㄨㄥ，本義為搗米，古人借「舂」代指日落之處，「夕舂」即指夕陽將落之時。"},
+  {tag:"修辭鑑賞", q:"3.「歌吹為風，粉汗為雨」運用了下列何種修辭手法？", opts:["誇飾，渲染遊人眾多、場面喧騰熱鬧","譬喻，說明音樂如風般溫柔","設問，引發讀者思考","類疊，強調聲音反覆出現"], a:0, ex:"此句以誇張手法形容西湖遊人如織、歌聲樂音四起、脂粉汗水如雨落下，生動渲染出場面的喧鬧擁擠。"},
+  {tag:"修辭鑑賞", q:"4.「花態柳情，山容水意」運用了下列何種修辭手法？", opts:["借代，以部分代全體","轉化（擬人），賦予花柳山水以人的情態","誇飾，誇大景物的美好","對偶，僅講求形式工整而無深意"], a:1, ex:"此句以擬人手法，將花、柳、山、水都賦予人的姿態與情意，寫出月夜景致「別是一種趣味」的動人韻味。"},
+  {tag:"文意理解", q:"5. 石簣力勸作者去看名梅，作者卻「為桃花所戀，竟不忍去」，這反映了作者何種態度？", opts:["對友人意見毫不在乎、傲慢自負","率性而為、不受名家追捧左右的真性情","經濟拮据，捨不得多花時間交通往返","對梅花有過敏反應，不得不迴避"], a:1, ex:"作者不隨眾人追捧名貴古梅而去，反倒留戀無人特別看重的桃花，正展現「獨抒性靈，不拘格套」、依自己真實喜好而非世俗評價行事的精神。"},
+  {tag:"文意理解", q:"6. 作者說「杭人遊湖，止午、未、申三時」，其言外之意最可能是下列何者？", opts:["讚美杭州人懂得把握白天時光遊湖","批評世俗遊客只顧熱鬧、錯過湖光山色最美的時刻","說明午後氣候最適合出遊，無關審美","單純客觀記錄杭州人的遊湖習慣，不帶評價"], a:1, ex:"作者接著指出湖光山色「皆在朝日始出，夕舂未下，始極其濃媚」，可見他認為只在午未申三時遊湖的俗客，恰恰錯過了西湖最動人的光景，語帶惋惜與批評。"},
+  {tag:"篇章結構", q:"7. 全文的鋪陳脈絡，下列敘述何者最恰當？", opts:["先寫月景之美，再回溯白天的桃花與遊人","由白日的桃花、遊人寫起，層層鋪墊，最後點出月景之美難以言喻，看似無「待月」之事，卻有「待月」之實","純粹依時間先後平鋪直敘，無情感或觀點寄託","先議論說理，再舉例證明，屬於典型議論文架構"], a:1, ex:"全文從春雪梅花、桃花之戀寫起，再寫遊人如織的白日盛況，接著點出俗客只賞午未申三時，最後才推出「月景尤不可言」的高潮，層層遞進，於篇末見出真正用意。"},
+  {tag:"文學常識", q:"8. 袁宏道與其兄弟合稱，以及其文學主張的核心概念，下列何者正確？", opts:["合稱「竟陵三子」，主張「格調說」","合稱「公安三袁」，主張「獨抒性靈，不拘格套」的性靈說","合稱「桐城三祖」，主張「義法說」","合稱「江西詩派」，主張「奪胎換骨」"], a:1, ex:"袁宏道與兄袁宗道、弟袁中道合稱「公安三袁」，同為晚明「公安派」領袖，反對復古模擬，提出「獨抒性靈，不拘格套」的性靈說，主張文學應直抒真情實感。"}
+];
+const quizList = document.getElementById('quizList');
+let answered = 0, correct = 0;
+document.getElementById('total').textContent = QUIZ.length;
+QUIZ.forEach((item, idx)=>{
+  const card = document.createElement('div');
+  card.className = 'quiz-card';
+  card.innerHTML = `
+    <div class="quiz-q"><span class="qnum">Q${idx+1}.</span>${item.q}<span class="tag">${item.tag}</span></div>
+    <div class="opts"></div>
+    <div class="explain" id="ex-${idx}"><b>詳解：</b>${item.ex}</div>
+  `;
+  const optsWrap = card.querySelector('.opts');
+  item.opts.forEach((opt, oi)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.textContent = `${String.fromCharCode(65+oi)}. ${opt}`;
+    btn.addEventListener('click', ()=>{
+      if(btn.disabled) return;
+      const allBtns = optsWrap.querySelectorAll('.opt');
+      allBtns.forEach(b=>b.disabled=true);
+      if(oi === item.a){
+        btn.classList.add('correct');
+        correct++;
+      } else {
+        btn.classList.add('wrong');
+        allBtns[item.a].classList.add('correct');
+      }
+      document.getElementById(`ex-${idx}`).classList.add('show');
+      answered++;
+      document.getElementById('answered').textContent = answered;
+      document.getElementById('score').textContent = correct;
+      if(answered === QUIZ.length){
+        const cel = document.getElementById('quiz-celebrate');
+        if(correct === QUIZ.length) cel.textContent = '🎉 全對！你已徹底讀懂袁宏道的西湖性靈之眼。';
+        else if(correct >= QUIZ.length*0.6) cel.textContent = `👍 答對 ${correct} / ${QUIZ.length} 題，再回頭讀讀課文與注釋，掌握會更牢固！`;
+        else cel.textContent = `📖 答對 ${correct} / ${QUIZ.length} 題，建議先重讀「課文與注釋」與「西湖時刻探索」再挑戰一次。`;
+      }
+    });
+    optsWrap.appendChild(btn);
+  });
+  quizList.appendChild(card);
+});
+
+</script>
+
+</body>
+</html>

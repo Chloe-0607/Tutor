@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赤壁賦｜互動國文講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mud:#8B7355; --reed:#C4A882; --tide:#4A7C7E; --sky:#B8D4D8;
+  --soil:#2C1810; --paper:#F7F3EC; --ink:#1A1612; --muted:#6B5E52;
+  --seal:#A13D2C; --card:#FFFFFF; --line:#E4D9C4;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Noto Sans TC',sans-serif; line-height:1.75;
+}
+h1,h2,h3,.serif{font-family:'Noto Serif TC',serif;}
+
+/* ---- HERO ---- */
+.hero{position:relative; text-align:center; padding:56px 20px 36px; border-bottom:1px solid var(--reed); overflow:hidden;}
+.hero::before{
+  content:"赋"; position:absolute; top:-46px; right:-14px; font-family:'Noto Serif TC',serif;
+  font-size:240px; color:var(--reed); opacity:.14; font-weight:900; pointer-events:none;
+}
+.eyebrow{letter-spacing:6px; font-size:12.5px; color:var(--seal); font-weight:700; margin-bottom:10px;}
+.hero h1{font-size:clamp(30px,5.4vw,48px); color:var(--soil); margin:0 0 8px; font-weight:900; letter-spacing:.06em;}
+.hero .byline{font-size:13.5px; color:var(--muted); letter-spacing:.15em; margin-bottom:16px;}
+.hero p.lead{max-width:620px; margin:0 auto; color:var(--muted); font-size:14.5px;}
+
+/* ---- CONTROLS ---- */
+.controls{
+  position:sticky; top:0; z-index:56; background:rgba(247,243,236,.95); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--reed); padding:10px 18px; display:flex; align-items:center;
+  justify-content:center; gap:24px; flex-wrap:wrap; font-size:12.5px; color:var(--muted);
+}
+.controls label{display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none;}
+.switch{position:relative; width:36px; height:20px; border-radius:99px; background:var(--reed); transition:background .2s;}
+.switch::after{content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#fff; transition:transform .2s; box-shadow:0 1px 2px rgba(0,0,0,.3);}
+input[type=checkbox]{display:none;}
+input[type=checkbox]:checked + .switch{background:var(--tide);}
+input[type=checkbox]:checked + .switch::after{transform:translateX(16px);}
+#score{color:var(--seal); font-weight:700;}
+
+main{max-width:940px; margin:0 auto; padding:28px 18px 100px;}
+
+/* ---- SECTION HEADINGS ---- */
+.section-block{
+  margin-bottom:44px;
+}
+.section-title{
+  font-size:22px; font-weight:700; color:var(--soil); border-bottom:2px solid var(--mud);
+  padding-bottom:8px; margin-bottom:20px; display:flex; align-items:center; gap:10px;
+}
+.section-title span{font-size:13px; color:var(--seal); font-weight:normal; letter-spacing:.05em;}
+.section-intro{font-size:13.5px; color:var(--muted); margin:0 0 16px;}
+
+/* ---- 背景 ---- */
+.context-card{background:var(--card); border:1px solid var(--line); border-left:5px solid var(--seal); border-radius:12px; padding:22px 26px; margin-bottom:18px;}
+.context-card b{color:var(--seal);}
+.context-card p{margin:0 0 10px; font-size:14.5px;}
+.context-card p:last-child{margin-bottom:0;}
+.quote-strip{display:flex; gap:12px; align-items:center; background:#EFE6D3; border-radius:10px; padding:14px 18px; margin-top:14px; font-family:'Noto Serif TC',serif; color:var(--soil); font-size:14.5px;}
+
+/* ---- 課文 ---- */
+.passage{background:var(--card); border:1px solid var(--line); border-radius:14px; margin-bottom:18px; overflow:hidden;}
+.passage-head{display:flex; align-items:center; justify-content:space-between; padding:12px 20px; background:#EFE6D3; border-bottom:1px solid var(--line);}
+.passage-head .ptitle{font-weight:700; color:var(--tide); font-size:13px; letter-spacing:.05em;}
+.passage-head button{font-size:11.5px; background:var(--paper); color:var(--ink); border:1px solid var(--mud); padding:5px 13px; border-radius:20px; cursor:pointer;}
+.passage-head button:hover{background:var(--reed); color:#fff;}
+.passage-body{padding:22px 24px;}
+.classical{font-family:'Noto Serif TC',serif; font-size:1.14rem; line-height:2.5; color:var(--ink);}
+.classical ruby{ruby-position:over;}
+.classical rt{font-size:.48em; font-family:'Noto Sans TC',sans-serif; color:var(--seal); font-weight:600; letter-spacing:0;}
+body.hide-zhuyin .classical rt{display:none;}
+.classical .gloss{color:var(--seal); font-weight:600; border-bottom:1px dotted var(--seal);}
+.classical .fnmark{color:var(--seal); font-weight:700; font-size:.62em; margin-left:1px;}
+.notes{margin-top:16px; padding-top:14px; border-top:1px dashed var(--line); font-size:12.5px; color:var(--muted); line-height:2;}
+.notes .nlabel{display:block; font-size:11px; letter-spacing:.15em; color:var(--tide); margin-bottom:6px; font-weight:700;}
+.notes .note-item b{color:var(--seal); font-weight:700; margin-right:2px;}
+.translation{overflow:hidden; max-height:0; opacity:0; transition:max-height .4s ease, opacity .4s ease;
+  font-size:13.5px; color:var(--muted); border-left:3px solid var(--mud); padding-left:0; margin-top:0;}
+.translation.show{max-height:400px; opacity:1; padding:14px 0 0 16px; margin-top:14px;}
+body.show-all-trans .translation{max-height:400px; opacity:1; padding:14px 0 0 16px; margin-top:14px;}
+.translation .tlabel{display:block; font-size:11px; letter-spacing:.15em; color:var(--tide); margin-bottom:6px; font-weight:700;}
+
+/* ---- 生平大事記 (timeline) ---- */
+.timeline{position:relative; padding-left:28px; border-left:2px solid var(--reed);}
+.tl-node{position:relative; margin-bottom:22px;}
+.tl-node::before{content:""; position:absolute; left:-34.5px; top:5px; width:12px; height:12px; border-radius:50%; background:var(--mud); border:2px solid var(--paper); box-shadow:0 0 0 1.5px var(--reed);}
+.tl-node.milestone::before{width:15px; height:15px; left:-36px; top:4px; background:var(--seal); box-shadow:0 0 0 5px rgba(161,61,44,.15);}
+.tl-row{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+.tl-year{font-family:'Noto Serif TC',serif; font-weight:900; font-size:16px; color:var(--seal); flex-shrink:0;}
+.tl-desc{font-weight:700; font-size:14.5px; color:var(--soil);}
+.tl-body{font-size:13.5px; color:var(--muted); margin-top:6px; line-height:1.85;}
+
+/* ---- 情感脈絡 ---- */
+.arc-step{background:var(--card); border:1px solid var(--line); border-left:5px solid var(--tide); border-radius:12px; padding:18px 22px; margin-bottom:14px; position:relative;}
+.arc-step .mood{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.1em; color:#fff; background:var(--tide); padding:3px 12px; border-radius:20px; margin-bottom:10px;}
+.arc-step .quote{font-family:'Noto Serif TC',serif; font-size:15px; color:var(--soil); margin-bottom:8px;}
+.arc-step .desc{font-size:13.5px; color:var(--muted);}
+.arc-arrow{text-align:center; color:var(--reed); font-size:18px; margin:-6px 0 8px;}
+
+/* ---- 文學特色與藝術成就（取代名句重組與主客思辨） ---- */
+.feature-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px;}
+.feature-card{background:var(--card); border:1px solid var(--line); border-top:4px solid var(--tide); border-radius:12px; padding:20px;}
+.feature-card h3{font-size:16px; color:var(--soil); margin:0 0 8px; font-weight:700;}
+.feature-card p{font-size:13.5px; color:var(--muted); margin:0; line-height:1.8;}
+
+/* ---- 名句配對遊戲 ---- */
+.match-wrap{display:grid; grid-template-columns:1fr 1fr; gap:12px 40px; position:relative;}
+.match-wrap::before{content:""; position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--line); transform:translateX(-20px);}
+.match-col{display:flex; flex-direction:column; gap:12px;}
+.match-item{background:var(--card); border:1px solid var(--reed); border-radius:10px; padding:12px 16px; font-size:13.5px; cursor:pointer; transition:border-color .15s, background .15s, transform .15s; line-height:1.65; color:var(--ink); position:relative;}
+.match-item.left{font-family:'Noto Serif TC',serif; color:var(--soil); font-size:14.5px;}
+.match-item:hover:not(.locked):not(.selected){border-color:var(--tide);}
+.match-item.selected{border-color:var(--tide); background:#EAF3F0; box-shadow:0 0 0 2px var(--tide) inset;}
+.match-item.locked{border-color:var(--tide); background:#EAF3F0; color:var(--muted); cursor:default; padding-right:34px;}
+.match-item.locked::after{content:"對"; position:absolute; right:10px; top:50%; transform:translateY(-50%) rotate(-6deg); color:var(--tide); border:1.5px solid var(--tide); border-radius:4px; padding:0 4px; font-size:10px; font-family:'Noto Serif TC',serif;}
+.match-item.wrong{border-color:var(--seal); background:#F7ECE7; animation:shake .35s;}
+@keyframes shake{20%,60%{transform:translateX(-4px);}40%,80%{transform:translateX(4px);}}
+#match-celebrate{text-align:center; font-family:'Noto Serif TC',serif; font-size:16px; color:var(--tide); font-weight:700; margin-top:18px; min-height:26px;}
+#match-reset{display:block; margin:16px auto 0; font-size:12px; background:var(--paper); color:var(--muted); border:1px solid var(--mud); padding:6px 16px; border-radius:20px; cursor:pointer;}
+#match-reset:hover{background:var(--reed); color:#fff;}
+@media(max-width:640px){.match-wrap{grid-template-columns:1fr;} .match-wrap::before{display:none;}}
+
+/* ---- QUIZ ---- */
+.quiz-card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-bottom:16px;}
+.quiz-q{font-weight:700; font-size:15px; margin-bottom:12px;}
+.quiz-q .qnum{color:var(--seal); margin-right:6px;}
+.tag{display:inline-block; font-size:10.5px; padding:2px 10px; border-radius:20px; background:var(--tide); color:#fff; margin-left:6px; font-weight:500;}
+.opt{display:block; width:100%; text-align:left; padding:10px 14px; margin-bottom:7px; border:1px solid var(--reed); background:#fff; border-radius:6px; cursor:pointer; font-family:inherit; font-size:14px; color:var(--ink); transition:.15s;}
+.opt:hover{border-color:var(--tide);}
+.opt.correct{background:#EAF3F0; border-color:var(--tide); font-weight:700; position:relative;}
+.opt.correct::after{content:"對"; position:absolute; right:12px; top:50%; transform:translateY(-50%) rotate(-6deg); color:var(--tide); border:1.5px solid var(--tide); border-radius:4px; padding:0 5px; font-size:11px; font-family:'Noto Serif TC',serif;}
+.opt.wrong{background:#F7ECE7; border-color:var(--seal); text-decoration:line-through; color:var(--muted);}
+.opt[disabled]{cursor:default;}
+.explain{display:none; margin-top:10px; padding:11px 14px; border-radius:6px; background:#F7F1E6; border-left:3px solid var(--mud); font-size:13.5px; color:var(--ink);}
+.explain.show{display:block;}
+.explain b{color:var(--seal);}
+#quiz-celebrate{text-align:center; font-family:'Noto Serif TC',serif; font-size:16px; color:var(--tide); font-weight:700; margin-top:18px; min-height:26px;}
+
+/* ---- 小巧思：語錄按鈕 ---- */
+#quote-btn{
+  position:fixed; right:20px; bottom:20px; z-index:60; background:var(--seal); color:#fff; border:none;
+  border-radius:30px; padding:12px 20px; font-size:13px; font-weight:700; cursor:pointer; box-shadow:0 8px 20px -6px rgba(161,61,44,.55);
+  font-family:'Noto Sans TC',sans-serif;
+}
+#quote-btn:hover{background:#8a3222; transform:translateY(-2px);}
+#quote-toast{
+  position:fixed; right:20px; bottom:74px; z-index:60; max-width:280px; background:var(--soil); color:var(--paper);
+  padding:14px 16px; border-radius:12px; font-size:13px; line-height:1.7; box-shadow:0 10px 26px rgba(0,0,0,.3);
+  opacity:0; transform:translateY(8px); pointer-events:none; transition:opacity .25s ease, transform .25s ease;
+  font-family:'Noto Serif TC',serif;
+}
+#quote-toast.show{opacity:1; transform:translateY(0);}
+
+footer{text-align:center; padding:30px 20px 100px; font-size:12px; color:var(--muted);}
+@media(max-width:640px){.passage-body{padding:18px;} .hero::before{font-size:150px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">互動國文講義</div>
+  <h1>赤壁賦</h1>
+  <div class="byline">北宋．蘇軾 ．《東坡全集》</div>
+  <p class="lead">蘇軾貶居黃州，夜遊赤壁，藉主客問答抒發生命短暫與宇宙永恆的思辨。從清風明月的閒適，到英雄安在的悵惘，終於水月之喻中悟得曠達──是古文中說理與抒情交融的絕唱。</p>
+</div>
+
+<div class="controls">
+  <label>
+    <input type="checkbox" id="toggleZhuyin" checked onchange="document.body.classList.toggle('hide-zhuyin', !this.checked)">
+    <span class="switch"></span>
+    顯示注音
+  </label>
+  <label>
+    <input type="checkbox" id="toggleTrans" onchange="document.body.classList.toggle('show-all-trans', this.checked)">
+    <span class="switch"></span>
+    全文顯示語譯
+  </label>
+  <span id="progress">測驗已作答 <span id="answered">0</span> / <span id="total">0</span>　正確 <span id="score">0</span> 題</span>
+</div>
+
+<main>
+
+  <!-- ============ 1. 寫作背景 ============ -->
+  <section class="section-block" id="sec-bg">
+    <h2 class="section-title">一、 寫作背景 <span>Background & History</span></h2>
+    <p class="section-intro">從烏臺詩案的政治低谷，到赤壁夜遊的生命大覺醒。</p>
+    <div class="context-card">
+      <p><b>蘇軾</b>（1037－1101），字子瞻，號東坡居士，眉州眉山人。神宗元豐二年因「烏臺詩案」入獄，幾經生死後被貶為黃州團練副使。貶居黃州期間，政治雖受排擠，心靈卻在赤壁山水與佛老哲學的浸潤中獲得徹底解放。</p>
+      <p>元豐五年（1082）七月與十月，蘇軾兩度夜遊黃州赤壁，寫下前後〈赤壁賦〉。〈前赤壁賦〉藉主客問答，觀照江水之變與月色之常，深刻探討宇宙人生的哲理，展現出由悲涼走向曠達的生命境界。</p>
+      <div class="quote-strip">「惟江上之清風，與山間之明月，取之無禁，用之不竭，是造物者之無盡藏也。」</div>
+    </div>
+  </section>
+
+  <!-- ============ 2. 課文與注釋 ============ -->
+  <section class="section-block" id="sec-text">
+    <h2 class="section-title">二、 課文與注釋 <span>Text & Notes</span></h2>
+    <p class="section-intro">全文依情節分為五段，文中<span style="color:var(--seal); font-weight:600;">標色詞語</span>右上角數字對應段落末的注釋；點擊段落右上角按鈕可展開語譯。</p>
+    <div id="passageList"></div>
+  </section>
+
+  <!-- ============ 3. 生平大事記 ============ -->
+  <section class="section-block" id="sec-timeline">
+    <h2 class="section-title">三、 生平大事記 <span>Timeline</span></h2>
+    <p class="section-intro">從眉山少年到黃州謫客，一條時間軸看懂蘇軾寫下〈赤壁賦〉前後的生命轉折。</p>
+    <div class="timeline" id="timelineList"></div>
+  </section>
+
+  <!-- ============ 4. 情感脈絡 ============ -->
+  <section class="section-block" id="sec-arc">
+    <h2 class="section-title">四、 情感脈絡 <span>Emotional Arc</span></h2>
+    <p class="section-intro">全文情感由「樂」轉「悲」，再由「悟」轉回「樂」，一路看下去，就是蘇軾這一夜的心境起伏。</p>
+    <div id="arcList"></div>
+  </section>
+
+  <!-- ============ 5. 文學特色與藝術成就（替代原本的主客思辨與名句重組） ============ -->
+  <section class="section-block" id="sec-features">
+    <h2 class="section-title">五、 文學特色與藝術成就 <span>Literary Features</span></h2>
+    <p class="section-intro">打破漢賦鋪陳誇張之舊習，融合散文之流暢與詩歌之韻律，成就宋代「文賦」巔峰。</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>1. 賦體新變（文賦）</h3>
+        <p>突破傳統漢賦堆砌辭藻、鋪陳誇張的窠臼，吸收散文的清新自然與自由句法，兼具駢文的聲韻之美與散文的靈動流暢。</p>
+      </div>
+      <div class="feature-card">
+        <h3>2. 情景理三者交融</h3>
+        <p>開篇寫月夜泛舟之景（情景交融），中段藉主客問答抒發人生短暫之悲，終段以水月哲思破惑悟道，將景物、情感與哲理完美合一。</p>
+      </div>
+      <div class="feature-card">
+        <h3>3. 主客問答的雙重奏</h3>
+        <p>全篇採主客對答形式，實則為蘇軾內心「超脫曠達」與「現實悲涼」的自我對話，使說理不顯枯燥，反而充滿戲劇張力。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. 名句配對遊戲 ============ -->
+  <section class="section-block" id="sec-match">
+    <h2 class="section-title">六、 名句配對遊戲 <span>Match the Quotes</span></h2>
+    <p class="section-intro">先點選左側的文言原句，再點選右側對應的白話涵義；配對正確會鎖定並蓋上印章，配對錯誤則兩者會微微震動並取消選取。全部配對完成即過關！</p>
+    <div class="match-wrap">
+      <div class="match-col" id="matchLeft"></div>
+      <div class="match-col" id="matchRight"></div>
+    </div>
+    <div id="match-celebrate"></div>
+    <button id="match-reset" onclick="initMatch()">🔄 重新開始配對</button>
+  </section>
+
+  <!-- ============ 7. 自我測驗 ============ -->
+  <section class="section-block" id="sec-quiz">
+    <h2 class="section-title">七、 綜合自我測驗 <span>Quiz</span></h2>
+    <p class="section-intro">精選 8 題測驗，涵蓋字音字形、修辭鑑賞、文意理解與文學常識，點選選項即時檢定對錯。</p>
+    <div id="quizList"></div>
+    <div id="quiz-celebrate"></div>
+  </section>
+
+</main>
+
+<button id="quote-btn" onclick="showQuote()">🍶 隨機東坡語錄</button>
+<div id="quote-toast"></div>
+
+<footer>赤壁賦．互動國文講義　｜　原文據《東坡全集》通行本整理，僅供學習使用</footer>
+
+<script>
+/* ============ 課文資料 ============ */
+const passages = [
+{
+  no:1, title:"第一段．泛舟赤壁，清風明月",
+  text:`壬戌之秋，七月<span class="gloss" data-def="農曆每月十六日（十五為望，十六為既望）。">既望</span>，蘇子與客泛舟游於赤壁之下。<span class="gloss" data-def="清風徐徐吹來，水面平靜沒有波浪。">清風徐來，水波不興</span>。<span class="gloss" data-def="舉起酒杯勸客人飲酒（屬，音ㄓㄨˇ，勸飲）。">舉酒屬客</span>，誦明月之詩，歌<span class="gloss" data-def="指《詩經．陳風．月出》中「月出皎兮，佼人僚兮」等窈窕動人的章句。">窈窕之章</span>。少焉，月出於<span class="gloss" data-def="東山山崖之上。">東山之崖</span>，徘徊於斗牛之間。白露橫江，水光接天。<span class="gloss" data-def="任憑小船像一葉蘆葦般，隨意漂向所去之處。">縱一葦之所如</span>，凌萬頃之茫然。`,
+  trans:"壬戌年秋天，七月十六日，我與客人在赤壁之下泛舟遊覽。清風徐徐吹來，水面平靜沒有波浪。舉起酒杯勸客人飲酒，誦讀明月之詩，歌唱《詩經》中〈窈窕〉的篇章。過了一會兒，月亮從東山月崖升起，在斗宿和牛宿之間徘徊。白茫茫的霧氣橫跨江面，水光與天色相連。任憑小船像一葉蘆葦般隨意漂蕩，越過那茫茫萬頃的水面。"
+},
+{
+  no:2, title:"第二段．飲酒扣舷，感物悲懷",
+  text:`<span class="gloss" data-def="水勢茫茫的樣子。馮，音ㄆㄧㄥˊ，通「憑」，乘。">浩浩乎如<ruby>馮<rt>ㄆㄧㄥˊ</rt></ruby>虛御風</span>，而不知其所止；<span class="gloss" data-def="遺世獨立：遺棄塵世，獨立世外。羽化登仙：道家傳說得道成仙，身生羽翼飛升。">飄飄乎如遺世獨立，羽化而登仙</span>。於是飲酒樂甚，扣<ruby>舷<rt>ㄒㄧㄢˊ</rt></ruby>而歌之。歌曰：「桂<ruby>棹<rt>ㄓㄠˋ</rt></ruby>兮蘭槳，擊空明兮<ruby>溯<rt>ㄙㄨˋ</rt></ruby>流光。渺渺兮予懷，望美人兮天一方。」客有吹洞簫者，倚歌而和之。其聲嗚嗚然，如怨如慕，如泣如訴，<span class="gloss" data-def="嬝娜：聲音悠揚不絕。不絕如縷：像細線一樣連綿不斷。縷，音ㄌㄩˇ。">餘音嬝娜，不絕如<ruby>縷<rt>ㄌㄩˇ</rt></ruby></span>。舞幽壑之潛蛟，泣孤舟之<ruby>嫠<rt>ㄌㄧˊ</rt></ruby>婦。`,
+  trans:"那種感覺浩渺啊，就像駕著虛空乘風飛行，卻不知停在何處；飄逸啊，就像離開塵世獨立人間，得道成仙而去。這時喝酒喝得極為暢快，敲著船舷唱起歌來：「桂木做的棹啊蘭木做的槳，拍打著清澈的水波，逆著流動的月光而上。我心懷深遠啊，眺望心愛的人遠在天邊。」有位吹洞簫的客人，隨著歌聲吹奏應和。簫聲嗚嗚咽咽，如怨如慕，如泣如訴，餘音悠長不絕如縷，能使深谷中潛藏的蛟龍起舞，使孤舟上的寡婦感傷落淚。"
+},
+{
+  no:3, title:"第三段．主客對答，悲簫訴情",
+  text:`蘇子<ruby>愀<rt>ㄑㄧㄠˇ</rt></ruby>然，正襟危坐而問客曰：「何為其然也？」客曰：「『<span class="gloss" data-def="曹操〈短歌行〉名句，描寫月光明亮、星星稀少、烏鵲向南飛去。">月明星稀，烏鵲南飛</span>』，此非曹孟德之詩乎？西望夏口，東望武昌，山川相<ruby>繆<rt>ㄌㄧㄠˊ</rt></ruby>，鬱乎蒼蒼，此非孟德之困於周郎者乎？方其破荊州，下江陵，順流而東也，<ruby>舳<rt>ㄓㄨˊ</rt></ruby><ruby>艫<rt>ㄌㄨˊ</rt></ruby>千里，旌旗蔽空，<ruby>釃<rt>ㄕ</rt></ruby>酒臨江，橫<ruby>槊<rt>ㄕㄨㄛˋ</rt></ruby>賦詩，固一世之雄也，而今安在哉？況吾與子漁樵於江渚之上，侶魚蝦而友<ruby>麋<rt>ㄇㄧˊ</rt></ruby>鹿，駕一葉之扁舟，舉<ruby>匏<rt>ㄆㄠˊ</rt></ruby>樽以相屬。<span class="gloss" data-def="寄蜉蝣於天地：如朝生暮死的蜉蝣般寄身天地間，比喻生命短暫。渺滄海之一粟：如滄海中一粒粟米般渺小。蜉蝣，音ㄈㄨˊㄧㄡˊ。">寄<ruby>蜉<rt>ㄈㄨˊ</rt></ruby><ruby>蝣<rt>ㄧㄡˊ</rt></ruby>於天地，渺滄海之一粟</span>。哀吾生之<ruby>須臾<rt>ㄒㄩ ㄩˊ</rt></ruby>，羨長江之無窮。挾飛仙以遨遊，抱明月而長終。知不可乎驟得，託遺響於悲風。」`,
+  trans:"我神色轉為淒然，整理衣襟端正而坐，問客人說：「為什麼簫聲這樣悲涼呢？」客人回答：「『月明星稀，烏鵲南飛』，這不是曹操的詩句嗎？向西望是夏口，向東望是武昌，山川連綿環繞，草木一片蒼翠，這不正是曹操被周瑜圍困之地嗎？當他攻破荊州、拿下江陵，順著長江東下的時候，戰船首尾相連千里，旌旗遮蔽了天空，在江邊斟酒、橫握長矛吟詩，本是一世的英雄啊，如今又在哪裡呢？何況你我在江邊沙洲打魚砍柴，與魚蝦為伴、麋鹿為友，駕著一葉小舟，舉起葫蘆做的酒杯相互勸酒。如同蜉蝣寄身天地般短暫，如同滄海中一粒粟米般渺小。哀嘆我們生命的短暫，羨慕長江的無窮無盡。想要挾同飛仙一同遨遊，抱著明月長存世間。知道這是不能夠一時得到的，只好把這份心願寄託在悲涼的秋風中，以簫聲抒發。」"
+},
+{
+  no:4, title:"第四段．蘇子破惑，水月哲思",
+  text:`蘇子曰：「客亦知夫水與月乎？<span class="gloss" data-def="逝去的時光就像這江水一樣，但其實水流循環不息，並未真正流失。">逝者如斯，而未嘗往也</span>；<span class="gloss" data-def="月亮的圓缺消長就像那樣，但月亮本身其實並沒有真正增減。">盈虛者如彼，而卒莫消長也</span>。蓋將自其變者而觀之，則天地曾不能以一瞬；自其不變者而觀之，則物與我皆無盡也，而又何羨乎？且夫天地之間，物各有主，苟非吾之所有，雖一毫而莫取。惟江上之清風，與山間之明月，耳得之而為聲，目遇之而成色，取之無禁，用之不竭，是造物者之無盡<ruby>藏<rt>ㄗㄤˋ</rt></ruby>也，而吾與子之所共食。」`,
+  trans:"我說：「你也知道水與月的道理嗎？江水不停流逝就像這樣，但其實並未真正流失；月亮時圓時缺就像那樣，但終究沒有真正增減。若從變化的角度來看，天地間萬物連一眨眼的時間都不能保持不變；若從不變的角度來看，萬物與我都是無窮無盡的，又何必羨慕它們呢？何況天地之間，萬物各有主人，如果不是我應該擁有的，即使一絲一毫也不能取用。只有江上的清風，與山間的明月，耳朵聽到便成為聲音，眼睛看見便成為景色，取用它們沒有人禁止，享用它們也不會枯竭，這是造物者無窮無盡的寶藏，也是你我可以共同享用的。」"
+},
+{
+  no:5, title:"第五段．開顏歡笑，物我兩忘",
+  text:`客喜而笑，洗盞更酌。<span class="gloss" data-def="下酒菜與果品都已吃完，酒杯與碗盤散亂一地，形容歡飲後的熱鬧景象。藉，音ㄐㄧˊ。">肴核既盡，杯盤狼<ruby>藉<rt>ㄐㄧˊ</rt></ruby></span>。相與枕藉乎舟中，不知東方之既白。`,
+  trans:"客人聽了轉憂為喜而笑了起來，重新洗淨酒杯再次斟酒。菜肴果品都已吃完，酒杯和盤子散亂一地。大家互相枕靠著躺在船中，不知不覺天已經亮了。"
+}
+];
+
+/* ============ 課文渲染 ============ */
+const passageList = document.getElementById('passageList');
+function renderPassages(){
+  passageList.innerHTML = '';
+  passages.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'passage';
+    card.innerHTML = `
+      <div class="passage-head">
+        <span class="ptitle">${p.title}</span>
+        <button data-i="${p.no}">查看語譯</button>
+      </div>
+      <div class="passage-body">
+        <div class="classical">${p.text}</div>
+        <div class="notes"></div>
+        <div class="translation" id="trans-${p.no}"><span class="tlabel">白話語譯</span>${p.trans}</div>
+      </div>`;
+    card.querySelector('button').addEventListener('click', (e)=>{
+      document.getElementById('trans-'+p.no).classList.toggle('show');
+      e.target.textContent = document.getElementById('trans-'+p.no).classList.contains('show') ? '收合語譯' : '查看語譯';
+    });
+    passageList.appendChild(card);
+
+    const classicalEl = card.querySelector('.classical');
+    const glossEls = classicalEl.querySelectorAll('.gloss');
+    const notes = [];
+    glossEls.forEach((el, idx)=>{
+      const n = idx + 1;
+      notes.push(`<span class="note-item"><b>${n}.</b>${el.dataset.def}</span>`);
+      const mark = document.createElement('sup');
+      mark.className = 'fnmark';
+      mark.textContent = n;
+      el.after(mark);
+    });
+    if(notes.length){
+      card.querySelector('.notes').innerHTML = `<span class="nlabel">注釋</span>${notes.join('　')}`;
+    }
+  });
+}
+renderPassages();
+
+/* ============ 生平大事記 ============ */
+const TIMELINE = [
+  {year:"1037", desc:"生於眉州眉山", body:"蘇軾生於四川眉山一個書香世家，父蘇洵、弟蘇轍皆為文壇名家，世稱「三蘇」。", milestone:false},
+  {year:"1057", desc:"高中進士，名動京師", body:"年僅二十歲的蘇軾與弟蘇轍同科及第，深受主考官歐陽脩賞識，自此步入仕途。", milestone:false},
+  {year:"1079", desc:"烏臺詩案，幾近喪命", body:"神宗元豐二年，蘇軾因詩文遭政敵羅織罪名，下獄一百三十餘日，史稱「烏臺詩案」，幾乎因此丟了性命。", milestone:true},
+  {year:"1080", desc:"貶謫黃州團練副使", body:"元豐三年，蘇軾出獄後被貶為黃州團練副使，官職低微且無實權，生活困頓，人生跌至谷底。", milestone:false},
+  {year:"1082．七月", desc:"夜遊赤壁，寫下〈赤壁賦〉", body:"元豐五年七月既望，蘇軾與友人夜遊黃州赤壁磯，藉主客問答寫下傳誦千古的〈赤壁賦〉（前賦）。", milestone:true},
+  {year:"1082．十月", desc:"再遊赤壁，寫下〈後赤壁賦〉", body:"同年十月，蘇軾再度夜遊赤壁，寫下風格更為孤峭清冷的〈後赤壁賦〉，與前賦相互輝映。", milestone:false},
+  {year:"1084", desc:"離開黃州，赴汝州就任", body:"元豐七年，蘇軾奉命離開黃州，結束近五年的謫居歲月；黃州的山水與沉澱，已徹底轉化了他的生命境界。", milestone:false}
+];
+const timelineList = document.getElementById('timelineList');
+TIMELINE.forEach(t=>{
+  const node = document.createElement('div');
+  node.className = 'tl-node' + (t.milestone ? ' milestone' : '');
+  node.innerHTML = `
+    <div class="tl-row">
+      <span class="tl-year">${t.year}</span>
+      <span class="tl-desc">${t.desc}</span>
+    </div>
+    <div class="tl-body">${t.body}</div>`;
+  timelineList.appendChild(node);
+});
+
+/* ============ 情感脈絡 ============ */
+const ARC = [
+  {mood:"樂．泛舟賞月", quote:"清風徐來，水波不興……舉酒屬客，誦明月之詩。", desc:"第一段：良辰美景、飲酒賦詩，是全文最閒適愉悅的開端。"},
+  {mood:"樂轉悲．扣舷而歌", quote:"其聲嗚嗚然，如怨如慕，如泣如訴。", desc:"第二段：客人洞簫聲起，哀怨纏綿，樂極之中已埋下悲意的伏筆。"},
+  {mood:"悲．英雄安在", quote:"哀吾生之須臾，羨長江之無窮。", desc:"第三段：客人藉曹操典故，抒發生命短暫、功業成空的悲涼與虛無。"},
+  {mood:"悟．水月之喻", quote:"自其不變者而觀之，則物與我皆無盡也。", desc:"第四段：蘇子以水與月為喻，點破變與不變的道理，化解客的生命困惑。"},
+  {mood:"樂．物我兩忘", quote:"相與枕藉乎舟中，不知東方之既白。", desc:"第五段：客轉憂為喜，賓主盡歡，在物我兩忘中沉沉睡去，回歸最初的曠達之樂。"}
+];
+const arcList = document.getElementById('arcList');
+ARC.forEach((a, idx)=>{
+  if(idx > 0){
+    const arrow = document.createElement('div');
+    arrow.className = 'arc-arrow';
+    arrow.textContent = '↓';
+    arcList.appendChild(arrow);
+  }
+  const step = document.createElement('div');
+  step.className = 'arc-step';
+  step.innerHTML = `
+    <span class="mood">${a.mood}</span>
+    <div class="quote">「${a.quote}」</div>
+    <div class="desc">${a.desc}</div>`;
+  arcList.appendChild(step);
+});
+
+/* ============ 名句配對遊戲 ============ */
+const MATCH_PAIRS = [
+  {id:1, left:"清風徐來，水波不興", right:"微風緩緩吹來，水面平靜沒有一絲波浪"},
+  {id:2, left:"舉酒屬客，誦明月之詩", right:"舉杯勸客人飲酒，並誦讀吟詠明月的詩篇"},
+  {id:3, left:"飄飄乎如遺世獨立，羽化而登仙", right:"飄逸得彷彿脫離塵世，像得道成仙般輕盈飛升"},
+  {id:4, left:"其聲嗚嗚然，如怨如慕，如泣如訴", right:"簫聲嗚咽悲切，像是哀怨、思慕，又像哭泣、傾訴"},
+  {id:5, left:"月明星稀，烏鵲南飛", right:"引用曹操〈短歌行〉詩句，暗示一代梟雄終究英雄不再"},
+  {id:6, left:"寄蜉蝣於天地，渺滄海之一粟", right:"感嘆生命如蜉蝣般短暫，如滄海中一粒粟米般渺小"},
+  {id:7, left:"逝者如斯，而未嘗往也", right:"江水不斷向前流逝，但其實從未真正消失"},
+  {id:8, left:"取之無禁，用之不竭，是造物者之無盡藏也", right:"清風明月人人可以取用不盡，是大自然賜予的無窮寶藏"},
+  {id:9, left:"相與枕藉乎舟中，不知東方之既白", right:"賓主盡歡，相互枕靠著睡去，不知不覺天已破曉"}
+];
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+let matchState = {selectedLeft:null, selectedRight:null, matched:0};
+function initMatch(){
+  matchState = {selectedLeft:null, selectedRight:null, matched:0};
+  document.getElementById('match-celebrate').textContent = '';
+  const leftCol = document.getElementById('matchLeft');
+  const rightCol = document.getElementById('matchRight');
+  leftCol.innerHTML = '';
+  rightCol.innerHTML = '';
+  shuffle(MATCH_PAIRS).forEach(p=>{
+    const el = document.createElement('div');
+    el.className = 'match-item left';
+    el.dataset.id = p.id;
+    el.textContent = p.left;
+    el.addEventListener('click', ()=>onMatchClick(el, 'left'));
+    leftCol.appendChild(el);
+  });
+  shuffle(MATCH_PAIRS).forEach(p=>{
+    const el = document.createElement('div');
+    el.className = 'match-item right';
+    el.dataset.id = p.id;
+    el.textContent = p.right;
+    el.addEventListener('click', ()=>onMatchClick(el, 'right'));
+    rightCol.appendChild(el);
+  });
+}
+function onMatchClick(el, side){
+  if(el.classList.contains('locked')) return;
+  const key = side === 'left' ? 'selectedLeft' : 'selectedRight';
+  const prev = matchState[key];
+  if(prev === el){
+    el.classList.remove('selected');
+    matchState[key] = null;
+    return;
+  }
+  if(prev) prev.classList.remove('selected');
+  el.classList.add('selected');
+  matchState[key] = el;
+
+  if(matchState.selectedLeft && matchState.selectedRight){
+    const L = matchState.selectedLeft, R = matchState.selectedRight;
+    if(L.dataset.id === R.dataset.id){
+      L.classList.remove('selected'); R.classList.remove('selected');
+      L.classList.add('locked'); R.classList.add('locked');
+      matchState.matched++;
+      if(matchState.matched === MATCH_PAIRS.length){
+        document.getElementById('match-celebrate').textContent = '🎉 全部配對成功！你已掌握赤壁賦的每一句名句涵義。';
+      }
+    } else {
+      L.classList.add('wrong'); R.classList.add('wrong');
+      setTimeout(()=>{
+        L.classList.remove('selected','wrong');
+        R.classList.remove('selected','wrong');
+      }, 500);
+    }
+    matchState.selectedLeft = null;
+    matchState.selectedRight = null;
+  }
+}
+initMatch();
+
+/* ============ 自我測驗 ============ */
+const QUIZ = [
+  {tag:"字音字形", q:"1.「舉匏樽以相屬」的「屬」字讀音與意義，下列何者正確？", opts:["音ㄕㄨˇ，隸屬","音ㄓㄨˇ，勸飲","音ㄓㄨˊ，連續","音ㄕㄨˋ，撰寫"], a:1, ex:"「屬」在此通「囑」，音ㄓㄨˇ，指舉杯勸人飲酒，與「舉酒屬客」用法相同。"},
+  {tag:"字音字形", q:"2. 下列文中字詞的注音，何者正確？", opts:["舳艫千里──ㄓㄨˊ　ㄌㄨˊ","扣舷而歌──ㄒㄩㄢˊ","渺滄海之一粟──ㄙㄨˋ","泣孤舟之嫠婦──ㄌㄧˋ"], a:0, ex:"「舳艫」讀音為ㄓㄨˊ　ㄌㄨˊ，指首尾相連的船隻；「舷」讀ㄒㄧㄢˊ，「粟」讀ㄙㄨˋ（此處作名詞），「嫠」讀ㄌㄧˊ。"},
+  {tag:"修辭鑑賞", q:"3.「舞幽壑之潛蛟，泣孤舟之嫠婦」運用了下列何種修辭手法，形容簫聲的感染力？", opts:["譬喻、排比","誇飾、使動用法","設問、頂真","借代、雙關"], a:1, ex:"此句以誇張手法及使動用法（使……起舞、使……哭泣），生動描寫簫聲哀怨動人、扣人心弦的力量。"},
+  {tag:"修辭鑑賞", q:"4. 本文以自然現象設喻說理，下列敘述何者最恰當？", opts:["「舉酒屬客，誦明月之詩」純屬寫景，無說理成分","以「逝者如斯，而未嘗往也」的江水設喻，說明萬物有變與不變兩面","「西望夏口，東望武昌」純為地理位置的交代","「洗盞更酌，肴核既盡」純為場面描寫"], a:1, ex:"蘇子以江水「逝者如斯」與月亮「盈虛者如彼」為喻，說明萬物有變與不變兩面，藉自然現象闡發哲理。"},
+  {tag:"文意理解", q:"5. 客人在簫聲中感嘆「寄蜉蝣於天地，渺滄海之一粟」，反映了蘇軾在黃州時何種心境？", opts:["得意春風的喜悅與自負","仕途得志的躊躇滿志","遭逢貶謫後的生命虛無與渺小感","歸隱山林、與世無爭的淡泊"], a:2, ex:"蘇軾因烏臺詩案被貶黃州，政治失意；文章藉「客」之口，表露出生命短暫如蜉蝣、宇宙浩瀚如滄海的悲涼與虛無感。"},
+  {tag:"文意理解", q:"6. 蘇子以水與月為喻，其論述的核心觀點為何？", opts:["勸人及時行樂，消極放縱","否定客觀世界的真實存在","從變與不變兩種角度看待萬物，物我皆可無盡，不必徒然感傷","主張順應自然、無為而治的政治主張"], a:2, ex:"蘇子指出：自變者觀之，天地瞬息萬變；自不變者觀之，物與我皆無盡，因此不必因生命短暫而徒生悲傷，應曠達看待。"},
+  {tag:"篇章結構", q:"7. 全文的情感與論證脈絡，下列敘述何者最恰當？", opts:["先敘泛舟之樂，次寫客之悲懷，再由蘇子以水月之喻破惑，終於物我兩忘、盡歡而眠","先論後敘，開篇即講明道理，其後才舉例證明","純粹以個人遭遇博取讀者同情，無哲理可言","先破後立，先斥責客之無知，再自誇己見高明"], a:0, ex:"全文依「樂──悲──悟──樂」的情感脈絡開展：泛舟賞月而樂，聞簫生悲，蘇子以水月之喻破惑而悟，終至物我兩忘、開懷暢飲。"},
+  {tag:"文學常識", q:"8.〈赤壁賦〉的文體與寫作特色，下列敘述何者最恰當？", opts:["屬駢文，句句對仗工整，情感濃烈勝過說理","屬「賦」體中的文賦，兼具駢文聲韻與散文自由，並採主客問答形式說理","屬遊記散文，純粹記敘作者遊歷各地的見聞","屬奏議類文書，用以向皇帝進諫治國方略"], a:1, ex:"本文屬宋代「文賦」，吸收漢賦主客問答的傳統，又突破漢賦鋪張堆砌的窠臼，融入散文的清新自然與哲理思辨。"}
+];
+const quizList = document.getElementById('quizList');
+let answered = 0, correct = 0;
+document.getElementById('total').textContent = QUIZ.length;
+QUIZ.forEach((item, idx)=>{
+  const card = document.createElement('div');
+  card.className = 'quiz-card';
+  card.innerHTML = `
+    <div class="quiz-q"><span class="qnum">Q${idx+1}.</span>${item.q}<span class="tag">${item.tag}</span></div>
+    <div class="opts"></div>
+    <div class="explain" id="ex-${idx}"><b>詳解：</b>${item.ex}</div>
+  `;
+  const optsWrap = card.querySelector('.opts');
+  item.opts.forEach((opt, oi)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.textContent = `${String.fromCharCode(65+oi)}. ${opt}`;
+    btn.addEventListener('click', ()=>{
+      if(btn.disabled) return;
+      const allBtns = optsWrap.querySelectorAll('.opt');
+      allBtns.forEach(b=>b.disabled=true);
+      if(oi === item.a){
+        btn.classList.add('correct');
+        correct++;
+      } else {
+        btn.classList.add('wrong');
+        allBtns[item.a].classList.add('correct');
+      }
+      document.getElementById(`ex-${idx}`).classList.add('show');
+      answered++;
+      document.getElementById('answered').textContent = answered;
+      document.getElementById('score').textContent = correct;
+      if(answered === QUIZ.length){
+        const cel = document.getElementById('quiz-celebrate');
+        if(correct === QUIZ.length) cel.textContent = '🎉 全對！你已徹底讀懂蘇子的水月哲思。';
+        else if(correct >= QUIZ.length*0.6) cel.textContent = `👍 答對 ${correct} / ${QUIZ.length} 題，再回頭讀讀課文與注釋，掌握會更牢固！`;
+        else cel.textContent = `📖 答對 ${correct} / ${QUIZ.length} 題，建議先重讀「課文與注釋」與「情感脈絡」再挑戰一次。`;
+      }
+    });
+    optsWrap.appendChild(btn);
+  });
+  quizList.appendChild(card);
+});
+
+/* ============ 東坡語錄 ============ */
+const QUOTES = [
+  "「莫聽穿林打葉聲，何妨吟嘯且徐行。」──〈定風波〉",
+  "「人生如夢，一尊還酹江月。」──〈念奴嬌．赤壁懷古〉",
+  "「回首向來蕭瑟處，也無風雨也無晴。」──〈定風波〉",
+  "「但願人長久，千里共嬋娟。」──〈水調歌頭〉",
+  "「日啖荔枝三百顆，不辭長作嶺南人。」──〈食荔枝〉",
+  "「竹杖芒鞋輕勝馬，誰怕？一蓑煙雨任平生。」──〈定風波〉"
+];
+let lastQuote = -1;
+function showQuote(){
+  let i;
+  do{ i = Math.floor(Math.random()*QUOTES.length); }while(i===lastQuote && QUOTES.length>1);
+  lastQuote = i;
+  const toast = document.getElementById('quote-toast');
+  toast.textContent = QUOTES[i];
+  toast.classList.add('show');
+  clearTimeout(window.__qt);
+  window.__qt = setTimeout(()=>toast.classList.remove('show'), 4200);
+}
+</script>
+
+</body>
+</html>
