@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>燭之武退秦師｜互動國文講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --candle:#D9A441; --night:#2C3E52; --wall:#8B8579; --haze:#C9C4B8; --ok:#5C7A4A;
+  --soil:#26241D; --paper:#F7F4EC; --ink:#201D18; --muted:#6B6255;
+  --seal:#B2503A; --card:#FFFFFF; --line:#E4DBC6;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Noto Sans TC',sans-serif; line-height:1.75;
+}
+h1,h2,h3,.serif{font-family:'Noto Serif TC',serif;}
+
+/* ---- HERO ---- */
+.hero{position:relative; text-align:center; padding:56px 20px 36px; border-bottom:1px solid var(--haze); overflow:hidden;}
+.hero::before{
+  content:"燭"; position:absolute; top:-46px; right:-14px; font-family:'Noto Serif TC',serif;
+  font-size:240px; color:var(--candle); opacity:.14; font-weight:900; pointer-events:none;
+}
+.eyebrow{letter-spacing:6px; font-size:12.5px; color:var(--seal); font-weight:700; margin-bottom:10px;}
+.hero h1{font-size:clamp(30px,5.4vw,48px); color:var(--soil); margin:0 0 8px; font-weight:900; letter-spacing:.06em;}
+.hero .byline{font-size:13.5px; color:var(--muted); letter-spacing:.15em; margin-bottom:16px;}
+.hero p.lead{max-width:640px; margin:0 auto; color:var(--muted); font-size:14.5px;}
+
+/* ---- CONTROLS ---- */
+.controls{
+  position:sticky; top:0; z-index:56; background:rgba(247,244,236,.95); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--haze); padding:10px 18px; display:flex; align-items:center;
+  justify-content:center; gap:24px; flex-wrap:wrap; font-size:12.5px; color:var(--muted);
+}
+.controls label{display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none;}
+.switch{position:relative; width:36px; height:20px; border-radius:99px; background:var(--haze); transition:background .2s;}
+.switch::after{content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#fff; transition:transform .2s; box-shadow:0 1px 2px rgba(0,0,0,.3);}
+input[type=checkbox]{display:none;}
+input[type=checkbox]:checked + .switch{background:var(--candle);}
+input[type=checkbox]:checked + .switch::after{transform:translateX(16px);}
+#score{color:var(--seal); font-weight:700;}
+
+main{max-width:940px; margin:0 auto; padding:28px 18px 100px;}
+
+/* ---- SECTION HEADINGS ---- */
+.section-block{margin-bottom:44px;}
+.section-title{
+  font-size:22px; font-weight:700; color:var(--soil); border-bottom:2px solid var(--candle);
+  padding-bottom:8px; margin-bottom:20px; display:flex; align-items:center; gap:10px;
+}
+  .section-title span{font-size:13px; color:var(--seal); font-weight:normal; letter-spacing:.05em;}
+.section-intro{font-size:13.5px; color:var(--muted); margin:0 0 16px;}
+
+/* ---- 古文常用字表格 ---- */
+.char-table-wrap{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 6px 18px -16px rgba(38,36,29,.45);}
+.char-table-scroll{overflow-x:auto;}
+.char-table{width:100%; min-width:680px; border-collapse:collapse; font-size:14px; line-height:1.75;}
+.char-table caption{caption-side:top; padding:18px 22px 8px; text-align:left; color:var(--soil); font-family:'Noto Serif TC',serif; font-size:18px; font-weight:700;}
+.char-table th{background:#EFE9D8; color:var(--soil); font-family:'Noto Serif TC',serif; font-size:15px; font-weight:700; text-align:left; padding:12px 16px; border-bottom:2px solid var(--candle);}
+.char-table td{padding:11px 16px; border-bottom:1px solid var(--line); vertical-align:top;}
+.char-table tr:last-child td{border-bottom:none;}
+.char-table tbody tr:nth-child(even){background:#FBFAF5;}
+.char-table tbody tr:hover{background:#F2EEDF;}
+.char-table .example{font-family:'Noto Serif TC',serif; color:var(--ink); font-size:15px;}
+.char-table .target{color:var(--seal); font-weight:700; border-bottom:1px dotted var(--seal);}
+.char-table .pos{color:var(--night); font-weight:700; white-space:nowrap;}
+.char-table .meaning{color:var(--muted);}
+.char-table-note{margin:12px 2px 0; color:var(--muted); font-size:12.5px;}
+
+/* ---- 背景 ---- */
+.context-card{background:var(--card); border:1px solid var(--line); border-left:5px solid var(--seal); border-radius:12px; padding:22px 26px; margin-bottom:18px;}
+.context-card b{color:var(--seal);}
+.context-card p{margin:0 0 10px; font-size:14.5px;}
+.context-card p:last-child{margin-bottom:0;}
+.quote-strip{display:flex; gap:12px; align-items:center; background:#EFE9D8; border-radius:10px; padding:14px 18px; margin-top:14px; font-family:'Noto Serif TC',serif; color:var(--soil); font-size:14.5px;}
+
+/* ---- 課文 ---- */
+.passage{background:var(--card); border:1px solid var(--line); border-radius:14px; margin-bottom:18px; overflow:hidden;}
+.passage-head{display:flex; align-items:center; justify-content:space-between; padding:12px 20px; background:#EFE9D8; border-bottom:1px solid var(--line);}
+.passage-head .ptitle{font-weight:700; color:var(--night); font-size:13px; letter-spacing:.05em;}
+.passage-head button{font-size:11.5px; background:var(--paper); color:var(--ink); border:1px solid var(--muted); padding:5px 13px; border-radius:20px; cursor:pointer;}
+.passage-head button:hover{background:var(--haze); color:#fff;}
+.passage-body{padding:22px 24px;}
+.classical{font-family:'Noto Serif TC',serif; font-size:1.14rem; line-height:2.5; color:var(--ink);}
+.classical ruby{ruby-position:over;}
+.classical rt{font-size:.48em; font-family:'Noto Sans TC',sans-serif; color:var(--seal); font-weight:600; letter-spacing:0;}
+body.hide-zhuyin .classical rt{display:none;}
+.classical .gloss{color:var(--seal); font-weight:600; border-bottom:1px dotted var(--seal); cursor:pointer; padding:0 1px; border-radius:3px; transition:background .15s;}
+.classical .gloss:hover{background:#F2E4DC;}
+.classical .gloss.active{background:#EFD9C9;}
+.classical .fnmark{color:var(--seal); font-weight:700; font-size:.62em; margin-left:1px; cursor:pointer;}
+.notes-hint{margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); font-size:12px; color:var(--muted); display:flex; align-items:center; gap:6px;}
+.notes-hint .dot{width:10px; height:10px; border-radius:50%; background:var(--seal); border-bottom:none; display:inline-block; opacity:.8;}
+#glossTip{
+  position:fixed; z-index:80; max-width:280px; background:var(--soil); color:var(--paper);
+  padding:12px 15px; border-radius:10px; font-size:13px; line-height:1.75; box-shadow:0 12px 28px rgba(0,0,0,.32);
+  opacity:0; transform:translateY(6px); pointer-events:none; transition:opacity .18s ease, transform .18s ease;
+  font-family:'Noto Sans TC',sans-serif;
+}
+#glossTip.show{opacity:1; transform:translateY(0); pointer-events:auto;}
+#glossTip::before{content:""; position:absolute; top:-6px; left:18px; width:12px; height:12px; background:var(--soil); transform:rotate(45deg);}
+#glossTip.arrow-below::before{top:auto; bottom:-6px; transform:rotate(45deg);}
+.translation{overflow:hidden; max-height:0; opacity:0; transition:max-height .4s ease, opacity .4s ease;
+  font-size:13.5px; color:var(--muted); border-left:3px solid var(--candle); padding-left:0; margin-top:0;}
+.translation.show{max-height:400px; opacity:1; padding:14px 0 0 16px; margin-top:14px;}
+body.show-all-trans .translation{max-height:400px; opacity:1; padding:14px 0 0 16px; margin-top:14px;}
+.translation .tlabel{display:block; font-size:11px; letter-spacing:.15em; color:var(--candle); margin-bottom:6px; font-weight:700;}
+
+/* ---- 四、燭之武說服攻略排序遊戲 ---- */
+.seq-wrap{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 26px; margin-bottom:22px;}
+.seq-slots{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:6px;}
+.seq-slot{flex:1 1 150px; min-height:78px; border:2px dashed var(--wall); border-radius:12px; display:flex; align-items:center; justify-content:center; text-align:center; padding:14px 12px 10px; font-size:13px; color:var(--muted); position:relative; transition:.15s;}
+.seq-slot .seq-num{position:absolute; top:6px; left:10px; font-family:'Noto Serif TC',serif; font-weight:900; font-size:12px; color:var(--wall);}
+.seq-slot.filled{border-style:solid; border-color:var(--night); background:#EFE9D8; color:var(--soil); font-weight:700; cursor:pointer;}
+.seq-slot.correct{border-color:var(--ok); background:#EAF1E4; color:var(--ok);}
+.seq-slot.wrong{border-color:var(--seal); background:#F7ECE7; color:var(--seal);}
+.seq-hint{font-size:11.5px; color:var(--muted); opacity:.8; margin-bottom:14px;}
+.seq-pool{display:flex; flex-wrap:wrap; gap:10px; padding-top:14px; border-top:1px dashed var(--line);}
+.seq-card{font-family:inherit; font-size:13.5px; padding:10px 16px; border-radius:20px; border:1px solid var(--muted); background:var(--paper); color:var(--ink); cursor:pointer; transition:.15s;}
+.seq-card:hover{border-color:var(--candle); background:#F5EBD3;}
+.seq-actions{display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;}
+.seq-actions button{font-family:inherit; font-size:13px; padding:9px 22px; border-radius:20px; border:1px solid var(--muted); background:var(--paper); color:var(--ink); cursor:pointer; transition:.15s;}
+.seq-actions #seqCheck{background:var(--night); color:#fff; border-color:var(--night);}
+.seq-actions button:disabled{opacity:.4; cursor:default;}
+#seqResult{margin-top:14px; font-size:13.5px; color:var(--muted); min-height:20px; line-height:1.85;}
+#seqResult b{color:var(--seal);}
+#seqResult b.ok{color:var(--ok);}
+.seq-detail{margin-top:18px; display:none;}
+.seq-detail.show{display:block;}
+.seq-detail .sd-item{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--candle); border-radius:10px; padding:14px 18px; margin-bottom:12px;}
+.seq-detail .sd-item .sd-label{font-weight:700; color:var(--night); margin-bottom:6px; font-size:14px; font-family:'Noto Serif TC',serif;}
+.seq-detail .sd-item .sd-quote{font-family:'Noto Serif TC',serif; color:var(--soil); font-size:14px; margin-bottom:6px; line-height:1.85;}
+.seq-detail .sd-item .sd-note{color:var(--muted); font-size:12.5px; line-height:1.8;}
+
+/* ---- QUIZ ---- */
+.quiz-card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-bottom:16px;}
+.quiz-q{font-weight:700; font-size:15px; margin-bottom:12px;}
+.quiz-q .qnum{color:var(--seal); margin-right:6px;}
+.tag{display:inline-block; font-size:10.5px; padding:2px 10px; border-radius:20px; background:var(--night); color:#fff; margin-left:6px; font-weight:500;}
+.opt{display:block; width:100%; text-align:left; padding:10px 14px; margin-bottom:7px; border:1px solid var(--haze); background:#fff; border-radius:6px; cursor:pointer; font-family:inherit; font-size:14px; color:var(--ink); transition:.15s;}
+.opt:hover{border-color:var(--candle);}
+.opt.correct{background:#EAF1E4; border-color:var(--ok); font-weight:700; position:relative; color:var(--ok);}
+.opt.correct::after{content:"對"; position:absolute; right:12px; top:50%; transform:translateY(-50%) rotate(-6deg); color:var(--ok); border:1.5px solid var(--ok); border-radius:4px; padding:0 5px; font-size:11px; font-family:'Noto Serif TC',serif;}
+.opt.wrong{background:#F7ECE7; border-color:var(--seal); text-decoration:line-through; color:var(--muted);}
+.opt[disabled]{cursor:default;}
+.explain{display:none; margin-top:10px; padding:11px 14px; border-radius:6px; background:#F2EEDF; border-left:3px solid var(--muted); font-size:13.5px; color:var(--ink);}
+.explain.show{display:block;}
+.explain b{color:var(--seal);}
+#quiz-celebrate{text-align:center; font-family:'Noto Serif TC',serif; font-size:16px; color:var(--ok); font-weight:700; margin-top:18px; min-height:26px;}
+
+footer{text-align:center; padding:30px 20px 100px; font-size:12px; color:var(--muted);}
+@media(max-width:640px){.passage-body{padding:18px;} .hero::before{font-size:150px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">互動國文講義</div>
+  <h1>燭之武退秦師</h1>
+  <div class="byline">《左傳》．左丘明（相傳）</div>
+  <p class="lead">晉、秦聯合出兵圍攻鄭國，鄭國危在旦夕。年邁的燭之武臨危受命，隻身於深夜縋城而出，見秦伯後卻隻字不為鄭國求情，反而句句站在秦國的利害立場層層分析，終於說退秦師，化解一場滅國危機，展現《左傳》高超的外交辭令藝術。</p>
+</div>
+
+<div class="controls">
+  <label>
+    <input type="checkbox" id="toggleZhuyin" checked onchange="document.body.classList.toggle('hide-zhuyin', !this.checked)">
+    <span class="switch"></span>
+    顯示注音
+  </label>
+  <label>
+    <input type="checkbox" id="toggleTrans" onchange="document.body.classList.toggle('show-all-trans', this.checked)">
+    <span class="switch"></span>
+    全文顯示語譯
+  </label>
+  <span id="progress">測驗已作答 <span id="answered">0</span> / <span id="total">0</span>　正確 <span id="score">0</span> 題</span>
+</div>
+
+<main>
+
+  <!-- ============ 1. 寫作背景 ============ -->
+  <section class="section-block" id="sec-bg">
+    <h2 class="section-title">一、 寫作背景 <span>Background & History</span></h2>
+    <p class="section-intro">一場即將爆發的滅國之戰，靠三寸不爛之舌化解於無形。</p>
+    <div class="context-card">
+      <p>本文選自《左傳》，全稱《春秋左氏傳》，相傳為魯國史官<b>左丘明</b>所作，是一部依魯隱公元年至魯哀公二十七年（西元前722～468年）十二位國君在位年代編寫而成的<b>編年體</b>史書，長於記載春秋時代列國之間的戰爭謀略與外交辭令，敘事生動、人物形象鮮明，本文即為其中傳誦千古的名篇。</p>
+      <p>事件發生在魯僖公三十年（西元前630年）。起因有二：一是鄭文公曾在晉文公重耳流亡經過鄭國時，未以禮相待；二是鄭國在晉、楚爭霸之際依違兩端，一度依附楚國。晉文公於是聯合秦穆公出兵圍攻鄭國，鄭國形勢岌岌可危。鄭大夫佚之狐推薦年邁的燭之武出使秦營，燭之武先以「今老矣，無能為也已」推辭，經鄭文公坦承己過、曉以利害後才勉強應允，隻身於深夜縋城而出，直闖敵營遊說秦伯。</p>
+      <p>值得一提的是，燭之武遊說秦伯時提出「若舍鄭以為<b>東道主</b>」，其中「東道主」一詞，後來便成為華人世界日常慣用「主人、款待來客者」的代稱，可見本文影響之深遠。</p>
+      <div class="quote-strip">「越國以鄙遠，君知其難也。焉用亡鄭以陪鄰？」</div>
+    </div>
+  </section>
+
+  <!-- ============ 2. 課文與注釋 ============ -->
+  <section class="section-block" id="sec-text">
+    <h2 class="section-title">二、 課文與注釋 <span>Text & Notes</span></h2>
+    <p class="section-intro">全文依情節發展分為四段，文中<span style="color:var(--seal); font-weight:600;">標色詞語</span>可點擊查看注釋，點擊段落右上角按鈕則可展開語譯。</p>
+    <div id="passageList"></div>
+  </section>
+
+  <!-- ============ 3. 古文常用字辨析 ============ -->
+  <section class="section-block" id="sec-common-words">
+    <h2 class="section-title">三、 古文常用字辨析 <span>Classical Chinese Function Words</span></h2>
+    <p class="section-intro">「之」是文言文中最常見的虛詞之一，在本文中身兼代詞、助詞等多種詞性與用法。請觀察下表，掌握「之」在指代、修飾、取消句子獨立性與賓語前置等語境中的不同作用。</p>
+    <div class="char-table-wrap">
+      <div class="char-table-scroll">
+        <table class="char-table">
+          <caption>「之」的用法整理</caption>
+          <thead>
+            <tr>
+              <th scope="col">例句</th>
+              <th scope="col">詞性</th>
+              <th scope="col">詞義</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="example">公從<span class="target">之</span></td>
+              <td class="pos">代詞</td>
+              <td class="meaning">代事，指佚之狐的建議</td>
+            </tr>
+            <tr>
+              <td class="example">許<span class="target">之</span></td>
+              <td class="pos">代詞</td>
+              <td class="meaning">代人，指燭之武</td>
+            </tr>
+            <tr>
+              <td class="example">臣<span class="target">之</span>壯也</td>
+              <td class="pos">助詞</td>
+              <td class="meaning">用於主語謂語之間，取消句子獨立性，無義</td>
+            </tr>
+            <tr>
+              <td class="example">是寡人<span class="target">之</span>過也</td>
+              <td class="pos">助詞</td>
+              <td class="meaning">的</td>
+            </tr>
+            <tr>
+              <td class="example">鄰<span class="target">之</span>厚，君<span class="target">之</span>薄也</td>
+              <td class="pos">助詞</td>
+              <td class="meaning">用於主謂之間，取消句子獨立性，無義</td>
+            </tr>
+            <tr>
+              <td class="example">行李<span class="target">之</span>往來</td>
+              <td class="pos">助詞</td>
+              <td class="meaning">用於主謂之間，取消句子獨立性，無義</td>
+            </tr>
+            <tr>
+              <td class="example">何厭<span class="target">之</span>有</td>
+              <td class="pos">助詞</td>
+              <td class="meaning">賓語前置的標誌，無義，即「有何厭」</td>
+            </tr>
+            <tr>
+              <td class="example">因人<span class="target">之</span>力而敝<span class="target">之</span></td>
+              <td class="pos">助詞／代詞</td>
+              <td class="meaning">的；代那人，指秦穆公</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="char-table-note">判讀提示：「之」出現在主語與謂語之間時，多為取消句子獨立性的助詞，可不必譯出；若出現在「疑問代詞＋之＋動詞」的結構中（如「何厭之有」），則是賓語前置的標誌，同樣不必譯出。</p>
+  </section>
+
+  <!-- ============ 4. 燭之武說服攻略（互動排序遊戲） ============ -->
+  <section class="section-block" id="sec-explore">
+    <h2 class="section-title">四、 燭之武說服攻略 <span>Persuasion Sequencing Game</span></h2>
+    <p class="section-intro">燭之武見秦伯後，一連使出五招說服攻勢，環環相扣、步步進逼。請點選下方卡片，依原文順序依序放入答題區，重建這場外交辭令的攻防順序！</p>
+    <div class="seq-wrap">
+      <div class="seq-slots" id="seqSlots"></div>
+      <div class="seq-hint">提示：點選已填入的格子可以取消，重新選擇。</div>
+      <div class="seq-pool" id="seqPool"></div>
+      <div class="seq-actions">
+        <button id="seqCheck" disabled>檢查順序</button>
+        <button id="seqReset">重新排列</button>
+      </div>
+      <div id="seqResult"></div>
+    </div>
+    <div class="seq-detail" id="seqDetail"></div>
+  </section>
+
+  <!-- ============ 5. 綜合自我測驗 ============ -->
+  <section class="section-block" id="sec-quiz">
+    <h2 class="section-title">五、 綜合自我測驗 <span>Quiz</span></h2>
+    <p class="section-intro">精選 8 題測驗，涵蓋字音字形、通假字、修辭鑑賞、文意理解、篇章結構與文學常識，點選選項即時檢定對錯。</p>
+    <div id="quizList"></div>
+    <div id="quiz-celebrate"></div>
+  </section>
+
+</main>
+
+<footer>燭之武退秦師．互動國文講義　｜　原文據《左傳》通行本整理，僅供學習使用</footer>
+
+<script>
+/* ============ 課文資料 ============ */
+const passages = [
+{
+  no:1, title:"第一段．晉秦圍鄭，形勢危急",
+  text:`<span class="gloss" data-def="晉侯，指晉文公重耳；秦伯，指秦穆公任好。侯、伯皆為春秋時期諸侯的爵位稱呼。">晉侯、秦伯</span>圍鄭，以其<span class="gloss" data-def="鄭文公曾在晉文公重耳流亡經過鄭國時，未以禮相待，種下晉、鄭交惡的遠因。">無禮於晉</span>，且<span class="gloss" data-def="貳，有二心。指鄭國在晉、楚爭霸之際依違兩端，曾依附楚國，對晉不夠忠誠。"><ruby>貳<rt>ㄦˋ</rt></ruby></span>於楚也。晉<span class="gloss" data-def="軍，動詞，駐紮軍隊。">軍</span>函陵，秦軍<ruby>氾<rt>ㄈㄢˋ</rt></ruby>南。`,
+  trans:"晉文公、秦穆公聯合出兵圍攻鄭國，因為鄭國曾對晉文公無禮，又依附楚國、對晉懷有二心。晉軍駐紮在函陵，秦軍駐紮在氾水的南邊。"
+},
+{
+  no:2, title:"第二段．佚之狐薦才，燭之武臨危受命",
+  text:`<span class="gloss" data-def="佚之狐，鄭國大夫。"><ruby>佚<rt>ㄧˋ</rt></ruby>之狐</span>言於鄭伯曰：「國危矣，若使燭之武見秦君，師必退。」公從之。辭曰：「臣之壯也，猶不如人；今老矣，無能為也已。」公曰：「吾不能早用子，今急而求子，是寡人之過也。然鄭亡，子亦有不利焉。」許之。`,
+  trans:"佚之狐向鄭文公進言說：『國家處境危急了！如果派燭之武去見秦穆公，秦國軍隊一定會撤退。』鄭文公聽從了他的建議。燭之武推辭說：『臣年輕力壯的時候，尚且比不上別人；如今老了，更沒有能力做什麼了。』鄭文公說：『我沒有及早重用您，如今情況危急才來求助於您，這是我的過錯。然而鄭國一旦滅亡，對您也沒有好處啊。』燭之武這才答應了。"
+},
+{
+  no:3, title:"第三段．夜縋見秦伯，句句攻心",
+  text:`夜<span class="gloss" data-def="用繩子拴著人，從城牆上垂降下去，暗示鄭國都城已被重重包圍，只能趁夜偷偷縋城而出。"><ruby>縋<rt>ㄓㄨㄟˋ</rt></ruby></span>而出，見秦伯，曰：「秦、晉圍鄭，鄭既知亡矣。若亡鄭而有益於君，敢以煩執事。<span class="gloss" data-def="鄙，動詞，把……當作邊邑；遠，指遙遠的鄭國。意謂越過晉國國境，把遠方的鄭國當作秦國的邊邑。">越國以鄙遠</span>，君知其難也。焉用亡鄭以<span class="gloss" data-def="陪，通「倍」，增加。意謂何必滅掉鄭國來增加鄰國（晉國）的土地與實力？">陪鄰</span>？鄰之厚，君之薄也。若舍鄭以為<span class="gloss" data-def="東方道路上的主人，即接待東方來客的主人。今日常用語「東道主」即出自本句。">東道主</span>，<span class="gloss" data-def="外交使節、使者往來。">行李</span>之往來，<span class="gloss" data-def="共，通「供」，供給。乏困，指缺乏的物資。">共其乏困</span>，君亦無所害。且君嘗為晉君賜矣，許君<span class="gloss" data-def="焦、瑕，晉國地名。晉惠公曾許諾割讓給秦國，卻事後反悔。">焦、瑕</span>，朝濟而夕設版焉，君之所知也。夫晉，何厭之有？既東封鄭，又欲肆其西封，若不<span class="gloss" data-def="闕，通「缺」，侵損、削減之意。"><ruby>闕<rt>ㄑㄩㄝ</rt></ruby></span>秦，將焉取之？闕秦以利晉，唯君圖之。」秦伯<span class="gloss" data-def="說，通「悅」，高興、喜悅，讀作ㄩㄝˋ。"><ruby>說<rt>ㄩㄝˋ</rt></ruby></span>，與鄭人盟。使<ruby>杞<rt>ㄑㄧˇ</rt></ruby>子、<ruby>逢<rt>ㄆㄤˊ</rt></ruby>孫、楊孫戍之，乃還。`,
+  trans:"燭之武在夜裡用繩子拴著身體，從城牆上垂降出城，去見秦穆公，說：『秦、晉兩國聯合圍攻鄭國，鄭國已經知道自己快要滅亡了。如果滅掉鄭國對您有好處，那就麻煩您動手吧。可是越過晉國，把遙遠的鄭國當作秦國的邊邑，您也知道其中的困難。何必滅掉鄭國來增加鄰國（晉國）的土地呢？鄰國的實力雄厚了，就等於您秦國的實力削弱了。如果放棄攻打鄭國，讓鄭國作您東方道路上的主人，貴國使節往來經過時，鄭國可以供應他們所缺乏的物資，這對您也沒有什麼害處。再說您曾經對晉惠公有恩，他答應把焦、瑕兩地割讓給您，可是他早上渡河回國，晚上就在那裡修築防禦工事，這是您所知道的事。晉國，哪裡會有滿足的時候呢？它已經在東邊把鄭國納入版圖，又想要向西擴張疆界，如果不損害秦國，它還能從哪裡取得土地呢？損害秦國來使晉國得利，還請您仔細考慮。』秦穆公聽了很高興，就與鄭國人訂立盟約，並派杞子、逢孫、楊孫三位大夫戍守鄭國，然後領兵撤退。"
+},
+{
+  no:4, title:"第四段．秦鄭結盟，晉師撤退",
+  text:`子犯請擊之。公曰：「不可。<span class="gloss" data-def="微，無、沒有。夫人，指秦穆公。意謂如果沒有秦穆公當年鼎力相助（護送重耳返國即位），就不會有今日的晉文公。">微夫人之力不及此</span>。因人之力而敝之，不仁；失其<span class="gloss" data-def="與，結盟相助的對象、盟友，此處指秦國。">所與</span>，不<span class="gloss" data-def="知，通「智」，明智之意，讀作ㄓˋ。"><ruby>知<rt>ㄓˋ</rt></ruby></span>；以亂易整，不武。吾其還也。」亦去之。`,
+  trans:"子犯請求出兵攻擊秦軍。晉文公說：『不可以。如果沒有那個人（秦穆公）當年的力量幫助，我不會有今天的地位。依靠別人的力量，卻反過來損害他，是不仁義的；失去自己的盟友，是不明智的；用混亂相攻取代整齊聯合的陣勢，是不符合武德的。我們還是撤兵回去吧。』於是晉軍也離開了鄭國。"
+}
+];
+
+/* ============ 課文渲染 ============ */
+const passageList = document.getElementById('passageList');
+function renderPassages(){
+  passageList.innerHTML = '';
+  passages.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'passage';
+    card.innerHTML = `
+      <div class="passage-head">
+        <span class="ptitle">${p.title}</span>
+        <button data-i="${p.no}">查看語譯</button>
+      </div>
+      <div class="passage-body">
+        <div class="classical">${p.text}</div>
+        <div class="notes-hint"><span class="dot"></span>點擊<span style="color:var(--seal); font-weight:600;">標色詞語</span>或右上角數字，查看該處注釋</div>
+        <div class="translation" id="trans-${p.no}"><span class="tlabel">白話語譯</span>${p.trans}</div>
+      </div>`;
+    card.querySelector('button').addEventListener('click', (e)=>{
+      document.getElementById('trans-'+p.no).classList.toggle('show');
+      e.target.textContent = document.getElementById('trans-'+p.no).classList.contains('show') ? '收合語譯' : '查看語譯';
+    });
+    passageList.appendChild(card);
+
+    const classicalEl = card.querySelector('.classical');
+    const glossEls = classicalEl.querySelectorAll('.gloss');
+    glossEls.forEach((el, idx)=>{
+      const n = idx + 1;
+      const mark = document.createElement('sup');
+      mark.className = 'fnmark';
+      mark.textContent = n;
+      el.after(mark);
+      const trigger = (ev)=>{
+        ev.stopPropagation();
+        toggleGlossTip(el, el.dataset.def);
+      };
+      el.addEventListener('click', trigger);
+      mark.addEventListener('click', trigger);
+    });
+  });
+}
+renderPassages();
+
+/* ============ 注釋提示框（點擊才出現） ============ */
+const glossTip = document.createElement('div');
+glossTip.id = 'glossTip';
+document.body.appendChild(glossTip);
+let activeGlossEl = null;
+
+function toggleGlossTip(el, defText){
+  if(activeGlossEl === el){
+    hideGlossTip();
+    return;
+  }
+  if(activeGlossEl) activeGlossEl.classList.remove('active');
+  activeGlossEl = el;
+  el.classList.add('active');
+  glossTip.textContent = defText;
+  glossTip.classList.remove('arrow-below');
+
+  const rect = el.getBoundingClientRect();
+  const tipWidth = 280;
+  let left = rect.left;
+  if(left + tipWidth > window.innerWidth - 12) left = window.innerWidth - tipWidth - 12;
+  if(left < 12) left = 12;
+  glossTip.style.left = left + 'px';
+
+  glossTip.style.visibility = 'hidden';
+  glossTip.classList.add('show');
+  const tipHeight = glossTip.offsetHeight;
+  glossTip.style.visibility = '';
+
+  let top = rect.bottom + 10;
+  if(top + tipHeight > window.innerHeight - 12){
+    top = rect.top - tipHeight - 10;
+    glossTip.classList.add('arrow-below');
+  }
+  glossTip.style.top = top + 'px';
+}
+function hideGlossTip(){
+  glossTip.classList.remove('show');
+  if(activeGlossEl) activeGlossEl.classList.remove('active');
+  activeGlossEl = null;
+}
+document.addEventListener('click', (e)=>{
+  if(activeGlossEl && !glossTip.contains(e.target)) hideGlossTip();
+});
+document.addEventListener('scroll', hideGlossTip, {passive:true});
+
+/* ============ 四、燭之武說服攻略排序遊戲 ============ */
+const STEPS = [
+  {id:'admit', label:'①坦承鄭亡，博取信任',
+   quote:'秦、晉圍鄭，鄭既知亡矣。',
+   note:'一開口就承認鄭國已知必亡，毫不狡辯，先放低姿態、卸下秦伯的防備心，才有機會繼續往下說服。'},
+  {id:'noGain', label:'②滅鄭於秦無益，反利於鄰',
+   quote:'越國以鄙遠，君知其難也。焉用亡鄭以陪鄰？鄰之厚，君之薄也。',
+   note:'指出秦國越過晉國去統治遙遠的鄭國並不實際，滅鄭只會讓鄰近的晉國坐收漁利，秦國反而相對削弱。'},
+  {id:'keepGain', label:'③存鄭反而對秦有利',
+   quote:'若舍鄭以為東道主，行李之往來，共其乏困，君亦無所害。',
+   note:'轉守為攻，提出具體好處：留下鄭國，日後可作秦國使節往來的東道主、供應所需，對秦國有益無害。'},
+  {id:'history', label:'④以晉國背信之史為鑑',
+   quote:'且君嘗為晉君賜矣，許君焦、瑕，朝濟而夕設版焉，君之所知也。',
+   note:'翻出晉惠公過去受秦恩惠卻背信毀約的舊帳，提醒秦伯：晉國言而無信，不可深信依賴。'},
+  {id:'warn', label:'⑤預言晉將反噬秦國',
+   quote:'既東封鄭，又欲肆其西封，若不闕秦，將焉取之？闕秦以利晉，唯君圖之。',
+   note:'推論晉國貪得無厭，滅鄭之後必將向西侵犯秦國，點破「唇亡齒寒」的下一步就是秦國自身，逼秦伯不得不提防。'}
+];
+const CORRECT_ORDER = STEPS.map(s=>s.id);
+
+let slotIds = Array(STEPS.length).fill(null);
+let poolIds = shuffle(STEPS.map(s=>s.id));
+let checked = false;
+
+const seqSlots = document.getElementById('seqSlots');
+const seqPool = document.getElementById('seqPool');
+const seqCheckBtn = document.getElementById('seqCheck');
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function renderSeq(){
+  seqSlots.innerHTML = '';
+  slotIds.forEach((id, i)=>{
+    const div = document.createElement('div');
+    div.className = 'seq-slot' + (id ? ' filled' : '');
+    if(checked && id){
+      div.classList.add(id === CORRECT_ORDER[i] ? 'correct' : 'wrong');
+    }
+    const label = id ? STEPS.find(s=>s.id===id).label : '';
+    div.innerHTML = `<span class="seq-num">${i+1}</span>${label}`;
+    if(id && !checked){
+      div.addEventListener('click', ()=>{
+        poolIds.push(id);
+        slotIds[i] = null;
+        renderSeq();
+      });
+    }
+    seqSlots.appendChild(div);
+  });
+
+  seqPool.innerHTML = '';
+  poolIds.forEach(id=>{
+    const btn = document.createElement('button');
+    btn.className = 'seq-card';
+    btn.textContent = STEPS.find(s=>s.id===id).label;
+    btn.addEventListener('click', ()=>{
+      const emptyIdx = slotIds.findIndex(v=>v===null);
+      if(emptyIdx === -1) return;
+      slotIds[emptyIdx] = id;
+      poolIds = poolIds.filter(x=>x!==id);
+      renderSeq();
+    });
+    seqPool.appendChild(btn);
+  });
+
+  seqCheckBtn.disabled = slotIds.includes(null) || checked;
+}
+renderSeq();
+
+seqCheckBtn.addEventListener('click', ()=>{
+  checked = true;
+  const correctCount = slotIds.filter((id,i)=> id === CORRECT_ORDER[i]).length;
+  renderSeq();
+  const result = document.getElementById('seqResult');
+  if(correctCount === STEPS.length){
+    result.innerHTML = '🎉 完全正確！你精準重建了燭之武的說服攻略，五個步驟環環相扣、順序絲毫不差。';
+  } else {
+    result.innerHTML = `你答對了 <b class="ok">${correctCount}</b> / ${STEPS.length} 個位置，對照下方正確順序與原文，看看差在哪個環節吧！`;
+  }
+  renderSeqDetail();
+});
+
+document.getElementById('seqReset').addEventListener('click', ()=>{
+  slotIds = Array(STEPS.length).fill(null);
+  poolIds = shuffle(STEPS.map(s=>s.id));
+  checked = false;
+  document.getElementById('seqResult').innerHTML = '';
+  const detail = document.getElementById('seqDetail');
+  detail.classList.remove('show');
+  detail.innerHTML = '';
+  renderSeq();
+});
+
+function renderSeqDetail(){
+  const detail = document.getElementById('seqDetail');
+  detail.innerHTML = CORRECT_ORDER.map((id, i)=>{
+    const s = STEPS.find(x=>x.id===id);
+    return `<div class="sd-item">
+      <div class="sd-label">${i+1}. ${s.label}</div>
+      <div class="sd-quote">「${s.quote}」</div>
+      <div class="sd-note">${s.note}</div>
+    </div>`;
+  }).join('');
+  detail.classList.add('show');
+}
+
+/* ============ 自我測驗 ============ */
+const QUIZ = [
+  {tag:"字音字形", q:"1.「夜縋而出」的「縋」字讀音，下列何者正確？", opts:["音ㄓㄨㄟˋ，用繩索拴著人從上垂降而下","音ㄓㄨㄟ，追逐之意","音ㄔㄨㄟˊ，敲擊之意","音ㄓㄨㄟˇ，聚集之意"], a:0, ex:"「縋」讀音為ㄓㄨㄟˋ，指用繩索繫住人，從高處緩緩垂放下去，文中形容燭之武趁夜由城牆縋城而出，暗示鄭國都城已遭重重包圍。"},
+  {tag:"通假字", q:"2.「秦伯說，與鄭人盟」的「說」字，通下列何字？", opts:["通「悅」，高興、喜悅","通「閱」，察看","通「脫」，脫離","本字自身，不涉通假"], a:0, ex:"「說」在此通「悅」，讀作ㄩㄝˋ，指秦穆公聽了燭之武的分析後感到高興、認同，因而決定與鄭國訂立盟約。"},
+  {tag:"通假字", q:"3.「失其所與，不知」句中的「知」字，通下列何字？", opts:["通「智」，明智、智慧","通「支」，支持","通「志」，志向","通「致」，招致"], a:0, ex:"此處「知」通「智」，讀作ㄓˋ。「失其所與」指失去自己所倚靠的盟友，「不知」即「不智」，指這樣做並不明智。"},
+  {tag:"修辭鑑賞", q:"4.「鄰之厚，君之薄也」運用了下列何種修辭手法？", opts:["映襯（對比），以鄰國實力增強對比秦國相對削弱，凸顯此消彼長的利害關係","誇飾，誇大鄰國與秦國的差距","譬喻，以「厚、薄」比喻人的品德","類疊，反覆使用相同字詞加強語氣"], a:0, ex:"此句以「厚」與「薄」相互映襯對比，說明鄰國（晉國）實力若因滅鄭而增強，等同秦國的相對實力被削弱，二者此消彼長，一針見血地點出滅鄭對秦不利的道理。"},
+  {tag:"修辭鑑賞", q:"5.「焉用亡鄭以陪鄰？」在文中屬於下列何種句式，作用為何？", opts:["反問句（激問），以問句形式加強語氣，促使秦伯反思滅鄭之舉是否值得","直述句，平鋪直敘說明滅鄭的必要性","假設句，單純假設一種情況而不帶語氣","感嘆句，抒發燭之武對鄭國命運的感慨"], a:0, ex:"此句表面是問句，答案卻已隱含其中（不必如此），屬於「反問句」，藉詰問的語氣，逼使秦伯重新思考滅鄭一事對自己究竟有何好處，說理效果更為強烈。"},
+  {tag:"文意理解", q:"6. 燭之武遊說秦伯時，全篇說詞最主要是站在下列哪一個角度切入，藉此打動秦伯？", opts:["完全站在秦國自身的利害得失立場分析，隻字不為鄭國求情","不斷強調鄭國的無辜與可憐，博取秦伯的同情","歷數晉國過去所有的罪狀，要求秦伯主持公道","誇讚秦穆公的仁德，希望秦伯以德服人放過鄭國"], a:0, ex:"細讀全文可發現，燭之武從頭到尾沒有一句話為鄭國的存亡求情，而是句句站在秦國的利害關係上分析：滅鄭對秦無益、存鄭對秦有利、晉國不可信、晉國將威脅秦國……完全以利害說服對方，這正是本文說理的高明之處。"},
+  {tag:"篇章結構", q:"7. 晉文公最後決定退兵、不聽從子犯攻擊秦軍的建議，其理由不包括下列何者？", opts:["畏懼秦國軍隊戰力強大，不敢輕舉妄動","背棄曾經幫助過自己的秦穆公，是不仁義的行為","失去秦國這個盟友，是不明智的做法","以混亂的攻擊行動取代原本整齊的聯軍陣勢，是不合乎武德的"], a:0, ex:"晉文公退兵的理由是「不仁、不知（智）、不武」三點，分別針對恩義、盟友關係與用兵之道立論，通篇並未提及畏懼秦國軍力這一點，可見晉文公的考量著重在道義與策略，而非單純的實力對比。"},
+  {tag:"文學常識", q:"8. 關於本文出處《左傳》，下列敘述何者正確？", opts:["《左傳》相傳為左丘明所作，是一部依魯國十二公紀年的編年體史書，尤其擅長描寫戰爭謀略與外交辭令","《左傳》為紀傳體史書，司馬遷所撰，記載歷代帝王將相的事蹟","《左傳》即《春秋》本文，二者為同一部著作","《左傳》成書於漢代，是為解釋《詩經》而作的注釋之書"], a:0, ex:"《左傳》全稱《春秋左氏傳》，相傳為魯國史官左丘明所作，是依魯隱公至魯哀公十二位國君在位年代編寫而成的編年體史書，敘事詳實生動，尤以描寫戰爭場面與外交辭令見長，本文即為其中經典範例。"}
+];
+const quizList = document.getElementById('quizList');
+let answered = 0, correct = 0;
+document.getElementById('total').textContent = QUIZ.length;
+QUIZ.forEach((item, idx)=>{
+  const card = document.createElement('div');
+  card.className = 'quiz-card';
+  card.innerHTML = `
+    <div class="quiz-q"><span class="qnum">Q${idx+1}.</span>${item.q}<span class="tag">${item.tag}</span></div>
+    <div class="opts"></div>
+    <div class="explain" id="ex-${idx}"><b>詳解：</b>${item.ex}</div>
+  `;
+  const optsWrap = card.querySelector('.opts');
+  item.opts.forEach((opt, oi)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.textContent = `${String.fromCharCode(65+oi)}. ${opt}`;
+    btn.addEventListener('click', ()=>{
+      if(btn.disabled) return;
+      const allBtns = optsWrap.querySelectorAll('.opt');
+      allBtns.forEach(b=>b.disabled=true);
+      if(oi === item.a){
+        btn.classList.add('correct');
+        correct++;
+      } else {
+        btn.classList.add('wrong');
+        allBtns[item.a].classList.add('correct');
+      }
+      document.getElementById(`ex-${idx}`).classList.add('show');
+      answered++;
+      document.getElementById('answered').textContent = answered;
+      document.getElementById('score').textContent = correct;
+      if(answered === QUIZ.length){
+        const cel = document.getElementById('quiz-celebrate');
+        if(correct === QUIZ.length) cel.textContent = '🎉 全對！你已徹底讀懂燭之武的說服辭令與智慧。';
+        else if(correct >= QUIZ.length*0.6) cel.textContent = `👍 答對 ${correct} / ${QUIZ.length} 題，再回頭讀讀課文與注釋，掌握會更牢固！`;
+        else cel.textContent = `📖 答對 ${correct} / ${QUIZ.length} 題，建議先重讀「課文與注釋」與「燭之武說服攻略」再挑戰一次。`;
+      }
+    });
+    optsWrap.appendChild(btn);
+  });
+  quizList.appendChild(card);
+});
+
+</script>
+
+</body>
+</html>

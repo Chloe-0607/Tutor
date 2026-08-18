@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>情境選擇題特訓場｜臺灣史綜合挑戰</title>
+<style>
+:root{
+  --paper:#F2ECDD;
+  --paper-deep:#E6DAB9;
+  --ink:#2B2620;
+  --ink-soft:#7A705D;
+  --red:#9C3B2E;
+  --red-deep:#7A2C21;
+  --gold:#AD8A3E;
+  --gold-deep:#8C6F2E;
+  --green:#3F5D45;
+  --green-deep:#2C4531;
+  --blue:#3B5266;
+  --blue-deep:#2A3B49;
+  --line:#D9CBA9;
+  --card:#FFFDF6;
+  --wrong:#8B3A3A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Noto Sans TC',sans-serif;
+  line-height:1.75;
+  position:relative;
+  min-height:100vh;
+}
+body::before{
+  content:"辨";
+  position:fixed;
+  top:-4vw; right:-4vw;
+  font-family:'Noto Serif TC',serif;
+  font-size:38vw;
+  font-weight:900;
+  color:var(--red);
+  opacity:0.045;
+  z-index:0;
+  pointer-events:none;
+  line-height:1;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px 90px;position:relative;z-index:1;}
+
+header{padding:52px 0 30px;text-align:center;border-bottom:0.5px solid var(--red);margin-bottom:26px;}
+.eyebrow{font-size:13px;letter-spacing:0.35em;color:var(--gold-deep);font-weight:600;margin-bottom:14px;}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(26px,5vw,42px);color:var(--ink);letter-spacing:0.03em;}
+header p{margin-top:12px;color:var(--ink-soft);font-size:14.5px;}
+
+.stats{display:flex;justify-content:center;gap:30px;margin-top:24px;flex-wrap:wrap;}
+.stat{text-align:center;min-width:78px;}
+.stat .num{font-family:'Noto Serif TC',serif;font-size:25px;font-weight:700;color:var(--red-deep);}
+.stat .lab{font-size:11.5px;color:var(--ink-soft);letter-spacing:0.06em;}
+
+.card{background:var(--card);border:0.5px solid var(--line);border-radius:2px;padding:26px 26px;margin-bottom:20px;box-shadow:0 1px 0 rgba(0,0,0,0.02);}
+
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+.qcount{font-size:12.5px;color:var(--ink-soft);letter-spacing:0.05em;}
+.qtag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:10px;letter-spacing:0.05em;font-weight:700;color:var(--gold-deep);background:#F5EDD6;}
+.progress-bar{height:4px;background:var(--paper-deep);border-radius:2px;overflow:hidden;margin-bottom:20px;}
+.progress-fill{height:100%;background:var(--red-deep);transition:width .3s ease;}
+
+.prompt{font-family:'Noto Serif TC',serif;font-size:16.5px;font-weight:700;margin-bottom:18px;line-height:1.7;}
+.options{display:grid;gap:10px;}
+.opt-btn{
+  text-align:left;background:var(--paper);border:1px solid var(--line);padding:12px 16px;border-radius:2px;
+  font-size:14.5px;cursor:pointer;transition:all .18s ease;color:var(--ink);
+}
+.opt-btn:hover:not(:disabled){border-color:var(--red);background:#fff;}
+.opt-btn:disabled{cursor:default;}
+.opt-btn.correct{background:#EAF1EA;border-color:var(--green-deep);color:var(--green-deep);font-weight:700;}
+.opt-btn.wrong{background:#F5E7E4;border-color:var(--wrong);color:var(--wrong);font-weight:700;}
+.opt-btn.reveal{border-color:var(--green-deep);background:#EAF1EA;color:var(--green-deep);}
+
+.explain{margin-top:16px;padding:13px 15px;background:var(--paper-deep);border-left:3px solid var(--gold-deep);font-size:13.5px;color:var(--ink);display:none;}
+.explain.show{display:block;}
+.explain .lab{font-weight:800;color:var(--gold-deep);font-size:12px;letter-spacing:0.1em;margin-bottom:5px;}
+
+.qcontrols{display:flex;justify-content:flex-end;align-items:center;margin-top:20px;}
+.next-btn{background:var(--red-deep);color:#fff;border:none;padding:10px 24px;border-radius:2px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.03em;}
+.next-btn:hover{background:var(--red);}
+.next-btn:disabled{background:#C9BFA8;cursor:not-allowed;}
+
+.stamp{
+  position:relative;display:inline-flex;align-items:center;gap:6px;font-family:'Noto Serif TC',serif;
+  font-weight:900;font-size:13px;padding:5px 12px;border:2px solid;border-radius:3px;letter-spacing:0.1em;
+  transform:rotate(-3deg);
+}
+.stamp.ok{color:var(--red-deep);border-color:var(--red-deep);}
+
+.final-result{text-align:center;padding:36px 20px;}
+.final-result .big{font-family:'Noto Serif TC',serif;font-size:52px;font-weight:900;color:var(--red-deep);}
+.final-result .msg{margin-top:8px;color:var(--ink-soft);font-size:15px;}
+
+footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:50px;padding-top:20px;border-top:0.5px solid var(--line);}
+
+@media (max-width:640px){
+  .prompt{font-size:15.5px;}
+  .card{padding:20px 18px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">情境選擇題特訓場　臺灣史綜合挑戰</div>
+  <h1>情境選擇題特訓</h1>
+  <p>日治、戰後民主化、經濟外交兩岸　主題混合出題・不分單元・著重辨析與比較</p>
+  <div class="stats">
+    <div class="stat"><div class="num" id="statAnswered">0</div><div class="lab">已作答</div></div>
+    <div class="stat"><div class="num" id="statCorrect">0</div><div class="lab">答對題數</div></div>
+    <div class="stat"><div class="num" id="statRate">—</div><div class="lab">正確率</div></div>
+  </div>
+</header>
+
+<div class="card">
+  <div id="intro" style="text-align:center;">
+    <button class="next-btn" id="startBtn">開始作答</button>
+  </div>
+  <div class="qcontent" id="quizArea" style="display:none;"></div>
+  <div class="final-result" id="finalResult" style="display:none;"></div>
+</div>
+
+<footer>情境選擇題特訓場　綜合日治時期、戰後政治民主化、經濟外交兩岸三大主題命題</footer>
+</div>
+
+<script>
+const QUESTIONS = [
+{tag:'日治・人物辨析', q:'情境：某史料記載「西元1895年5月，臺灣士紳另立新政權對抗日本接收，同年即告瓦解」。這段敘述最可能是在描述下列何者？', options:['臺灣民主國','臺灣文化協會','臺灣民眾黨','臺灣地方自治聯盟'], answer:0, explain:'臺灣民主國僅存在數月（1895年5月成立，年底即瓦解）；其餘三者皆為1920年代以降的合法社會運動團體，性質與存續時間都不同。'},
+
+{tag:'戰後・年代辨析', q:'情境：小華說：「臺灣光復後，政府隨即在同一年宣布戒嚴，並推行三七五減租。」這句話正確嗎？', options:['完全正確','錯誤，臺灣光復是1945年，戒嚴令與三七五減租則是1949年才推行，相差四年','戒嚴令其實早於光復','三七五減租與戒嚴無關，發生在1960年代'], answer:1, explain:'臺灣光復（1945年）先設臺灣省行政長官公署；戒嚴令與三七五減租都是1949年才推行，兩者相隔約四年，並非同年發生。'},
+
+{tag:'經濟・土地改革', q:'情境：某段史料寫道：「政府推動一項政策，將地主超額土地徵收後轉售給現耕農民，使地權重新分配，並釋出資金供地主轉投工商業。」這段描述最符合下列哪一項政策？', options:['耕者有其田（土地改革的一環）','發行新臺幣的幣制改革','進口替代政策','出口導向政策'], answer:0, explain:'耕者有其田是土地改革三階段中的最後一步，核心在於徵收地主超額私有地、轉售佃農，達成地權重分配並釋出地主資金；幣制改革著重穩定物價，進口替代與出口導向則屬工業發展政策，皆與地權重分配無關。'},
+
+{tag:'日治・基礎建設', q:'情境：負責主持土地林野調查、統一貨幣與度量衡的官員，與設計嘉南大圳的水利工程師，兩人施政領域最主要的差異是？', options:['前者著重殖民統治基礎建設，後者著重農田水利工程','兩人皆專精鐵路建設','兩人皆為文官總督','兩人皆主導皇民化運動'], answer:0, explain:'後藤新平主持土地林野調查、貨幣度量衡等統治基礎建設；八田與一則專精水利工程（嘉南大圳）。兩人皆非總督本人，也與皇民化運動（1937年後）無直接關係。'},
+
+{tag:'戰後・因果比較', q:'情境：二二八事件與美麗島事件都涉及官民衝突並遭到鎮壓，但兩者對臺灣政治發展的影響，最大差異在於？', options:['二二八事件後隨即解除戒嚴，美麗島事件後反而加強戒嚴','二二八事件重創本土社會菁英並留下長期政治創傷，美麗島事件的審判過程反而凝聚社會同情、壯大黨外勢力','兩者皆發生於同一年代','兩者皆直接促成首次政黨輪替'], answer:1, explain:'二二八事件（1947）造成長期社會創傷與省籍問題；美麗島事件（1979）大審引發社會同情，反而促成1986年民進黨成立，兩者的後續政治效應方向並不相同。'},
+
+{tag:'經濟・進口替代與出口導向', q:'情境：「進口替代」與「出口導向」兩階段政策，下列敘述何者錯誤？', options:['進口替代重在扶植本土輕工業、限制外國商品進口','出口導向以設立加工出口區拓展外銷為核心','進口替代（民國40年代）先於出口導向（民國50年代）','加工出口區的設立目的是「限制進口」而非「拓展外銷」'], answer:3, explain:'加工出口區（高雄前鎮）的核心目的是拓展外銷，而非限制進口，選項D顛倒了政策核心。'},
+
+{tag:'日治・統治方針轉折', q:'情境：依據「頭武、中文、尾武」的統治方針記憶口訣，西元1919年發生的關鍵轉變是？', options:['從文官總督轉為武官總督','從武官總督轉為文官總督，改採內地延長主義','皇民化運動正式展開','六三法遭到廢除'], answer:1, explain:'1919年首任文官總督到任，統治方針轉為內地延長主義；皇民化運動始於1937年中日戰爭爆發後，六三法賦予總督特別立法權，並未在1919年廢除。'},
+
+{tag:'戰後・雷震事件', q:'情境：某位知識分子創辦一份批評時政的雜誌，並著手籌組一個新的反對黨，最終在民國49年遭政府以「涉嫌叛亂」的罪名逮捕入獄。這個事件最能反映當時臺灣處於哪種政治氛圍？', options:['言論與結社自由已獲充分保障','戒嚴體制下言論與組黨自由受到嚴格限制','當時已實施首次總統直選','兩岸關係已進入交流階段'], answer:1, explain:'雷震事件（1960年）發生於戒嚴時期，反映戒嚴體制下言論自由與組黨自由受到嚴格箝制，威權統治不容忍反對勢力的出現。'},
+
+{tag:'戰後・十大建設', q:'情境：某位擔任行政院長的政治人物，因應兩次石油危機衝擊，提出包括高速公路、國際機場、大煉鋼廠、造船廠等十項大型公共建設計畫，藉此強化基礎建設並帶動就業。這位人物是誰？', options:['蔣中正','蔣經國','李登輝','陳水扁'], answer:1, explain:'十大建設（民國62～68年）由蔣經國於行政院長任內提出，是因應石油危機而推動的基礎建設計畫；蔣中正此時已年邁，並非十大建設的推動者。'},
+
+{tag:'日治・法律辨析', q:'情境：關於「六三法」，下列敘述何者正確？', options:['於1919年頒布，是內地延長主義的象徵','授權臺灣總督可自行頒布具法律效力的命令','廢除了總督的特別立法權','是皇民化運動時期專屬的法律'], answer:1, explain:'六三法於1896年發布，授權總督可頒布具法律效力的命令，與內地延長主義（1919年起）、皇民化運動（1937年起）分屬不同時期，選項A、C、D皆錯誤。'},
+
+{tag:'戰後・事件排序', q:'情境：請依時間先後排列下列四個事件：雷震事件／美麗島事件／解除戒嚴／首次總統直選。第二個發生的事件是？', options:['雷震事件','美麗島事件','解除戒嚴','首次總統直選'], answer:1, explain:'排序為雷震事件（1960）→美麗島事件（1979）→解除戒嚴（1987）→首次總統直選（1996），第二個發生的是美麗島事件。'},
+
+{tag:'經濟・產業升級', q:'情境：民國70年代起，政府以新竹科學工業園區為核心，扶植高科技產業；同一時期，政府也積極爭取加入世界貿易組織（WTO）、亞太經濟合作會議（APEC）等國際組織。關於這兩項作為，下列敘述何者正確？', options:['兩者皆屬「產業升級」階段的內容，性質完全相同','發展新竹科學園區屬於「產業升級」，加入WTO、APEC則屬於「自由化、國際化」，兩者是不同性質的政策方向','兩者皆屬「出口導向」階段的內容','兩者與經濟發展階段的分類無關'], answer:1, explain:'發展新竹科學園區（產業升級）著重高科技產業結構轉型；加入WTO、APEC（自由化、國際化）則著重對外開放與國際接軌，雖然時間相近，但屬於不同性質的政策方向。'},
+
+{tag:'日治・人物領域辨析', q:'情境：日治時期臺灣社會精英中，下列何者的活動領域主要不涉及政治社會運動，而是專注於農業技術專業領域？', options:['林獻堂','蔣渭水','磯永吉','莫那魯道'], answer:2, explain:'磯永吉為農業專家，專精稻米品種改良（培育蓬萊米），未涉入政治社會運動；林獻堂、蔣渭水為社會運動領袖，莫那魯道則領導武裝抗日（霧社事件）。'},
+
+{tag:'戰後・總統政績辨析', q:'情境：關於李登輝繼任總統及其後續完成的憲政里程碑，下列敘述何者正確？', options:['李登輝於1988年蔣經國逝世後繼任，1996年完成首次總統直選','李登輝是臺灣首位女性總統','李登輝任內完成首次政黨輪替','李登輝任內推行十大建設'], answer:0, explain:'首位女性總統是蔡英文（2016年）；首次政黨輪替是陳水扁（2000年）；十大建設是蔣經國推動，選項B、C、D皆錯誤。'},
+
+{tag:'經濟・五階段排序', q:'情境：請依臺灣經濟發展先後排出五階段（土地改革／進口替代／出口導向／十大建設／產業升級），第四個階段是？', options:['出口導向','十大建設','產業升級','進口替代'], answer:1, explain:'完整排序為土地改革→進口替代→出口導向→十大建設→產業升級，第四階段是十大建設。'},
+
+{tag:'日治・事件性質比較', q:'情境：西來庵事件與霧社事件，雖同屬武裝抗日行動，但兩者最大的差異在於？', options:['前者是原住民發動，後者是漢人發動','前者發生於1915年、以宗教號召漢人為主，後者發生於1930年、由賽德克族頭目莫那魯道領導','兩者皆發生於1930年代','兩者皆由蔣渭水領導'], answer:1, explain:'西來庵事件（1915年，余清芳，以宗教信仰號召）與霧社事件（1930年，莫那魯道領導原住民抗爭）在時間、族群與號召方式上皆不同；蔣渭水與兩者皆無直接領導關係。'},
+
+{tag:'戰後・學運事件比較', q:'情境：某公民想比較「三月學運」與「美麗島事件」，下列敘述何者正確？', options:['兩者皆發生於1980年代','三月學運（1990）訴求廢除臨時條款、召開國是會議，美麗島事件（1979）則是黨外人士遊行遭鎮壓後引發的政治審判','兩者皆由蔣經國下令鎮壓','兩者皆直接促成首次總統直選'], answer:1, explain:'三月學運發生於1990年，美麗島事件發生於1979年，年代不同；美麗島事件的大審促成1986年民進黨成立，三月學運則促成1991年廢除臨時條款，兩者訴求與後續影響也不同。'},
+
+{tag:'兩岸・機構配對錯誤', q:'情境：關於兩岸交流機構的配對，下列敘述何者錯誤？', options:['陸委會對應國台辦，屬官方對官方','海基會對應海協會，屬民間對民間','辜汪會談是陸委會與國台辦代表的協商','記憶口訣為「陸對國，海對海」'], answer:2, explain:'辜汪會談是海基會（辜振甫）與海協會（汪道涵）的協商，屬民間對民間，而非陸委會與國台辦的官方協商，選項C敘述錯誤。'},
+
+{tag:'外交・轉折辨析', q:'情境：民國60年（1971）臺灣退出聯合國，此後外交政策由「鞏固外交」轉為哪個階段？該階段主要是哪位總統任內推動？', options:['彈性外交，蔣經國','務實外交，李登輝','鞏固外交，蔣中正','和平外交，陳水扁'], answer:0, explain:'退出聯合國後由鞏固外交（蔣中正）轉為彈性外交（蔣經國）；務實外交則是民國77年（1988）蔣經國逝世、李登輝繼任後才開始推動。'},
+
+{tag:'兩岸・階段轉折', q:'情境：兩岸關係從「政治對峙」階段轉為「兩岸交流」階段的關鍵年代與關鍵事件為何？', options:['民國76年（1987），蔣經國宣布解除戒嚴並開放大陸探親','民國60年（1971），退出聯合國','民國82年（1993），辜汪會談','民國89年（2000），首次政黨輪替'], answer:0, explain:'兩岸關係三階段為武力對抗（民38～68）→政治對峙（民68～76）→兩岸交流（民76起），轉折點正是民國76年解嚴＋開放探親；辜汪會談（1993）則是兩岸交流階段中的具體協商成果，而非階段轉折的起點。'},
+
+{tag:'戰後・三總統政績', q:'情境：陳水扁、馬英九、蔡英文三位總統的當選，分別代表臺灣民主史上的哪些「第一次」或關鍵紀錄？', options:['陳水扁：首次政黨輪替；馬英九：第二次政黨輪替；蔡英文：首位女性總統暨第三次政黨輪替','三人皆為首次政黨輪替','陳水扁是首位女性總統','馬英九是首次總統直選當選人'], answer:0, explain:'首次總統直選當選人是李登輝（1996年），選項D錯誤；正確對應為陳水扁（2000年首次政黨輪替）、馬英九（2008年第二次政黨輪替）、蔡英文（2016年首位女性總統、第三次政黨輪替）。'},
+
+{tag:'兩岸・年代辨析', q:'情境：小美主張：「外交政策的三階段轉折與兩岸關係的三階段轉折，其關鍵年代完全相同。」這個說法正確嗎？', options:['正確，兩者皆以民國76年（1987）為關鍵轉折','錯誤，外交政策的關鍵轉折是民國60年（1971，退出聯合國）與民國77年（1988，李登輝繼任），兩岸關係的關鍵轉折是民國76年（1987，解嚴開放探親），年代並不完全相同','錯誤，兩者毫無關聯','正確，兩者皆以民國82年（1993）為關鍵轉折'], answer:1, explain:'外交三階段轉折點分別是1971年退出聯合國、1988年李登輝繼任；兩岸三階段轉折點則是1987年解嚴開放探親。兩條時間軸雖然相關但轉折年代並不完全重疊，是容易搞混的高難度辨析點。'},
+
+{tag:'文化政策・方向判斷', q:'情境：政府近年推動「客家電視台」開播與「原住民族正名運動」，這類政策與戒嚴時期的「國語運動」、「中華文化復興運動」相比，方向上最大的不同是？', options:['前者屬多元文化政策，後者屬同化政策','兩者皆屬同化政策','兩者皆屬多元文化政策','前者限制方言使用，後者尊重族群文化'], answer:0, explain:'戒嚴時期的國語運動、中華文化復興運動強調單一文化認同（同化政策）；近年的客家電視台、原住民族正名運動則強調尊重多元族群文化（多元文化政策）。'},
+
+{tag:'文化政策・跨類比', q:'情境：「尊重新住民文化」這項政策方向，與下列哪一項政策性質最相近？', options:['國語運動','中華文化復興運動','原住民族正名運動','戒嚴令'], answer:2, explain:'尊重新住民文化與原住民族正名運動皆屬「多元文化」政策方向；國語運動、中華文化復興運動則屬「同化政策」，戒嚴令則與文化政策無直接關聯。'},
+
+{tag:'跨時代・同化政策比較', q:'情境：日治時期的「皇民化運動」與戰後戒嚴時期的「國語運動」，兩者在政策性質上最相似之處是？', options:['兩者皆強調透過語言與文化同化，強化人民對統治當局的認同','兩者皆屬經濟政策','兩者皆促成政黨輪替','兩者皆發生於1980年代'], answer:0, explain:'皇民化運動（1937年起）透過推行日語、改日本姓名等方式同化臺灣人；國語運動（戒嚴時期）則透過推行國語、禁說方言強化對中華民國的認同，兩者在政策邏輯上皆屬同化政策的展現，惟推行者與歷史脈絡不同。'},
+
+{tag:'日治・社運團體比較', q:'情境：臺灣文化協會與臺灣民眾黨，雖然核心人物皆與蔣渭水有關，但兩者最關鍵的差異是？', options:['前者是政黨，後者是文化團體','前者成立於1921年、以文化啟蒙與刊物宣傳為主，後者成立於1927年、是臺人第一個具政黨性質的政治組織','兩者其實是同一個團體的不同名稱','兩者皆由莫那魯道創立'], answer:1, explain:'臺灣文化協會（1921年）重在文化啟蒙、發行《臺灣民報》；臺灣民眾黨（1927年）是臺人第一個政黨，性質更進一步政治化，兩者成立年代與性質皆不同。'},
+
+{tag:'戰後・施政性質分類', q:'情境：蔣經國任內的重要政績中，「十大建設」與「解除戒嚴、開放探親」分別代表哪兩種不同性質的施政？', options:['前者屬經濟基礎建設，後者屬政治自由化與兩岸關係鬆動','兩者皆屬經濟建設','兩者皆屬政治改革','前者屬政治改革，後者屬經濟建設'], answer:0, explain:'十大建設（民國62～68年）屬於經濟基礎建設；解除戒嚴、開放探親（民國76年）則屬於政治自由化與兩岸關係鬆動，兩者性質不同但皆是蔣經國任內的重要政績。'},
+
+{tag:'經濟・加工出口區與十大建設', q:'情境：某份地方志記載：「本地於民國50年代設立加工出口區，帶動當地就業與外銷產業發展；十餘年後，中央政府又推動大型公共建設，強化全臺基礎設施。」依此判斷，下列敘述何者正確？', options:['加工出口區設立於民國60年代，晚於十大建設','加工出口區設立於民國50年代（出口導向階段），早於十大建設（民國60年代）','兩者為同一時期政策，無先後之分','加工出口區其實晚於產業升級'], answer:1, explain:'出口導向政策（設加工出口區，民國50年代）早於十大建設（民國60年代）；產業升級則是民國70年代起，時序上晚於十大建設。'},
+
+{tag:'綜合整合・大架構', q:'情境：整合日治、戰後與經濟外交三大主題，下列關於臺灣歷史發展脈絡的敘述，何者最為正確？', options:['臺灣歷經日本殖民（1895–1945）→戒嚴威權統治（1945–1987）→民主化與兩岸交流（1987起）的大致脈絡，其中經濟發展與政治民主化大致相關、但並非完全同步的單一進程','臺灣的經濟發展與政治民主化完全同步，兩者轉折年代皆相同','臺灣在日治時期已完成民主化','兩岸交流早於解除戒嚴發生'], answer:0, explain:'經濟發展（如十大建設民國60年代、產業升級民國70年代起）與政治民主化（解嚴1987、直選1996）雖有時間上的關聯（如皆與蔣經國、李登輝時期相關），但並非完全同步的單一進程，需分別掌握其各自脈絡；兩岸交流始於解嚴同年（1987），並非早於解嚴。'}
+];
+
+let SCORE = {answered:0, correct:0};
+let idx = 0;
+
+function bumpScore(isCorrect){
+  SCORE.answered++;
+  if(isCorrect) SCORE.correct++;
+  document.getElementById('statAnswered').textContent = SCORE.answered;
+  document.getElementById('statCorrect').textContent = SCORE.correct;
+  document.getElementById('statRate').textContent = SCORE.answered ? Math.round(SCORE.correct/SCORE.answered*100)+'%' : '—';
+}
+
+function draw(){
+  const area = document.getElementById('quizArea');
+  if(idx >= QUESTIONS.length){
+    area.style.display = 'none';
+    const resultBox = document.getElementById('finalResult');
+    resultBox.style.display = 'block';
+    const pct = Math.round(SCORE.correct/SCORE.answered*100);
+    let msg = '再接再厲，回頭複習答錯的辨析點！';
+    if(pct >= 90) msg = '滿分等級！高難度辨析題也難不倒你！';
+    else if(pct >= 70) msg = '相當不錯，再抓緊幾個易混淆的比較題就更穩了。';
+    resultBox.innerHTML = `
+      <div class="stamp ok" style="font-size:18px;">挑戰完成</div>
+      <div class="big">${SCORE.correct} / ${SCORE.answered}</div>
+      <div class="msg">正確率 ${pct}%　${msg}</div>
+      <button class="next-btn" id="retryBtn" style="margin-top:18px;">再挑戰一次</button>
+    `;
+    document.getElementById('retryBtn').addEventListener('click', ()=>{
+      idx = 0; SCORE = {answered:0, correct:0};
+      document.getElementById('statAnswered').textContent = 0;
+      document.getElementById('statCorrect').textContent = 0;
+      document.getElementById('statRate').textContent = '—';
+      resultBox.style.display = 'none';
+      area.style.display = 'block';
+      draw();
+    });
+    return;
+  }
+  const it = QUESTIONS[idx];
+  const pct = Math.round((idx)/QUESTIONS.length*100);
+  area.innerHTML = `
+    <div class="qhead">
+      <span class="qcount">第 ${idx+1} / ${QUESTIONS.length} 題</span>
+      <span class="qtag">${it.tag}</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;"></div></div>
+    <div class="prompt">${it.q}</div>
+    <div class="options"></div>
+    <div class="explain" id="ex"></div>
+    <div class="qcontrols"><button class="next-btn" id="nextBtn" disabled>${idx+1 === QUESTIONS.length ? '查看結果' : '下一題'}</button></div>
+  `;
+  const optsWrap = area.querySelector('.options');
+  it.options.forEach((opt,i)=>{
+    const b = document.createElement('button');
+    b.className = 'opt-btn';
+    b.textContent = String.fromCharCode(65+i) + '　' + opt;
+    b.dataset.i = i;
+    optsWrap.appendChild(b);
+  });
+  const btns = optsWrap.querySelectorAll('.opt-btn');
+  btns.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      btns.forEach(x=>x.disabled=true);
+      const chosen = parseInt(b.dataset.i);
+      const ok = chosen === it.answer;
+      if(ok){ b.classList.add('correct'); }
+      else{
+        b.classList.add('wrong');
+        btns.forEach(x=>{ if(parseInt(x.dataset.i)===it.answer) x.classList.add('reveal'); });
+      }
+      const ex = document.getElementById('ex');
+      ex.classList.add('show');
+      ex.innerHTML = `<div class="lab">解析</div>${it.explain}`;
+      document.getElementById('nextBtn').disabled = false;
+      bumpScore(ok);
+    });
+  });
+  document.getElementById('nextBtn').addEventListener('click', ()=>{ idx++; draw(); });
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.getElementById('startBtn').addEventListener('click', ()=>{
+    document.getElementById('intro').style.display = 'none';
+    document.getElementById('quizArea').style.display = 'block';
+    draw();
+  });
+});
+</script>
+</body>
+</html>
