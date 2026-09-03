@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>航向臺灣：史前文化到鄭氏政權 · 互動講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mud:#5B6B7A;
+    --reed:#A9C2CE;
+    --tide:#2F6690;
+    --sky:#BFE0EA;
+    --soil:#16232E;
+    --paper:#F4F1E8;
+    --ink:#161B1F;
+    --muted:#5C6B73;
+    --seal:#B33A3A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans TC',sans-serif;
+    line-height:1.75;
+    position:relative;
+    min-height:100vh;
+  }
+  body::before{
+    content:"航";
+    position:fixed;
+    top:-4vw; right:-4vw;
+    font-family:'Noto Serif TC',serif;
+    font-size:38vw;
+    font-weight:900;
+    color:var(--mud);
+    opacity:0.045;
+    z-index:0;
+    pointer-events:none;
+    line-height:1;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px 80px;position:relative;z-index:1;}
+
+  /* Header */
+  header{
+    padding:56px 0 32px;
+    text-align:center;
+    border-bottom:0.5px solid var(--mud);
+    margin-bottom:28px;
+  }
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:0.35em;
+    color:var(--tide);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:clamp(30px,5vw,46px);
+    color:#3A3A3A;
+    letter-spacing:0.04em;
+  }
+  header p{
+    margin-top:12px;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  /* Progress ring summary */
+  .stats{
+    display:flex;
+    justify-content:center;
+    gap:32px;
+    margin-top:26px;
+    flex-wrap:wrap;
+  }
+  .stat{
+    text-align:center;
+    min-width:80px;
+  }
+  .stat .num{
+    font-family:'Noto Serif TC',serif;
+    font-size:26px;
+    font-weight:700;
+    color:var(--tide);
+  }
+  .stat .lab{font-size:12px;color:var(--muted);letter-spacing:0.08em;}
+
+  /* Tabs */
+  .tabs{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(247,243,236,0.95);
+    backdrop-filter:blur(6px);
+    display:flex;
+    gap:6px;
+    padding:14px 0;
+    border-bottom:0.5px solid var(--reed);
+    margin-bottom:36px;
+    overflow-x:auto;
+  }
+  .tab-btn{
+    flex:1 1 0;
+    min-width:150px;
+    background:transparent;
+    border:0.5px solid var(--mud);
+    color:var(--muted);
+    font-family:'Noto Sans TC',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:11px 10px;
+    cursor:pointer;
+    letter-spacing:0.02em;
+    transition:all .25s ease;
+    white-space:nowrap;
+    text-align:center;
+  }
+  .tab-btn .tag{display:block;font-size:11px;color:var(--tide);letter-spacing:0.15em;margin-bottom:2px;}
+  .tab-btn:hover{border-color:var(--tide);color:var(--tide);}
+  .tab-btn.active{
+    background:#1670B0;
+    border-color:#1670B0;
+    color:var(--paper);
+  }
+  .tab-btn.active .tag{color:var(--sky);}
+
+  /* Sections */
+  .chapter{display:none;animation:fade .4s ease;}
+  .chapter.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .chapter-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:6px;
+  }
+  .chapter-num{
+    font-family:'Noto Serif TC',serif;
+    font-size:15px;
+    color:var(--tide);
+    font-weight:700;
+    letter-spacing:0.08em;
+    border:0.5px solid var(--tide);
+    padding:2px 10px;
+  }
+  .chapter-head h2{
+    font-family:'Noto Serif TC',serif;
+    font-size:clamp(22px,3.4vw,30px);
+    color:var(--soil);
+    font-weight:700;
+  }
+  .chapter-sub{color:var(--muted);font-size:14px;margin-bottom:28px;padding-left:2px;}
+
+  /* Key point cards */
+  .points{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    margin-bottom:44px;
+  }
+  .point-card{
+    flex:1 1 260px;
+    background:#fff;
+    border:0.5px solid var(--reed);
+    padding:20px 22px;
+    position:relative;
+  }
+  .point-card h3{
+    font-family:'Noto Serif TC',serif;
+    font-size:16px;
+    color:var(--mud);
+    font-weight:700;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .point-card h3::before{
+    content:"";
+    width:6px;height:6px;
+    background:var(--tide);
+    display:inline-block;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .point-card p, .point-card li{
+    font-size:14px;
+    color:var(--ink);
+  }
+  .point-card ul{padding-left:18px;margin-top:4px;}
+  .point-card .note{
+    margin-top:10px;
+    font-size:12.5px;
+    color:var(--muted);
+    border-top:0.5px dashed var(--reed);
+    padding-top:8px;
+  }
+  .point-card b{color:var(--seal);font-weight:700;}
+
+  /* Quiz */
+  .quiz-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+    border-top:0.5px solid var(--mud);
+    padding-top:28px;
+  }
+  .quiz-head h3{
+    font-family:'Noto Serif TC',serif;
+    font-size:20px;
+    color:var(--soil);
+  }
+  .quiz-score{
+    font-size:13px;
+    color:var(--tide);
+    font-weight:600;
+    border:0.5px solid var(--tide);
+    padding:4px 12px;
+  }
+  .q-card{
+    background:#fff;
+    border:0.5px solid var(--reed);
+    padding:20px 22px 22px;
+    margin-bottom:16px;
+    position:relative;
+  }
+  .q-num{
+    font-family:'Noto Serif TC',serif;
+    font-size:12px;
+    color:var(--tide);
+    letter-spacing:0.1em;
+    margin-bottom:6px;
+    font-weight:700;
+  }
+  .q-text{font-size:15.5px;font-weight:500;color:var(--ink);margin-bottom:14px;}
+  .options{display:grid;gap:8px;}
+  .opt{
+    text-align:left;
+    background:var(--paper);
+    border:0.5px solid var(--mud);
+    color:var(--ink);
+    padding:10px 14px;
+    font-size:14px;
+    font-family:'Noto Sans TC',sans-serif;
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .opt:hover{border-color:var(--tide);background:#fff;}
+  .opt.correct{
+    border-color:var(--seal);
+    background:#fbeeee;
+    color:var(--seal);
+    font-weight:700;
+  }
+  .opt.wrong{
+    border-color:var(--muted);
+    background:#eee9e1;
+    color:var(--muted);
+    text-decoration:line-through;
+  }
+  .opt.disabled{cursor:default;}
+  .feedback{
+    display:none;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:0.5px dashed var(--reed);
+    font-size:13.5px;
+    color:var(--muted);
+    align-items:center;
+    gap:10px;
+  }
+  .feedback.show{display:flex;}
+  .seal{
+    flex-shrink:0;
+    width:40px;height:40px;
+    border:2px solid var(--seal);
+    color:var(--seal);
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:13px;
+    letter-spacing:0.05em;
+    transform:rotate(-6deg);
+    writing-mode:vertical-rl;
+  }
+
+  /* Canal feature block (5-1) */
+  .canal-feature{
+    background:#fff;
+    border:0.5px solid var(--reed);
+    padding:24px;
+    margin-bottom:44px;
+  }
+  .canal-feature h3{
+    font-family:'Noto Serif TC',serif;
+    font-size:17px;
+    color:var(--mud);
+    font-weight:700;
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .canal-feature h3::before{
+    content:"";
+    width:6px;height:6px;
+    background:var(--tide);
+    display:inline-block;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .canal-body{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:24px;
+    align-items:start;
+  }
+  .canal-img{
+    width:100%;
+    height:auto;
+    border:0.5px solid var(--reed);
+    background:var(--paper);
+  }
+  .canal-table{display:grid;gap:12px;}
+  .canal-row{
+    border-left:3px solid var(--tide);
+    padding:4px 0 4px 14px;
+  }
+  .canal-name{
+    font-family:'Noto Serif TC',serif;
+    font-weight:700;
+    color:var(--soil);
+    font-size:15px;
+    margin-bottom:3px;
+  }
+  .canal-detail{font-size:13px;color:var(--muted);line-height:1.9;}
+  .canal-detail b{color:var(--ink);font-weight:600;}
+  @media (max-width:680px){
+    .canal-body{grid-template-columns:1fr;}
+  }
+
+  /* Before/after comparison table (5-2) */
+  .compare-feature{
+    background:#fff;
+    border:0.5px solid var(--reed);
+    padding:24px;
+    margin-bottom:44px;
+  }
+  .compare-feature h3{
+    font-family:'Noto Serif TC',serif;
+    font-size:17px;
+    color:var(--mud);
+    font-weight:700;
+    margin-bottom:6px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .compare-feature h3::before{
+    content:"";
+    width:6px;height:6px;
+    background:var(--tide);
+    display:inline-block;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .compare-feature .compare-sub{font-size:13px;color:var(--muted);margin-bottom:18px;padding-left:14px;}
+  .compare-table{
+    display:grid;
+    grid-template-columns:120px 1fr 1fr;
+    border-top:0.5px solid var(--mud);
+    border-left:0.5px solid var(--reed);
+  }
+  .compare-table > div{
+    border-right:0.5px solid var(--reed);
+    border-bottom:0.5px solid var(--reed);
+    padding:12px 14px;
+    font-size:13.5px;
+    line-height:1.7;
+  }
+  .compare-table .ch-label{
+    background:var(--paper);
+    font-weight:700;
+    color:var(--soil);
+    display:flex;
+    align-items:center;
+  }
+  .compare-table .col-head{
+    font-family:'Noto Serif TC',serif;
+    font-weight:700;
+    text-align:center;
+    letter-spacing:0.05em;
+  }
+  .compare-table .col-head.before{background:var(--reed);color:var(--soil);}
+  .compare-table .col-head.after{background:var(--tide);color:var(--paper);}
+  .compare-table .cell-before{background:#faf7f1;color:var(--ink);}
+  .compare-table .cell-after{background:#eef4f4;color:var(--ink);}
+  .compare-table b{color:var(--seal);font-weight:700;}
+  @media (max-width:680px){
+    .compare-table{grid-template-columns:80px 1fr 1fr;font-size:12px;}
+    .compare-table > div{padding:8px 8px;}
+  }
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    margin-top:60px;
+    letter-spacing:0.1em;
+  }
+
+  @media (max-width:600px){
+    .tabs{gap:4px;}
+    .tab-btn{min-width:120px;font-size:12.5px;padding:9px 6px;}
+  }
+
+  /* Generic data table (reused across new chapters) */
+  .data-table-wrap{
+    background:#fff;
+    border:0.5px solid var(--reed);
+    padding:22px 24px;
+    margin-bottom:44px;
+  }
+  .data-table-wrap h3{
+    font-family:'Noto Serif TC',serif;
+    font-size:17px;
+    color:var(--mud);
+    font-weight:700;
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .data-table-wrap h3::before{
+    content:"";
+    width:6px;height:6px;
+    background:var(--tide);
+    display:inline-block;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  table.data-table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  table.data-table th{
+    background:#1670B0; color:var(--paper);
+    padding:9px 12px; text-align:left; font-weight:600; letter-spacing:0.02em;
+  }
+  table.data-table td{
+    padding:9px 12px; border-bottom:0.5px solid var(--reed); vertical-align:top;
+  }
+  table.data-table tr:nth-child(even) td{background:var(--paper);}
+  table.data-table b{color:var(--seal); font-weight:700;}
+  .table-note{
+    margin-top:12px; font-size:12.5px; color:var(--muted);
+    border-top:0.5px dashed var(--reed); padding-top:8px;
+  }
+
+  /* Duo card (side-by-side figure comparison) */
+  .duo-wrap{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:44px;
+  }
+  @media (max-width:680px){ .duo-wrap{grid-template-columns:1fr;} }
+  .duo-card{
+    background:#fff;
+    border:0.5px solid var(--reed);
+    padding:20px 22px;
+  }
+  .duo-card h4{
+    font-family:'Noto Serif TC',serif;
+    font-size:16px; color:var(--mud); font-weight:700; margin-bottom:4px;
+  }
+  .duo-card .duo-yr{font-size:12px; color:var(--tide); font-weight:600; margin-bottom:10px; display:block;}
+  .duo-card ul{padding-left:18px; font-size:13.5px; color:var(--ink);}
+  .duo-card li{margin-bottom:6px;}
+  .duo-note{
+    background:#fff; border:0.5px solid var(--reed); border-top:2px solid var(--tide);
+    padding:14px 20px; margin:-28px 0 44px; font-size:13px; color:var(--muted);
+  }
+
+  /* simple event timeline (flow) */
+  .flow-wrap{
+    background:#fff; border:0.5px solid var(--reed);
+    padding:22px 24px; margin-bottom:44px;
+  }
+  .flow-wrap h3{
+    font-family:'Noto Serif TC',serif; font-size:17px; color:var(--mud); font-weight:700;
+    margin-bottom:16px; display:flex; align-items:center; gap:8px;
+  }
+  .flow-wrap h3::before{content:""; width:6px;height:6px;background:var(--tide);display:inline-block;border-radius:50%;flex-shrink:0;}
+  .flow-track{display:flex; flex-wrap:wrap; gap:10px; align-items:stretch;}
+  .flow-step{
+    flex:1 1 150px; border:0.5px solid var(--reed); padding:12px 14px; position:relative;
+  }
+  .flow-step .fs-yr{font-size:11.5px; color:var(--tide); font-weight:700; letter-spacing:0.05em; margin-bottom:4px;}
+  .flow-step .fs-title{font-family:'Noto Serif TC',serif; font-weight:700; color:var(--soil); font-size:14.5px; margin-bottom:4px;}
+  .flow-step .fs-desc{font-size:12.5px; color:var(--muted); line-height:1.6;}
+  .flow-arrow{align-self:center; color:var(--seal); font-weight:700; font-size:16px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">互動講義 · 臺灣的歷史（上）</div>
+    <h1>航向臺灣：史前到鄭氏政權</h1>
+    <p>史前文化・南島語族・大航海時代・荷西與鄭氏政權</p>
+    <div class="stats">
+      <div class="stat"><div class="num">4</div><div class="lab">章節</div></div>
+      <div class="stat"><div class="num" id="totalQCount">0</div><div class="lab">題目</div></div>
+      <div class="stat"><div class="num" id="globalScore">0</div><div class="lab">已答對</div></div>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab-btn active" data-target="ch1"><span class="tag">1-1</span>史前文化</button>
+    <button class="tab-btn" data-target="ch2"><span class="tag">1-2</span>原住民的遷徙與傳說</button>
+    <button class="tab-btn" data-target="ch3"><span class="tag">2-1</span>大航海時代的到來</button>
+    <button class="tab-btn" data-target="ch4"><span class="tag">2-2</span>各方勢力的競逐</button>
+  </nav>
+
+  <section class="chapter active" id="ch1">
+    <div class="chapter-head"><span class="chapter-num">1-1</span><h2>史前文化</h2></div>
+    <p class="chapter-sub">從舊石器到金屬器，一條由「仰賴自然」走向「自主生產、對外貿易」的生活主線。</p>
+
+    <div class="points">
+      <div class="point-card">
+        <h3>舊石器時代：長濱文化</h3>
+        <p>臺灣目前發現<b>最早</b>的舊石器時代文化，位於臺東縣長濱鄉。距今約<b>五萬至五千年前</b>，人類已知用火，使用<b>打製石器</b>，以採集、漁獵維生，尚未出現農業。</p>
+      </div>
+      <div class="point-card">
+        <h3>新石器時代：大坌坑・圓山・卑南</h3>
+        <p>距今約<b>七千至二千年前</b>。北部有大坌坑文化、圓山文化遺址，東部有卑南文化遺址。開始使用<b>磨製石器</b>，從事<b>農業</b>與<b>飼養家畜</b>、<b>燒製陶器</b>；稻米因種子大、乾燥後易保存而成為主食。</p>
+        <div class="note">圓山文化所在的臺北盆地當時是湖泊，先民食用貝肉後丟棄貝殼堆積成「貝塚」。</div>
+      </div>
+      <div class="point-card">
+        <h3>金屬器時代：十三行文化</h3>
+        <p>距今約<b>二千至四百年前</b>，臺灣沿海開始出現煉鐵活動。十三行文化遺址（新北市八里區）出土煉鐵爐、鐵渣；玻璃珠、銅錢等外來物品，顯示先民與東南亞或中國大陸的貿易更加密切。</p>
+        <div class="note">此後玻璃器也逐漸取代玉器，成為裝飾品。</div>
+      </div>
+    </div>
+
+    <div class="data-table-wrap">
+      <h3>史前三時代比較表</h3>
+      <table class="data-table">
+        <tr><th>分期</th><th>距今時間</th><th>特色</th><th>代表文化</th></tr>
+        <tr><td><b>舊石器時代</b></td><td>5萬～5千年前</td><td>已知用火、打製石器、採集漁獵</td><td>長濱文化（臺東縣長濱鄉）</td></tr>
+        <tr><td><b>新石器時代</b></td><td>7千～2千年前</td><td>磨製石器、農業出現、飼養家畜、燒製陶器</td><td>大坌坑文化、圓山文化、卑南文化</td></tr>
+        <tr><td><b>金屬器時代</b></td><td>2千～4百年前</td><td>鐵製工具、貿易頻繁</td><td>十三行文化（新北市八里區）</td></tr>
+      </table>
+      <div class="table-note">記憶口訣：<b>「打（獵）→磨（農）→鐵（貿）」</b>——打製石器只採集漁獵，磨製石器開始種田養畜，進入鐵器才貿易熱絡。</div>
+    </div>
+
+    <div class="quiz-head">
+      <h3>章節自我測驗</h3>
+      <div class="quiz-score">本章答對 <span class="score-display" data-chapter="ch1">0</span> / <span class="score-total" data-chapter="ch1">0</span></div>
+    </div>
+    <div class="quiz-list" id="quiz-ch1"></div>
+  </section>
+
+  <section class="chapter" id="ch2">
+    <div class="chapter-head"><span class="chapter-num">1-2</span><h2>原住民的遷徙與傳說</h2></div>
+    <p class="chapter-sub">南島語族的起源地、平埔／高山兩大族群、名稱隨政權更迭而變。</p>
+
+    <div class="points">
+      <div class="point-card">
+        <h3>南島語族與構樹</h3>
+        <p>漢人大量移民之前，生活於臺灣的人群主要屬於<b>南島語族</b>，數千年前先後跨越海洋來到臺灣。近年學者透過<b>構樹</b>的分布，推論史前臺灣原住民與東南亞、太平洋諸島相互交流，並<b>從臺灣向外擴散遷徙</b>——臺灣可能是太平洋構樹（也連帶指向南島語族）的起源地。</p>
+      </div>
+      <div class="point-card">
+        <h3>原住民傳說兩則</h3>
+        <p><b>排灣族始祖傳說</b>敘述族群的起源與階級的形成（太陽神產卵，青蛇孵出平民祖先、百步蛇孵出貴族祖先）。<b>邵族白鹿傳說</b>訴說先民遷徙與定居的歷程（獵人追逐白鹿而發現日月潭一帶美景，遂遷居於此）。</p>
+        <div class="note">原住民沒有創制文字，靠口語傳說傳承歷史文化，使祖先記憶得以延續。</div>
+      </div>
+    </div>
+
+    <div class="data-table-wrap">
+      <h3>族群分布與名稱演變</h3>
+      <table class="data-table">
+        <tr><th>族群</th><th>分布</th><th>與漢人關係</th></tr>
+        <tr><td><b>平埔族群</b></td><td>西部及東北部平原、丘陵</td><td>接觸最早，逐漸融入漢人社會</td></tr>
+        <tr><td><b>高山各族</b></td><td>山區與東部地區</td><td>接觸較晚，仍保有不少原有文化</td></tr>
+      </table>
+      <table class="data-table" style="margin-top:18px;">
+        <tr><th>時期</th><th>稱呼</th></tr>
+        <tr><td>清帝國（依是否歸順）</td><td>熟番 ／ 生番</td></tr>
+        <tr><td>日治時期</td><td>平埔族 ／ 高砂族</td></tr>
+        <tr><td>中華民國（初期）</td><td>平埔族不被視為原住民；高砂族改稱「高山族」「山地同胞」</td></tr>
+        <tr><td>現今</td><td>統稱「原住民族」</td></tr>
+      </table>
+      <div class="table-note">口訣：<b>清（熟／生）→日（平埔／高砂）→民國（山地同胞）→今（原住民族）</b></div>
+    </div>
+
+    <div class="quiz-head">
+      <h3>章節自我測驗</h3>
+      <div class="quiz-score">本章答對 <span class="score-display" data-chapter="ch2">0</span> / <span class="score-total" data-chapter="ch2">0</span></div>
+    </div>
+    <div class="quiz-list" id="quiz-ch2"></div>
+  </section>
+
+  <section class="chapter" id="ch3">
+    <div class="chapter-head"><span class="chapter-num">2-1</span><h2>大航海時代的到來</h2></div>
+    <p class="chapter-sub">海禁逼出海商，海商引來歐洲人——臺灣被捲入國際貿易體系。</p>
+
+    <div class="points">
+      <div class="point-card">
+        <h3>漢人在臺澎的活動</h3>
+        <ul>
+          <li>12世紀：已有漢人在<b>澎湖</b>活動。</li>
+          <li>14世紀後期：明朝為防備<b>倭寇</b>，實施<b>海禁政策</b>，東亞貿易改由<b>海商</b>走私進行。</li>
+          <li>16世紀後期：海商活動威脅中國東南沿海安全，明朝派兵進駐澎湖，海商據點逐漸<b>轉移到臺灣</b>。</li>
+          <li><b>顏思齊、鄭芝龍</b>在歐洲人占領臺灣之前，曾招募漢人開墾今雲林、嘉義一帶。</li>
+        </ul>
+        <div class="note">倭寇最初指日本海盜；16世紀後組成分子轉以漢人為主，常劫掠中國東南沿海或走私貿易，官方稱「倭寇」，學者則因其「亦盜亦商」稱之為「海商」。</div>
+      </div>
+      <div class="point-card">
+        <h3>歐洲人東來</h3>
+        <p>16世紀起，歐洲人隨大航海時代來到東亞尋找貿易據點：<b>葡萄牙</b>占領中國的<b>澳門</b>，<b>西班牙</b>占領菲律賓的<b>馬尼拉</b>，作為與中國、日本貿易的據點。歐洲人與海商勢力時而競爭、時而合作，局面複雜。</p>
+        <div class="note">口訣：葡萄牙澳門、西班牙馬尼拉——先卡位東亞的兩個「跳板」，臺灣則因位處貿易圈中心，成為下一步競逐目標。</div>
+      </div>
+    </div>
+
+    <div class="flow-wrap">
+      <h3>東亞轉口貿易網絡示意</h3>
+      <div class="flow-track">
+        <div class="flow-step"><div class="fs-yr">輸入</div><div class="fs-title">中國</div><div class="fs-desc">絲綢、瓷器</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="fs-yr">樞紐</div><div class="fs-title">臺灣</div><div class="fs-desc">海商走私據點，日後成為列強競逐焦點</div></div>
+        <div class="flow-arrow">←</div>
+        <div class="flow-step"><div class="fs-yr">輸入</div><div class="fs-title">日本</div><div class="fs-desc">白銀</div></div>
+      </div>
+      <div class="table-note">東南亞・馬尼拉一帶的香料貿易，亦透過海商網絡與臺灣、中國、日本相互串連。</div>
+    </div>
+
+    <div class="quiz-head">
+      <h3>章節自我測驗</h3>
+      <div class="quiz-score">本章答對 <span class="score-display" data-chapter="ch3">0</span> / <span class="score-total" data-chapter="ch3">0</span></div>
+    </div>
+    <div class="quiz-list" id="quiz-ch3"></div>
+  </section>
+
+  <section class="chapter" id="ch4">
+    <div class="chapter-head"><span class="chapter-num">2-2</span><h2>各方勢力在臺灣的競逐</h2></div>
+    <p class="chapter-sub">荷蘭先占南部，西班牙後占北部；鄭氏政權最終取代荷蘭，建立臺灣第一個漢人政權。</p>
+
+    <div class="points">
+      <div class="point-card">
+        <h3>荷蘭占領臺灣南部</h3>
+        <p>17世紀初，荷蘭成立<b>聯合東印度公司</b>，投入東亞貿易，曾占領澎湖，被明朝將領<b>沈有容</b>逼退。<b>1624年</b>進占臺灣南部，成為最先占領臺灣的歐洲勢力，統治38年（1624～1662）。</p>
+        <div class="note">行政中心：先在大員（今臺南市安平區）建「熱蘭遮城」（今安平古堡）；後興建「普羅民遮城」（今赤崁樓）。</div>
+      </div>
+      <div class="point-card">
+        <h3>荷蘭在臺的經濟活動</h3>
+        <p>以臺灣作為國際貿易轉運站：輸出臺灣的<b>稻米、蔗糖、鹿皮</b>，轉運中國的<b>絲綢、瓷器</b>與日本的<b>白銀</b>等。1633年日本頒布<b>鎖國政策</b>，日商退出東亞貿易競爭，荷、日不再衝突。</p>
+      </div>
+      <div class="point-card">
+        <h3>西班牙進占臺灣北部</h3>
+        <p>1626年進攻臺灣北部，占領<b>雞籠（今基隆）、淡水</b>等地，作為對日貿易據點。因日本限制貿易對象，西班牙對日貿易受挫，減少駐臺守軍。<b>1642年</b>，荷蘭出兵打敗西班牙，結束西班牙在北臺灣<b>16年</b>統治（1626～1642）。</p>
+        <div class="note">口訣：荷蘭 24-62（38年）／ 西班牙 26-42（16年）——西班牙被荷蘭「吃掉」，臺灣統一於荷蘭治下。</div>
+      </div>
+      <div class="point-card">
+        <h3>鄭芝龍與東亞海域</h3>
+        <p>荷蘭人占領臺灣時，活躍於東亞海域的另一勢力是以<b>鄭芝龍</b>為首的海商。鄭芝龍接受<b>明朝招降</b>後勢力迅速擴大，甚至壟斷中國對外貿易，成為東亞海域霸主。</p>
+      </div>
+      <div class="point-card">
+        <h3>鄭成功攻臺</h3>
+        <p>17世紀中期，明朝滅亡，鄭芝龍投降<b>清帝國</b>。其子<b>鄭成功</b>以東南沿海為根據地持續反清，因戰事受挫，於<b>1661年</b>進攻臺灣，作為反清復明的基地。次年（1662年），<b>荷蘭人退出臺灣</b>。</p>
+        <div class="note">三代關係：鄭芝龍（降清的海商）→ 鄭成功（攻臺、反清復明）→ 鄭經（在臺經營）→ 鄭克塽（降清）</div>
+      </div>
+      <div class="point-card">
+        <h3>鄭氏在臺的活動</h3>
+        <p>鄭成功設<b>承天府</b>（今臺南市）為行政中心，建立漢人統治政權；病逝後由子<b>鄭經</b>繼位，鄭氏在臺經營大多於此時期完成。鄭氏重視土地拓墾（以<b>軍屯</b>最重要）與對外貿易，積極與<b>英國、日本</b>通商以取得軍用物資。鄭經去世後，幼子<b>鄭克塽</b>繼位，<b>1683年</b>清廷派<b>施琅</b>攻臺，鄭克塽投降，結束鄭氏政權21年統治。</p>
+      </div>
+    </div>
+
+    <div class="data-table-wrap">
+      <h3>三方統治年代對照</h3>
+      <table class="data-table">
+        <tr><th>政權</th><th>統治期間</th><th>年數</th><th>重要據點</th></tr>
+        <tr><td><b>荷蘭</b></td><td>1624－1662</td><td>38年</td><td>熱蘭遮城・普羅民遮城</td></tr>
+        <tr><td><b>西班牙</b></td><td>1626－1642</td><td>16年</td><td>雞籠・淡水</td></tr>
+        <tr><td><b>鄭氏政權</b></td><td>1662－1683</td><td>21年</td><td>承天府</td></tr>
+      </table>
+      <div class="table-note">完整年表：1661進攻臺灣 → 1662鄭成功病逝、鄭經繼位、荷蘭退出臺灣 → 1666設孔廟、推行文教 → 1681鄭經病逝、鄭克塽繼位 → 1683施琅攻臺、鄭氏降清</div>
+    </div>
+
+    <div class="quiz-head">
+      <h3>章節自我測驗</h3>
+      <div class="quiz-score">本章答對 <span class="score-display" data-chapter="ch4">0</span> / <span class="score-total" data-chapter="ch4">0</span></div>
+    </div>
+    <div class="quiz-list" id="quiz-ch4"></div>
+  </section>
+
+  <footer>臺灣的歷史（上）· 互動講義　整理自第二篇第一、二章</footer>
+</div>
+
+<script>
+const QUIZ_DATA = {
+  "ch1": [
+    {
+      "q": "臺灣目前發現最早的舊石器時代文化是？",
+      "opts": [
+        "大坌坑文化",
+        "長濱文化",
+        "十三行文化",
+        "圓山文化"
+      ],
+      "a": 1,
+      "note": "長濱文化位於臺東縣長濱鄉，存在時間約距今五萬至五千年前，是臺灣目前發現最早的舊石器時代文化。"
+    },
+    {
+      "q": "下列哪一項不屬於新石器時代人類生活型態的重大改變？",
+      "opts": [
+        "磨製石器",
+        "燒製陶器",
+        "煉鐵活動",
+        "飼養家畜"
+      ],
+      "a": 2,
+      "note": "煉鐵活動出現於「金屬器時代」（如十三行文化），新石器時代的重大改變是磨製石器、燒製陶器、飼養家畜與農業出現。"
+    },
+    {
+      "q": "十三行文化遺址位於今日何處？",
+      "opts": [
+        "新北市八里區",
+        "臺東縣長濱鄉",
+        "臺北市大安區",
+        "臺南市安平區"
+      ],
+      "a": 0,
+      "note": "十三行文化遺址位於新北市八里區，出土煉鐵爐、鐵渣，屬於金屬器時代的代表文化。"
+    },
+    {
+      "q": "金屬器時代的臺灣先民與外界貿易往來密切的證據，出土文物包括？",
+      "opts": [
+        "磨製石器與陶片",
+        "玻璃珠與銅錢",
+        "貝塚與繩紋陶片",
+        "打製石器"
+      ],
+      "a": 1,
+      "note": "十三行文化出土的玻璃珠、銅錢等外來物品，顯示當時先民與東南亞或中國大陸的貿易往來更加密切。"
+    }
+  ],
+  "ch2": [
+    {
+      "q": "學者利用哪一種植物的分布，推論臺灣可能是太平洋南島語族的遷徙起源地？",
+      "opts": [
+        "稻米",
+        "構樹",
+        "茶樹",
+        "甘蔗"
+      ],
+      "a": 1,
+      "note": "學者透過構樹的分布，推論史前臺灣原住民與東南亞、太平洋諸島相互交流，並從臺灣向外擴散遷徙，因此推論臺灣是太平洋構樹（也連帶南島語族）的起源地。"
+    },
+    {
+      "q": "臺灣原住民依分布位置與和漢人接觸早晚，可分為哪兩大族群？",
+      "opts": [
+        "熟番、生番",
+        "平埔族群、高山各族",
+        "高砂族、山地同胞",
+        "阿美族、排灣族"
+      ],
+      "a": 1,
+      "note": "原住民可分為「平埔族群」（分布於西部及東北部平原丘陵，接觸漢人較早）與「高山各族」（分布山區與東部，接觸較晚，保有較多原有文化）。熟番／生番、高砂族等都只是「名稱演變」中特定時期的稱呼，不是族群分類本身。"
+    },
+    {
+      "q": "清帝國時期，清廷依原住民是否歸順政府，將其分為「熟番」與什麼？",
+      "opts": [
+        "生番",
+        "高砂族",
+        "山地同胞",
+        "原住民族"
+      ],
+      "a": 0,
+      "note": "清帝國依歸順與否分為「熟番」、「生番」；日治時期改稱「平埔族」、「高砂族」；中華民國時期高砂族改稱「高山族」「山地同胞」；現今統稱「原住民族」。"
+    },
+    {
+      "q": "邵族的白鹿傳說主要訴說了什麼內容？",
+      "opts": [
+        "族群的起源與階級的形成",
+        "先民遷徙與定居的歷程",
+        "與漢人的貿易往來",
+        "倭寇的劫掠活動"
+      ],
+      "a": 1,
+      "note": "邵族白鹿傳說敘述獵人追逐白鹿發現日月潭一帶美景進而定居，訴說先民遷徙與定居的歷程；「族群起源與階級形成」則是排灣族始祖傳說的內容。"
+    }
+  ],
+  "ch3": [
+    {
+      "q": "明朝實施海禁政策，主要是為了防備誰？",
+      "opts": [
+        "倭寇",
+        "荷蘭人",
+        "西班牙人",
+        "鄭氏政權"
+      ],
+      "a": 0,
+      "note": "14世紀後期，明朝為防備倭寇，實施海禁政策，導致東亞貿易活動改由海商透過走私進行。"
+    },
+    {
+      "q": "16世紀後期，明朝政府派兵進駐澎湖後，原以澎湖為據點的海商逐漸轉移到何處活動？",
+      "opts": [
+        "日本",
+        "臺灣",
+        "中國東南沿海",
+        "馬尼拉"
+      ],
+      "a": 1,
+      "note": "明朝派兵進駐澎湖後，威脅到以澎湖為據點的海商，海商據點逐漸轉移到臺灣活動，如顏思齊、鄭芝龍即在此之前招募漢人開墾雲林、嘉義一帶。"
+    },
+    {
+      "q": "曾在歐洲人占領臺灣之前，招募漢人開墾今雲林、嘉義一帶的海商是誰？",
+      "opts": [
+        "鄭芝龍、顏思齊",
+        "鄭成功、鄭經",
+        "沈有容、鄭克塽",
+        "施琅、鄭經"
+      ],
+      "a": 0,
+      "note": "顏思齊、鄭芝龍在歐洲人占領臺灣之前，曾招募漢人開墾今日雲林、嘉義一帶作為據點。"
+    },
+    {
+      "q": "葡萄牙、西班牙人分別占領了東亞的哪兩個地方，作為對中國、日本貿易的據點？",
+      "opts": [
+        "澳門、馬尼拉",
+        "澳門、雞籠",
+        "馬尼拉、巴達維亞",
+        "澳門、巴達維亞"
+      ],
+      "a": 0,
+      "note": "葡萄牙占領中國的澳門、西班牙占領菲律賓的馬尼拉，作為與中國、日本貿易的據點；巴達維亞是荷蘭聯合東印度公司總部所在地。"
+    }
+  ],
+  "ch4": [
+    {
+      "q": "荷蘭聯合東印度公司的總部設於何處？",
+      "opts": [
+        "臺灣大員",
+        "中國澳門",
+        "印尼巴達維亞",
+        "菲律賓馬尼拉"
+      ],
+      "a": 2,
+      "note": "荷蘭聯合東印度公司總部設於印尼巴達維亞，1624年再度派兵進占臺灣南部。"
+    },
+    {
+      "q": "荷蘭人於哪一年進占臺灣南部，成為最先占領臺灣的歐洲勢力？",
+      "opts": [
+        "1602年",
+        "1624年",
+        "1626年",
+        "1642年"
+      ],
+      "a": 1,
+      "note": "荷蘭人於1624年進占臺灣南部，展開38年統治（1624～1662年），是最先占領臺灣的歐洲勢力。"
+    },
+    {
+      "q": "荷蘭人在臺灣最初修築的行政中心「熱蘭遮城」，位於今日何處？",
+      "opts": [
+        "臺南市安平區（今安平古堡）",
+        "臺南市中西區（今赤崁樓）",
+        "新北市八里區",
+        "基隆市中正區"
+      ],
+      "a": 0,
+      "note": "荷蘭人占領臺灣後，先在大員（今臺南市安平區）修築行政中心「熱蘭遮城」（今安平古堡）；後為鞏固南部統治，才另建「普羅民遮城」（今赤崁樓）。"
+    },
+    {
+      "q": "1633年日本頒布鎖國政策後，對東亞貿易競爭產生了什麼影響？",
+      "opts": [
+        "日商退出東亞貿易競爭，荷、日不再衝突",
+        "荷蘭人被迫退出臺灣",
+        "西班牙人趁機擴大對日貿易",
+        "中國東南沿海貿易全面停止"
+      ],
+      "a": 0,
+      "note": "1633年日本頒布鎖國政策，日商退出東亞貿易競爭，原本因貿易糾紛而緊張的荷、日關係因此不再有衝突。"
+    },
+    {
+      "q": "西班牙人於1626年進攻臺灣北部，陸續占領了哪些地方？",
+      "opts": [
+        "雞籠、淡水",
+        "大員、安平",
+        "澎湖、馬公",
+        "新港、北港"
+      ],
+      "a": 0,
+      "note": "西班牙人為了與荷蘭競爭，於1626年進攻臺灣北部，陸續占領雞籠（今基隆市）、淡水等地，作為對日本貿易的據點。"
+    },
+    {
+      "q": "荷蘭於哪一年出兵打敗西班牙人，結束西班牙在北臺灣的統治？",
+      "opts": [
+        "1624年",
+        "1626年",
+        "1642年",
+        "1662年"
+      ],
+      "a": 2,
+      "note": "西班牙對日貿易計畫受挫後減少駐臺守軍，荷蘭人得知後於1642年出兵打敗西班牙人，結束西班牙在北臺灣16年的統治（1626～1642年）。"
+    },
+    {
+      "q": "鄭芝龍投降清帝國後，其子鄭成功以何處為根據地持續反清？",
+      "opts": [
+        "臺灣",
+        "東南沿海",
+        "澎湖",
+        "日本"
+      ],
+      "a": 1,
+      "note": "17世紀中期明朝滅亡，鄭芝龍投降清帝國；其子鄭成功以東南沿海為根據地持續反清，因戰事受挫才於1661年轉進攻臺灣。"
+    },
+    {
+      "q": "鄭成功於哪一年進攻臺灣，作為反清復明的基地？",
+      "opts": [
+        "1624年",
+        "1642年",
+        "1661年",
+        "1683年"
+      ],
+      "a": 2,
+      "note": "鄭成功於1661年進攻臺灣，作為反清復明的基地；次年（1662年）荷蘭人即退出臺灣。"
+    },
+    {
+      "q": "鄭成功取得臺灣後，設立何處為行政中心，建立漢人統治政權？",
+      "opts": [
+        "熱蘭遮城",
+        "承天府",
+        "普羅民遮城",
+        "雞籠"
+      ],
+      "a": 1,
+      "note": "鄭成功取得臺灣後，設立承天府（今臺南市）為行政中心，建立漢人統治政權。"
+    },
+    {
+      "q": "鄭氏為解決糧食問題所從事的土地開墾中，以下列何者最為重要？",
+      "opts": [
+        "均田制",
+        "軍屯",
+        "租佃制",
+        "屯田制（清代）"
+      ],
+      "a": 1,
+      "note": "鄭氏為解決糧食問題從事土地開墾，其中以「軍屯」（軍隊屯田耕作）最為重要。"
+    },
+    {
+      "q": "鄭氏政權致力擴展東亞轉口貿易，積極與哪些國家通商，以取得反清事業所需的軍用物資？",
+      "opts": [
+        "英國、日本",
+        "西班牙、葡萄牙",
+        "荷蘭、日本",
+        "英國、荷蘭"
+      ],
+      "a": 0,
+      "note": "對外貿易是鄭氏的根基，一方面與中國大陸走私貿易，另一方面積極與英國、日本等通商，轉賣中國物品以取得反清事業所需的軍用物資。"
+    },
+    {
+      "q": "1683年，清廷派何人攻臺，使鄭克塽投降？",
+      "opts": [
+        "沈有容",
+        "施琅",
+        "鄭芝龍",
+        "顏思齊"
+      ],
+      "a": 1,
+      "note": "1683年，清廷派施琅攻臺，鄭克塽投降，結束鄭氏政權在臺灣21年的統治（1662～1683年）。沈有容是明朝將領，曾逼退占領澎湖的荷蘭人，年代較早。"
+    },
+    {
+      "q": "鄭氏政權在臺灣的統治，前後共歷經幾年？",
+      "opts": [
+        "16年",
+        "21年",
+        "38年",
+        "50年"
+      ],
+      "a": 1,
+      "note": "鄭氏政權統治臺灣自1662年（鄭成功病逝、鄭經繼位那年）至1683年鄭克塽降清，共21年；相對地，荷蘭統治臺灣則長達38年（1624～1662年）。"
+    }
+  ]
+};
+
+const tabButtons = document.querySelectorAll('.tab-btn');
+const chapters = document.querySelectorAll('.chapter');
+tabButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabButtons.forEach(b=>b.classList.remove('active'));
+    chapters.forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+let globalCorrect = 0;
+let totalQuestions = 0;
+
+function buildQuiz(chapterId){
+  const container = document.getElementById('quiz-' + chapterId);
+  const items = QUIZ_DATA[chapterId];
+  totalQuestions += items.length;
+  document.querySelectorAll(`.score-total[data-chapter="${chapterId}"]`).forEach(el=>el.textContent=items.length);
+
+  items.forEach((item, idx)=>{
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `
+      <div class="q-num">第 ${idx+1} 題</div>
+      <div class="q-text">${item.q}</div>
+      <div class="options"></div>
+      <div class="feedback"><div class="seal">正解</div><div class="fb-text"></div></div>
+    `;
+    const optsWrap = card.querySelector('.options');
+    item.opts.forEach((optText, oIdx)=>{
+      const optBtn = document.createElement('button');
+      optBtn.className = 'opt';
+      optBtn.textContent = optText;
+      optBtn.addEventListener('click', ()=>{
+        if(optBtn.classList.contains('locked')) return;
+        const allOpts = optsWrap.querySelectorAll('.opt');
+        allOpts.forEach(o=>o.classList.add('disabled','locked'));
+        if(oIdx === item.a){
+          optBtn.classList.add('correct');
+          globalCorrect++;
+          document.getElementById('globalScore').textContent = globalCorrect;
+          const scoreEl = card.closest('.chapter').querySelector(`.score-display[data-chapter="${chapterId}"]`);
+          scoreEl.textContent = parseInt(scoreEl.textContent) + 1;
+        } else {
+          optBtn.classList.add('wrong');
+          allOpts[item.a].classList.add('correct');
+        }
+        const fb = card.querySelector('.feedback');
+        fb.querySelector('.fb-text').textContent = item.note;
+        fb.classList.add('show');
+      });
+      optsWrap.appendChild(optBtn);
+    });
+    container.appendChild(card);
+  });
+}
+
+['ch1','ch2','ch3','ch4'].forEach(buildQuiz);
+document.getElementById('totalQCount').textContent = totalQuestions;
+</script>
+
+</body>
+</html>
