@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>出師表｜互動國文講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --armor:#496F8A; --armor-light:#8CB6CC; --gold:#C98B45; --gold-light:#F0C889;
+  --pine:#527A61; --pine-light:#98C3A2; --dusk:#C67557;
+  --soil:#2D2925; --paper:#F4F0E9; --ink:#2D2925; --muted:#6C655F;
+  --seal:#C55347; --seal-dark:#984039; --card:#FFFDFC; --line:#DED4C9;
+  --mist-blue:#E7F1F6; --mist-green:#EAF3E8; --mist-apricot:#F3E7DA;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Noto Sans TC',sans-serif; line-height:1.75;
+}
+h1,h2,h3,.serif{font-family:'Noto Serif TC',serif;}
+
+/* ---- HERO ---- */
+.hero{position:relative; text-align:center; padding:56px 20px 36px; border-bottom:1px solid var(--line); overflow:hidden; background:linear-gradient(180deg,#FAF8F5,var(--paper));}
+.hero::before{
+  content:"漢"; position:absolute; top:-46px; right:-14px; font-family:'Noto Serif TC',serif;
+  font-size:240px; color:var(--armor); opacity:.10; font-weight:900; pointer-events:none;
+}
+.eyebrow{letter-spacing:6px; font-size:12.5px; color:var(--seal); font-weight:700; margin-bottom:10px;}
+.hero h1{font-size:clamp(30px,5.4vw,48px); color:var(--soil); margin:0 0 8px; font-weight:900; letter-spacing:.06em;}
+.hero .byline{font-size:13.5px; color:var(--muted); letter-spacing:.15em; margin-bottom:16px;}
+.hero p.lead{max-width:640px; margin:0 auto; color:var(--muted); font-size:14.5px;}
+
+/* ---- CONTROLS ---- */
+.controls{
+  position:sticky; top:0; z-index:56; background:rgba(244,240,233,.94); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); padding:10px 18px; display:flex; align-items:center;
+  justify-content:center; gap:24px; flex-wrap:wrap; font-size:12.5px; color:var(--muted);
+}
+.controls label{display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none;}
+.switch{position:relative; width:36px; height:20px; border-radius:99px; background:#CFC3B8; transition:background .2s;}
+.switch::after{content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#fff; transition:transform .2s; box-shadow:0 1px 2px rgba(0,0,0,.3);}
+input[type=checkbox]{display:none;}
+input[type=checkbox]:checked + .switch{background:var(--armor);}
+input[type=checkbox]:checked + .switch::after{transform:translateX(16px);}
+#score{color:var(--seal); font-weight:700;}
+
+main{max-width:940px; margin:0 auto; padding:28px 18px 100px;}
+
+/* ---- SECTION HEADINGS ---- */
+.section-block{margin-bottom:44px;}
+.section-title{
+  font-size:22px; font-weight:700; color:var(--soil); border-bottom:2px solid var(--armor);
+  padding-bottom:8px; margin-bottom:20px; display:flex; align-items:center; gap:10px;
+}
+.section-title span{font-size:13px; color:var(--seal); font-weight:normal; letter-spacing:.05em;}
+.section-intro{font-size:13.5px; color:var(--muted); margin:0 0 16px;}
+
+/* ---- 古文常用字表格 ---- */
+.char-table-wrap{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 8px 22px -18px rgba(34,30,25,.5);}
+.char-table-scroll{overflow-x:auto;}
+.char-table{width:100%; min-width:680px; border-collapse:collapse; font-size:14px; line-height:1.75;}
+.char-table caption{caption-side:top; padding:18px 22px 8px; text-align:left; color:var(--soil); font-family:'Noto Serif TC',serif; font-size:18px; font-weight:700;}
+.char-table th{background:#EAE2DA; color:var(--soil); font-family:'Noto Serif TC',serif; font-size:15px; font-weight:700; text-align:left; padding:12px 16px; border-bottom:2px solid var(--armor);}
+.char-table td{padding:11px 16px; border-bottom:1px solid var(--line); vertical-align:top;}
+.char-table tr:last-child td{border-bottom:none;}
+.char-table tbody tr:nth-child(even){background:#FAF8F5;}
+.char-table tbody tr:hover{background:#EFE8E1;}
+.char-table .example{font-family:'Noto Serif TC',serif; color:var(--ink); font-size:15px;}
+.char-table .target{color:var(--seal); font-weight:700; border-bottom:1px dotted var(--seal);}
+.char-table .pos{color:var(--armor); font-weight:700; white-space:nowrap;}
+.char-table .meaning{color:var(--muted);}
+.char-table-note{margin:12px 2px 0; color:var(--muted); font-size:12.5px;}
+
+/* ---- 背景 ---- */
+.context-card{background:var(--card); border:1px solid var(--line); border-left:5px solid var(--seal); border-radius:12px; padding:22px 26px; margin-bottom:18px;}
+.context-card b{color:var(--seal-dark);}
+.context-card p{margin:0 0 10px; font-size:14.5px;}
+.context-card p:last-child{margin-bottom:0;}
+.quote-strip{display:flex; gap:12px; align-items:center; background:#ECE4DC; border-radius:10px; padding:14px 18px; margin-top:14px; font-family:'Noto Serif TC',serif; color:var(--soil); font-size:14.5px;}
+
+/* ---- 課文 ---- */
+.passage{background:var(--card); border:1px solid var(--line); border-radius:14px; margin-bottom:18px; overflow:hidden;}
+.passage-head{display:flex; align-items:center; justify-content:space-between; padding:12px 20px; background:#ECE4DC; border-bottom:1px solid var(--line);}
+.passage-head .ptitle{font-weight:700; color:var(--armor); font-size:13px; letter-spacing:.05em;}
+.passage-head button{font-size:11.5px; background:var(--paper); color:var(--ink); border:1px solid var(--muted); padding:5px 13px; border-radius:20px; cursor:pointer;}
+.passage-head button:hover{background:var(--armor); color:#fff; border-color:var(--armor);}
+.passage-body{padding:22px 24px;}
+.classical{font-family:'Noto Serif TC',serif; font-size:1.14rem; line-height:2.5; color:var(--ink);}
+.classical ruby{ruby-position:over;}
+.classical rt{font-size:.48em; font-family:'Noto Sans TC',sans-serif; color:var(--seal-dark); font-weight:600; letter-spacing:0;}
+body.hide-zhuyin .classical rt{display:none;}
+.classical .gloss{color:var(--seal-dark); font-weight:600; border-bottom:1px dotted var(--seal); cursor:pointer; padding:0 1px; border-radius:3px; transition:background .15s;}
+.classical .gloss:hover{background:#F5DFD5;}
+.classical .gloss.active{background:#F0CFC0;}
+.classical .fnmark{color:var(--seal); font-weight:700; font-size:.62em; margin-left:1px; cursor:pointer;}
+.notes-hint{margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); font-size:12px; color:var(--muted); display:flex; align-items:center; gap:6px;}
+.notes-hint .dot{width:10px; height:10px; border-radius:50%; background:var(--seal); border-bottom:none; display:inline-block; opacity:.8;}
+#glossTip{
+  position:fixed; z-index:80; max-width:280px; background:var(--soil); color:var(--paper);
+  padding:12px 15px; border-radius:10px; font-size:13px; line-height:1.75; box-shadow:0 12px 28px rgba(0,0,0,.32);
+  opacity:0; transform:translateY(6px); pointer-events:none; transition:opacity .18s ease, transform .18s ease;
+  font-family:'Noto Sans TC',sans-serif;
+}
+#glossTip.show{opacity:1; transform:translateY(0); pointer-events:auto;}
+#glossTip::before{content:""; position:absolute; top:-6px; left:18px; width:12px; height:12px; background:var(--soil); transform:rotate(45deg);}
+#glossTip.arrow-below::before{top:auto; bottom:-6px; transform:rotate(45deg);}
+.translation{overflow:hidden; max-height:0; opacity:0; transition:max-height .4s ease, opacity .4s ease;
+  font-size:13.5px; color:var(--muted); border-left:3px solid var(--armor); padding-left:0; margin-top:0;}
+.translation.show{max-height:500px; opacity:1; padding:14px 0 0 16px; margin-top:14px;}
+body.show-all-trans .translation{max-height:500px; opacity:1; padding:14px 0 0 16px; margin-top:14px;}
+.translation .tlabel{display:block; font-size:11px; letter-spacing:.15em; color:var(--armor); margin-bottom:6px; font-weight:700;}
+
+/* ---- 四、識人論世：猜猜看 + 人物卡 ---- */
+.guess-wrap{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 26px; margin-bottom:22px;}
+.guess-title{font-weight:700; font-size:15px; color:var(--soil); margin-bottom:14px;}
+.guess-btns{display:flex; flex-wrap:wrap; gap:10px;}
+.guess-btn{font-family:inherit; font-size:13.5px; padding:9px 18px; border-radius:20px; border:1.5px solid var(--line); background:var(--paper); color:var(--ink); cursor:pointer; transition:.15s; font-weight:500;}
+.guess-btn:hover:not(:disabled){border-color:var(--armor); background:#EEE7E0;}
+.guess-btn:disabled{cursor:default; opacity:.6;}
+.guess-btn.right{background:#DFF0E2; border-color:var(--pine); color:var(--pine); font-weight:700;}
+.guess-btn.miss{background:#FBE2DC; border-color:var(--seal); color:var(--seal-dark); text-decoration:line-through;}
+#guessResult{margin-top:14px; font-size:13.5px; color:var(--muted); min-height:20px; line-height:1.85;}
+#guessResult b{color:var(--seal-dark);}
+
+.person-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:16px;}
+.person-card{border-radius:14px; border:1px solid var(--line); overflow:hidden; cursor:pointer; background:var(--card); transition:box-shadow .2s, transform .2s;}
+.person-card:hover{box-shadow:0 12px 28px -16px rgba(34,30,25,.4); transform:translateY(-2px);}
+.person-head{padding:16px 18px; color:#fff; position:relative;}
+.person-head .phlabel{font-family:'Noto Serif TC',serif; font-weight:900; font-size:16px; display:block; margin-bottom:3px;}
+.person-head .phsub{font-size:11.5px; opacity:.92; letter-spacing:.06em;}
+.person-head .badge{position:absolute; top:12px; right:14px; font-size:10.5px; font-weight:700; letter-spacing:.06em; background:rgba(255,255,255,.28); padding:3px 10px; border-radius:20px;}
+.pc-gong .person-head{background:linear-gradient(135deg,#547C98,#91BED0);}
+.pc-xiang .person-head{background:linear-gradient(135deg,#5B8067,#9AC29D);}
+.pc-chao .person-head{background:linear-gradient(135deg,#C1844A,#E8B97D);}
+.person-body{padding:0 18px; max-height:0; opacity:0; overflow:hidden; transition:max-height .35s ease, opacity .35s ease, padding .35s ease;}
+.person-card.open .person-body{max-height:420px; opacity:1; padding:16px 18px 18px;}
+.person-quote{font-family:'Noto Serif TC',serif; font-size:14.5px; color:var(--soil); margin-bottom:8px; line-height:1.85;}
+.person-trans{font-size:12.5px; color:var(--muted); margin-bottom:8px; line-height:1.8;}
+.person-note{font-size:12.5px; color:var(--muted); padding-top:8px; border-top:1px dashed var(--line); line-height:1.8;}
+.person-toggle-hint{font-size:11px; color:var(--muted); text-align:center; padding:6px 0; opacity:.75;}
+
+/* ---- 五、三國成語典故（翻牌卡） ---- */
+.idiom-intro-note{font-size:12.5px; color:var(--muted); margin-bottom:16px; display:flex; align-items:center; gap:6px;}
+.idiom-intro-note .dot{width:9px; height:9px; border-radius:50%; background:var(--gold); display:inline-block;}
+.idiom-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;}
+.idiom-card{perspective:1200px; height:210px; cursor:pointer;}
+.idiom-inner{position:relative; width:100%; height:100%; transition:transform .55s cubic-bezier(.4,.2,.2,1); transform-style:preserve-3d;}
+.idiom-card.flipped .idiom-inner{transform:rotateY(180deg);}
+.idiom-face{position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; border:1px solid var(--line); padding:20px 18px; display:flex; flex-direction:column;}
+.idiom-front{background:var(--card); align-items:center; justify-content:center; text-align:center; box-shadow:0 8px 20px -16px rgba(34,30,25,.5);}
+.idiom-front .word{font-family:'Noto Serif TC',serif; font-weight:900; font-size:21px; color:var(--soil); margin-bottom:10px; line-height:1.5;}
+.idiom-front .tag2{font-size:11px; color:#fff; background:var(--seal); padding:2px 10px; border-radius:20px; letter-spacing:.05em;}
+.idiom-front .hint{font-size:11px; color:var(--muted); margin-top:auto; opacity:.75;}
+.idiom-back{background:linear-gradient(150deg,var(--armor),var(--armor-light)); color:#fff; transform:rotateY(180deg); overflow-y:auto;}
+.idiom-back .word2{font-family:'Noto Serif TC',serif; font-weight:700; font-size:14.5px; margin-bottom:8px; opacity:.95;}
+.idiom-back .desc{font-size:12.5px; line-height:1.85; opacity:.96;}
+.idiom-match{margin-top:22px; padding:22px; border:1px solid var(--line); border-radius:14px; background:linear-gradient(135deg,#FFFDFC,#F1EBE5);}
+.idiom-match h3{margin:0 0 5px; font-size:17px; color:var(--soil);}
+.idiom-match p{margin:0 0 14px; color:var(--muted); font-size:12.5px;}
+.match-columns{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px;}
+.match-column{display:grid; gap:8px; align-content:start;}
+.match-label{font-size:11px; color:var(--muted); letter-spacing:.12em; font-weight:700;}
+.match-btn{min-height:48px; padding:10px 13px; border:1px solid var(--line); border-radius:9px; background:#fff; color:var(--ink); font-family:inherit; font-size:13px; cursor:pointer; text-align:left; transition:.18s;}
+.match-btn:hover:not(:disabled),.match-btn.selected{border-color:var(--armor); background:var(--mist-blue); transform:translateY(-1px);}
+.match-btn.matched{border-color:var(--pine); background:var(--mist-green); color:#35543E; font-weight:700;}
+.match-btn.wrong-pulse{border-color:var(--seal); background:#FBE9E5; animation:shake .28s linear;}
+.match-status{min-height:24px; margin-top:14px; font-size:13px; color:var(--muted);}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+/* ---- QUIZ ---- */
+.quiz-card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-bottom:16px;}
+.quiz-q{font-weight:700; font-size:15px; margin-bottom:12px;}
+.quiz-q .qnum{color:var(--seal); margin-right:6px;}
+.tag{display:inline-block; font-size:10.5px; padding:2px 10px; border-radius:20px; background:var(--armor); color:#fff; margin-left:6px; font-weight:500;}
+.opt{display:block; width:100%; text-align:left; padding:10px 14px; margin-bottom:7px; border:1px solid var(--line); background:#fff; border-radius:6px; cursor:pointer; font-family:inherit; font-size:14px; color:var(--ink); transition:.15s;}
+.opt:hover{border-color:var(--armor);}
+.opt.correct{background:#DFF0E2; border-color:var(--pine); font-weight:700; position:relative;}
+.opt.correct::after{content:"對"; position:absolute; right:12px; top:50%; transform:translateY(-50%) rotate(-6deg); color:var(--pine); border:1.5px solid var(--pine); border-radius:4px; padding:0 5px; font-size:11px; font-family:'Noto Serif TC',serif;}
+.opt.wrong{background:#FBE2DC; border-color:var(--seal); text-decoration:line-through; color:var(--muted);}
+.opt[disabled]{cursor:default;}
+.explain{display:none; margin-top:10px; padding:11px 14px; border-radius:6px; background:#EEE6DE; border-left:3px solid var(--muted); font-size:13.5px; color:var(--ink);}
+.explain.show{display:block;}
+.explain b{color:var(--seal-dark);}
+#quiz-celebrate{text-align:center; font-family:'Noto Serif TC',serif; font-size:16px; color:var(--pine); font-weight:700; margin-top:18px; min-height:26px;}
+.quiz-reset{display:block; margin:14px auto 0; padding:9px 22px; border:1px solid var(--armor); border-radius:999px; background:#fff; color:var(--armor); font-family:inherit; cursor:pointer;}
+.quiz-reset:hover{background:var(--mist-blue);}
+
+footer{text-align:center; padding:30px 20px 100px; font-size:12px; color:var(--muted);}
+@media(max-width:640px){.passage-body{padding:18px;} .hero::before{font-size:150px;} .match-columns{grid-template-columns:1fr;} .idiom-card{height:225px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">互動國文講義</div>
+  <h1>出師表</h1>
+  <div class="byline">三國蜀漢．諸葛亮 ．《三國志．蜀書．諸葛亮傳》</div>
+  <p class="lead">建興五年，諸葛亮即將率軍北伐曹魏，臨行前上表後主劉禪。全文從時局的危急、宮中府中的賞罰一體，寫到舉薦賢臣、自敘身世與託孤大業，最後殷殷叮囑、涕零告別，字字句句皆是一位託孤老臣對故主與蜀漢江山的深情。</p>
+</div>
+
+<div class="controls">
+  <label>
+    <input type="checkbox" id="toggleZhuyin" checked onchange="document.body.classList.toggle('hide-zhuyin', !this.checked)">
+    <span class="switch"></span>
+    顯示注音
+  </label>
+  <label>
+    <input type="checkbox" id="toggleTrans" onchange="document.body.classList.toggle('show-all-trans', this.checked)">
+    <span class="switch"></span>
+    全文顯示語譯
+  </label>
+  <span id="progress">測驗已作答 <span id="answered">0</span> / <span id="total">0</span>　正確 <span id="score">0</span> 題</span>
+</div>
+
+<main>
+
+  <!-- ============ 1. 寫作背景 ============ -->
+  <section class="section-block" id="sec-bg">
+    <h2 class="section-title">一、 寫作背景 <span>Background & History</span></h2>
+    <p class="section-intro">一份臨行前的託付，也是一位老臣最後的叮嚀。</p>
+    <div class="context-card">
+      <p><b>諸葛亮</b>（181－234），字孔明，號臥龍，琅琊陽都（今山東沂南）人，三國蜀漢丞相。早年隱居南陽躬耕，劉備三顧茅廬，始出山輔佐，其後協助劉備聯吳抗曹、建立蜀漢政權。劉備兵敗夷陵，臨終於白帝城將幼主劉禪與蜀漢國事一併託付給諸葛亮，史稱「白帝城託孤」。</p>
+      <p>蜀漢建興五年（227年），諸葛亮認為南方已平定、國力稍稍充實，決意率軍北伐曹魏，出征前上表後主劉禪，勸勉他親賢臣、遠小人，並推薦可信任的文武臣子，同時自陳身世、回顧先帝知遇之恩，說明北伐興復漢室的職責與決心。這篇表文情辭懇切，被後世譽為「讀出師表不墮淚者，其人必不忠」的千古至文。</p>
+      <div class="quote-strip">「先帝創業未半而中道崩殂，今天下三分，益州疲弊，此誠危急存亡之秋也。」</div>
+    </div>
+  </section>
+
+  <!-- ============ 2. 課文與注釋 ============ -->
+  <section class="section-block" id="sec-text">
+    <h2 class="section-title">二、 課文與注釋 <span>Text & Notes</span></h2>
+    <p class="section-intro">全文依內容分為六段，文中<span style="color:var(--seal-dark); font-weight:600;">標色詞語</span>可點擊查看注釋，點擊段落右上角按鈕則可展開語譯。</p>
+    <div id="passageList"></div>
+  </section>
+
+  <!-- ============ 3. 古文常用字辨析 ============ -->
+  <section class="section-block" id="sec-common-words">
+    <h2 class="section-title">三、 古文常用字辨析 <span>Classical Chinese Function Words</span></h2>
+    <p class="section-intro">一個「以」字在本文中反覆出現，卻分屬介詞與連詞，意義也各不相同。請觀察下表，掌握「以」在表工具對象、表目的、表結果等語境中的用法差異。</p>
+    <div class="char-table-wrap">
+      <div class="char-table-scroll">
+        <table class="char-table">
+          <caption>「以」的用法整理</caption>
+          <thead>
+            <tr>
+              <th scope="col">例句</th>
+              <th scope="col">詞性</th>
+              <th scope="col">詞義</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="example">諮臣<span class="target">以</span>當世之事</td>
+              <td class="pos">介詞</td>
+              <td class="meaning">用、拿（表詢問的內容）</td>
+            </tr>
+            <tr>
+              <td class="example">事無大小，悉<span class="target">以</span>咨之</td>
+              <td class="pos">介詞</td>
+              <td class="meaning">把、拿（表對象）</td>
+            </tr>
+            <tr>
+              <td class="example">誠宜開張聖聽，<span class="target">以</span>光先帝遺德</td>
+              <td class="pos">連詞</td>
+              <td class="meaning">來、以便（表目的）</td>
+            </tr>
+            <tr>
+              <td class="example">引喻失義，<span class="target">以</span>塞忠諫之路也</td>
+              <td class="pos">連詞</td>
+              <td class="meaning">以致、而（表結果）</td>
+            </tr>
+            <tr>
+              <td class="example"><span class="target">以</span>昭陛下平明之理</td>
+              <td class="pos">連詞</td>
+              <td class="meaning">來（表目的）</td>
+            </tr>
+            <tr>
+              <td class="example">恐託付不效，<span class="target">以</span>傷先帝之明</td>
+              <td class="pos">連詞</td>
+              <td class="meaning">以致（表結果）</td>
+            </tr>
+            <tr>
+              <td class="example">治臣之罪，<span class="target">以</span>告先帝之靈</td>
+              <td class="pos">連詞</td>
+              <td class="meaning">來（表目的）</td>
+            </tr>
+            <tr>
+              <td class="example">責攸之、禕、允等之慢，<span class="target">以</span>彰其咎</td>
+              <td class="pos">連詞</td>
+              <td class="meaning">來（表目的）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="char-table-note">判讀提示：「以＋事物」作介詞時，常譯為「把、拿、用」；「以＋動詞」作連詞時，若表達動作的目的可譯為「來、以便」，若表達動作導致的後果則可譯為「以致、而」。</p>
+  </section>
+
+  <!-- ============ 4. 識人論世：用人興衰探索 ============ -->
+  <section class="section-block" id="sec-explore">
+    <h2 class="section-title">四、 識人論世：用人興衰探索 <span>People & Politics</span></h2>
+    <p class="section-intro">諸葛亮把「親賢臣，遠小人」的道理，具體化為一份可執行的人事名單。先猜猜看他認為國家興衰最關鍵的因素，再點開下方卡片，看看他分別交代了哪些人。</p>
+    <div class="guess-wrap">
+      <div class="guess-title">🏛️ 你猜，諸葛亮認為蜀漢國運興衰最關鍵的因素是？</div>
+      <div class="guess-btns" id="guessBtns"></div>
+      <div id="guessResult"></div>
+    </div>
+    <div class="person-grid" id="personGrid"></div>
+  </section>
+
+  <!-- ============ 5. 三國成語典故 ============ -->
+  <section class="section-block" id="sec-idioms">
+    <h2 class="section-title">五、 三國成語典故 <span>Idioms & Allusions</span></h2>
+    <p class="section-intro">〈出師表〉的前後，藏著整個三國最動人的幾段故事。點卡片翻面，看看這些流傳至今的成語，各自從何而來。</p>
+    <p class="idiom-intro-note"><span class="dot"></span>其中兩則直接出自這篇表文本身，一則是後人最容易搞混的陷阱考點——猜猜是哪幾則？</p>
+    <div class="idiom-grid" id="idiomGrid"></div>
+    <div class="idiom-match" aria-labelledby="matchTitle">
+      <h3 id="matchTitle">典故連連看</h3>
+      <p>先選一個成語，再選右邊對應的故事線索。配對後會立即告訴你判斷依據。</p>
+      <div class="match-columns">
+        <div class="match-column" id="matchTerms"><span class="match-label">成語</span></div>
+        <div class="match-column" id="matchClues"><span class="match-label">故事線索</span></div>
+      </div>
+      <div class="match-status" id="matchStatus" aria-live="polite">已完成 0／4 組</div>
+    </div>
+  </section>
+
+  <!-- ============ 6. 綜合自我測驗 ============ -->
+  <section class="section-block" id="sec-quiz">
+    <h2 class="section-title">六、 綜合自我測驗 <span>Quiz</span></h2>
+    <p class="section-intro">精選 10 題測驗，涵蓋字音字形、古今異義、文意理解、修辭鑑賞、篇章結構與三國典故，點選選項即時檢定對錯。</p>
+    <div id="quizList"></div>
+    <div id="quiz-celebrate"></div>
+    <button class="quiz-reset" id="quizReset" type="button">重新挑戰</button>
+  </section>
+
+</main>
+
+<footer>依國中國文通行教材內容整理製作，僅供課堂複習使用。</footer>
+
+<script>
+/* ============ 課文資料 ============ */
+const passages = [
+{
+  no:1, title:"第一段．時局艱危，開廣言路",
+  text:`先帝創業未半而中道<ruby>崩殂<rt>ㄅㄥ ㄘㄨˊ</rt></ruby>，今天下三分，益州疲弊，此誠<span class="gloss" data-def="此處「秋」並非指季節，而是借指「時候、關頭」。">危急存亡之秋</span>也。然侍衛之臣不懈於內，忠志之士忘身於外者，蓋追先帝之殊遇，欲報之於陛下也。誠宜<span class="gloss" data-def="開廣聽聞、擴大納諫的胸襟，虛心廣泛聽取臣下的意見。">開張聖聽</span>，以光先帝遺德，<span class="gloss" data-def="振奮、發揚志士的士氣。恢弘在此作動詞，使…光大振奮。">恢弘</span>志士之氣，不宜<span class="gloss" data-def="過度看輕自己、菲薄自身，因而喪失自信與士氣。">妄自菲薄</span>，<span class="gloss" data-def="說話舉例不合道理、失當，因而堵塞了忠臣進諫的言路。">引喻失義</span>，以塞忠諫之路也。`,
+  trans:"先帝創立帝業還未完成一半，就中途去世了。如今天下三分，益州民生凋敝，這實在是危急存亡的關頭啊。然而宮中侍衛的臣子毫不懈怠，在外忠心的將士奮不顧身，都是因為追念先帝生前特殊的知遇之恩，想要報答在陛下身上。陛下實在應該廣開言路，聽取臣下的意見，發揚光大先帝遺留下來的美德，振奮志士的士氣；不應該過度看輕自己，說話不合情理，以致堵塞了忠臣進諫的道路。"
+},
+{
+  no:2, title:"第二段．賞罰一體，不宜偏私",
+  text:`宮中府中，俱為一體，<span class="gloss" data-def="陟，晉升、獎勵；罰，懲罰；臧否，評論善惡好壞。">陟罰臧<ruby>否<rt>ㄆㄧˇ</rt></ruby></span>，不宜<span class="gloss" data-def="偏義複詞，實際偏重「異」，指標準不應因人而異。">異同</span>。若有作姦犯科及為忠善者，宜付<span class="gloss" data-def="主管該事的官員、相關單位。">有司</span>論其刑賞，以昭陛下平明之理；不宜偏私，使內外異法也。`,
+  trans:"宮廷之中與丞相府之中，都是一個整體，獎懲評斷善惡，不應該因為是宮中或府中而有不同標準。如果有人做壞事觸犯法令，或是盡忠行善，都應該交付主管的官員評斷刑罰或獎賞，以彰顯陛下公平清明的治理；不應該偏私，使宮內宮外的法令標準不一致。"
+},
+{
+  no:3, title:"第三段．親賢遠佞，舉薦忠良",
+  text:`侍中、侍郎郭攸之、費禕、董允等，此皆良實，志慮忠純，是以先帝簡拔以<span class="gloss" data-def="留給、交付給。遺，音ㄨㄟˋ，動詞，給予。">遺</span>陛下：愚以為宮中之事，事無大小，悉以咨之，然後施行，必能<span class="gloss" data-def="裨、補皆為補足、彌補之意，指補救疏漏、缺失之處。">裨補闕漏</span>，有所<span class="gloss" data-def="廣泛增加、擴大效益。">廣益</span>。將軍向寵，<span class="gloss" data-def="淑，善良；均，公正。指品性善良而處事公正。">性行淑均</span>，曉暢軍事，試用於昔日，先帝稱之曰能，是以眾議舉寵為督：愚以為營中之事，悉以咨之，必能使行陣和睦，優劣得所。親賢臣，遠小人，此先漢所以興隆也；親小人，遠賢臣，此後漢所以<span class="gloss" data-def="衰敗、崩壞。">傾頹</span>也。先帝在時，每與臣論此事，未嘗不<span class="gloss" data-def="古義為痛心、遺憾，並非現代「憎恨、怨恨」之義，是常見的古今異義考點。">歎息痛恨</span>於桓、靈也。侍中、尚書、長史、參軍，此悉<span class="gloss" data-def="堅貞善良、能為節操而犧牲性命的臣子。">貞良死節</span>之臣，願陛下親之信之，則漢室之隆，可計日而待也。`,
+  trans:"侍中、侍郎郭攸之、費禕、董允等人，都是忠厚老實、心志忠誠純正的人，因此先帝才特別拔擢留給陛下任用。臣以為宮中的事務，無論大小，都應該先請教他們，再施行決定，這樣必定能夠補救疏漏之處，獲得更多的助益。將軍向寵，品性善良，處事公正，通曉軍事，過去曾受任用，先帝稱讚他有才能，因此大家商議推舉向寵擔任統帥：臣以為軍營中的事務，都應該向他請教，必定能使軍隊上下和睦、才能高低各得其所。親近賢臣，疏遠小人，這是先漢興盛的原因；親近小人，疏遠賢臣，這是後漢衰敗的原因。先帝在世時，每次與臣談論到這件事，沒有一次不對桓帝、靈帝感到痛心遺憾的。侍中、尚書、長史、參軍，這些都是堅貞善良、能以死報國的忠臣，希望陛下親近他們、信任他們，那麼漢室的興隆，就指日可待了。"
+},
+{
+  no:4, title:"第四段．臣本布衣，感激驅馳",
+  text:`臣本布衣，<span class="gloss" data-def="親自耕種田地。">躬耕</span>於南陽，苟全性命於亂世，不求聞達於諸侯。先帝不以臣<span class="gloss" data-def="文言中指身分低微、見識淺陋，並非現代「品格惡劣」的貶義，是常見的古今異義考點。">卑鄙</span>，<span class="gloss" data-def="猥，謙詞；枉屈，屈尊就教。指先帝降低身分親自來訪。">猥自枉屈</span>，三顧臣於草廬之中，諮臣以當世之事，由是感激，遂許先帝以<span class="gloss" data-def="奔走效力、盡心效勞。">驅馳</span>。後值<span class="gloss" data-def="兵敗、局勢覆沒。">傾覆</span>，受任於敗軍之際，奉命於危難之間，爾來二十有一年矣。`,
+  trans:"臣本來只是平民百姓，在南陽親自耕種田地，只求在亂世中苟且保全性命，並不奢求在諸侯之間顯達揚名。先帝不因為臣身分低微、見識淺陋，反而降低自己的身分委屈自己，三次親自到草廬中拜訪臣，向臣詢問當代天下大事，臣因此深受感動，於是答應為先帝奔走效力。後來遭逢兵敗覆沒的局勢，臣在戰敗之際接受任命，在危難之間奉命行事，從那時到現在已經二十一年了。"
+},
+{
+  no:5, title:"第五段．臨崩寄大事，北伐興漢室",
+  text:`先帝知臣謹慎，故臨崩寄臣以大事也。受命以來，<span class="gloss" data-def="從早到晚、日夜不停，形容戒慎憂心的樣子。">夙夜憂歎</span>，恐<span class="gloss" data-def="所受的託付沒有成效。">託付不效</span>，以傷先帝之明；故五月渡<ruby>瀘<rt>ㄌㄨˊ</rt></ruby>，深入<span class="gloss" data-def="不長草木的荒僻蠻荒之地，此處借指西南邊遠地帶。">不毛</span>。今南方已定，兵甲已足，當獎率三軍，北定中原，庶竭<span class="gloss" data-def="駑，劣馬；鈍，不銳利。諸葛亮藉此自謙才能平庸。">駑鈍</span>，攘除姦凶，興復漢室，還於舊都：此臣所以報先帝而忠陛下之職分也。至於斟酌損益，進盡忠言，則攸之、禕、允之任也。`,
+  trans:"先帝知道臣做事謹慎，所以臨終前把國家大事託付給臣。自從接受遺命以來，臣日夜憂慮歎息，唯恐所受的託付沒有成效，因而損害先帝的知人之明；所以在五月渡過瀘水，深入荒僻不毛之地。如今南方已經平定，兵甲武器也已充足，應當獎勵率領三軍將士，向北平定中原，希望能竭盡自己平庸的才能，剷除奸邪凶惡之人，復興漢室，返回舊日的都城：這就是臣用來報答先帝、並且效忠陛下所應盡的職責本分。至於斟酌事理的利弊得失，進獻忠誠的諫言，那就是郭攸之、費禕、董允等人的責任了。"
+},
+{
+  no:6, title:"第六段．願陛下自謀，臨表涕零",
+  text:`願陛下託臣以討賊興復之效，不效，則治臣之罪，以告先帝之靈。若無興德之言，則責攸之、禕、允等之慢，以彰其<span class="gloss" data-def="過失、罪過。">咎</span>。陛下亦宜自謀，以<span class="gloss" data-def="諮詢、詢問治國的良善方法。諏，音ㄗㄡ，詢問之意。">諮諏善道</span>，察納雅言，深追先帝遺詔。臣不勝受恩感激。今當遠離，臨表<span class="gloss" data-def="流淚，形容情緒激動、涕淚縱橫的樣子。">涕零</span>，不知所云。`,
+  trans:"希望陛下把討伐奸賊、復興漢室的功業託付給臣，如果沒有成效，就治臣的罪，以此告祭先帝在天之靈。如果沒有聽到能夠增進聖德的諫言，就該責備郭攸之、費禕、董允等人怠慢職守，藉此彰顯他們的過失。陛下也應該自我籌劃謀慮，詢問治國的良善方法，明察並採納正直的言論，深切追念先帝的遺詔教誨。臣感受先帝與陛下的恩情，內心感激不已。如今即將遠離陛下出征，面對這篇表文不禁涕淚縱橫，不知道自己說了些什麼。"
+}
+];
+
+/* ============ 課文渲染 ============ */
+const passageList = document.getElementById('passageList');
+function renderPassages(){
+  passageList.innerHTML = '';
+  passages.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'passage';
+    card.innerHTML = `
+      <div class="passage-head">
+        <span class="ptitle">${p.title}</span>
+        <button data-i="${p.no}">查看語譯</button>
+      </div>
+      <div class="passage-body">
+        <div class="classical">${p.text}</div>
+        <div class="notes-hint"><span class="dot"></span>點擊<span style="color:var(--seal-dark); font-weight:600;">標色詞語</span>或右上角數字，查看該處注釋</div>
+        <div class="translation" id="trans-${p.no}"><span class="tlabel">白話語譯</span>${p.trans}</div>
+      </div>`;
+    card.querySelector('button').addEventListener('click', (e)=>{
+      document.getElementById('trans-'+p.no).classList.toggle('show');
+      e.target.textContent = document.getElementById('trans-'+p.no).classList.contains('show') ? '收合語譯' : '查看語譯';
+    });
+    passageList.appendChild(card);
+
+    const classicalEl = card.querySelector('.classical');
+    const glossEls = classicalEl.querySelectorAll('.gloss');
+    glossEls.forEach((el, idx)=>{
+      const n = idx + 1;
+      const mark = document.createElement('sup');
+      mark.className = 'fnmark';
+      mark.textContent = n;
+      el.after(mark);
+      const trigger = (ev)=>{
+        ev.stopPropagation();
+        toggleGlossTip(el, el.dataset.def);
+      };
+      el.addEventListener('click', trigger);
+      mark.addEventListener('click', trigger);
+    });
+  });
+}
+renderPassages();
+
+/* ============ 注釋提示框（點擊才出現） ============ */
+const glossTip = document.createElement('div');
+glossTip.id = 'glossTip';
+document.body.appendChild(glossTip);
+let activeGlossEl = null;
+
+function toggleGlossTip(el, defText){
+  if(activeGlossEl === el){
+    hideGlossTip();
+    return;
+  }
+  if(activeGlossEl) activeGlossEl.classList.remove('active');
+  activeGlossEl = el;
+  el.classList.add('active');
+  glossTip.textContent = defText;
+  glossTip.classList.remove('arrow-below');
+
+  const rect = el.getBoundingClientRect();
+  const tipWidth = 280;
+  let left = rect.left;
+  if(left + tipWidth > window.innerWidth - 12) left = window.innerWidth - tipWidth - 12;
+  if(left < 12) left = 12;
+  glossTip.style.left = left + 'px';
+
+  glossTip.style.visibility = 'hidden';
+  glossTip.classList.add('show');
+  const tipHeight = glossTip.offsetHeight;
+  glossTip.style.visibility = '';
+
+  let top = rect.bottom + 10;
+  if(top + tipHeight > window.innerHeight - 12){
+    top = rect.top - tipHeight - 10;
+    glossTip.classList.add('arrow-below');
+  }
+  glossTip.style.top = top + 'px';
+}
+function hideGlossTip(){
+  glossTip.classList.remove('show');
+  if(activeGlossEl) activeGlossEl.classList.remove('active');
+  activeGlossEl = null;
+}
+document.addEventListener('click', (e)=>{
+  if(activeGlossEl && !glossTip.contains(e.target)) hideGlossTip();
+});
+document.addEventListener('scroll', hideGlossTip, {passive:true});
+
+/* ============ 四、識人論世：用人興衰探索 ============ */
+const PEOPLE = [
+  {id:'gong', mood:'pc-gong', label:'郭攸之．費禕．董允', sub:'侍中、侍郎', badge:'宮中之事',
+   quote:'此皆良實，志慮忠純，是以先帝簡拔以遺陛下。', trans:'這些人都忠厚老實、心志忠貞純正，因此先帝才特意拔擢，留給陛下任用。',
+   note:'諸葛亮建議宮中大小事務都先諮詢這三人，讓忠誠可靠的近臣把關，補救疏漏、擴大助益，避免後主偏聽偏信。'},
+  {id:'xiang', mood:'pc-xiang', label:'向寵', sub:'將軍', badge:'軍中之事',
+   quote:'性行淑均，曉暢軍事，試用於昔日，先帝稱之曰能。', trans:'性情品行善良公正，通曉軍事，過去試用時，先帝稱讚他很有才能。',
+   note:'軍中事務悉數交由向寵裁決，可使軍隊上下和睦、優劣才能各得其所，穩住蜀漢的軍事根基，讓諸葛亮無後顧之憂北伐。'},
+  {id:'chao', mood:'pc-chao', label:'侍中．尚書．長史．參軍', sub:'朝廷重臣', badge:'興隆之望',
+   quote:'此悉貞良死節之臣，願陛下親之信之。', trans:'這些都是堅貞善良、能以死報國的臣子，希望陛下親近他們、信任他們。',
+   note:'諸葛亮把「親賢臣」具體落實成一份可執行的人事名單，而不只是空泛的道德呼籲——這正是這篇表文最務實的地方。'}
+];
+const ANSWER_ID = 'skill';
+const GUESS_OPTIONS = [
+  {id:'law', label:'法治嚴明的制度'},
+  {id:'skill', label:'親賢臣、遠小人的用人態度'},
+  {id:'army', label:'強盛的軍事武力'},
+  {id:'tax', label:'充裕的糧草賦稅'}
+];
+
+const guessBtns = document.getElementById('guessBtns');
+GUESS_OPTIONS.forEach(t=>{
+  const btn = document.createElement('button');
+  btn.className = 'guess-btn';
+  btn.textContent = t.label;
+  btn.addEventListener('click', ()=>{
+    const all = guessBtns.querySelectorAll('.guess-btn');
+    all.forEach(b=>b.disabled = true);
+    if(t.id === ANSWER_ID){
+      btn.classList.add('right');
+    } else {
+      btn.classList.add('miss');
+      const rightBtn = Array.from(all).find(b => b.textContent === GUESS_OPTIONS.find(x=>x.id===ANSWER_ID).label);
+      if(rightBtn) rightBtn.classList.add('right');
+    }
+    const result = document.getElementById('guessResult');
+    if(t.id === ANSWER_ID){
+      result.innerHTML = '🎉 答對了！諸葛亮明白說「親賢臣，遠小人，此先漢所以興隆也；親小人，遠賢臣，此後漢所以傾頹也」——用人態度才是他心中興衰的關鍵。點下方卡片看看他具體交代了哪些人！';
+    } else {
+      result.innerHTML = `你選的是「${t.label}」，但原文中諸葛亮真正強調的其實是 <b>親賢臣、遠小人</b>──「此先漢所以興隆也；……此後漢所以傾頹也」。點下方卡片看看他具體交代了哪些人！`;
+    }
+    document.querySelectorAll('.person-card').forEach(c=>c.classList.remove('open'));
+  });
+  guessBtns.appendChild(btn);
+});
+
+const personGrid = document.getElementById('personGrid');
+PEOPLE.forEach(t=>{
+  const card = document.createElement('div');
+  card.className = 'person-card ' + t.mood;
+  card.dataset.id = t.id;
+  card.innerHTML = `
+    <div class="person-head">
+      <span class="badge">${t.badge}</span>
+      <span class="phlabel">${t.label}</span>
+      <span class="phsub">${t.sub}</span>
+    </div>
+    <div class="person-body">
+      <div class="person-quote">「${t.quote}」</div>
+      <div class="person-trans">${t.trans}</div>
+      <div class="person-note">${t.note}</div>
+    </div>
+    <div class="person-toggle-hint">點擊展開／收合</div>`;
+  card.addEventListener('click', ()=> card.classList.toggle('open'));
+  personGrid.appendChild(card);
+});
+
+/* ============ 五、三國成語典故（翻牌卡） ============ */
+const IDIOMS = [
+  {word:'三顧茅廬', tag:'出自本文', word2:'出自本文．三顧臣於草廬之中',
+   desc:'劉備三次親自拜訪隱居南陽的諸葛亮，終於請他出山輔佐。今泛指誠心誠意、不辭辛勞地邀請人才，是〈出師表〉最為人熟知的成語出處。'},
+  {word:'作奸犯科', tag:'出自本文', word2:'出自本文．若有作姦犯科',
+   desc:'指觸犯法令、為非作歹。這句話原是諸葛亮談論賞罰標準時所用，如今已成為日常語言中形容違法犯紀的常用成語。'},
+  {word:'妄自菲薄', tag:'出自本文', word2:'出自本文．不宜妄自菲薄',
+   desc:'指過分看輕自己、喪失自信。諸葛亮用來勸誡後主不應在困境中自我貶抑，這句話也直接成為後世沿用至今的成語。'},
+  {word:'七擒七縱', tag:'南征典故', word2:'諸葛亮南征孟獲',
+   desc:'諸葛亮南征時七次擒獲南蠻首領孟獲，又七次將他釋放，以德服人使其心悅誠服。正因南方由此平定，才有本表「今南方已定」的前提。'},
+  {word:'揮淚斬馬謖', tag:'北伐典故', word2:'諸葛亮街亭之戰後',
+   desc:'街亭之戰，馬謖違背調度、擅自改變部署，導致街亭失守。諸葛亮雖與馬謖交情深厚，仍依軍法忍痛將他處斬，正呼應本表「陟罰臧否，不宜異同」的精神。'},
+  {word:'鞠躬盡瘁\n死而後已', tag:'易混淆考點', word2:'實出自〈後出師表〉',
+   desc:'這句常被誤認出自這篇廣為傳誦的〈出師表〉（前表），但其實出自諸葛亮的〈後出師表〉，而〈後出師表〉的作者與真偽至今仍有爭議，是相當容易搞混的考點。'},
+  {word:'出師未捷\n身先死', tag:'後人詠嘆', word2:'杜甫〈蜀相〉',
+   desc:'唐代詩人杜甫在〈蜀相〉一詩中，感嘆諸葛亮北伐尚未成功便病逝五丈原。這句詩常與〈出師表〉相互參照閱讀，同樣寄託對這位忠臣壯志未酬的惋惜。'},
+  {word:'樂不思蜀', tag:'亡國之嘆', word2:'後主劉禪降魏後',
+   desc:'蜀漢滅亡後，後主劉禪被俘至洛陽，面對司馬昭的試探，竟說出「此間樂，不思蜀」。這與諸葛亮在表中殷殷期盼後主「深追先帝遺詔」，形成令人唏噓的強烈對比。'}
+];
+const idiomGrid = document.getElementById('idiomGrid');
+IDIOMS.forEach((it, idx)=>{
+  const card = document.createElement('div');
+  card.className = 'idiom-card';
+  card.innerHTML = `
+    <div class="idiom-inner">
+      <div class="idiom-face idiom-front">
+        <div class="word">${it.word.replace(/\n/g,'<br>')}</div>
+        <span class="tag2">${it.tag}</span>
+        <span class="hint">點擊翻牌</span>
+      </div>
+      <div class="idiom-face idiom-back">
+        <div class="word2">${it.word2}</div>
+        <div class="desc">${it.desc}</div>
+      </div>
+    </div>`;
+  card.addEventListener('click', ()=> card.classList.toggle('flipped'));
+  idiomGrid.appendChild(card);
+});
+
+/* 典故配對：把記憶轉成主動判斷 */
+const MATCHES = [
+  {id:'visit', term:'三顧茅廬', clue:'劉備屢次親訪草廬，延請孔明出山', why:'「三顧臣於草廬之中」正是諸葛亮回憶先帝知遇之恩。'},
+  {id:'law', term:'揮淚斬馬謖', clue:'街亭失守後，諸葛亮忍痛依軍法處置愛將', why:'此典故呼應「陟罰臧否，不宜異同」的公平賞罰原則。'},
+  {id:'south', term:'七擒七縱', clue:'反覆擒放孟獲，重在使南方真正心服', why:'南方安定後，諸葛亮才具備北伐的條件。'},
+  {id:'lost', term:'樂不思蜀', clue:'劉禪降魏後在洛陽安樂，聲稱不思念蜀地', why:'後主的結局與諸葛亮「深追先帝遺詔」的期望形成強烈反差。'}
+];
+const matchTerms = document.getElementById('matchTerms');
+const matchClues = document.getElementById('matchClues');
+const matchStatus = document.getElementById('matchStatus');
+let pickedTerm = null, matchedCount = 0;
+const shuffledClues = [...MATCHES].sort(()=>Math.random()-.5);
+MATCHES.forEach(item=>{
+  const btn = document.createElement('button');
+  btn.className = 'match-btn'; btn.textContent = item.term; btn.dataset.id = item.id;
+  btn.addEventListener('click', ()=>{
+    if(btn.classList.contains('matched')) return;
+    matchTerms.querySelectorAll('.match-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected'); pickedTerm = item.id;
+    matchStatus.textContent = `已選「${item.term}」，請找出它的故事線索。`;
+  });
+  matchTerms.appendChild(btn);
+});
+shuffledClues.forEach(item=>{
+  const btn = document.createElement('button');
+  btn.className = 'match-btn'; btn.textContent = item.clue; btn.dataset.id = item.id;
+  btn.addEventListener('click', ()=>{
+    if(btn.classList.contains('matched')) return;
+    if(!pickedTerm){ matchStatus.textContent = '請先從左邊選一個成語。'; return; }
+    const termBtn = matchTerms.querySelector(`[data-id="${pickedTerm}"]`);
+    if(pickedTerm === item.id){
+      btn.classList.add('matched'); btn.disabled = true;
+      termBtn.classList.remove('selected'); termBtn.classList.add('matched'); termBtn.disabled = true;
+      matchedCount++; pickedTerm = null;
+      matchStatus.textContent = `✓ ${item.why}（已完成 ${matchedCount}／${MATCHES.length} 組）`;
+      if(matchedCount === MATCHES.length) matchStatus.textContent += ' 全部配對成功！';
+    }else{
+      btn.classList.add('wrong-pulse'); termBtn.classList.add('wrong-pulse');
+      matchStatus.textContent = '這兩項不是同一則典故，再從人物、地點或事件結果想想看。';
+      setTimeout(()=>{btn.classList.remove('wrong-pulse');termBtn.classList.remove('wrong-pulse');},350);
+    }
+  });
+  matchClues.appendChild(btn);
+});
+
+/* ============ 自我測驗 ============ */
+const QUIZ = [
+  {tag:"字音字形", q:"1.「先帝創業未半而中道崩殂」的「殂」字讀音，下列何者正確？", opts:["音ㄘㄨˊ，死亡","音ㄗㄨˇ，阻止","音ㄐㄩ，居住","音ㄊㄨˊ，途徑"], a:0, ex:"「崩」「殂」皆指帝王之死，「殂」讀音為ㄘㄨˊ，此句意謂先帝創立大業未成便中途去世。"},
+  {tag:"字音字形", q:"2.「陟罰臧否」的「否」字讀音及意義，下列何者正確？", opts:["音ㄆㄧˇ，指壞、惡，與「臧」（善）相對","音ㄈㄡˇ，表示否定、不然","音ㄆㄧ，斥責、批評","音ㄆㄧˇ，鄙陋、淺薄"], a:0, ex:"此處「否」讀音為ㄆㄧˇ，與「臧」相對，指評論善惡好壞，並非表否定的ㄈㄡˇ。"},
+  {tag:"古今異義", q:"3.「先帝不以臣卑鄙」中「卑鄙」在文中的意思，最接近下列何者？", opts:["品行惡劣、道德低下（現代常用義）","出身低微、見識淺陋","言語粗俗無禮","地位卑賤而心懷怨恨"], a:1, ex:"文言文中「卑鄙」是謙詞，指身分低微、見識淺陋，並非現代漢語中「品格惡劣」的貶義，是常見的古今異義考點。"},
+  {tag:"古今異義", q:"4.「未嘗不歎息痛恨於桓、靈也」中「痛恨」的古義是？", opts:["非常怨恨、憎惡（現代常用義）","痛心、遺憾","痛苦地怨嘆命運","憤怒地斥責對方"], a:1, ex:"文言文中「痛恨」意為痛心、遺憾，並非現代「仇恨、怨恨」之義，諸葛亮藉此表達對後漢衰敗的惋惜，而非憤怒。"},
+  {tag:"文意理解", q:"5. 諸葛亮認為蜀漢當時所處的情勢為何？", opts:["國力鼎盛，可從容北伐","天下三分，益州疲弊，正處危急存亡之秋","與東吳決裂，四面楚歌","後主英明，朝政清明無虞"], a:1, ex:"開篇即點明先帝創業未半而崩殂，如今天下三分、益州民生凋敝，正是危急存亡的關鍵時刻。"},
+  {tag:"文意理解", q:"6. 諸葛亮舉薦向寵擔任「督」，主要是為了處理什麼事務？", opts:["宮中大小事務","營中（軍中）事務，使行陣和睦、優劣得所","對外的邦交事務","賦稅與農耕事務"], a:1, ex:"文中明言「愚以為營中之事，悉以咨之，必能使行陣和睦，優劣得所」，可知向寵所負責的是軍中事務。"},
+  {tag:"修辭鑑賞", q:"7.「親賢臣，遠小人，此先漢所以興隆也；親小人，遠賢臣，此後漢所以傾頹也」運用了下列何種修辭手法？", opts:["對偶，以正反對比彰顯用人得失對國運的影響","誇飾，誇大君王用人的重要性","借代，以部分代全體","設問，引發讀者思考而不作答"], a:0, ex:"此句前後兩兩相對、句式工整，並以「先漢興隆」與「後漢傾頹」正反對照，凸顯親賢遠佞對國家興衰的關鍵影響。"},
+  {tag:"篇章結構", q:"8. 全文的鋪陳脈絡，下列敘述何者最恰當？", opts:["純粹依時間先後平鋪直敘，不涉及個人情感","先敘時局艱危與治國建議，再自陳身世與北伐職責，終以殷切叮囑、涕零告別作結","通篇只談軍事部署，未涉及朝政或人事建議","先議論歷史興衰，再無其他內容"], a:1, ex:"全文先論時局危急、勸諫廣開言路與賞罰一體，接著舉薦賢臣良將，再自敘布衣出身與二十一年的效命經過，說明北伐職責，最後殷殷叮囑後主自謀善道，以依依不捨的涕零之語作結，情理交織、層層遞進。"},
+  {tag:"三國典故", q:"9. 下列哪一個成語最能呼應諸葛亮「陟罰臧否，不宜異同」的主張？", opts:["樂不思蜀","揮淚斬馬謖","三顧茅廬","七擒七縱"], a:1, ex:"街亭失守後，諸葛亮依軍法處置馬謖，常被用來說明即使面對親近或器重的人，也不應廢弛賞罰原則。"},
+  {tag:"易混淆典故", q:"10. 關於「鞠躬盡瘁，死而後已」，下列敘述何者正確？", opts:["直接出自本篇〈出師表〉（前表）","見於〈後出師表〉，且該篇作者真偽仍有爭議","是杜甫〈蜀相〉的原句","是劉禪投降後所說"], a:1, ex:"此句見於〈後出師表〉，並非本篇課文；〈後出師表〉的作者歸屬與真偽，學界歷來有討論。"}
+];
+const quizList = document.getElementById('quizList');
+let answered = 0, correct = 0;
+document.getElementById('total').textContent = QUIZ.length;
+QUIZ.forEach((item, idx)=>{
+  const card = document.createElement('div');
+  card.className = 'quiz-card';
+  card.innerHTML = `
+    <div class="quiz-q"><span class="qnum">Q${idx+1}.</span>${item.q}<span class="tag">${item.tag}</span></div>
+    <div class="opts"></div>
+    <div class="explain" id="ex-${idx}"><b>詳解：</b>${item.ex}</div>
+  `;
+  const optsWrap = card.querySelector('.opts');
+  item.opts.forEach((opt, oi)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.textContent = `${String.fromCharCode(65+oi)}. ${opt}`;
+    btn.addEventListener('click', ()=>{
+      if(btn.disabled) return;
+      const allBtns = optsWrap.querySelectorAll('.opt');
+      allBtns.forEach(b=>b.disabled=true);
+      if(oi === item.a){
+        btn.classList.add('correct');
+        correct++;
+      } else {
+        btn.classList.add('wrong');
+        allBtns[item.a].classList.add('correct');
+      }
+      document.getElementById(`ex-${idx}`).classList.add('show');
+      answered++;
+      document.getElementById('answered').textContent = answered;
+      document.getElementById('score').textContent = correct;
+      if(answered === QUIZ.length){
+        const cel = document.getElementById('quiz-celebrate');
+        if(correct === QUIZ.length) cel.textContent = '🎉 全對！你已徹底讀懂諸葛亮這篇「臨表涕零」的忠懇之作。';
+        else if(correct >= QUIZ.length*0.6) cel.textContent = `👍 答對 ${correct} / ${QUIZ.length} 題，再回頭讀讀課文與注釋，掌握會更牢固！`;
+        else cel.textContent = `📖 答對 ${correct} / ${QUIZ.length} 題，建議先重讀「課文與注釋」與「識人論世」再挑戰一次。`;
+      }
+    });
+    optsWrap.appendChild(btn);
+  });
+  quizList.appendChild(card);
+});
+document.getElementById('quizReset').addEventListener('click', ()=>{
+  answered = 0; correct = 0;
+  document.getElementById('answered').textContent = '0';
+  document.getElementById('score').textContent = '0';
+  document.getElementById('quiz-celebrate').textContent = '';
+  quizList.querySelectorAll('.opt').forEach(btn=>{btn.disabled=false;btn.classList.remove('correct','wrong');});
+  quizList.querySelectorAll('.explain').forEach(el=>el.classList.remove('show'));
+  document.getElementById('sec-quiz').scrollIntoView({behavior:'smooth'});
+});
+
+</script>
+
+</body>
+</html>
