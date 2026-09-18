@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>蘭亭集序｜古文互動講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --stream:#5C7A4A;--stream-deep:#41593A;--stream-pale:#EFE9D8;
+  --bamboo:#5C7A4A;--sun:#D9A441;--sun-pale:#F2EEDF;
+  --seal:#B2503A;--paper:#F7F4EC;--card:#FFFFFF;
+  --ink:#201D18;--muted:#6B6255;--line:#E4DBC6;
+  --success:#EAF1E4;--retry:#F7ECE7;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:98px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans TC",sans-serif;line-height:1.85}
+button{font:inherit}
+a{color:inherit}
+.hero{position:relative;min-height:430px;overflow:hidden;border-bottom:1px solid var(--line);background:linear-gradient(125deg,#fffefa 0 54%,#e4f2ee 54% 76%,#cce5df 76%)}
+.hero::before{content:"";position:absolute;inset:auto -8% -42% 30%;height:76%;border-radius:50% 50% 0 0;background:linear-gradient(160deg,rgba(47,127,122,.22),rgba(47,127,122,.04));transform:rotate(-4deg);pointer-events:none}
+.hero::after{content:"";position:absolute;width:280px;height:430px;right:15%;top:-80px;background:repeating-linear-gradient(90deg,transparent 0 19px,rgba(95,129,89,.10) 20px 23px);transform:rotate(8deg);pointer-events:none}
+.watermark{position:absolute;right:5%;top:-4rem;font:900 clamp(15rem,34vw,30rem)/1 "Noto Serif TC",serif;color:var(--stream);opacity:.09;pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:1120px;margin:auto;padding:6.8rem 1.5rem 5.5rem}
+.eyebrow{display:inline-flex;align-items:center;gap:.65rem;color:var(--stream-deep);font-weight:700;letter-spacing:.18em;font-size:.82rem}
+.eyebrow::before{content:"";width:38px;height:2px;background:var(--sun)}
+h1,h2,h3,.quote,.original{font-family:"Noto Serif TC",serif}
+h1{font-size:clamp(3.2rem,9vw,6.6rem);line-height:1.05;letter-spacing:.12em;margin:.55rem 0;color:var(--ink)}
+.hero-lead{max-width:590px;font-family:"Noto Serif TC",serif;font-size:clamp(1.05rem,2.2vw,1.3rem);color:var(--stream-deep);margin:1.25rem 0 1.8rem}
+.hero-meta{display:flex;gap:.7rem 1.3rem;flex-wrap:wrap;color:var(--muted);font-size:.92rem}
+.hero-meta span{padding:.28rem .7rem;border-left:2px solid var(--sun);background:rgba(255,255,255,.58)}
+.toolbar{position:sticky;top:0;z-index:50;background:rgba(247,244,237,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.toolbar-inner{max-width:1120px;margin:auto;padding:.65rem 1.3rem;display:flex;align-items:center;gap:.55rem;overflow-x:auto}
+.tool-btn,.jump{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:.55rem .9rem;text-decoration:none;cursor:pointer;min-height:42px}
+.tool-btn[aria-pressed="true"]{background:var(--stream);border-color:var(--stream);color:white}
+.score-live{margin-left:auto;white-space:nowrap;color:var(--stream-deep);font-weight:700;padding:.45rem .2rem .45rem .7rem}
+main{max-width:1040px;margin:auto;padding:2.5rem 1.35rem 6rem}
+.section{margin:0 0 5.2rem}
+.section-head{display:grid;grid-template-columns:auto 1fr;align-items:end;gap:1rem;margin-bottom:1.45rem}
+.section-kicker{color:var(--seal);font-weight:700;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase}
+h2{font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.3;margin:.15rem 0 0}
+.section-head::after{content:"";height:2px;background:linear-gradient(90deg,var(--stream),transparent)}
+.section-intro{max-width:720px;color:var(--muted);margin:-.6rem 0 1.5rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(36,94,91,.055)}
+.background-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:1rem}
+.context{padding:1.6rem}
+.context h3{margin:.1rem 0 .7rem;color:var(--stream-deep);font-size:1.2rem}
+.context p{margin:.4rem 0;color:var(--muted)}
+.quote{display:flex;flex-direction:column;justify-content:center;min-height:240px;padding:2rem;background:linear-gradient(145deg,var(--stream),var(--stream-deep));color:white;position:relative;overflow:hidden}
+.quote::after{content:"觴";position:absolute;right:-.2rem;bottom:-3.6rem;font-size:12rem;opacity:.08}
+.quote blockquote{position:relative;margin:0;font-size:1.55rem;line-height:1.7}
+.quote cite{position:relative;margin-top:1rem;font:400 .88rem "Noto Sans TC",sans-serif;color:#d5eeea}
+.fact-strip{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:white}
+.fact{padding:1.15rem;border-right:1px solid var(--line)}
+.fact:last-child{border-right:0}.fact b{display:block;color:var(--stream-deep);font-family:"Noto Serif TC",serif}.fact span{font-size:.88rem;color:var(--muted)}
+.passage{margin-bottom:1.1rem;overflow:visible}
+.passage-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 1.25rem;border-bottom:1px solid var(--line);background:var(--stream-pale);border-radius:14px 14px 0 0}
+.passage-tag{font-weight:700;color:var(--stream-deep)}
+.translation-btn{border:1px solid var(--stream);background:white;color:var(--stream-deep);border-radius:8px;padding:.45rem .75rem;cursor:pointer;min-height:40px}
+.translation-btn[aria-expanded="true"]{background:var(--stream);color:white}
+.original{padding:1.45rem 1.6rem;font-size:clamp(1.1rem,2.4vw,1.28rem);line-height:2.25;letter-spacing:.025em}
+.original p{margin:.2rem 0}.original ruby{ruby-position:over}.original rt{display:none;font:500 .56em "Noto Sans TC",sans-serif;color:var(--seal)}
+.show-zhuyin .original rt{display:ruby-text}
+.annot{position:relative;display:inline;border:0;border-bottom:2px dotted var(--seal);padding:0 .05em;background:transparent;color:var(--stream-deep);font-family:inherit;font-size:inherit;cursor:pointer}
+.annot:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.note-pop{display:none;position:absolute;z-index:15;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);width:min(260px,78vw);padding:.7rem .8rem;border-radius:9px;background:var(--ink);color:white;font:400 .82rem/1.65 "Noto Sans TC",sans-serif;text-align:left;box-shadow:0 10px 25px rgba(0,0,0,.18)}
+.annot.open .note-pop{display:block}
+.translation{display:none;padding:1.1rem 1.6rem 1.35rem;border-top:1px dashed var(--line);background:#fbfaf6;color:var(--muted)}
+.translation.show{display:block}.translation strong{color:var(--seal)}
+.reading-tip{display:flex;align-items:center;gap:.7rem;padding:1rem 1.2rem;margin-bottom:1rem;background:var(--sun-pale);border-left:4px solid var(--sun);border-radius:0 10px 10px 0;color:#6e5728}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:white}
+table{border-collapse:collapse;width:100%;min-width:720px}th,td{text-align:left;padding:1rem;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--stream-pale);color:var(--stream-deep);font-size:.9rem}tr:last-child td{border-bottom:0}td:first-child{font-family:"Noto Serif TC",serif;font-size:1.12rem;font-weight:700;color:var(--seal)}
+.explore-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:1rem}
+.activity{padding:1.5rem}.activity h3{margin:.1rem 0 .35rem;color:var(--stream-deep)}
+.activity p{color:var(--muted);margin:.35rem 0 1rem}
+.order-bank{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.order-card{border:1px solid var(--line);background:white;border-radius:10px;padding:.85rem;text-align:left;cursor:pointer;min-height:80px;color:var(--ink)}
+.order-card:hover{border-color:var(--stream)}.order-card.chosen{opacity:.38;pointer-events:none}
+.order-card b{display:block;color:var(--seal);font-family:"Noto Serif TC",serif;margin-bottom:.2rem}
+.order-lane{min-height:75px;margin-top:1rem;padding:.7rem;border:1px dashed var(--stream);border-radius:10px;background:var(--stream-pale);display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+.lane-chip{background:white;border:1px solid var(--stream);border-radius:999px;padding:.4rem .65rem;color:var(--stream-deep);font-size:.88rem}
+.activity-actions{display:flex;gap:.55rem;margin-top:.75rem}.action-btn{border:0;border-radius:8px;padding:.6rem .9rem;cursor:pointer;min-height:42px}.check{background:var(--stream);color:white}.reset{background:#edf0ee;color:var(--ink)}
+.feedback{display:none;margin-top:.8rem;padding:.8rem 1rem;border-radius:9px;font-weight:500}.feedback.show{display:block}.feedback.ok{background:var(--success);color:#245c38}.feedback.no{background:var(--retry);color:#81412d}
+.stance-list{display:grid;gap:.65rem}.stance-btn{border:1px solid var(--line);background:white;border-radius:10px;padding:.85rem;text-align:left;cursor:pointer}.stance-btn:hover{border-color:var(--sun)}.stance-btn.selected{border-color:var(--stream);background:var(--stream-pale)}
+.craft-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:1rem}.craft{padding:1rem}.craft b{color:var(--stream-deep);font-family:"Noto Serif TC",serif}.craft small{display:block;color:var(--muted);margin-top:.35rem}
+.quiz-shell{padding:1.2rem}.quiz-item{padding:1.2rem;margin-bottom:.85rem;border:1px solid var(--line);border-radius:12px;background:#fff}.question{font-weight:700;margin-bottom:.75rem}.options{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}.option{position:relative;border:1px solid var(--line);background:#fbfcfa;border-radius:9px;padding:.7rem .8rem;text-align:left;cursor:pointer;color:var(--ink);min-height:48px}.option:hover{border-color:var(--stream)}.quiz-item.answered .option{cursor:default}.option.correct{border-color:#4f8d64;background:var(--success);padding-right:5rem}.option.correct::after{content:"✓ 正解";position:absolute;right:.7rem;color:#2e6b42;font-weight:700}.option.wrong{border-color:#c17a59;background:var(--retry)}
+.explanation{display:none;margin-top:.75rem;padding:.8rem 1rem;border-left:3px solid var(--sun);background:var(--sun-pale);color:#66542d}.quiz-item.answered .explanation{display:block}
+.quiz-finish{display:none;text-align:center;padding:1.5rem;margin-top:1rem;border-radius:12px;background:var(--stream-pale)}.quiz-finish.show{display:block}.quiz-finish strong{display:block;font:700 1.5rem "Noto Serif TC",serif;color:var(--stream-deep)}
+.restart{margin-top:.8rem;border:0;border-radius:8px;background:var(--seal);color:white;padding:.65rem 1rem;cursor:pointer}
+footer{text-align:center;padding:2.5rem 1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem;background:#f2efe8}
+
+/* 參照〈晚遊六橋待月記〉：柳綠、桃粉、月金與輕紙本版式 */
+.hero{min-height:0;text-align:center;padding:56px 20px 36px;background:var(--paper);border-bottom:1px solid #AFC8CE}
+.hero::before,.hero::after{content:none}
+.watermark{right:-14px;top:-46px;font-size:240px;color:var(--stream);opacity:.12}
+.hero-inner{max-width:940px;padding:0 1rem}
+.eyebrow{display:block;letter-spacing:6px;font-size:12.5px;color:var(--seal);margin-bottom:10px}
+.eyebrow::before{content:none}
+h1{font-size:clamp(30px,5.4vw,48px);line-height:1.2;color:var(--ink);margin:0 0 8px;font-weight:900;letter-spacing:.06em}
+.hero-lead{max-width:650px;margin:0 auto 16px;color:var(--muted);font:400 14.5px/1.85 "Noto Sans TC",sans-serif}
+.hero-meta{justify-content:center;gap:.4rem .9rem;font-size:13.5px;letter-spacing:.1em}
+.hero-meta span{padding:0;border:0;background:transparent}
+.hero-meta span:not(:last-child)::after{content:"・";margin-left:.9rem;color:var(--seal)}
+.toolbar{background:rgba(247,244,236,.95);backdrop-filter:blur(6px);border-bottom:1px solid #AFC8CE}
+.toolbar-inner{max-width:940px;justify-content:center;gap:24px;padding:10px 18px;overflow-x:auto}
+.tool-btn{position:relative;border:0;background:transparent!important;color:var(--muted)!important;border-radius:0;padding:.42rem .2rem .42rem 3rem;min-height:36px}
+.tool-btn::before{content:"";position:absolute;left:.1rem;top:50%;transform:translateY(-50%);width:36px;height:20px;border-radius:99px;background:#AFC8CE;transition:.2s}
+.tool-btn::after{content:"";position:absolute;left:calc(.1rem + 2px);top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background:white;box-shadow:0 1px 2px rgba(0,0,0,.3);transition:.2s}
+.tool-btn[aria-pressed="true"]::before{background:var(--stream)}
+.tool-btn[aria-pressed="true"]::after{transform:translate(16px,-50%)}
+.jump{border:0;background:transparent;border-radius:0;padding:.4rem .2rem;min-height:0;color:var(--muted);font-size:12.5px}
+.jump:hover{color:var(--stream)}
+.score-live{margin-left:0;color:var(--seal);font-size:12.5px;padding:.4rem 0}
+main{max-width:940px;padding:28px 18px 100px}
+.section{margin-bottom:44px}
+.section-head{display:block;border-bottom:2px solid var(--stream);padding-bottom:8px;margin-bottom:20px}
+.section-head>div{display:flex;align-items:center;gap:10px}
+.section-head::after{content:none}
+.section-head h2{order:1;font-size:22px;margin:0;color:var(--ink)}
+.section-kicker{order:2;font-size:13px;color:var(--seal);font-weight:400;letter-spacing:.05em;text-transform:none}
+.section-intro{max-width:none;font-size:13.5px;margin:0 0 16px}
+.card{border-color:var(--line);box-shadow:none}
+.context{border-left:5px solid var(--seal);border-radius:12px;padding:22px 26px}
+.context h3{color:var(--seal)}
+.quote{min-height:0;padding:1.3rem;background:#EFE9D8;color:var(--ink)}
+.quote::after{content:none}
+.quote blockquote{font-size:1.2rem}
+.quote cite{color:var(--muted)}
+.fact-strip{border-color:var(--line)}
+.fact b{color:var(--stream)}
+.passage{margin-bottom:18px;overflow:hidden}
+.passage-top{padding:12px 20px;background:#EFE9D8;border-radius:14px 14px 0 0}
+.passage-tag{color:var(--stream);font-size:13px;letter-spacing:.05em}
+.translation-btn{font-size:11.5px;background:var(--paper);color:var(--ink);border:1px solid var(--muted);padding:5px 13px;border-radius:20px;min-height:0}
+.translation-btn:hover,.translation-btn[aria-expanded="true"]{background:#AFC8CE;color:white;border-color:#AFC8CE}
+.original{padding:22px 24px;font-size:1.14rem;line-height:2.5;letter-spacing:0}
+.original rt{font-size:.48em!important;font-weight:600!important}
+.annot{color:var(--seal);font-weight:600;border-bottom:1px dotted var(--seal)}
+.reading-tip{background:#EFE9D8;border-left:4px solid var(--moon);color:var(--muted)}
+.translation{background:white;border-left:3px solid var(--stream);border-top:0;margin:0 24px;padding-left:16px}
+.translation.show{padding:14px 0 14px 16px;margin-top:0}
+th{background:#EFE9D8;color:var(--ink);border-bottom:2px solid var(--stream)}
+.activity{padding:22px 26px}
+.activity h3{color:var(--ink)}
+.order-card:hover{border-color:var(--stream);background:#EFE9D8}
+.order-lane{background:#FBFAF5;border-color:var(--stream)}
+.check{background:var(--stream)}
+.stance-btn:hover{border-color:var(--stream);background:#EFE9D8}
+.stance-btn.selected{background:#EAF1E4;border-color:var(--stream)}
+.craft b{color:var(--stream)}
+.quiz-shell{padding:0;border:0;background:transparent}
+.quiz-item{padding:20px 22px;margin-bottom:16px;border-radius:12px}
+.option{display:block;width:100%;margin-bottom:7px;border-color:#AFC8CE;background:white;border-radius:6px}
+.option:hover{border-color:var(--stream)}
+.option.correct{background:#EAF1E4;border-color:var(--stream)}
+.option.correct::after{content:"對";top:50%;color:var(--stream);border:1.5px solid var(--stream);border-radius:4px;padding:0 5px;font:700 11px "Noto Serif TC",serif;transform:translateY(-50%) rotate(-6deg)}
+.option.wrong{background:#F7ECE7;border-color:var(--seal);text-decoration:line-through;color:var(--muted)}
+.explanation{background:#F2EEDF;border-left-color:var(--muted);color:var(--ink)}
+.quiz-finish{background:#EFE9D8}
+.quiz-finish strong{color:var(--stream)}
+footer{padding:30px 20px 100px;border-top:0;background:transparent}
+@media(max-width:760px){
+  .hero{min-height:0;padding:56px 20px 36px;background:var(--paper)}.hero-inner{padding:0 1rem}.watermark{right:-14px;top:-30px;font-size:150px}.toolbar-inner{padding:10px 12px}.jump{display:none}.score-live{font-size:12px}.background-grid,.explore-grid{grid-template-columns:1fr}.fact-strip{grid-template-columns:1fr 1fr}.fact:nth-child(2){border-right:0}.fact:nth-child(-n+2){border-bottom:1px solid var(--line)}.section{margin-bottom:44px}.section-head{display:block}.section-head::after{content:none}.order-bank,.options,.craft-grid{grid-template-columns:1fr}.original{padding:18px;font-size:1.08rem}.translation{margin:0 18px}.note-pop{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);width:calc(100vw - 2rem)}
+}
+</style>
+</head>
+<body class="show-zhuyin">
+<header class="hero">
+  <div class="watermark" aria-hidden="true">蘭</div>
+  <div class="hero-inner">
+    <div class="eyebrow">互動國文講義</div>
+    <h1>蘭亭集序</h1>
+    <p class="hero-lead">從暮春的曲水流觴，走向對生命短暫的凝視；一篇序文，讓「樂、痛、悲」沿著時間流向後世。</p>
+    <div class="hero-meta"><span>王羲之</span><span>東晉・永和九年</span><span>詩集序</span></div>
+  </div>
+</header>
+
+<nav class="toolbar" aria-label="閱讀控制">
+  <div class="toolbar-inner">
+    <button class="tool-btn" id="zhuyinToggle" aria-pressed="true">隱藏注音</button>
+    <button class="tool-btn" id="translationToggle" aria-pressed="false">展開全篇語譯</button>
+    <a class="jump" href="#text">讀原文</a>
+    <a class="jump" href="#explore">玩互動</a>
+    <a class="jump" href="#quiz">做測驗</a>
+    <div class="score-live" id="liveScore" aria-live="polite">測驗 0／10</div>
+  </div>
+</nav>
+
+<main>
+  <section class="section" id="background">
+    <div class="section-head"><div><div class="section-kicker">Context</div><h2>寫作背景</h2></div></div>
+    <p class="section-intro">先走進永和九年的蘭亭：了解這場雅集，才能看懂王羲之為何從眼前之樂，轉向千古共同的生命感慨。</p>
+    <div class="background-grid">
+      <article class="card context"><h3>暮春脩禊，一場文人雅集</h3><p>東晉穆帝永和九年（西元 353 年）暮春，王羲之與謝安、孫綽等文士會於會稽山陰蘭亭。眾人臨水脩禊、飲酒賦詩，作品集成後，王羲之寫下這篇序文。</p><p>文章不只記錄聚會，更由山水與宴遊之樂，推想到「所欣終成陳跡」與生命終有盡期，形成由樂而痛、由痛而悲的情感轉折。</p></article>
+      <aside class="card quote"><blockquote>「仰觀宇宙之大，俯察品類之盛。」</blockquote><cite>視線一仰一俯，胸懷也從雅集伸展到宇宙人生。</cite></aside>
+      <div class="fact-strip">
+        <div class="fact"><b>作者</b><span>王羲之，字逸少，世稱王右軍</span></div>
+        <div class="fact"><b>書法</b><span>後世尊為「書聖」</span></div>
+        <div class="fact"><b>活動</b><span>脩禊、流觴曲水、賦詩</span></div>
+        <div class="fact"><b>核心</b><span>樂 → 痛 → 悲的生命省思</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="text">
+    <div class="section-head"><div><div class="section-kicker">Read & Annotate</div><h2>課文與注釋</h2></div></div>
+    <div class="reading-tip"><span aria-hidden="true">✦</span><span>點選紅色虛線字詞看注釋；每段都能單獨展開語譯。</span></div>
+
+    <article class="passage card">
+      <div class="passage-top"><span class="passage-tag">第一段｜蘭亭雅集</span><button class="translation-btn" aria-expanded="false">看本段語譯</button></div>
+      <div class="original"><p>永和九年，歲在<ruby>癸<rt>ㄍㄨㄟˇ</rt></ruby>丑，暮春之初，會於<ruby>會<rt>ㄍㄨㄟˋ</rt></ruby><ruby>稽<rt>ㄐㄧ</rt></ruby>山陰之蘭亭，<button class="annot" aria-expanded="false"><ruby>脩<rt>ㄒㄧㄡ</rt></ruby><ruby>禊<rt>ㄒㄧˋ</rt></ruby><span class="note-pop">脩，通「修」。脩禊：古人在三月上旬到水邊洗濯，以祓除不祥的習俗。</span></button>事也。群賢畢至，<ruby>少<rt>ㄕㄠˋ</rt></ruby>長<ruby>咸<rt>ㄒㄧㄢˊ</rt></ruby>集。此地有崇山<ruby>峻<rt>ㄐㄩㄣˋ</rt></ruby>嶺，茂林<ruby>脩<rt>ㄒㄧㄡ</rt></ruby>竹；又有清流激<ruby>湍<rt>ㄊㄨㄢ</rt></ruby>，映帶左右，引以為<button class="annot" aria-expanded="false">流<ruby>觴<rt>ㄕㄤ</rt></ruby>曲水<span class="note-pop">把酒杯放在彎曲水道中任其漂流，杯停在誰面前，便由誰飲酒賦詩。</span></button>，列坐其次。雖無絲竹管弦之盛，一<ruby>觴<rt>ㄕㄤ</rt></ruby>一<ruby>詠<rt>ㄩㄥˇ</rt></ruby>，亦足以暢<ruby>敘<rt>ㄒㄩˋ</rt></ruby>幽情。</p></div>
+      <div class="translation"><strong>語譯：</strong>永和九年暮春，眾人聚集在會稽山陰的蘭亭舉行脩禊。賢士們全到齊，年長年少者也都聚集。此地有高山、茂林、修竹與清澈湍急的溪流，大家引水作曲水，依序坐在水邊。雖無盛大的音樂，一邊飲酒、一邊賦詩，也足以暢快抒發深遠情懷。</div>
+    </article>
+
+    <article class="passage card">
+      <div class="passage-top"><span class="passage-tag">第二段｜仰觀俯察</span><button class="translation-btn" aria-expanded="false">看本段語譯</button></div>
+      <div class="original"><p>是日也，天朗氣清，惠風和暢。仰觀宇宙之大，俯察品類之盛，所以<button class="annot" aria-expanded="false">遊目<ruby>騁<rt>ㄔㄥˇ</rt></ruby>懷<span class="note-pop">縱目觀覽，使胸懷舒展。</span></button>，足以極視聽之<ruby>娛<rt>ㄩˊ</rt></ruby>，信可樂也。</p></div>
+      <div class="translation"><strong>語譯：</strong>這一天晴朗清新，和風舒暢。抬頭看宇宙的浩大，低頭察看萬物的繁盛，藉此縱目觀覽、舒展胸懷，足以盡享視聽的樂趣，實在值得快樂。</div>
+    </article>
+
+    <article class="passage card">
+      <div class="passage-top"><span class="passage-tag">第三段｜由樂轉痛</span><button class="translation-btn" aria-expanded="false">看本段語譯</button></div>
+      <div class="original"><p>夫人之相與，俯仰一世。或取諸懷抱，<button class="annot" aria-expanded="false"><ruby>悟<rt>ㄨˋ</rt></ruby>言<span class="note-pop">悟，通「晤」。面對面談話。</span></button>一室之內；或因寄所託，放浪形<ruby>骸<rt>ㄏㄞˊ</rt></ruby>之外。雖<ruby>趣<rt>ㄑㄩ</rt></ruby><ruby>舍<rt>ㄕㄜˇ</rt></ruby>萬殊，靜<ruby>躁<rt>ㄗㄠˋ</rt></ruby>不同，當其欣於所遇，暫得於己，快然自足，不知老之將至。及其所之既<ruby>倦<rt>ㄐㄩㄢˋ</rt></ruby>，情隨事遷，感慨<ruby>係<rt>ㄒㄧˋ</rt></ruby>之<ruby>矣<rt>ㄧˇ</rt></ruby>。向之所欣，俯仰之間，已為<button class="annot" aria-expanded="false">陳跡<span class="note-pop">過去的事物、舊有的痕跡。</span></button>，猶不能不以之興懷；況<ruby>脩<rt>ㄒㄧㄡ</rt></ruby>短隨化，終期於盡。古人云：「死生亦大矣。」<ruby>豈<rt>ㄑㄧˇ</rt></ruby>不痛哉！</p></div>
+      <div class="translation"><strong>語譯：</strong>人們彼此交往，很快便度過一生。有人在室內面談胸中抱負；有人寄情於愛好，在形體之外放縱不拘。雖然取捨、性情各異，但遇到喜愛的事物時，都會一時自得而忘記衰老。等到厭倦，心情隨事物改變，感慨也隨之而生。從前喜愛的，轉眼已成陳跡；何況壽命長短隨造化而定，終究都會走到盡頭，怎能不令人悲痛？</div>
+    </article>
+
+    <article class="passage card">
+      <div class="passage-top"><span class="passage-tag">第四段｜古今同悲</span><button class="translation-btn" aria-expanded="false">看本段語譯</button></div>
+      <div class="original"><p>每覽昔人興感之由，若合一<ruby>契<rt>ㄑㄧˋ</rt></ruby>，未嘗不臨文<ruby>嗟<rt>ㄐㄧㄝ</rt></ruby><ruby>悼<rt>ㄉㄠˋ</rt></ruby>，不能<ruby>喻<rt>ㄩˋ</rt></ruby>之於懷。固知<button class="annot" aria-expanded="false">一死生<span class="note-pop">把生與死看成同一回事。王羲之認為這是虛妄的說法。</span></button>為虛<ruby>誕<rt>ㄉㄢˋ</rt></ruby>，<button class="annot" aria-expanded="false">齊<ruby>彭<rt>ㄆㄥˊ</rt></ruby><ruby>殤<rt>ㄕㄤ</rt></ruby><span class="note-pop">把長壽的彭祖與早夭者等同看待。彭，指長壽；殤，指未成年而死。</span></button>為<ruby>妄<rt>ㄨㄤˋ</rt></ruby>作。後之視今，亦猶今之視昔，悲夫！故列敘時人，錄其所述；雖世殊事異，所以興懷，其致一也。後之覽者，亦將有感於斯文。</p></div>
+      <div class="translation"><strong>語譯：</strong>每當讀到古人興發感慨的原因，總覺得與我的感受完全契合；面對文章，沒有不嗟嘆哀傷的。由此明白，把生死等同是虛妄的，把長壽與早夭等同也是荒誕的。後人看今天，也像今人看從前一樣，實在可悲。因此記下與會者和他們的作品；雖時代與事情不同，引發感懷的原因卻一致。後世讀者也會對這篇文章有所感觸。</div>
+    </article>
+  </section>
+
+  <section class="section" id="words">
+    <div class="section-head"><div><div class="section-kicker">Words in Context</div><h2>古文常用字辨析</h2></div></div>
+    <p class="section-intro">同一個字放進不同語境，詞性與意思可能改變。左右滑動可看完整表格。</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>字詞</th><th>詞性／用法</th><th>本文意思</th><th>語境對照</th></tr></thead>
+      <tbody>
+        <tr><td>畢</td><td>副詞</td><td>全、都（群賢畢至）</td><td>「六王畢，四海一」的「畢」為滅亡、終了</td></tr>
+        <tr><td>咸</td><td>副詞</td><td>都（少長咸集）</td><td>與「畢」同義，強調全體到齊</td></tr>
+        <tr><td>次</td><td>名詞</td><td>旁邊（水邊；列坐其次）</td><td>「陳勝、吳廣皆次當行」的「次」為編次、次序</td></tr>
+        <tr><td>信</td><td>副詞</td><td>確實、的確（信可樂也）</td><td>「小信未孚」的「信」為信用</td></tr>
+        <tr><td>之</td><td>動詞</td><td>到、往（及其所之既倦）</td><td>「暮春之初」的「之」為結構助詞「的」</td></tr>
+        <tr><td>一</td><td>意動用法</td><td>把……看作一樣（一死生）</td><td>作者明確判定此說「虛誕」</td></tr>
+        <tr><td>齊</td><td>意動用法</td><td>把……等同看待（齊彭殤）</td><td>彭指長壽，殤指未成年而死</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="section" id="explore">
+    <div class="section-head"><div><div class="section-kicker">Interactive Reading</div><h2>主題式互動探索</h2></div></div>
+    <p class="section-intro">先重建情感流向，再判斷作者真正的生命立場。這兩步能幫你避開只背「樂痛悲」卻不懂轉折原因的陷阱。</p>
+    <div class="explore-grid">
+      <article class="card activity">
+        <h3>情感曲水：排出全文脈絡</h3><p>依文章先後點選四張卡片，再檢查順序。</p>
+        <div class="order-bank" id="orderBank">
+          <button class="order-card" data-order="3"><b>人生之痛</b>所欣成為陳跡，脩短終期於盡。</button>
+          <button class="order-card" data-order="1"><b>山水之樂</b>群賢畢至，流觴曲水，暢敘幽情。</button>
+          <button class="order-card" data-order="4"><b>古今之悲</b>今人讀昔人，後人也將讀今人。</button>
+          <button class="order-card" data-order="2"><b>視聽之樂</b>仰觀俯察，遊目騁懷，信可樂也。</button>
+        </div>
+        <div class="order-lane" id="orderLane" aria-live="polite">依序點選卡片……</div>
+        <div class="activity-actions"><button class="action-btn check" id="checkOrder">檢查順序</button><button class="action-btn reset" id="resetOrder">重新排列</button></div>
+        <div class="feedback" id="orderFeedback" role="status"></div>
+      </article>
+      <article class="card activity">
+        <h3>立場判讀：作者究竟在說什麼？</h3><p>選出最符合「一死生為虛誕，齊彭殤為妄作」的理解。</p>
+        <div class="stance-list" id="stanceList">
+          <button class="stance-btn" data-correct="false">既然終將死亡，眼前的歡樂毫無意義。</button>
+          <button class="stance-btn" data-correct="true">生死與壽夭是真實差異，正因生命有限，更值得珍惜與記錄。</button>
+          <button class="stance-btn" data-correct="false">只要寄情山水，就能完全擺脫死亡焦慮。</button>
+        </div>
+        <div class="feedback" id="stanceFeedback" role="status"></div>
+      </article>
+    </div>
+    <div class="craft-grid">
+      <div class="card craft"><b>敘事・寫景</b><small>先交代雅集，再以崇山、茂林、清流鋪陳可樂之境。</small></div>
+      <div class="card craft"><b>抒情・議論</b><small>從眼前景物推至人生無常，情感與思考逐層加深。</small></div>
+      <div class="card craft"><b>駢散相間</b><small>整齊對偶與自然散句交錯，節奏流動而不板滯。</small></div>
+    </div>
+  </section>
+
+  <section class="section" id="quiz">
+    <div class="section-head"><div><div class="section-kicker">Final Check</div><h2>綜合自我測驗</h2></div></div>
+    <p class="section-intro">共 10 題。每題作答後立即顯示正解與解析；題目作答後不重複計分。</p>
+    <div class="card quiz-shell"><div id="quizList"></div><div class="quiz-finish" id="quizFinish" aria-live="polite"><strong id="finalScore"></strong><span id="finalMessage"></span><br><button class="restart" id="restartQuiz">重新挑戰</button></div></div>
+  </section>
+</main>
+
+<footer>依高中國文古文教材內容整理製作，僅供課堂複習使用。</footer>
+
+<script>
+const zhuyinToggle=document.getElementById('zhuyinToggle');
+zhuyinToggle.addEventListener('click',()=>{const on=!document.body.classList.contains('show-zhuyin');document.body.classList.toggle('show-zhuyin',on);zhuyinToggle.setAttribute('aria-pressed',String(on));zhuyinToggle.textContent=on?'隱藏注音':'顯示注音'});
+
+const transButtons=[...document.querySelectorAll('.translation-btn')];
+function setTranslation(btn,on){const box=btn.closest('.passage').querySelector('.translation');box.classList.toggle('show',on);btn.setAttribute('aria-expanded',String(on));btn.textContent=on?'收起本段語譯':'看本段語譯'}
+const translationToggle=document.getElementById('translationToggle');
+function syncAllTranslation(){const allOpen=transButtons.every(btn=>btn.getAttribute('aria-expanded')==='true');translationToggle.setAttribute('aria-pressed',String(allOpen));translationToggle.textContent=allOpen?'收起全篇語譯':'展開全篇語譯'}
+transButtons.forEach(btn=>btn.addEventListener('click',()=>{setTranslation(btn,btn.getAttribute('aria-expanded')!=='true');syncAllTranslation()}));
+translationToggle.addEventListener('click',()=>{const on=translationToggle.getAttribute('aria-pressed')!=='true';translationToggle.setAttribute('aria-pressed',String(on));translationToggle.textContent=on?'收起全篇語譯':'展開全篇語譯';transButtons.forEach(btn=>setTranslation(btn,on))});
+
+document.querySelectorAll('.annot').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();const was=btn.classList.contains('open');document.querySelectorAll('.annot.open').forEach(x=>{x.classList.remove('open');x.setAttribute('aria-expanded','false')});if(!was){btn.classList.add('open');btn.setAttribute('aria-expanded','true')}}));
+document.addEventListener('click',()=>document.querySelectorAll('.annot.open').forEach(x=>{x.classList.remove('open');x.setAttribute('aria-expanded','false')}));
+
+let chosen=[];const lane=document.getElementById('orderLane');const orderFeedback=document.getElementById('orderFeedback');
+document.querySelectorAll('.order-card').forEach(btn=>btn.addEventListener('click',()=>{if(btn.classList.contains('chosen'))return;btn.classList.add('chosen');chosen.push({order:Number(btn.dataset.order),label:btn.querySelector('b').textContent});renderLane()}));
+function renderLane(){lane.innerHTML=chosen.length?chosen.map((x,i)=>`<span class="lane-chip">${i+1}. ${x.label}</span>`).join(''):'依序點選卡片……'}
+function clearOrder(){chosen=[];document.querySelectorAll('.order-card').forEach(x=>x.classList.remove('chosen'));renderLane();orderFeedback.className='feedback';orderFeedback.textContent=''}
+document.getElementById('resetOrder').addEventListener('click',clearOrder);
+document.getElementById('checkOrder').addEventListener('click',()=>{orderFeedback.className='feedback show';if(chosen.length<4){orderFeedback.classList.add('no');orderFeedback.textContent='還差一些：請先選完四張卡片。';return}const ok=chosen.every((x,i)=>x.order===i+1);orderFeedback.classList.add(ok?'ok':'no');orderFeedback.textContent=ok?'排列正確！景物與雅集之樂，推向生命之痛，最後形成古今同悲。':'順序還不對。提示：先有眼前的山水與視聽之樂，才因「所欣成為陳跡」轉入痛與悲。'});
+
+document.querySelectorAll('.stance-btn').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.stance-btn').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');const ok=btn.dataset.correct==='true';const box=document.getElementById('stanceFeedback');box.className=`feedback show ${ok?'ok':'no'}`;box.textContent=ok?'判讀正確！作者不是否定生命，而是反對抹平生死差異，並以書寫保存共同感懷。':'再想想：「虛誕」「妄作」是在批判等同生死壽夭的說法，而不是否定生命。'}));
+
+const quizData=[
+ {q:'第一、二段連續描寫「群賢畢至」與「仰觀俯察」，最主要的作用是什麼？',opts:['先充分鋪陳雅集之樂，使下文轉入生命之痛更有張力','證明參與者都擅長音樂','批評文人只顧宴飲','交代王羲之辭官原因'],ans:0,explain:'前兩段把環境、人物與視聽之娛寫足，建立「信可樂也」的高點；第三段突然轉向變遷與死亡，情感落差因此更強。'},
+ {q:'「雖無絲竹管弦之盛，一觴一詠，亦足以暢敘幽情」可看出雅集之樂主要來自何處？',opts:['盛大樂舞與排場','飲酒賦詩及彼此抒懷','競賽輸贏','祭祀儀式的莊嚴'],ans:1,explain:'文中以「雖無……亦足以」轉折，強調即使沒有盛大音樂，飲酒、賦詩與暢敘情懷已足以成樂。'},
+ {q:'「仰觀宇宙之大，俯察品類之盛」在句式與內容上有何特色？',opts:['以設問凸顯疑惑','以誇飾描寫宴席','以對偶展開上下、遠近兼具的視野','以倒裝強調悲傷'],ans:2,explain:'「仰觀／俯察」、「宇宙之大／品類之盛」兩兩相對，既有對偶節奏，也把視線由上到下、由宏觀到萬物展開。'},
+ {q:'第三段列舉「悟言一室」與「放浪形骸」兩種生活方式，真正要說明的是什麼？',opts:['兩種人永遠無法理解彼此','安靜生活必然優於放浪生活','不論取捨與性情如何，人都會經歷欣喜、厭倦與變遷','作者只贊成室內清談'],ans:2,explain:'作者先承認人有不同取捨與性情，接著指出大家都會暫時自足，也都可能因事物改變而感慨，藉此推向普遍的人生處境。'},
+ {q:'「向之所欣，俯仰之間，已為陳跡」中的「俯仰」最適合解作何意？',opts:['低頭行禮','上下觀察景物','極短的時間','人生的高低起伏'],ans:2,explain:'俯仰本指低頭與抬頭，此處以動作之迅速比喻時間短暫，突顯喜愛之物很快便成過往。'},
+ {q:'作者說「一死生為虛誕，齊彭殤為妄作」，最符合他的立場的是哪一項？',opts:['生死壽夭毫無差別','死亡只是想像，不必在意','生命差異真實存在，不應以玄理輕率抹平','長壽者一定比早夭者更有價值'],ans:2,explain:'「虛誕」「妄作」都是明確否定語。作者反對把生死、壽夭完全等同，表達對真實生命經驗的重視。'},
+ {q:'第四段「後之視今，亦猶今之視昔」與末句互相照應，產生什麼效果？',opts:['把感慨限制在蘭亭眾人','建立跨越古今的閱讀與共感，使文章指向後世','說明後人一定比今人悲傷','證明歷史會完全重複'],ans:1,explain:'作者由今人讀昔人，推想到後人也將讀今人；書寫讓不同時代的人因同樣的生命問題產生共感。'},
+ {q:'若要為全文四段各下一個最精簡的小標，哪組順序最恰當？',opts:['脩禊雅集／仰觀俯察／感物傷逝／作序傳後','玄學論辯／山水遊記／人物品評／書法源流','宴會準備／音樂演奏／離別贈言／歸隱決心','遊山／飲酒／寫字／送客'],ans:0,explain:'四段依序記蘭亭雅集、當日視聽之樂、由變遷想到生死，以及記人錄詩並期待後世共感。'},
+ {q:'關於〈蘭亭集序〉的文體與寫法，下列何者正確？',opts:['是詩集序，融敘事、寫景、抒情與議論於一體','是史傳，只客觀記載人物生平','是奏議，目的在勸諫君王','是寓言，以動物寄託道理'],ans:0,explain:'本文原為蘭亭詩集作序，卻超越一般記事，由雅集寫到宇宙人生，兼具多種表達方式。'},
+ {q:'比較〈蘭亭集序〉與〈赤壁賦〉，下列哪一項最適合作為共通閱讀線索？',opts:['都藉山水遊賞觸發對宇宙、生命與時間的思考','都以戰爭勝敗為主題','都主張人生毫無價值','都記錄同一次文人雅集'],ans:0,explain:'兩文的時地與思想歸結不同，但都從遊賞山水出發，面對個體生命與廣大宇宙、無盡時間的關係。'}
+];
+let answered=0,correct=0;const quizList=document.getElementById('quizList');
+function renderQuiz(){quizList.innerHTML='';quizData.forEach((item,idx)=>{const box=document.createElement('article');box.className='quiz-item';box.innerHTML=`<div class="question">${idx+1}. ${item.q}</div><div class="options">${item.opts.map((o,i)=>`<button class="option" data-index="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div><div class="explanation"><b>解析：</b>${item.explain}</div>`;box.querySelectorAll('.option').forEach(btn=>btn.addEventListener('click',()=>answerQuestion(box,item,btn)));quizList.appendChild(box)});updateScore()}
+function answerQuestion(box,item,btn){if(box.classList.contains('answered'))return;box.classList.add('answered');answered++;const pick=Number(btn.dataset.index);if(pick===item.ans)correct++;box.querySelectorAll('.option').forEach((x,i)=>{x.disabled=true;if(i===item.ans)x.classList.add('correct');else if(x===btn)x.classList.add('wrong')});updateScore();if(answered===quizData.length)showFinish()}
+function updateScore(){document.getElementById('liveScore').textContent=`測驗 ${answered}／${quizData.length}・答對 ${correct}`}
+function showFinish(){const finish=document.getElementById('quizFinish');finish.classList.add('show');document.getElementById('finalScore').textContent=`${correct}／${quizData.length} 題答對`;document.getElementById('finalMessage').textContent=correct>=9?'掌握得很完整，已能連結文句、結構與主旨。':correct>=7?'基礎很穩，再回看錯題解析就更完整。':'建議先重走「情感曲水」，再挑戰一次。';finish.scrollIntoView({behavior:'smooth',block:'nearest'})}
+document.getElementById('restartQuiz').addEventListener('click',()=>{answered=0;correct=0;document.getElementById('quizFinish').classList.remove('show');renderQuiz();document.getElementById('quiz').scrollIntoView({behavior:'smooth'})});
+renderQuiz();
+</script>
+</body>
+</html>
