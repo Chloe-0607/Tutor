@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>探索應用文．重點整理與互動測驗</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&amp;family=Noto+Sans+TC:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mud:#8B7355;
+    --reed:#C4A882;
+    --tide:#4A7C7E;
+    --sky:#B8D4D8;
+    --soil:#2C1810;
+    --paper:#F7F3EC;
+    --ink:#1A1612;
+    --seal:#A83C3C;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans TC",sans-serif;
+    line-height:1.7;
+    min-height:100vh;
+  }
+  body::before{
+    content:"應用文";
+    position:fixed;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%) rotate(-8deg);
+    font-family:"Noto Serif TC",serif;
+    font-size:38vw;
+    font-weight:900;
+    color:var(--soil);
+    opacity:0.025;
+    z-index:0;
+    pointer-events:none;
+    white-space:nowrap;
+  }
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width:880px;
+    margin:0 auto;
+    padding:36px 20px 90px;
+  }
+  header{
+    text-align:center;
+    margin-bottom:28px;
+  }
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.32em;
+    color:var(--mud);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:"Noto Serif TC",serif;
+    font-weight:900;
+    font-size:clamp(28px,5.5vw,44px);
+    margin:0 0 8px;
+    color:var(--soil);
+    letter-spacing:0.04em;
+  }
+  h1 span{
+    display:inline-block;
+    color:var(--tide);
+  }
+  .subtitle{
+    color:var(--mud);
+    font-size:14.5px;
+    font-weight:400;
+  }
+  .divider{
+    width:64px;height:2px;
+    background:var(--reed);
+    margin:18px auto;
+  }
+
+  /* score bar */
+  .scorebar{
+    position:sticky;
+    top:0;
+    z-index:5;
+    background:rgba(247,243,236,0.94);
+    backdrop-filter:blur(6px);
+    border-bottom:0.5px solid var(--reed);
+    padding:12px 20px;
+    margin:0 -20px 26px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .scorebar .label{
+    font-family:"Noto Serif TC",serif;
+    font-weight:600;
+    font-size:14px;
+    color:var(--soil);
+    white-space:nowrap;
+  }
+  .track{
+    flex:1;
+    min-width:120px;
+    height:6px;
+    background:var(--sky);
+    border-radius:99px;
+    overflow:hidden;
+  }
+  .fill{
+    height:100%;
+    background:var(--tide);
+    width:0%;
+    transition:width .4s ease;
+  }
+  .scorenum{
+    font-family:"Noto Serif TC",serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--tide);
+    white-space:nowrap;
+  }
+
+  /* category tabs */
+  .tabs{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:6px;
+    margin-bottom:30px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    padding:9px 18px;
+    border:0.5px solid var(--reed);
+    border-radius:99px;
+    background:transparent;
+    color:var(--mud);
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:13.5px;
+    font-weight:500;
+    cursor:pointer;
+    transition:all .2s ease;
+    white-space:nowrap;
+  }
+  .tab:hover{border-color:var(--tide);color:var(--tide);}
+  .tab.active{
+    background:var(--tide);
+    border-color:var(--tide);
+    color:var(--paper);
+  }
+
+  section.category{display:none;}
+  section.category.active{display:block;}
+
+  .cat-heading{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin:0 0 18px;
+    padding-bottom:10px;
+    border-bottom:0.5px solid var(--reed);
+  }
+  .cat-heading h2{
+    font-family:"Noto Serif TC",serif;
+    font-size:19px;
+    font-weight:700;
+    color:var(--soil);
+    margin:0;
+  }
+  .cat-heading .count{
+    font-size:12.5px;
+    color:var(--mud);
+  }
+
+  .card{
+    background:#fff;
+    border:0.5px solid var(--reed);
+    border-radius:10px;
+    padding:22px 22px 20px;
+    margin-bottom:18px;
+    position:relative;
+  }
+  .qnum{
+    font-family:"Noto Serif TC",serif;
+    font-size:12px;
+    color:var(--tide);
+    font-weight:700;
+    letter-spacing:0.08em;
+    margin-bottom:6px;
+  }
+  .qtext{
+    font-family:"Noto Serif TC",serif;
+    font-size:16.5px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:16px;
+    line-height:1.65;
+  }
+  .options{
+    display:grid;
+    gap:9px;
+  }
+  .opt{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-align:left;
+    padding:11px 14px;
+    border:0.5px solid var(--reed);
+    border-radius:7px;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:14.5px;
+    cursor:pointer;
+    transition:all .18s ease;
+  }
+  .opt:hover:not(.locked){
+    border-color:var(--tide);
+    background:#fff;
+  }
+  .opt .letter{
+    flex:0 0 auto;
+    width:24px;height:24px;
+    border-radius:50%;
+    border:0.5px solid var(--mud);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;
+    font-weight:700;
+    color:var(--mud);
+  }
+  .opt.correct{
+    border-color:var(--tide);
+    background:rgba(74,124,126,0.09);
+  }
+  .opt.correct .letter{
+    border-color:var(--tide);
+    color:var(--tide);
+  }
+  .opt.wrong{
+    border-color:var(--seal);
+    background:rgba(168,60,60,0.06);
+  }
+  .opt.wrong .letter{
+    border-color:var(--seal);
+    color:var(--seal);
+  }
+  .opt.dim{opacity:0.5;}
+
+  .seal{
+    position:absolute;
+    top:18px;right:20px;
+    font-family:"Noto Serif TC",serif;
+    font-weight:900;
+    font-size:12px;
+    color:var(--seal);
+    border:2px solid var(--seal);
+    border-radius:6px;
+    padding:3px 8px;
+    transform:rotate(-6deg);
+    opacity:0;
+    transition:opacity .25s ease;
+    letter-spacing:0.1em;
+  }
+  .seal.show{opacity:0.85;}
+
+  .explain{
+    margin-top:14px;
+    padding-top:14px;
+    border-top:0.5px dashed var(--reed);
+    font-size:13.5px;
+    color:var(--mud);
+    line-height:1.7;
+    display:none;
+  }
+  .explain.show{display:block;}
+  .explain b{color:var(--soil);}
+
+  footer{
+    text-align:center;
+    margin-top:40px;
+    padding-top:24px;
+    border-top:0.5px solid var(--reed);
+    color:var(--mud);
+    font-size:12.5px;
+  }
+
+  .final-banner{
+    display:none;
+    text-align:center;
+    background:var(--soil);
+    color:var(--paper);
+    border-radius:12px;
+    padding:30px 24px;
+    margin:10px 0 30px;
+  }
+  .final-banner.show{display:block;}
+  .final-banner .ft{
+    font-family:"Noto Serif TC",serif;
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .final-banner .fs{
+    font-size:14px;
+    color:var(--reed);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+
+  /* ---- mode switcher ---- */
+  .mode-switch{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:26px;
+  }
+  .mode-btn{
+    font-family:"Noto Serif TC",serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.06em;
+    padding:11px 26px;
+    border-radius:8px;
+    border:0.5px solid var(--mud);
+    background:transparent;
+    color:var(--mud);
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .mode-btn.active{
+    background:var(--tide);
+    border-color:var(--tide);
+    color:var(--paper);
+  }
+  .mode-panel{display:none;}
+  .mode-panel.active{display:block;}
+
+  /* ---- knowledge notes ---- */
+  .note-card{
+    background:#fff;
+    border:0.5px solid var(--reed);
+    border-radius:10px;
+    padding:22px 24px;
+    margin-bottom:20px;
+  }
+  .note-card h3{
+    font-family:"Noto Serif TC",serif;
+    font-size:18px;
+    font-weight:700;
+    color:var(--soil);
+    margin:0 0 4px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .note-card h3 .tag{
+    font-size:11px;
+    font-weight:600;
+    color:var(--tide);
+    border:0.5px solid var(--tide);
+    border-radius:99px;
+    padding:2px 9px;
+    letter-spacing:0.04em;
+  }
+  .note-card .desc{
+    font-size:13px;
+    color:var(--mud);
+    margin-bottom:16px;
+  }
+  .note-card h4{
+    font-family:"Noto Serif TC",serif;
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--tide);
+    margin:18px 0 8px;
+    padding-left:10px;
+    border-left:3px solid var(--reed);
+  }
+  .note-card h4:first-of-type{margin-top:4px;}
+
+  .kv-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+    margin-bottom:4px;
+  }
+  .kv-table th, .kv-table td{
+    border:0.5px solid var(--reed);
+    padding:8px 10px;
+    text-align:left;
+    vertical-align:top;
+  }
+  .kv-table th{
+    background:var(--paper);
+    color:var(--soil);
+    font-weight:600;
+    font-family:"Noto Serif TC",serif;
+    white-space:nowrap;
+  }
+  .kv-table td{color:var(--ink);}
+  .kv-table td.em{color:var(--tide);font-weight:600;}
+  .table-scroll{overflow-x:auto;margin-bottom:6px;}
+
+  ul.plain{
+    margin:0 0 4px;
+    padding-left:20px;
+    font-size:13.5px;
+  }
+  ul.plain li{margin-bottom:5px;}
+  ul.plain b{color:var(--soil);}
+
+  .callout{
+    background:var(--paper);
+    border-left:3px solid var(--tide);
+    border-radius:0 6px 6px 0;
+    padding:12px 16px;
+    font-size:13px;
+    color:var(--soil);
+    margin:14px 0 4px;
+  }
+  .callout b{color:var(--tide);}
+
+  .rule-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    margin:8px 0 12px;
+  }
+  .rule-card{
+    border:0.5px solid var(--reed);
+    border-radius:8px;
+    padding:13px 14px;
+    background:var(--paper);
+  }
+  .rule-card .kicker{
+    color:var(--tide);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.08em;
+    margin-bottom:3px;
+  }
+  .rule-card b{
+    display:block;
+    font-family:"Noto Serif TC",serif;
+    color:var(--soil);
+    margin-bottom:3px;
+  }
+  .rule-card p{margin:0;font-size:12.5px;color:var(--mud);}
+  .word-key{
+    display:inline-flex;
+    min-width:28px;
+    justify-content:center;
+    align-items:center;
+    padding:1px 7px;
+    margin:0 2px;
+    border-radius:99px;
+    background:rgba(74,124,126,.12);
+    color:var(--tide);
+    font-weight:700;
+  }
+  .formula{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    background:var(--tide);
+    color:var(--paper);
+    border-radius:9px;
+    padding:14px 16px;
+    margin:10px 0 14px;
+    font-family:"Noto Serif TC",serif;
+    text-align:center;
+  }
+  .formula .step{
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:7px;
+    padding:5px 10px;
+  }
+  .formula .arrow{color:var(--reed);font-weight:700;}
+  .side-label{
+    display:inline-block;
+    border-radius:99px;
+    padding:2px 9px;
+    font-size:11px;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .side-label.mine{background:rgba(139,115,85,.14);color:var(--mud);}
+  .side-label.yours{background:rgba(74,124,126,.12);color:var(--tide);}
+  .example-line{
+    margin-top:8px;
+    padding-top:8px;
+    border-top:0.5px dashed var(--reed);
+    font-size:12px;
+    color:var(--mud);
+  }
+  .mnemonic-card{
+    position:relative;
+    background:var(--tide);
+    color:#fff;
+    border-radius:9px;
+    padding:16px 18px;
+    margin:14px 0 4px;
+  }
+  .mnemonic-card .label{
+    display:inline-block;
+    background:var(--paper);
+    color:var(--tide);
+    border-radius:4px;
+    padding:2px 8px;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .mnemonic-card b{font-family:"Noto Serif TC",serif;}
+
+  .chip-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin:6px 0 4px;
+  }
+  /* ---- per-chapter mini progress bar (non-sticky) ---- */
+  .mini-scorebar{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:#fff;
+    border:0.5px solid var(--reed);
+    border-radius:10px;
+    padding:12px 18px;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+  }
+  .mini-scorebar .label{
+    font-family:"Noto Serif TC",serif;
+    font-weight:600;
+    font-size:13px;
+    color:var(--soil);
+    white-space:nowrap;
+  }
+  .mini-scorebar .scorenum{font-size:13.5px;}
+  .reset-btn{
+    border:0.5px solid var(--mud);
+    background:transparent;
+    color:var(--mud);
+    border-radius:99px;
+    padding:5px 11px;
+    font:500 12px "Noto Sans TC",sans-serif;
+    cursor:pointer;
+  }
+  .reset-btn:hover{border-color:var(--tide);color:var(--tide);}
+
+  @media (max-width:700px){
+    .rule-grid{grid-template-columns:1fr;}
+    .note-card{padding:19px 17px;}
+  }
+
+  .tab.tab-final{
+    border-color:var(--seal);
+    color:var(--seal);
+  }
+  .tab.tab-final:hover{border-color:var(--seal);color:var(--seal);}
+  .tab.tab-final.active{
+    background:var(--seal);
+    border-color:var(--seal);
+    color:#fff;
+  }
+  .final-badge{
+    display:inline-block;
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:0.06em;
+    color:var(--seal);
+    border:0.5px solid var(--seal);
+    border-radius:99px;
+    padding:3px 12px;
+    margin-bottom:14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">單元捌．探索應用文</div>
+    <h1>書信 · 柬帖 · 對聯 · 題辭 <span>互動測驗</span></h1>
+    <div class="subtitle">各章節分開練習，最後另有一份綜合測驗總複習</div>
+    <div class="divider"></div>
+  </header>
+
+  <div class="mode-switch">
+    <button class="mode-btn active" data-mode="knowledge">重點整理</button>
+    <button class="mode-btn" data-mode="quiz">互動測驗</button>
+  </div>
+
+  <div class="mode-panel active" id="knowledgePanel">
+    <div class="note-card">
+      <h3>一、書信用語 <span class="tag">letter</span></h3>
+      <div class="desc">一句話核心：先判斷「寫給誰」，再依輩分選稱謂、提稱語、末啟詞與啟封詞。</div>
+
+      <h4>對人自稱與稱呼別人：最重要的用字對照</h4>
+      <div class="callout"><b>先記方向：</b>提到我方親人要謙稱；提到對方親人要敬稱。不要只背「家、舍、令」，要先看人物屬於哪一方。</div>
+      <div class="table-scroll">
+        <table class="kv-table">
+          <tr><th>人物關係</th><th><span class="side-label mine">我方：謙稱</span></th><th><span class="side-label yours">對方：敬稱</span></th><th>例句</th></tr>
+          <tr><td>在世尊長</td><td class="em"><span class="word-key">家</span>家父、家母</td><td><span class="word-key">令</span>令尊、令堂</td><td>家父近日安好；令堂近來可好？</td></tr>
+          <tr><td>在世卑幼</td><td class="em"><span class="word-key">舍</span>舍弟、舍妹</td><td><span class="word-key">令</span>令弟、令妹、令郎、令嬡</td><td>舍弟正在求學；令郎表現優異。</td></tr>
+          <tr><td>已故尊長</td><td class="em"><span class="word-key">先</span>先父、先母</td><td><span class="word-key">令先</span>令先君</td><td>先父生前喜愛閱讀。</td></tr>
+          <tr><td>已故卑幼</td><td class="em"><span class="word-key">亡</span>亡弟、亡妹</td><td><span class="word-key">令亡</span>令亡弟</td><td>「亡」不用於我方已故尊長。</td></tr>
+          <tr><td>妻子／丈夫</td><td class="em">內人／外子</td><td>尊夫人／尊夫君</td><td>「賢內助」多用來尊稱別人的妻子。</td></tr>
+          <tr><td>師友／店號居處</td><td class="em"><span class="word-key">敝</span>敝師、敝友、敝號</td><td><span class="word-key">令／貴</span>令師、令友、貴府、貴號</td><td>談自己用「敝」；談對方處所用「貴」。</td></tr>
+        </table>
+      </div>
+      <div class="mnemonic-card"><span class="label">速記</span><br><b>我方：家大、舍小、先死長、亡死小；對方多用「令」，處所店號用「貴」。</b></div>
+
+      <h4>群體關係：愚／賢成對記</h4>
+      <div class="rule-grid">
+        <div class="rule-card"><div class="kicker">父子</div><b>愚父子／賢喬梓</b><p>自稱我方父子用「愚」；尊稱對方父子用「賢喬梓」。</p></div>
+        <div class="rule-card"><div class="kicker">夫婦</div><b>愚夫婦／賢伉儷</b><p>「伉儷」就是夫妻，用於對方時加「賢」。</p></div>
+        <div class="rule-card"><div class="kicker">兄弟</div><b>愚兄弟／賢昆仲</b><p>「昆仲」指兄弟，也可說「賢昆玉」。</p></div>
+        <div class="rule-card"><div class="kicker">特殊親屬</div><b>師丈、師母／公婆、岳父母</b><p>女老師的丈夫稱師丈；男老師的妻子稱師母。妻稱夫之父母為公婆；夫稱妻之父母為岳父母。</p></div>
+      </div>
+
+      <h4>寫給不同對象：五欄一起看</h4>
+      <div class="table-scroll">
+        <table class="kv-table">
+          <tr><th>對象</th><th>提稱語</th><th>自稱</th><th>末啟詞</th><th>啟封詞</th></tr>
+          <tr><td>親屬長輩</td><td class="em">膝前、膝下</td><td>孫、兒、女兒</td><td>叩上、叩稟</td><td>安啟、福啟</td></tr>
+          <tr><td>其他長輩</td><td class="em">尊前、尊鑒</td><td>晚</td><td>敬稟、謹叩</td><td>鈞啟、賜啟</td></tr>
+          <tr><td>師長</td><td class="em">函丈、道鑒</td><td>受業、學生</td><td>敬叩、謹上</td><td>鈞啟、道啟</td></tr>
+          <tr><td>平輩</td><td class="em">大鑒、臺鑒</td><td>同學、愚兄</td><td>敬啟、謹啟</td><td>惠啟、臺啟</td></tr>
+          <tr><td>晚輩</td><td class="em">知悉、如晤</td><td>父、母</td><td>手示、手諭</td><td>啟</td></tr>
+        </table>
+      </div>
+
+      <h4>格式與兩個必考陷阱</h4>
+      <ul class="plain">
+        <li><b>橫式書信：</b>稱謂 → 開頭應酬語 → 正文 → 結尾應酬語 → 問候語 → 自稱、署名、末啟詞 → 日期。</li>
+        <li><b>直式信封：</b>收信人姓名位置最高；寄信人姓名、地址不可高於收信人地址。</li>
+        <li><b>抬頭：</b>換行頂格為「平抬」；稱呼前空一格為「挪抬」。</li>
+        <li><b>陷阱：</b>「敬啟、恭啟」不可當啟封詞；明信片沒有啟封詞，緘封詞只能用「寄」。</li>
+      </ul>
+    </div>
+
+    <div class="note-card">
+      <h3>二、柬帖用語 <span class="tag">invite</span></h3>
+      <div class="desc">一句話核心：先判斷是婚嫁、誕育、喪葬或一般喜慶，再配合發帖人的身分選字。</div>
+
+      <h4>四種用途先分類</h4>
+      <div class="rule-grid">
+        <div class="rule-card"><div class="kicker">婚嫁</div><b>文定、于歸</b><p>文定＝訂婚；于歸＝女子出嫁。</p></div>
+        <div class="rule-card"><div class="kicker">誕育</div><b>弄璋、弄瓦</b><p>弄璋＝生男；弄瓦＝生女。</p></div>
+        <div class="rule-card"><div class="kicker">喪葬</div><b>訃聞</b><p>通告死亡、入殮與安葬等訊息，稱謂最重視身分。</p></div>
+        <div class="rule-card"><div class="kicker">其他應酬</div><b>開幕、喬遷、壽誕、餞行</b><p>內容要交代時間、地點、目的與發帖人。</p></div>
+      </div>
+
+      <h4>婚嫁與邀請常用語</h4>
+      <div class="table-scroll"><table class="kv-table">
+        <tr><th>用語</th><th>意思</th><th>不要混淆</th></tr>
+        <tr><td class="em">文定</td><td>訂婚</td><td>不是結婚當天</td></tr>
+        <tr><td class="em">于歸</td><td>女子出嫁</td><td>主體是新娘</td></tr>
+        <tr><td class="em">闔第光臨</td><td>邀請對方全家到來</td><td>「闔第」＝全家</td></tr>
+        <tr><td class="em">詹於</td><td>即「占於」，經占卜決定日期</td><td>不是「敬請光臨」</td></tr>
+      </table></div>
+
+      <h4>訃聞：依「誰過世、誰還在」判斷</h4>
+      <div class="table-scroll"><table class="kv-table">
+        <tr><th>判斷線索</th><th>正確用語</th><th>意思</th></tr>
+        <tr><td>男喪／女喪</td><td class="em">壽終正寢／壽終內寢</td><td>依死者性別區分</td></tr>
+        <tr><td>父死母健／母死父健</td><td class="em">孤子／哀子</td><td>兒子在訃聞中的自稱</td></tr>
+        <tr><td>父母皆亡</td><td class="em">孤哀子</td><td>「孤」與「哀」合用</td></tr>
+        <tr><td>丈夫過世</td><td class="em">未亡人</td><td>妻子的自稱</td></tr>
+        <tr><td>已故尊長的名字</td><td class="em">諱</td><td>對尊長之名的敬稱</td></tr>
+        <tr><td>60歲以上／未滿60歲／30歲以下</td><td class="em">享壽／享年／得年</td><td>先看死亡年齡</td></tr>
+      </table></div>
+      <div class="mnemonic-card"><span class="label">速記</span><br><b>父死稱孤、母死稱哀、雙親皆亡稱孤哀；男正寢、女內寢。</b></div>
+
+      <h4>封套：看顏色，也看書寫順序</h4>
+      <div class="formula"><span class="step">對象稱謂</span><span class="arrow">→</span><span class="step">賀辭／哀悼辭</span><span class="arrow">→</span><span class="step">題辭</span><span class="arrow">→</span><span class="step">署名敬辭</span></div>
+      <div class="callout"><b>顏色：</b>喜慶用紅色封套；喪事用白色或藍色封套。「千古」為哀悼死者永別之語，課本例以男性死者使用。</div>
+    </div>
+
+    <div class="note-card">
+      <h3>三、對聯 <span class="tag">couplet</span></h3>
+      <div class="desc">一句話核心：先判斷形式是否相對，再用尾字平仄分出上、下聯。</div>
+
+      <h4>判斷一副對聯的四步驟</h4>
+      <div class="rule-grid">
+        <div class="rule-card"><div class="kicker">STEP 1</div><b>字數相同</b><p>上下聯字數必須一致，但不限定幾字。</p></div>
+        <div class="rule-card"><div class="kicker">STEP 2</div><b>句式相同</b><p>停頓與語法結構要彼此對應。</p></div>
+        <div class="rule-card"><div class="kicker">STEP 3</div><b>詞性相對</b><p>相同位置通常名詞對名詞、動詞對動詞。</p></div>
+        <div class="rule-card"><div class="kicker">STEP 4</div><b>仄起平收</b><p>上聯末字用仄聲，下聯末字用平聲。</p></div>
+      </div>
+      <div class="mnemonic-card"><span class="label">貼法</span><br><b>面對大門：上聯在右、下聯在左、橫批在中。</b></div>
+
+      <h4>場合配對：看關鍵意象</h4>
+      <div class="table-scroll"><table class="kv-table">
+        <tr><th>場合</th><th>對聯</th><th>判斷關鍵</th></tr>
+        <tr><td>書局</td><td class="em">大塊文章百城富有／名山事業千古長留</td><td>文章、名山事業</td></tr>
+        <tr><td>學校</td><td class="em">今日遍栽桃李樹／他年盡做棟梁材</td><td>桃李、棟梁</td></tr>
+        <tr><td>醫院</td><td class="em">功侔造化／病起膏肓</td><td>治病、回春</td></tr>
+        <tr><td>銀行</td><td class="em">經濟流通利人利己／財源周轉富國富家</td><td>財源、周轉</td></tr>
+        <tr><td>郵局</td><td class="em">一紙音信傳千里／四方喜訊送萬家</td><td>音信、傳送</td></tr>
+        <tr><td>媽祖廟</td><td class="em">寰中慈母女中聖／海上福星天上神</td><td>慈母、海上</td></tr>
+        <tr><td>關帝廟</td><td class="em">精忠昭赤日／大義貫青天</td><td>忠義精神</td></tr>
+      </table></div>
+      <div class="callout"><b>易錯提醒：</b>顏色、字體大小不是判斷對聯工整的條件；真正要看字數、句式、詞性與平仄。</div>
+    </div>
+
+    <div class="note-card">
+      <h3>四、題辭 <span class="tag">dedication</span></h3>
+      <div class="desc">一句話核心：先判斷是祝賀還是哀輓，再確認人物、性別、行業或比賽種類。</div>
+
+      <h4>哀輓題辭：先看與死者的關係</h4>
+      <div class="table-scroll"><table class="kv-table">
+        <tr><th>對象</th><th>題辭</th><th>聯想線索</th></tr>
+        <tr><td>父母</td><td class="em">風木含悲</td><td>風木之悲＝父母過世</td></tr>
+        <tr><td>師長</td><td class="em">永念師恩、桃李興悲</td><td>桃李＝學生</td></tr>
+        <tr><td>朋友</td><td class="em">痛失知音、人琴俱亡</td><td>知音＝摯友</td></tr>
+        <tr><td>商界</td><td class="em">端木遺風、貨殖流芳</td><td>端木賜善經商</td></tr>
+        <tr><td>軍人烈士</td><td class="em">大節凜然、碧血丹心</td><td>忠烈、殉國</td></tr>
+      </table></div>
+
+      <h4>喜慶題辭：最容易考性別與對象</h4>
+      <div class="rule-grid">
+        <div class="rule-card"><div class="kicker">生子</div><b>弄璋之喜、熊夢徵祥</b><p>「璋」與「熊夢」聯想到男孩。</p></div>
+        <div class="rule-card"><div class="kicker">生女</div><b>弄瓦徵祥、彩鳳新雛</b><p>「瓦」與「彩鳳」聯想到女孩。</p></div>
+        <div class="rule-card"><div class="kicker">結婚</div><b>白頭偕老、鳳凰于飛</b><p>祝賀新人婚姻和美。</p></div>
+        <div class="rule-card"><div class="kicker">男壽</div><b>椿庭長青、南極騰輝</b><p>椿庭、南極仙翁與男性長壽相關。</p></div>
+        <div class="rule-card"><div class="kicker">女壽</div><b>春滿瑤池、慈竹長春</b><p>瑤池、西王母意象多用於女壽。</p></div>
+        <div class="rule-card"><div class="kicker">雙壽</div><b>椿萱並茂</b><p>椿比父、萱比母，指父母皆健在。</p></div>
+      </div>
+
+      <h4>行業與才藝：抓字面線索</h4>
+      <div class="table-scroll"><table class="kv-table">
+        <tr><th>場合</th><th>題辭</th><th>關鍵字</th></tr>
+        <tr><td>教育</td><td class="em">春風化雨、功著士林</td><td>教化、士林</td></tr>
+        <tr><td>醫院落成</td><td class="em">妙手回春、功同良相</td><td>醫術、回春</td></tr>
+        <tr><td>作文</td><td class="em">妙筆生花、文采斐然</td><td>筆、文采</td></tr>
+        <tr><td>書法</td><td class="em">筆走龍蛇、鐵畫銀鉤</td><td>筆畫、運筆</td></tr>
+        <tr><td>演講</td><td class="em">口若懸河、舌粲蓮花</td><td>口、舌</td></tr>
+      </table></div>
+      <div class="callout"><b>三個陷阱：</b>「妙筆生花」不是花店；「春滿瑤池」不是男壽；「桃李興悲」不是哀悼學生，而是輓師長。</div>
+    </div>
+
+    <div class="note-card">
+      <h3>五、啟事、便條 <span class="tag">notice</span></h3>
+      <div class="desc">一句話核心：要向不特定多數人公開，就用啟事；只給熟人或家人簡短留言，就用便條。</div>
+
+      <h4>先分清楚：公開 vs. 私下</h4>
+      <div class="rule-grid">
+        <div class="rule-card"><div class="kicker">公開發布</div><b>啟事</b><p>刊在報紙、媒體或公共公布欄，對象通常是不特定多數人。</p><div class="example-line">例：尋物、徵才、招生、更正、公開道歉。</div></div>
+        <div class="rule-card"><div class="kicker">私下留言</div><b>便條</b><p>是簡化的書信，給熟人或家人，內容簡短而明確。</p><div class="example-line">例：訪友未遇、家人留言、請託、商借、請假。</div></div>
+      </div>
+
+      <h4>啟事三大類：看「目的」分類</h4>
+      <div class="table-scroll"><table class="kv-table">
+        <tr><th>類別</th><th>目的</th><th>常見例子</th></tr>
+        <tr><td class="em">徵求類</td><td>希望找到人、物或交易對象</td><td>徵才、尋人尋物、租售</td></tr>
+        <tr><td class="em">公布類</td><td>向大眾傳達消息或感謝</td><td>慶賀、鳴謝、通知（招生、遷移、招標）</td></tr>
+        <tr><td class="em">聲明類</td><td>公開修正或表明立場</td><td>更正、道歉</td></tr>
+      </table></div>
+      <div class="mnemonic-card"><span class="label">速記</span><br><b>想「找」人事物＝徵求；想「告知」消息＝公布；想「修正／致歉」＝聲明。</b></div>
+
+      <h4>格式流程</h4>
+      <div class="rule-grid">
+        <div class="rule-card"><div class="kicker">啟事</div><b>標題 → 正文 → 署名 → 時間</b><p>標題先讓大眾知道目的，正文交代必要資訊。</p></div>
+        <div class="rule-card"><div class="kicker">便條</div><b>稱謂 → 正文 → 自稱署名、末啟詞 → 時間</b><p>不加封套，遣詞簡明；不適用於長輩與新交朋友。</p></div>
+      </div>
+      <div class="callout"><b>情境判斷：</b>到朋友家卻沒遇到本人，可留便條；要在校門口尋找遺失的錢包，應張貼尋物啟事。</div>
+    </div>
+  </div>
+
+  <div class="mode-panel" id="quizPanel">
+
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-cat="letter">書信用語</button>
+    <button class="tab" data-cat="invite">柬帖用語</button>
+    <button class="tab" data-cat="couplet">對聯</button>
+    <button class="tab" data-cat="dedication">題辭</button>
+    <button class="tab" data-cat="notice">啟事．便條</button>
+    <button class="tab tab-final" data-cat="final">綜合測驗</button>
+  </div>
+
+  <section class="category active" data-cat="letter" id="sec-letter"></section>
+  <section class="category" data-cat="invite" id="sec-invite"></section>
+  <section class="category" data-cat="couplet" id="sec-couplet"></section>
+  <section class="category" data-cat="dedication" id="sec-dedication"></section>
+  <section class="category" data-cat="notice" id="sec-notice"></section>
+  <section class="category" data-cat="final" id="sec-final"></section>
+
+  </div>
+
+  <footer>依原教材〈探索應用文〉單元整理製作，僅供課堂複習使用．各單元依會考重點選題，另附綜合測驗</footer>
+</div>
+
+<script>
+const DATA = [
+  {cat:"letter", catName:"書信用語", q:"學生稱女老師的丈夫，正確的書信用語應為？",
+    opts:["師丈","師母","令師","尊夫"], ans:0,
+    exp:"學生稱女老師的丈夫為「師丈」；稱男老師的妻子則為「師母」。"},
+  {cat:"letter", catName:"書信用語", q:"妻子對別人稱自己丈夫的父母，應使用下列哪一組稱謂？",
+    opts:["令尊、令堂","家嚴、家慈","公、婆","岳父、岳母"], ans:2,
+    exp:"妻子對人稱丈夫的父母為「公、婆」；丈夫對人稱妻子的父母則為「岳父、岳母」。"},
+  {cat:"letter", catName:"書信用語", q:"直式信封書寫時，收信人姓名應置於信封的哪個位置？",
+    opts:["最上方，位置最高","最下方","與寄信人姓名同高","置中且字體最小"], ans:0,
+    exp:"直式信封中，收信人姓名位置最高；寄信人地址、姓名皆不可高於收信人地址。"},
+  {cat:"letter", catName:"書信用語", q:"提到我方已過世的尊長時，應使用哪一個字？",
+    opts:["家","舍","先","亡"], ans:2,
+    exp:"稱已死尊長用「先」，如先父（先考）、先母（先妣）；「亡」則用於已死的卑幼，如亡弟、亡妹。"},
+  {cat:"letter", catName:"書信用語", q:"「賢喬梓」是用來稱呼別人的什麼關係？",
+    opts:["父子","夫婦","兄弟","師友"], ans:0,
+    exp:"稱呼別人父子為「賢喬梓」；稱兄弟則為「賢昆仲（賢昆玉）」。"},
+  {cat:"invite", catName:"柬帖用語", q:"柬帖用語中，「于歸」是指什麼喜事？",
+    opts:["訂婚","女子出嫁","生男孩","賓客光臨"], ans:1,
+    exp:"「于歸」指女子出嫁；「文定」則指訂婚。"},
+  {cat:"invite", catName:"柬帖用語", q:"柬帖中「弄璋」是用來稱賀什麼事？",
+    opts:["生女孩","生男孩","祝壽","喬遷"], ans:1,
+    exp:"「弄璋」稱生男孩（璋為玉器）；「弄瓦」稱生女孩（瓦為紡紗的錠錘）。"},
+  {cat:"invite", catName:"柬帖用語", q:"訃聞中「壽終內寢」一詞，是用於哪一種喪事？",
+    opts:["男喪","女喪","師長喪","通用於男女喪"], ans:1,
+    exp:"「壽終內寢」用於女喪；「壽終正寢」則用於男喪。"},
+  {cat:"invite", catName:"柬帖用語", q:"訃聞上寫著「顯妣王母張太夫人」，可推知去世者的身分為何？",
+    opts:["去世的是父親，本姓王","去世的是母親，本姓張、夫家姓王","去世的是母親，本姓王","去世的是父親，夫家姓張"], ans:1,
+    exp:"「顯妣」表示去世的是母親；「張太夫人」表示母親本姓張，「王母」則表示夫家姓王。"},
+  {cat:"couplet", catName:"對聯", q:"張貼對聯時，面對大門，上聯應貼在哪一側？",
+    opts:["左側","右側","門的正中央","左右皆可，不拘"], ans:1,
+    exp:"對聯貼法要領：上聯貼在右側，下聯貼在左側，橫批貼於中間。"},
+  {cat:"couplet", catName:"對聯", q:"關於對聯的字數要求，下列敘述何者正確？",
+    opts:["上聯需比下聯多一字","下聯需比上聯多一字","上下聯字數必須相同（字數不限）","字數不拘，越工整越好"], ans:2,
+    exp:"對聯判斷要領之一：上下聯字數需相同，但字數本身不限定為幾字。"},
+  {cat:"couplet", catName:"對聯", q:"對聯講究「仄起平收」，正確的意思是？",
+    opts:["上聯尾字平聲，下聯尾字仄聲","上聯尾字仄聲，下聯尾字平聲","上下聯尾字皆須平聲","上下聯尾字皆須仄聲"], ans:1,
+    exp:"仄起平收：上聯尾字為仄聲，下聯尾字為平聲。"},
+  {cat:"couplet", catName:"對聯", q:"下列何者最適合作為「書局（書店開業）」的對聯？",
+    opts:["貨財廣殖／駿業宏開","大塊文章百城富有／名山事業千古長留","龍騰虎躍／積健為雄","韻出高山流水／調追白雪陽春"], ans:1,
+    exp:"「大塊文章百城富有／名山事業千古長留」出自書局類對聯，「貨財廣殖」用於商店開業，「龍騰虎躍」用於體育題辭，「韻出高山流水」則用於樂器行。"},
+  {cat:"couplet", catName:"對聯", q:"下列何者不是判斷對聯是否工整的必要條件？",
+    opts:["上下聯句式相同","上下聯詞性相同（同位置詞性一致）","上下聯字數相同","上下聯所用的顏色相同"], ans:3,
+    exp:"對聯的判斷要領為字數相同、句式相同、詞性相同、仄起平收，與「顏色」無關（顏色僅為裝飾）。"},
+  {cat:"dedication", catName:"題辭", q:"「妙筆生花」這句題辭，最適合用於祝賀下列何種場合？",
+    opts:["花店開幕","作文比賽或文采出眾者","慶祝生女","祝賀遷居"], ans:1,
+    exp:"「妙筆生花」屬於「作文」類題辭，形容文思泉湧、文采極佳，不可誤用於花店開幕。"},
+  {cat:"dedication", catName:"題辭", q:"「桃李興悲」一詞，屬於下列哪一類題辭？",
+    opts:["輓父母","輓師長","輓朋友","輓商界"], ans:1,
+    exp:"「桃李興悲」以桃李比喻學生，用於哀悼師長過世，屬「輓師長」類題辭。"},
+  {cat:"dedication", catName:"題辭", q:"「彩鳳新雛」這則題辭，適合用於祝賀何事？",
+    opts:["生子","生女","結婚","遷居"], ans:1,
+    exp:"「彩鳳新雛」屬誕育類題辭中的「生女」用語，其他如「弄瓦徵祥」「明珠入掌」亦同屬此類。"},
+  {cat:"dedication", catName:"題辭", q:"「功著士林」這則題辭，適合用於下列哪個行業的慶賀場合？",
+    opts:["醫院落成","教育界","法官當選","商店開業"], ans:1,
+    exp:"「功著士林」與「杏壇之光」「樹人大業」同屬「教育」類題辭，讚揚作育英才之功。"},
+  {cat:"dedication", catName:"題辭", q:"「春滿瑤池」一詞屬於下列哪一類題辭，因此不能用於祝賀爺爺六十大壽？",
+    opts:["男壽題辭","女壽題辭","雙壽題辭","通用壽慶題辭"], ans:1,
+    exp:"「春滿瑤池」屬於「女壽」題辭，男性祝壽應改用「椿庭長青」「南極騰輝」等男壽題辭。"},
+  {cat:"notice", catName:"啟事．便條", q:"下列關於「便條」使用對象的敘述，何者正確？",
+    opts:["適用於熟人及家人","適用於長輩及新交的朋友","任何對象皆適用，包括正式公文往來","僅能用於陌生人"], ans:0,
+    exp:"便條是簡化的書信，僅用於熟人及家人之間，不適用於長輩及剛結識的朋友。"},
+  {cat:"notice", catName:"啟事．便條", q:"下列何者屬於啟事中「公布類」的項目？",
+    opts:["徵才啟事","慶賀啟事","更正啟事","租售啟事"], ans:1,
+    exp:"啟事可分徵求類（徵才、尋訪、租售）、公布類（慶賀、鳴謝、通知）、聲明類（更正、道歉）；慶賀啟事屬公布類。"},
+  {cat:"notice", catName:"啟事．便條", q:"依課本規定，明信片的緘封詞只能使用下列哪一個字？",
+    opts:["緘","寄","啟","收"], ans:1,
+    exp:"明信片沒有啟封詞，緘封詞也只能用「寄」，因為明信片內容不需保密、無須密封。"}
+];
+
+const catMeta = {
+  letter:"書信用語", invite:"柬帖用語", couplet:"對聯", dedication:"題辭", notice:"啟事．便條"
+};
+
+// 每個單元補足至 15 題；新增題目以判斷、配對與生活情境為主。
+const EXTRA_QUESTIONS = [
+  {cat:"letter", catName:"書信用語", q:"小安向同學提到自己的父親，最恰當的稱法是？",
+    opts:["令尊","家父","舍父","先父"], ans:1,
+    exp:"在世的我方尊長用「家」字謙稱，因此自己的父親稱「家父」；「令尊」是尊稱對方父親，「先父」指自己已故的父親。"},
+  {cat:"letter", catName:"書信用語", q:"詢問朋友的母親近況時，最恰當的稱法是？",
+    opts:["家母","舍母","令堂","先妣"], ans:2,
+    exp:"稱對方的母親用敬稱「令堂」；「家母」是對人謙稱自己的母親。"},
+  {cat:"letter", catName:"書信用語", q:"向別人介紹自己的弟弟時，應使用哪一個謙稱？",
+    opts:["令弟","舍弟","家弟","賢弟"], ans:1,
+    exp:"我方在世的卑幼用「舍」字，所以自己的弟弟稱「舍弟」；對方的弟弟則稱「令弟」。"},
+  {cat:"letter", catName:"書信用語", q:"「令嬡在校表現優異」中的「令嬡」是指？",
+    opts:["自己的女兒","對方的女兒","自己的妹妹","對方的妻子"], ans:1,
+    exp:"「令」用來敬稱對方親屬，「令嬡」即對方的女兒；自己的子女常以「小兒、小女」謙稱。"},
+  {cat:"letter", catName:"書信用語", q:"向他人提到自己已故的父親，正確用語是？",
+    opts:["亡父","令先君","先父","舍父"], ans:2,
+    exp:"我方已故尊長用「先」字，故稱「先父」；「亡」主要用於我方已故卑幼。"},
+  {cat:"letter", catName:"書信用語", q:"稱呼對方的老師，應使用哪個敬稱？",
+    opts:["敝師","令師","家師","舍師"], ans:1,
+    exp:"對方的師友用「令」字敬稱，如「令師、令友」；自己的師友可謙稱「敝師、敝友」。"},
+  {cat:"letter", catName:"書信用語", q:"商務信函中提到自己的店號，較合宜的謙稱是？",
+    opts:["貴號","令號","敝號","家號"], ans:2,
+    exp:"自己的店號或居處用「敝」謙稱；對方的店號、府第則用「貴」敬稱。"},
+  {cat:"letter", catName:"書信用語", q:"寫信給老師時，下列哪一組提稱語最恰當？",
+    opts:["膝前、膝下","函丈、道鑒","大鑒、臺鑒","知悉、如晤"], ans:1,
+    exp:"「函丈、道鑒」用於師長；親屬長輩用「膝前、膝下」，平輩用「大鑒、臺鑒」。"},
+  {cat:"letter", catName:"書信用語", q:"把對長輩的稱呼另起一行並頂格書寫，稱為什麼？",
+    opts:["挪抬","平抬","緘封","落款"], ans:1,
+    exp:"另起一行並頂格稱為「平抬」；若只在稱呼前空一格，則稱「挪抬」。"},
+  {cat:"letter", catName:"書信用語", q:"關於明信片的說法，下列何者正確？",
+    opts:["啟封詞可寫敬啟","必須用信封密封","沒有啟封詞，緘封詞用寄","緘封詞只能寫緘"], ans:2,
+    exp:"明信片本身不密封，因此沒有啟封詞；依課本用法，緘封詞只能用「寄」。"},
+
+  {cat:"invite", catName:"柬帖用語", q:"喜帖上出現「文定之喜」，表示將舉行什麼儀式？",
+    opts:["訂婚","結婚迎娶","彌月","喬遷"], ans:0,
+    exp:"「文定」指訂婚；「于歸」才是女子出嫁的用語。"},
+  {cat:"invite", catName:"柬帖用語", q:"邀請函寫「敬請闔第光臨」，意思是？",
+    opts:["只邀請本人","邀請全家到來","邀請長輩代表","邀請同事出席"], ans:1,
+    exp:"「闔第」意指全家，「闔第光臨」就是敬請對方全家到場。"},
+  {cat:"invite", catName:"柬帖用語", q:"柬帖中的「詹於」最接近下列哪個意思？",
+    opts:["請準時到場","經占卜決定日期","由長輩署名","女子出嫁"], ans:1,
+    exp:"「詹於」即「占於」，表示經占卜而選定日期。"},
+  {cat:"invite", catName:"柬帖用語", q:"父親健在、母親過世，兒子在訃聞中應自稱？",
+    opts:["孤子","哀子","孤哀子","未亡人"], ans:1,
+    exp:"母死父健，兒子自稱「哀子」；父死母健稱「孤子」。"},
+  {cat:"invite", catName:"柬帖用語", q:"父母都已過世，兒子在訃聞中應自稱？",
+    opts:["孤子","哀子","孤哀子","不孝子"], ans:2,
+    exp:"父母皆亡時合用「孤、哀」二字，自稱「孤哀子」。"},
+  {cat:"invite", catName:"柬帖用語", q:"丈夫過世後，妻子在訃聞中常自稱？",
+    opts:["未亡人","孤哀子","孀子","內人"], ans:0,
+    exp:"丈夫過世，妻子自稱「未亡人」。"},
+  {cat:"invite", catName:"柬帖用語", q:"訃聞中用「諱」字，是為了表示什麼？",
+    opts:["避寫日期","敬稱已故尊長的名字","說明死者年齡","表示安葬地點"], ans:1,
+    exp:"「諱」用來敬稱已故尊長之名，帶有避諱與尊敬的意味。"},
+  {cat:"invite", catName:"柬帖用語", q:"死者享年六十五歲，依課本用語應寫？",
+    opts:["得年六十五歲","享年六十五歲","享壽六十五歲","壽終內寢六十五歲"], ans:2,
+    exp:"六十歲以上用「享壽」；未滿六十歲用「享年」，三十歲以下可用「得年」。"},
+  {cat:"invite", catName:"柬帖用語", q:"死者年僅二十五歲，依課本分類最適合使用？",
+    opts:["得年","享壽","高壽","耆壽"], ans:0,
+    exp:"三十歲以下可用「得年」；「享壽」用於六十歲以上。"},
+  {cat:"invite", catName:"柬帖用語", q:"喪事封套的顏色與格式，下列何者正確？",
+    opts:["只能用紅色","可用白色或藍色，並寫稱謂、哀悼辭、題辭與署名敬辭","不必署名","只能寫題辭，不能寫稱謂"], ans:1,
+    exp:"喪事封套可用白色或藍色，內容依序包含對象稱謂、哀悼辭、題辭與署名敬辭。"},
+  {cat:"invite", catName:"柬帖用語", q:"「壽終正寢」與「壽終內寢」的配對，何者正確？",
+    opts:["前者女喪、後者男喪","兩者都只用於男喪","前者男喪、後者女喪","兩者都只用於女喪"], ans:2,
+    exp:"「壽終正寢」用於男喪；「壽終內寢」用於女喪。"},
+
+  {cat:"couplet", catName:"對聯", q:"判斷對聯是否工整時，相同位置的詞通常應如何搭配？",
+    opts:["名詞對動詞","詞性彼此相對，如名詞對名詞","只要押韻即可","意思完全相同即可"], ans:1,
+    exp:"對聯要求同位置詞性相對，通常名詞對名詞、動詞對動詞，並兼顧句式。"},
+  {cat:"couplet", catName:"對聯", q:"「天增歲月人增壽／春滿乾坤福滿門」中，「增」與「滿」的關係是？",
+    opts:["皆作動詞，詞性相對","一個名詞、一個動詞","皆作名詞","詞性不同但不影響"], ans:0,
+    exp:"「增」與「滿」在句中都作動詞，位於相對位置，符合詞性相對原則。"},
+  {cat:"couplet", catName:"對聯", q:"春聯中貼在門楣中央的部分稱為？",
+    opts:["上聯","下聯","橫批","題辭"], ans:2,
+    exp:"上聯貼右、下聯貼左，橫批貼在門楣中央。"},
+  {cat:"couplet", catName:"對聯", q:"「今日遍栽桃李樹／他年盡做棟梁材」最適合哪個場所？",
+    opts:["銀行","學校","郵局","醫院"], ans:1,
+    exp:"「桃李」比喻學生，「棟梁」比喻有用人才，因此適合學校。"},
+  {cat:"couplet", catName:"對聯", q:"「功侔造化／病起膏肓」最適合哪個場所？",
+    opts:["書局","醫院","寺廟","法院"], ans:1,
+    exp:"「病起膏肓」有使重病痊癒之意，與醫療相關，適合醫院。"},
+  {cat:"couplet", catName:"對聯", q:"「經濟流通利人利己／財源周轉富國富家」最適合哪個行業？",
+    opts:["銀行","學校","郵局","鐘錶店"], ans:0,
+    exp:"「經濟流通、財源周轉」都是金融意象，適合銀行。"},
+  {cat:"couplet", catName:"對聯", q:"「一紙音信傳千里／四方喜訊送萬家」最適合哪個場所？",
+    opts:["書局","郵局","醫院","旅館"], ans:1,
+    exp:"「音信、傳送」點出郵遞功能，最適合郵局。"},
+  {cat:"couplet", catName:"對聯", q:"「寰中慈母女中聖／海上福星天上神」描寫的是哪位神祇？",
+    opts:["關帝","媽祖","土地公","文昌帝君"], ans:1,
+    exp:"「慈母、女中聖、海上福星」都是媽祖的典型形象。"},
+  {cat:"couplet", catName:"對聯", q:"「精忠昭赤日／大義貫青天」最適合張貼在哪裡？",
+    opts:["媽祖廟","關帝廟","書局","醫院"], ans:1,
+    exp:"關羽以忠義著稱，「精忠、大義」指向關帝廟。"},
+  {cat:"couplet", catName:"對聯", q:"辨別上、下聯時，最關鍵的尾字規則是？",
+    opts:["平起仄收","仄起平收","上下都用平聲","上下都用仄聲"], ans:1,
+    exp:"上聯尾字為仄聲，下聯尾字為平聲，稱為「仄起平收」。"},
+
+  {cat:"dedication", catName:"題辭", q:"「風木含悲」最適合用於哀悼誰？",
+    opts:["父母","師長","朋友","商界人士"], ans:0,
+    exp:"「風木含悲」來自風樹之悲，用於哀悼父母。"},
+  {cat:"dedication", catName:"題辭", q:"「痛失知音」最適合用於哪一種哀輓對象？",
+    opts:["父母","朋友","師長","軍人"], ans:1,
+    exp:"「知音」指了解自己的摯友，因此「痛失知音」用於輓朋友。"},
+  {cat:"dedication", catName:"題辭", q:"「端木遺風」最適合用於哀輓哪一界人士？",
+    opts:["教育界","商界","軍界","司法界"], ans:1,
+    exp:"端木賜即子貢，善於經商，因此「端木遺風」用於輓商界人士。"},
+  {cat:"dedication", catName:"題辭", q:"「碧血丹心」最適合用於哀輓？",
+    opts:["商界人士","軍人烈士","朋友","醫師"], ans:1,
+    exp:"「碧血丹心」歌頌忠烈與犧牲，適合輓軍人烈士。"},
+  {cat:"dedication", catName:"題辭", q:"朋友喜獲男嬰，最適合使用哪一題辭？",
+    opts:["弄瓦徵祥","弄璋之喜","春滿瑤池","鳳凰于飛"], ans:1,
+    exp:"「弄璋之喜」用於祝賀生子；「弄瓦徵祥」用於生女。"},
+  {cat:"dedication", catName:"題辭", q:"祝賀新人結婚，下列何者最合適？",
+    opts:["鳳凰于飛","桃李興悲","南極騰輝","功著士林"], ans:0,
+    exp:"「鳳凰于飛」比喻夫妻和好恩愛，用於祝賀結婚。"},
+  {cat:"dedication", catName:"題辭", q:"祝賀男性長輩壽誕，最適合哪一題辭？",
+    opts:["春滿瑤池","椿庭長青","彩鳳新雛","舌粲蓮花"], ans:1,
+    exp:"「椿庭長青」用於男壽；「春滿瑤池」用於女壽。"},
+  {cat:"dedication", catName:"題辭", q:"祝賀醫院落成，下列何者最恰當？",
+    opts:["妙手回春","妙筆生花","貨殖流芳","鐵畫銀鉤"], ans:0,
+    exp:"「妙手回春」稱頌高明醫術，適合醫院落成。"},
+  {cat:"dedication", catName:"題辭", q:"祝賀書法比賽得獎，下列何者最恰當？",
+    opts:["口若懸河","筆走龍蛇","功同良相","椿萱並茂"], ans:1,
+    exp:"「筆走龍蛇」形容書法生動有氣勢，適合書法比賽。"},
+  {cat:"dedication", catName:"題辭", q:"祝賀演講比賽表現出色，下列何者最適合？",
+    opts:["舌粲蓮花","鐵畫銀鉤","風木含悲","熊夢徵祥"], ans:0,
+    exp:"「舌粲蓮花」形容口才好，適合演講比賽。"},
+
+  {cat:"notice", catName:"啟事．便條", q:"公司公開徵求新進員工，應發布哪一類啟事？",
+    opts:["徵求類的徵才啟事","公布類的慶賀啟事","聲明類的更正啟事","便條"], ans:0,
+    exp:"公開徵求人員屬於徵求類中的「徵才啟事」。"},
+  {cat:"notice", catName:"啟事．便條", q:"在校園公布欄張貼尋找遺失錢包的消息，屬於？",
+    opts:["尋訪啟事","鳴謝啟事","通知啟事","道歉啟事"], ans:0,
+    exp:"尋人或尋物都屬徵求類的「尋訪啟事」。"},
+  {cat:"notice", catName:"啟事．便條", q:"屋主公開刊登房屋出租資訊，屬於哪一類？",
+    opts:["租售啟事","慶賀啟事","更正啟事","請假便條"], ans:0,
+    exp:"房地產出租或出售屬於徵求類的「租售啟事」。"},
+  {cat:"notice", catName:"啟事．便條", q:"公開向捐款者表達謝意，應使用？",
+    opts:["鳴謝啟事","徵才啟事","更正啟事","商借便條"], ans:0,
+    exp:"公開感謝捐款者屬公布類的「鳴謝啟事」。"},
+  {cat:"notice", catName:"啟事．便條", q:"學校對外公告招生資訊，屬於哪一類啟事？",
+    opts:["徵求類","公布類的通知啟事","聲明類","慶賀啟事"], ans:1,
+    exp:"招生、遷移、招標等對外消息，屬公布類的「通知啟事」。"},
+  {cat:"notice", catName:"啟事．便條", q:"報紙誤植活動日期，主辦單位公開修正，應使用？",
+    opts:["更正啟事","租售啟事","慶賀啟事","尋訪啟事"], ans:0,
+    exp:"公開修正錯誤內容，屬聲明類的「更正啟事」。"},
+  {cat:"notice", catName:"啟事．便條", q:"公司因服務疏失向大眾公開致歉，應使用？",
+    opts:["道歉啟事","鳴謝啟事","徵才啟事","訪友便條"], ans:0,
+    exp:"向社會大眾公開表示歉意，屬聲明類的「道歉啟事」。"},
+  {cat:"notice", catName:"啟事．便條", q:"啟事的正確格式順序是？",
+    opts:["標題→正文→署名→時間","正文→標題→時間→署名","署名→標題→正文→時間","時間→署名→正文→標題"], ans:0,
+    exp:"啟事依序為標題、正文、署名、時間。"},
+  {cat:"notice", catName:"啟事．便條", q:"小宇到好友家拜訪，好友不在，最適合留下什麼？",
+    opts:["訪友未遇便條","徵才啟事","道歉啟事","正式公文"], ans:0,
+    exp:"拜訪熟人未遇，可留下「訪友未遇」便條，簡要說明來意。"},
+  {cat:"notice", catName:"啟事．便條", q:"關於便條的作法，下列何者正確？",
+    opts:["一定要加封套","遣詞應簡明扼要","適合寫給初次見面者","必須刊登在公布欄"], ans:1,
+    exp:"便條不加封套，內容要簡明扼要，主要用於熟人及家人。"},
+  {cat:"notice", catName:"啟事．便條", q:"下列哪一個對象通常不適合使用便條？",
+    opts:["同住家人","熟識同學","剛認識的長輩","多年好友"], ans:2,
+    exp:"便條不適用於長輩與新交朋友；對剛認識的長輩應採更正式的書信或聯繫方式。"},
+  {cat:"notice", catName:"啟事．便條", q:"家人外出前留言「晚餐在冰箱，請自行加熱」，這屬於？",
+    opts:["家人留言便條","通知啟事","租售啟事","更正啟事"], ans:0,
+    exp:"這是只給家人看的簡短訊息，屬於家人留言便條，不是面向大眾的啟事。"}
+];
+
+const DATA_EXPANDED = [...DATA, ...EXTRA_QUESTIONS];
+
+// 依會考常考觀念選題，不為湊題數保留重複或過細題目。
+// 數字是各單元題庫中的題號（從 0 起算），便於日後增刪重點。
+const CURATED_INDEXES = {
+  letter:     [0,1,2,3,4,5,6,7,8,10,12,13,14],
+  invite:     [0,1,2,3,4,5,7,8,9,10,11,12,13],
+  couplet:    [0,1,2,3,5,7,8,9,12,13],
+  dedication: [0,1,2,3,4,5,6,8,9,10,11,12],
+  notice:     [0,1,3,4,6,7,8,9,10,12]
+};
+
+const DATA_CURATED = Object.entries(CURATED_INDEXES).flatMap(([cat, indexes]) => {
+  const pool = DATA_EXPANDED.filter(item => item.cat === cat);
+  return indexes.map(index => pool[index]);
+});
+
+// fresh question set exclusively for the comprehensive final test —
+// none of these repeat the chapter-quiz questions above.
+const DATA_FINAL = [
+  {cat:"letter", catName:"書信用語", q:"對「其他長輩」（非直系親屬）使用的提稱語，下列何者正確？",
+    opts:["膝前、膝下","尊前、尊鑒","函丈、道鑒","大鑒、臺鑒"], ans:1,
+    exp:"「膝前、膝下」用於親屬長輩（直系）；「尊前、尊鑒」用於其他長輩；「函丈、道鑒」用於師長；「大鑒、臺鑒」用於平輩。"},
+  {cat:"letter", catName:"書信用語", q:"稱呼別人的師友，應使用下列哪一個敬辭？",
+    opts:["令郎","令友","賢喬梓","貴府"], ans:1,
+    exp:"稱呼別人師友用「令師、令友」；「令郎」用於稱對方兒子，「賢喬梓」用於稱對方父子，「貴府」用於稱對方居處。"},
+  {cat:"letter", catName:"書信用語", q:"信中為表示對長輩尊敬，將稱謂另起一行並頂格書寫，這種抬頭方式稱為？",
+    opts:["挪抬","平抬","提稱語","末啟詞"], ans:1,
+    exp:"抬頭有兩種：換行頂格書寫稱為「平抬」；在稱呼前空一格則稱為「挪抬」。"},
+  {cat:"letter", catName:"書信用語", q:"「令先君」是用來稱呼對方的什麼人？",
+    opts:["已故的父親","還在世的父親","已故的兄長","對方的岳父"], ans:0,
+    exp:"「令」為稱對方的敬辭，「先君」指已故的父親，合起來即稱對方已過世的父親。"},
+  {cat:"invite", catName:"柬帖用語", q:"母親健在而父親已過世，兒子在訃聞上應如何自稱？",
+    opts:["孤子","哀子","孤哀子","未亡人"], ans:0,
+    exp:"父死母健，子自稱「孤子」；母死父健則自稱「哀子」；父母皆已過世則自稱「孤哀子」。"},
+  {cat:"invite", catName:"柬帖用語", q:"死者過世時年齡不滿六十歲，訃聞上應使用下列哪一個用語？",
+    opts:["享壽","享年","得年","享福"], ans:1,
+    exp:"六十歲以上稱「享壽」；不滿六十歲稱「享年」；三十歲以下則稱「得年」。"},
+  {cat:"invite", catName:"柬帖用語", q:"柬帖用語「詹於」的意思，最接近下列何者？",
+    opts:["敬邀貴賓全家光臨","經占卜而決定（日期）","女子出嫁","訂婚之喜"], ans:1,
+    exp:"「詹於」即「占於」，意指經占卜而決定，常用於柬帖上說明日期的選定方式。"},
+  {cat:"invite", catName:"柬帖用語", q:"關於紅包封套（喜慶用）與白包封套（喪事用）的格式，下列敘述何者正確？",
+    opts:["兩者皆須寫對象稱謂、賀辭或哀悼辭、題辭與署名敬辭","白包封套不需要署名","紅包封套只能用於婚禮，不能用於其他喜慶","白包封套只能用藍色，不可用白色"], ans:0,
+    exp:"無論紅包或白包封套，格式都包含對象稱謂、賀辭或哀悼辭（如「千古」）、題辭（如「奠儀」）及署名敬辭；喪事封套可用白色或藍色。"},
+  {cat:"couplet", catName:"對聯", q:"對聯範例「天增歲月人增壽／春滿乾坤福滿門」中，「增」與「滿」兩字的詞性關係為？",
+    opts:["詞性不同，對聯不要求詞性一致","皆為動詞，符合上下聯詞性相同的原則","皆為形容詞","上聯用動詞、下聯用名詞"], ans:1,
+    exp:"「增」「滿」在上下聯相同位置皆為動詞，正符合對聯「上下聯詞性相同」的判斷要領。"},
+  {cat:"couplet", catName:"對聯", q:"下列對聯內容與所屬行業的配對，何者正確？",
+    opts:["「刻刻催人資警省／聲聲勸爾惜光陰」－鐘錶店","「筆走龍蛇／龍飛鳳舞」－鞋店","「五更三四點／一日十二時」－銀樓","「揮毫列錦繡／落紙如雲煙」－眼鏡行"], ans:0,
+    exp:"「刻刻催人資警省／聲聲勸爾惜光陰」用於鐘錶店；「龍飛鳳舞」屬書法題辭；「五更三四點」用於便利商店；「揮毫列錦繡」用於毛筆店。"},
+  {cat:"couplet", catName:"對聯", q:"春聯結構中，貼於門楣正中間、方向由右至左書寫的部分稱為？",
+    opts:["上聯","下聯","橫批","末啟詞"], ans:2,
+    exp:"對聯結構中，上聯貼右側、下聯貼左側，橫批則貼於門楣中間，方向為右至左。"},
+  {cat:"dedication", catName:"題辭", q:"「熊夢徵祥」這則題辭用於祝賀？",
+    opts:["生子","生女","結婚","滿月"], ans:0,
+    exp:"「熊夢徵祥」出自《詩經》典故，用於誕育類題辭中祝賀「生子」，與「弄璋之喜」同類。"},
+  {cat:"dedication", catName:"題辭", q:"「椿萱並茂」這則題辭適合用於祝賀？",
+    opts:["男壽","女壽","雙壽（父母皆健在）","遷居"], ans:2,
+    exp:"「椿」比喻父親，「萱」比喻母親，「椿萱並茂」比喻父母都健在，屬「雙壽」類題辭。"},
+  {cat:"dedication", catName:"題辭", q:"「明鏡高懸」這則題辭，最適合用於下列哪個場合？",
+    opts:["法官（當選或就任）","醫院落成","書店開業","歌唱比賽"], ans:0,
+    exp:"「明鏡高懸」「明察秋毫」等題辭用於稱頌法官公正嚴明，屬「法官」類題辭。"},
+  {cat:"dedication", catName:"題辭", q:"下列哪一則題辭最適合用於「醫院落成」？",
+    opts:["春風化雨","妙手回春","大節凜然","里仁為美"], ans:1,
+    exp:"「妙手回春」「仁心仁術」用於醫院落成；「春風化雨」用於教育界；「大節凜然」用於輓軍人烈士；「里仁為美」用於遷居。"},
+  {cat:"notice", catName:"啟事．便條", q:"「公開向捐款者表示感謝」的啟事，屬於下列哪一類？",
+    opts:["徵求類","公布類（鳴謝啟事）","聲明類","以上皆非"], ans:1,
+    exp:"啟事的公布類包含慶賀、鳴謝、通知啟事；公開感謝他人捐款屬於「鳴謝啟事」。"},
+  {cat:"notice", catName:"啟事．便條", q:"便條書寫時，正確的格式順序應為？",
+    opts:["正文→對方稱謂→時間→署名","對方名字稱謂→正文→自稱、署名、末啟詞→時間","署名→正文→對方稱謂→時間","時間→對方稱謂→正文→署名"], ans:1,
+    exp:"便條格式依序為：對方名字稱謂→正文→自稱、署名、末啟詞→時間。"},
+  {cat:"notice", catName:"啟事．便條", q:"下列關於「便條」的敘述，何者錯誤？",
+    opts:["便條不需加封套","便條遣詞應簡明扼要","便條適用於長輩及新交的朋友","便條適用於熟人及家人"], ans:2,
+    exp:"便條不適用於長輩及新交的朋友，僅適用於熟人及家人之間；不加封套、遣詞簡明才是正確的敘述。"}
+];
+
+function letterOf(i){ return ["A","B","C","D"][i]; }
+
+// sectionState[key] = { answered:{}, correct:0, total, fillEl, scorenumEl, bannerEl, bannerTitleEl, bannerSubEl, label }
+const sectionState = {};
+
+function buildMiniScorebar(container, key, total, sticky){
+  const bar = document.createElement("div");
+  bar.className = sticky ? "scorebar" : "mini-scorebar";
+  bar.innerHTML = `
+    <div class="label">作答進度</div>
+    <div class="track"><div class="fill" id="fill-${key}"></div></div>
+    <div class="scorenum" id="scorenum-${key}">0 / ${total}　答對 0</div>
+    <button class="reset-btn" type="button" data-reset="${key}">重新作答</button>
+  `;
+  container.appendChild(bar);
+}
+
+function buildCard(item, sectionKey, localIdx, globalNum){
+  const card = document.createElement("div");
+  card.className = "card";
+  card.dataset.section = sectionKey;
+  card.dataset.local = localIdx;
+
+  const seal = document.createElement("div");
+  seal.className = "seal";
+  seal.textContent = "答對";
+  card.appendChild(seal);
+
+  const num = document.createElement("div");
+  num.className = "qnum";
+  num.textContent = `第 ${globalNum} 題　${item.catName}`;
+  card.appendChild(num);
+
+  const qtext = document.createElement("div");
+  qtext.className = "qtext";
+  qtext.textContent = item.q;
+  card.appendChild(qtext);
+
+  const optsWrap = document.createElement("div");
+  optsWrap.className = "options";
+
+  item.opts.forEach((optText, oi) => {
+    const btn = document.createElement("button");
+    btn.className = "opt";
+    btn.innerHTML = `<span class="letter">${letterOf(oi)}</span><span>${optText}</span>`;
+    btn.addEventListener("click", () => handleAnswer(sectionKey, localIdx, oi, item, card, seal));
+    optsWrap.appendChild(btn);
+  });
+  card.appendChild(optsWrap);
+
+  const explain = document.createElement("div");
+  explain.className = "explain";
+  explain.innerHTML = `<b>解析：</b>${item.exp}`;
+  card.appendChild(explain);
+
+  return card;
+}
+
+function handleAnswer(sectionKey, localIdx, chosenIdx, item, card, seal){
+  const state = sectionState[sectionKey];
+  if(state.answered[localIdx] !== undefined) return; // already answered
+  const isCorrect = chosenIdx === item.ans;
+  state.answered[localIdx] = isCorrect;
+  if(isCorrect) state.correct++;
+
+  const opts = card.querySelectorAll(".opt");
+  opts.forEach((btn, oi) => {
+    btn.classList.add("locked");
+    if(oi === item.ans){
+      btn.classList.add("correct");
+    } else if(oi === chosenIdx){
+      btn.classList.add("wrong");
+    } else {
+      btn.classList.add("dim");
+    }
+  });
+
+  if(isCorrect) seal.classList.add("show");
+  card.querySelector(".explain").classList.add("show");
+
+  updateSectionProgress(sectionKey);
+}
+
+function updateSectionProgress(sectionKey){
+  const state = sectionState[sectionKey];
+  const answeredCount = Object.keys(state.answered).length;
+  state.scorenumEl.textContent = `${answeredCount} / ${state.total}　答對 ${state.correct}`;
+  state.fillEl.style.width = `${(answeredCount/state.total)*100}%`;
+
+  if(answeredCount === state.total && state.bannerEl){
+    state.bannerEl.classList.add("show");
+    const pct = Math.round((state.correct/state.total)*100);
+    let comment = "再複習一次重點，會更熟練喔！";
+    if(pct >= 90) comment = "非常熟練，應用文各項用語都掌握得很好！";
+    else if(pct >= 70) comment = "表現不錯，再加強幾個易混淆的用語即可。";
+    state.bannerTitleEl.textContent = `${state.label}完成！`;
+    state.bannerSubEl.textContent = `答對 ${state.correct} / ${state.total} 題（${pct}%）．${comment}`;
+    state.bannerEl.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+}
+
+function resetSection(sectionKey){
+  const state = sectionState[sectionKey];
+  if(!state) return;
+  state.answered = {};
+  state.correct = 0;
+  state.fillEl.style.width = "0%";
+  state.scorenumEl.textContent = `0 / ${state.total}　答對 0`;
+  if(state.bannerEl) state.bannerEl.classList.remove("show");
+  document.querySelectorAll(`.card[data-section="${sectionKey}"]`).forEach(card => {
+    card.querySelectorAll(".opt").forEach(btn => btn.classList.remove("locked","correct","wrong","dim"));
+    card.querySelector(".explain").classList.remove("show");
+    card.querySelector(".seal").classList.remove("show");
+  });
+}
+
+// ---- build the 5 chapter sections ----
+Object.keys(catMeta).forEach(catKey => {
+  const section = document.getElementById(`sec-${catKey}`);
+  const items = DATA_CURATED.map((d,i)=>({...d, _idx:i})).filter(d => d.cat === catKey);
+
+  const heading = document.createElement("div");
+  heading.className = "cat-heading";
+  heading.innerHTML = `<h2>${catMeta[catKey]}．小測驗</h2><span class="count">會考重點精選 ${items.length} 題</span>`;
+  section.appendChild(heading);
+
+  buildMiniScorebar(section, catKey, items.length, false);
+
+  sectionState[catKey] = {
+    answered:{}, correct:0, total: items.length,
+    fillEl: null, scorenumEl: null, bannerEl:null, bannerTitleEl:null, bannerSubEl:null,
+    label: catMeta[catKey]
+  };
+
+  items.forEach((item, li) => {
+    section.appendChild(buildCard(item, catKey, li, li+1));
+  });
+
+  sectionState[catKey].fillEl = document.getElementById(`fill-${catKey}`);
+  sectionState[catKey].scorenumEl = document.getElementById(`scorenum-${catKey}`);
+});
+
+// ---- build the comprehensive final section ----
+(function buildFinal(){
+  const section = document.getElementById("sec-final");
+
+  const badge = document.createElement("div");
+  badge.className = "final-badge";
+  badge.textContent = "綜合測驗．全部單元混合出題";
+  section.appendChild(badge);
+
+  const heading = document.createElement("div");
+  heading.className = "cat-heading";
+  heading.innerHTML = `<h2>總複習．綜合測驗</h2><span class="count">共 ${DATA_FINAL.length} 題</span>`;
+  section.appendChild(heading);
+
+  buildMiniScorebar(section, "final", DATA_FINAL.length, true);
+
+  const banner = document.createElement("div");
+  banner.className = "final-banner";
+  banner.id = "finalBanner-final";
+  banner.innerHTML = `<div class="ft" id="finalTitle-final"></div><div class="fs" id="finalSub-final"></div>`;
+  section.appendChild(banner);
+
+  sectionState["final"] = {
+    answered:{}, correct:0, total: DATA_FINAL.length,
+    fillEl:null, scorenumEl:null,
+    bannerEl: banner,
+    bannerTitleEl: document.getElementById("finalTitle-final"),
+    bannerSubEl: document.getElementById("finalSub-final"),
+    label: "綜合測驗"
+  };
+
+  DATA_FINAL.forEach((item, li) => {
+    section.appendChild(buildCard(item, "final", li, li+1));
+  });
+
+  sectionState["final"].fillEl = document.getElementById("fill-final");
+  sectionState["final"].scorenumEl = document.getElementById("scorenum-final");
+})();
+
+document.querySelectorAll("[data-reset]").forEach(btn => {
+  btn.addEventListener("click", () => resetSection(btn.dataset.reset));
+});
+
+// tab switching
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    const cat = tab.dataset.cat;
+    document.querySelectorAll("section.category").forEach(sec => {
+      sec.classList.toggle("active", sec.dataset.cat === cat);
+    });
+    window.scrollTo({top: document.querySelector(".tabs").offsetTop - 20, behavior:"smooth"});
+  });
+});
+
+// mode switch
+document.querySelectorAll(".mode-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    const mode = btn.dataset.mode;
+    document.getElementById("knowledgePanel").classList.toggle("active", mode === "knowledge");
+    document.getElementById("quizPanel").classList.toggle("active", mode === "quiz");
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+});
+</script>
+</body>
+</html>
