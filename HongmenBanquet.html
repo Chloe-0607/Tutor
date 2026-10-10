@@ -87,6 +87,8 @@ main{max-width:940px;margin:auto;padding:30px 18px 100px}
 .plain-line{display:inline;color:var(--muted);line-height:2.05}
 .plain-line::after{content:" "}
 .reading-tip{display:flex;align-items:flex-start;gap:.7rem;padding:1rem 1.2rem;margin-bottom:1rem;background:var(--bronze-pale);border-left:4px solid var(--bronze);border-radius:0 10px 10px 0;color:var(--muted)}
+.story-stage{display:flex;align-items:center;gap:.65rem;margin:2rem 0 .85rem;padding-bottom:.45rem;border-bottom:1px dashed var(--line)}
+.story-stage span{color:var(--seal);font-size:.75rem;font-weight:700;letter-spacing:.12em}.story-stage b{font-family:"Noto Serif TC",serif;color:var(--tent-deep)}.story-stage em{margin-left:auto;color:var(--muted);font-size:.75rem;font-style:normal}
 .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:white}
 table{border-collapse:collapse;width:100%;min-width:760px}th,td{text-align:left;padding:1rem;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--bronze-pale);border-bottom:2px solid var(--tent);font-size:.9rem}tr:last-child td{border-bottom:0}td:first-child{font:700 1.1rem "Noto Serif TC",serif;color:var(--seal)}
 .explore-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:1rem}
@@ -102,12 +104,17 @@ table{border-collapse:collapse;width:100%;min-width:760px}th,td{text-align:left;
 .who-card{padding:1rem;border:1px solid var(--line);border-radius:10px;background:white}.who-quote{font:600 1.08rem/1.75 "Noto Serif TC",serif;margin:0 0 .8rem}.who-options{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}.who-option{border:1px solid var(--line);background:#FBFAF6;border-radius:8px;padding:.6rem;cursor:pointer}.who-option:hover{border-color:var(--bronze)}.who-option.correct{background:var(--success);border-color:#4E805D}.who-option.wrong{background:var(--retry);border-color:var(--seal)}.who-option:disabled{cursor:default}
 .who-progress{display:flex;justify-content:space-between;color:var(--muted);font-size:.82rem;margin-top:.7rem}.next-card{display:none;margin-top:.7rem;border:0;border-radius:8px;background:var(--bronze);color:white;padding:.58rem .8rem;cursor:pointer}.next-card.show{display:inline-block}
 .character-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-top:1rem}.character{padding:1rem}.character b{color:var(--tent);font-family:"Noto Serif TC",serif}.character small{display:block;color:var(--muted);margin-top:.3rem}
+.idiom-panel{margin-top:1rem;padding:24px;background:linear-gradient(135deg,#FFFDF9 0 70%,var(--bronze-pale) 100%)}
+.idiom-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1rem}.idiom-heading h3{margin:0;color:var(--ink);font-size:1.24rem}.idiom-heading p{max-width:590px;margin:0;color:var(--muted);font-size:.86rem}
+.rival-idioms{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.rival-column{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:white}.rival-title{display:flex;align-items:center;justify-content:space-between;gap:.7rem;padding:.82rem 1rem;background:var(--tent-pale);border-bottom:1px solid var(--line)}.rival-title strong{font:700 1.05rem "Noto Serif TC",serif;color:var(--tent-deep)}.rival-title span{font-size:.72rem;color:var(--muted);letter-spacing:.08em}
+.idiom-list{list-style:none;margin:0;padding:0}.idiom-item{display:grid;grid-template-columns:78px 1fr;gap:.8rem;padding:.9rem 1rem;border-bottom:1px dashed var(--line)}.idiom-item:last-child{border-bottom:0}.idiom-time{align-self:start;padding:.16rem .35rem;border-radius:999px;background:var(--bronze-pale);color:#76582C;font-size:.68rem;font-weight:700;text-align:center}.idiom-copy b{display:block;color:var(--seal);font-family:"Noto Serif TC",serif;font-size:1.02rem}.idiom-copy span{display:block;margin-top:.2rem;color:var(--muted);font-size:.8rem;line-height:1.65}
+.banquet-phrases{margin-top:1rem;padding:1rem;border-left:4px solid var(--bronze);background:#FBF7EE;border-radius:0 10px 10px 0}.banquet-phrases h4{margin:0 0 .65rem;font:700 1rem "Noto Serif TC",serif;color:var(--tent-deep)}.phrase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem}.phrase{padding:.72rem .8rem;border:1px solid var(--line);border-radius:9px;background:white}.phrase b{display:block;color:var(--seal);font-family:"Noto Serif TC",serif}.phrase span{display:block;margin-top:.18rem;color:var(--muted);font-size:.78rem;line-height:1.6}.idiom-reminder{margin:.75rem 0 0;color:var(--muted);font-size:.76rem}
 .quiz-shell{padding:0;border:0;background:transparent}.quiz-item{padding:20px 22px;margin-bottom:16px;border:1px solid var(--line);border-radius:12px;background:#fff}.question{font-weight:700;margin-bottom:.75rem}.options{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}.option{position:relative;border:1px solid #B8C8C9;background:white;border-radius:7px;padding:.7rem .8rem;text-align:left;cursor:pointer;color:var(--ink);min-height:48px}.option:hover{border-color:var(--tent)}.quiz-item.answered .option{cursor:default}.option.correct{border-color:#4E805D;background:var(--success);padding-right:4.2rem}.option.correct::after{content:"對";position:absolute;right:.7rem;top:50%;transform:translateY(-50%) rotate(-6deg);color:#346443;border:1.5px solid #4E805D;border-radius:4px;padding:0 5px;font:700 11px "Noto Serif TC",serif}.option.wrong{border-color:var(--seal);background:var(--retry);text-decoration:line-through;color:var(--muted)}
 .explanation{display:none;margin-top:.75rem;padding:.8rem 1rem;border-left:3px solid var(--bronze);background:var(--bronze-pale)}.quiz-item.answered .explanation{display:block}
 .quiz-finish{display:none;text-align:center;padding:1.5rem;margin-top:1rem;border-radius:12px;background:var(--tent-pale)}.quiz-finish.show{display:block}.quiz-finish strong{display:block;font:700 1.5rem "Noto Serif TC",serif;color:var(--tent)}.restart{margin-top:.8rem;border:0;border-radius:8px;background:var(--seal);color:white;padding:.65rem 1rem;cursor:pointer}
 footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.82rem}
 @media(max-width:760px){
-  .hero{padding:56px 18px 36px}.watermark{right:-18px;top:-28px;font-size:156px}.toolbar-inner{justify-content:flex-start;padding:10px 12px}.jump{display:none}.background-grid,.explore-grid{grid-template-columns:1fr}.fact-strip{grid-template-columns:1fr 1fr}.fact:nth-child(2){border-right:0}.fact:nth-child(-n+2){border-bottom:1px solid var(--line)}.camp-compare{grid-template-columns:1fr}.ratio{width:58px;height:58px;margin:auto}.original{padding:20px 18px 16px;font-size:1.07rem}.notes-hint{margin:0 18px}.translation{margin:0 18px 20px;padding:10px 0 4px 16px}.note-pop{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);width:calc(100vw - 2rem)}.seat-stage{min-height:300px;padding:.65rem}.seat{font-size:.72rem;min-height:64px;padding:.3rem}.seat strong{font-size:.88rem}.character-grid,.options{grid-template-columns:1fr}.who-options{grid-template-columns:1fr 1fr}
+  .hero{padding:56px 18px 36px}.watermark{right:-18px;top:-28px;font-size:156px}.toolbar-inner{justify-content:flex-start;padding:10px 12px}.jump{display:none}.background-grid,.explore-grid,.rival-idioms{grid-template-columns:1fr}.fact-strip{grid-template-columns:1fr 1fr}.fact:nth-child(2){border-right:0}.fact:nth-child(-n+2){border-bottom:1px solid var(--line)}.camp-compare{grid-template-columns:1fr}.ratio{width:58px;height:58px;margin:auto}.original{padding:20px 18px 16px;font-size:1.07rem}.notes-hint{margin:0 18px}.translation{margin:0 18px 20px;padding:10px 0 4px 16px}.note-pop{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);width:calc(100vw - 2rem)}.seat-stage{min-height:300px;padding:.65rem}.seat{font-size:.72rem;min-height:64px;padding:.3rem}.seat strong{font-size:.88rem}.character-grid,.options,.phrase-grid{grid-template-columns:1fr}.who-options{grid-template-columns:1fr 1fr}.idiom-panel{padding:18px}.idiom-heading{display:block}.idiom-heading p{margin-top:.35rem}.idiom-item{grid-template-columns:70px 1fr;padding:.8rem}
 }
 </style>
 </head>
@@ -145,7 +152,9 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
 
   <section class="section" id="text">
     <div class="section-head"><div><div class="section-kicker">Read &amp; Annotate</div><h2>課文與注釋</h2></div></div>
-    <div class="reading-tip"><span aria-hidden="true">✦</span><span>全文拆成 13 個情節單位。注音預設顯示；點選紅色虛線字詞看注釋，展開語譯後可逐句對照原文與白話。</span></div>
+    <div class="reading-tip"><span aria-hidden="true">✦</span><span>全文分成 5 個情節階段、22 個短翻譯任務。每次先翻一張卡，再展開逐句語譯核對；點選紅色虛線字詞可查看注釋。</span></div>
+
+    <div class="story-stage"><span>第一幕</span><b>楚軍壓境</b><em>任務 1–3</em></div>
 
     <article class="passage card">
       <div class="passage-top"><span class="passage-tag">第一段｜楚軍入關</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
@@ -181,8 +190,9 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
       </div></div>
     </article>
 
+    <div class="story-stage"><span>第二幕</span><b>夜訪解危</b><em>任務 4–8</em></div>
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第三段｜項伯夜訪</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="passage-top"><span class="passage-tag">第四段｜項伯夜訪</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
       <div class="original"><p>楚左尹項伯者，項羽<button class="annot" aria-expanded="false">季父<span class="note-pop">叔父。古代兄弟排行以伯、仲、叔、季表示，季常指最小者。</span></button>也，<button class="annot" aria-expanded="false">素善<span class="note-pop">一向與……交好。「善」在此作動詞。</span></button>留侯張良。張良是時從沛公，項伯乃夜馳<button class="annot" aria-expanded="false">之沛公軍<span class="note-pop">前往劉邦的軍營。「之」作動詞，意為前往、到。</span></button>，私見張良，具告以事，欲呼張良與俱去，曰：「毋從俱死也。」張良曰：「臣為韓王送沛公，沛公今事有急，<button class="annot" aria-expanded="false">亡去<span class="note-pop">逃離。「亡」在此指逃走。</span></button>不義，不可不語。」良乃入，具告沛公。</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">楚左尹項伯者，項羽季父也，素善留侯張良。</div><div class="plain-line">楚國左尹項伯是項羽的叔父，平時和張良交好。</div></div>
@@ -195,7 +205,7 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
     </article>
 
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第四段｜張良問策</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="passage-top"><span class="passage-tag">第五段｜張良問策</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
       <div class="original"><p>沛公大驚，曰：「為之奈何？」張良曰：「誰為大王為此計者？」曰：「<button class="annot" aria-expanded="false"><ruby>鯫<rt>ㄗㄡ</rt></ruby>生<span class="note-pop">見識淺陋的人，是帶有輕蔑意味的稱呼。</span></button>說我曰：『<button class="annot" aria-expanded="false">距關<span class="note-pop">把守關口、拒絕他人進入。「距」通「拒」。</span></button>，毋<button class="annot" aria-expanded="false">內諸侯<span class="note-pop">不要讓諸侯進入。「內」通「納」，使……進入。</span></button>，秦地可盡王也。』故聽之。」良曰：「料大王士卒足以<button class="annot" aria-expanded="false">當項王<span class="note-pop">抵擋項羽。「當」在此意為抵擋、抗拒。</span></button>乎？」沛公默然，曰：「固不如也。且為之奈何？」張良曰：「請往謂項伯，言沛公不敢背項王也。」</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">沛公大驚，曰：「為之奈何？」</div><div class="plain-line">劉邦大吃一驚，問：「這件事該怎麼辦？」</div></div>
@@ -232,7 +242,7 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
     </article>
 
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第六段｜項伯回報</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="passage-top"><span class="passage-tag">第八段｜項伯回報</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
       <div class="original"><p>項伯許諾，謂沛公曰：「旦日不可不<button class="annot" aria-expanded="false"><ruby>蚤<rt>ㄗㄠˇ</rt></ruby><span class="note-pop">通「早」，意為早些、提早。</span></button>自來<button class="annot" aria-expanded="false">謝項王<span class="note-pop">向項羽謝罪、道歉。「謝」在此不是感謝。</span></button>。」沛公曰：「諾。」於是項伯復夜去，至軍中，具以沛公言報項王，因言曰：「沛公不先破關中，公豈敢入乎？今人有大功而擊之，不義也。不如<button class="annot" aria-expanded="false">因善遇之<span class="note-pop">趁此機會友善地對待他。「因」意為趁著，「遇」意為對待。</span></button>。」項王許諾。</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">項伯許諾。</div><div class="plain-line">項伯答應替劉邦轉達。</div></div>
@@ -245,15 +255,23 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
       </div></div>
     </article>
 
+    <div class="story-stage"><span>第三幕</span><b>宴上交鋒</b><em>任務 9–17</em></div>
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第七段｜赴宴與座次</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
-      <div class="original"><p>沛公旦日從百餘騎來見項王，至鴻門。謝曰：「臣與將軍<button class="annot" aria-expanded="false"><ruby>戮<rt>ㄌㄨˋ</rt></ruby>力<span class="note-pop">合力、共同出力。</span></button>而攻秦，將軍戰<button class="annot" aria-expanded="false">河北<span class="note-pop">黃河以北，並非今日的河北省。</span></button>，臣戰<button class="annot" aria-expanded="false">河南<span class="note-pop">黃河以南，並非今日的河南省。</span></button>，然不自意能先入關破秦，得復見將軍於此。今者有小人之言，令將軍與臣有<button class="annot" aria-expanded="false"><ruby>郤<rt>ㄒㄧˋ</rt></ruby><span class="note-pop">嫌隙、隔閡。「郤」通「隙」。</span></button>。」項王曰：「此沛公左司馬曹無傷言之。不然，<button class="annot" aria-expanded="false">籍<span class="note-pop">項羽的名。古人自稱時可直稱自己的名。</span></button>何以至此？」項王即日因留沛公與飲。項王、項伯<button class="annot" aria-expanded="false">東嚮坐<span class="note-pop">坐在西面，面向東方；在古代室內座次中地位最尊。</span></button>；亞父南嚮坐——亞父者，范增也；沛公北嚮坐；張良西嚮侍。</p></div>
+      <div class="passage-top"><span class="passage-tag">第九段｜沛公赴宴謝罪</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="original"><p>沛公旦日從百餘騎來見項王，至鴻門。謝曰：「臣與將軍<button class="annot" aria-expanded="false"><ruby>戮<rt>ㄌㄨˋ</rt></ruby>力<span class="note-pop">合力、共同出力。</span></button>而攻秦，將軍戰<button class="annot" aria-expanded="false">河北<span class="note-pop">黃河以北，並非今日的河北省。</span></button>，臣戰<button class="annot" aria-expanded="false">河南<span class="note-pop">黃河以南，並非今日的河南省。</span></button>，然不自意能先入關破秦，得復見將軍於此。今者有小人之言，令將軍與臣有<button class="annot" aria-expanded="false"><ruby>郤<rt>ㄒㄧˋ</rt></ruby><span class="note-pop">嫌隙、隔閡。「郤」通「隙」。</span></button>。」項王曰：「此沛公左司馬曹無傷言之。不然，<button class="annot" aria-expanded="false">籍<span class="note-pop">項羽的名。古人自稱時可直稱自己的名。</span></button>何以至此？」</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">沛公旦日從百餘騎來見項王，至鴻門。</div><div class="plain-line">第二天，劉邦帶領一百多名騎兵隨從來見項羽，抵達鴻門。</div></div>
         <div class="translation-unit"><div class="source-line">「臣與將軍戮力而攻秦，將軍戰河北，臣戰河南。」</div><div class="plain-line">劉邦謝罪說：「我和將軍合力攻打秦國；將軍在黃河以北作戰，我在黃河以南作戰。」</div></div>
         <div class="translation-unit"><div class="source-line">「然不自意能先入關破秦，得復見將軍於此。」</div><div class="plain-line">「但我沒有料想到自己能先入關滅秦，並且能在這裡再次見到將軍。」</div></div>
         <div class="translation-unit"><div class="source-line">「今者有小人之言，令將軍與臣有郤。」</div><div class="plain-line">「如今因為小人的讒言，使將軍和我之間產生嫌隙。」</div></div>
         <div class="translation-unit"><div class="source-line">「此沛公左司馬曹無傷言之。不然，籍何以至此？」</div><div class="plain-line">項羽說：「這是你的左司馬曹無傷告訴我的；否則，我項籍怎麼會生氣到這個地步？」</div></div>
+      </div></div>
+    </article>
+
+    <article class="passage card">
+      <div class="passage-top"><span class="passage-tag">第十段｜宴飲座次</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="original"><p>項王即日因留沛公與飲。項王、項伯<button class="annot" aria-expanded="false">東嚮坐<span class="note-pop">坐在西面，面向東方；在古代室內座次中地位最尊。</span></button>；亞父南嚮坐——亞父者，范增也；沛公北嚮坐；張良西嚮侍。</p></div>
+      <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">項王即日因留沛公與飲。</div><div class="plain-line">項羽當天便留下劉邦，和他一起飲酒。</div></div>
         <div class="translation-unit"><div class="source-line">項王、項伯東嚮坐；亞父南嚮坐——亞父者，范增也。</div><div class="plain-line">項羽、項伯坐在西側面向東；亞父面向南坐——亞父就是范增。</div></div>
         <div class="translation-unit"><div class="source-line">沛公北嚮坐；張良西嚮侍。</div><div class="plain-line">劉邦面向北坐在下位；張良面向西陪侍。</div></div>
@@ -261,8 +279,8 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
     </article>
 
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第八段｜項莊舞劍</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
-      <div class="original"><p>范增<button class="annot" aria-expanded="false">數<ruby>目<rt>ㄇㄨˋ</rt></ruby>項王<span class="note-pop">多次以眼神向項羽示意。「數」音ㄕㄨㄛˋ，意為屢次；「目」為使眼色。</span></button>，舉所佩<button class="annot" aria-expanded="false">玉<ruby>玦<rt>ㄐㄩㄝˊ</rt></ruby><span class="note-pop">有缺口的環形玉器；「玦」與「決」同音，此處暗示項羽下定決心。</span></button>以示之者三，項王默然不應。范增起，出，召項莊，謂曰：「君王為人不忍，若入前為壽；壽畢，請以劍舞，因擊沛公於坐，殺之。不者，<button class="annot" aria-expanded="false">若屬<span class="note-pop">你們這些人。「若」指你，「屬」指一班人。</span></button>皆且<button class="annot" aria-expanded="false">為所虜<span class="note-pop">將被他俘虜。「為……所……」是被動句式。</span></button>！」莊則入為壽。壽畢，曰：「君王與沛公飲，軍中無以為樂，請以劍舞。」項王曰：「諾。」項莊拔劍起舞。項伯亦拔劍起舞，常<button class="annot" aria-expanded="false">以身翼蔽沛公<span class="note-pop">像鳥張開翅膀一樣遮蔽劉邦。「翼」為名詞作狀語。</span></button>。莊不得擊。</p></div>
+      <div class="passage-top"><span class="passage-tag">第十一段｜范增催殺</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="original"><p>范增<button class="annot" aria-expanded="false">數<ruby>目<rt>ㄇㄨˋ</rt></ruby>項王<span class="note-pop">多次以眼神向項羽示意。「數」音ㄕㄨㄛˋ，意為屢次；「目」為使眼色。</span></button>，舉所佩<button class="annot" aria-expanded="false">玉<ruby>玦<rt>ㄐㄩㄝˊ</rt></ruby><span class="note-pop">有缺口的環形玉器；「玦」與「決」同音，此處暗示項羽下定決心。</span></button>以示之者三，項王默然不應。范增起，出，召項莊，謂曰：「君王為人不忍，若入前為壽；壽畢，請以劍舞，因擊沛公於坐，殺之。不者，<button class="annot" aria-expanded="false">若屬<span class="note-pop">你們這些人。「若」指你，「屬」指一班人。</span></button>皆且<button class="annot" aria-expanded="false">為所虜<span class="note-pop">將被他俘虜。「為……所……」是被動句式。</span></button>！」</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">范增數目項王，舉所佩玉玦以示之者三。</div><div class="plain-line">范增多次以眼神示意項羽，又三次舉起佩帶的玉玦，暗示他趕快決斷。</div></div>
         <div class="translation-unit"><div class="source-line">項王默然不應。</div><div class="plain-line">項羽沉默不語，沒有回應。</div></div>
@@ -270,6 +288,13 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
         <div class="translation-unit"><div class="source-line">「君王為人不忍，若入前為壽。」</div><div class="plain-line">范增說：「項王為人心軟，不忍下手；你進去上前敬酒祝壽。」</div></div>
         <div class="translation-unit"><div class="source-line">「壽畢，請以劍舞，因擊沛公於坐，殺之。」</div><div class="plain-line">「祝壽完畢後，請求舞劍助興，趁機在座位上刺擊劉邦，把他殺掉。」</div></div>
         <div class="translation-unit"><div class="source-line">「不者，若屬皆且為所虜！」</div><div class="plain-line">「否則，你們這些人都將被他俘虜！」</div></div>
+      </div></div>
+    </article>
+
+    <article class="passage card">
+      <div class="passage-top"><span class="passage-tag">第十二段｜項莊舞劍</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="original"><p>莊則入為壽。壽畢，曰：「君王與沛公飲，軍中無以為樂，請以劍舞。」項王曰：「諾。」項莊拔劍起舞。項伯亦拔劍起舞，常<button class="annot" aria-expanded="false">以身翼蔽沛公<span class="note-pop">像鳥張開翅膀一樣遮蔽劉邦。「翼」為名詞作狀語。</span></button>。莊不得擊。</p></div>
+      <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">莊則入為壽。壽畢，曰：「君王與沛公飲，軍中無以為樂，請以劍舞。」</div><div class="plain-line">項莊便進帳敬酒；祝壽結束後，他說軍中沒有可以助興的娛樂，請求舞劍。</div></div>
         <div class="translation-unit"><div class="source-line">項王曰：「諾。」項莊拔劍起舞。</div><div class="plain-line">項羽答應後，項莊拔劍起舞。</div></div>
         <div class="translation-unit"><div class="source-line">項伯亦拔劍起舞，常以身翼蔽沛公。莊不得擊。</div><div class="plain-line">項伯也拔劍起舞，常用身體像鳥翼般遮蔽劉邦，使項莊無法下手。</div></div>
@@ -277,13 +302,20 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
     </article>
 
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第九段｜樊噲闖帳</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
-      <div class="original"><p>於是張良至軍門見樊<ruby>噲<rt>ㄎㄨㄞˋ</rt></ruby>。樊噲曰：「今日之事何如？」良曰：「甚急！今者項莊拔劍舞，其意常在沛公也。」噲曰：「此迫矣！臣請入，與之<button class="annot" aria-expanded="false">同命<span class="note-pop">同生共死。</span></button>。」噲即帶劍擁盾入軍門。<button class="annot" aria-expanded="false">交<ruby>戟<rt>ㄐㄧˇ</rt></ruby>之衛士<span class="note-pop">把長戟交叉起來守門的衛士。</span></button>欲止不<button class="annot" aria-expanded="false">內<span class="note-pop">讓他進入。「內」通「納」。</span></button>。樊噲側其盾以撞，衛士<ruby>仆<rt>ㄆㄨ</rt></ruby>地。噲遂入，<button class="annot" aria-expanded="false">披帷<span class="note-pop">掀開軍帳的帷幕。「披」意為分開、掀開。</span></button>西嚮立，<ruby>瞋<rt>ㄔㄣ</rt></ruby>目視項王，頭髮上指，目<ruby>眥<rt>ㄗˋ</rt></ruby>盡裂。項王<button class="annot" aria-expanded="false">按劍而<ruby>跽<rt>ㄐㄧˋ</rt></ruby><span class="note-pop">握著劍，挺直上身。跽，是雙膝著地而挺直腰身。</span></button>曰：「客何為者！」張良曰：「沛公之<button class="annot" aria-expanded="false">參乘<span class="note-pop">古代乘車時站在車右負責護衛的人，此處指近身護衛。</span></button>樊噲者也。」</p></div>
+      <div class="passage-top"><span class="passage-tag">第十三段｜張良求援</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="original"><p>於是張良至軍門見樊<ruby>噲<rt>ㄎㄨㄞˋ</rt></ruby>。樊噲曰：「今日之事何如？」良曰：「甚急！今者項莊拔劍舞，其意常在沛公也。」噲曰：「此迫矣！臣請入，與之<button class="annot" aria-expanded="false">同命<span class="note-pop">同生共死。</span></button>。」</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">於是張良至軍門見樊噲。</div><div class="plain-line">於是張良來到軍營門口會見樊噲。</div></div>
         <div class="translation-unit"><div class="source-line">「今日之事何如？」</div><div class="plain-line">樊噲問：「今天的情況怎麼樣？」</div></div>
         <div class="translation-unit"><div class="source-line">「甚急！今者項莊拔劍舞，其意常在沛公也。」</div><div class="plain-line">張良說：「非常危急！現在項莊拔劍起舞，他的目的始終是要刺殺劉邦。」</div></div>
         <div class="translation-unit"><div class="source-line">「此迫矣！臣請入，與之同命。」</div><div class="plain-line">樊噲說：「情勢太緊迫了！請讓我進去，和劉邦同生共死。」</div></div>
+      </div></div>
+    </article>
+
+    <article class="passage card">
+      <div class="passage-top"><span class="passage-tag">第十四段｜樊噲闖帳</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="original"><p>噲即帶劍擁盾入軍門。<button class="annot" aria-expanded="false">交<ruby>戟<rt>ㄐㄧˇ</rt></ruby>之衛士<span class="note-pop">把長戟交叉起來守門的衛士。</span></button>欲止不<button class="annot" aria-expanded="false">內<span class="note-pop">讓他進入。「內」通「納」。</span></button>。樊噲側其盾以撞，衛士<ruby>仆<rt>ㄆㄨ</rt></ruby>地。噲遂入，<button class="annot" aria-expanded="false">披帷<span class="note-pop">掀開軍帳的帷幕。「披」意為分開、掀開。</span></button>西嚮立，<ruby>瞋<rt>ㄔㄣ</rt></ruby>目視項王，頭髮上指，目<ruby>眥<rt>ㄗˋ</rt></ruby>盡裂。項王<button class="annot" aria-expanded="false">按劍而<ruby>跽<rt>ㄐㄧˋ</rt></ruby><span class="note-pop">握著劍，挺直上身。跽，是雙膝著地而挺直腰身。</span></button>曰：「客何為者！」張良曰：「沛公之<button class="annot" aria-expanded="false">參乘<span class="note-pop">古代乘車時站在車右負責護衛的人，此處指近身護衛。</span></button>樊噲者也。」</p></div>
+      <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">噲即帶劍擁盾入軍門。交戟之衛士欲止不內。</div><div class="plain-line">樊噲立刻帶劍持盾闖入軍門；持戟交叉守門的衛士想阻止他，不讓他進去。</div></div>
         <div class="translation-unit"><div class="source-line">樊噲側其盾以撞，衛士仆地。</div><div class="plain-line">樊噲側轉盾牌猛撞，衛士跌倒在地。</div></div>
         <div class="translation-unit"><div class="source-line">噲遂入，披帷西嚮立，瞋目視項王，頭髮上指，目眥盡裂。</div><div class="plain-line">樊噲於是進帳，掀開帳幕面向西站立；他怒目直視項羽，頭髮向上豎起，眼眶像要裂開。</div></div>
@@ -293,7 +325,7 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
     </article>
 
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第十二段｜賜酒與彘肩</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="passage-top"><span class="passage-tag">第十五段｜賜酒與彘肩</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
       <div class="original"><p>項王曰：「壯士！賜之卮酒！」則與<button class="annot" aria-expanded="false">斗卮酒<span class="note-pop">一斗容量的大酒杯，形容酒量很大。</span></button>。噲拜謝，起，立而飲之。項王曰：「賜之<button class="annot" aria-expanded="false"><ruby>彘<rt>ㄓˋ</rt></ruby>肩<span class="note-pop">豬的前腿。</span></button>！」則與一生彘肩。樊噲覆其盾於地，加彘肩上，拔劍切而<button class="annot" aria-expanded="false"><ruby>啗<rt>ㄉㄢˋ</rt></ruby>之<span class="note-pop">吃它。「啗」同「啖」，意為吃。</span></button>。項王曰：「壯士！能復飲乎？」</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">「壯士！賜之卮酒！」則與斗卮酒。</div><div class="plain-line">項羽說：「壯士！賞他一杯酒！」侍者便給樊噲一大杯酒。</div></div>
@@ -305,7 +337,7 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
     </article>
 
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第十三段｜樊噲直諫：秦失民心</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="passage-top"><span class="passage-tag">第十六段｜樊噲直諫：秦失民心</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
       <div class="original"><p>樊噲曰：「臣死且不避，卮酒安足辭！夫秦王有虎狼之心，殺人如不能<button class="annot" aria-expanded="false">舉<span class="note-pop">盡、全部。</span></button>，刑人如恐不<button class="annot" aria-expanded="false">勝<span class="note-pop">盡、完。此處指唯恐不能把人處罰完。</span></button>，天下皆叛之。懷王與諸將約曰：『先破秦入咸陽者王之。』</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">「臣死且不避，卮酒安足辭！」</div><div class="plain-line">樊噲說：「我連死都不怕，一杯酒哪裡值得推辭？」</div></div>
@@ -315,7 +347,7 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
     </article>
 
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第十四段｜樊噲直諫：為沛公辯功</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="passage-top"><span class="passage-tag">第十七段｜樊噲直諫：為沛公辯功</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
       <div class="original"><p>今沛公先破秦入咸陽，毫毛不敢有所近，封閉宮室，還軍霸上，以待大王來。故遣將守關者，備他盜出入與非常也。勞苦而功高如此，未有封侯之賞，而聽細說，欲誅有功之人，此<button class="annot" aria-expanded="false">亡秦之續耳<span class="note-pop">將成為滅亡秦朝的後繼者，意指重蹈秦朝暴政覆亡的錯誤。</span></button>。竊為大王<button class="annot" aria-expanded="false">不取<span class="note-pop">不應採取、不值得採用。</span></button>也！」項王未有以應，曰：「坐。」樊噲從良坐。</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">「今沛公先破秦入咸陽，毫毛不敢有所近，封閉宮室，還軍霸上，以待大王來。」</div><div class="plain-line">「如今劉邦先攻破秦國、進入咸陽，卻對財物絲毫不敢碰；他封閉宮室，退軍霸上，等候大王到來。」</div></div>
@@ -327,9 +359,10 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
       </div></div>
     </article>
 
+    <div class="story-stage"><span>第四幕</span><b>脫身返營</b><em>任務 18–20</em></div>
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第十一段｜借廁脫身</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
-      <div class="original"><p>坐須臾，沛公起<button class="annot" aria-expanded="false">如廁<span class="note-pop">到廁所去。「如」作動詞，意為前往。</span></button>，因招樊噲出。沛公已出，項王使都尉陳平召沛公。沛公曰：「今者出，未辭也，為之奈何？」樊噲曰：「<button class="annot" aria-expanded="false">大行不顧細謹<span class="note-pop">做大事不必顧慮細小的禮節。</span></button>，大禮不辭<button class="annot" aria-expanded="false">小讓<span class="note-pop">細微的謙讓、禮節。</span></button>。如今人方為刀<button class="annot" aria-expanded="false"><ruby>俎<rt>ㄗㄨˇ</rt></ruby><span class="note-pop">切肉用的砧板；「刀俎」比喻掌握生殺權的一方。</span></button>，我為魚肉，<button class="annot" aria-expanded="false">何辭為<span class="note-pop">還告辭做什麼？「何……為」是表示反問的句式。</span></button>？」於是遂去。乃令張良留謝。良問曰：「大王來<button class="annot" aria-expanded="false">何操<span class="note-pop">帶了什麼？「操」意為拿、攜帶。</span></button>？」曰：「我持白璧一雙，欲獻項王；玉斗一雙，欲與亞父。<button class="annot" aria-expanded="false">會其怒<span class="note-pop">正碰上他們發怒。「會」意為適逢、正趕上。</span></button>，不敢獻。公為我獻之。」張良曰：「謹諾。」</p></div>
+      <div class="passage-top"><span class="passage-tag">第十八段｜借廁脫身</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="original"><p>坐須臾，沛公起<button class="annot" aria-expanded="false">如廁<span class="note-pop">到廁所去。「如」作動詞，意為前往。</span></button>，因招樊噲出。沛公已出，項王使都尉陳平召沛公。沛公曰：「今者出，未辭也，為之奈何？」樊噲曰：「<button class="annot" aria-expanded="false">大行不顧細謹<span class="note-pop">做大事不必顧慮細小的禮節。</span></button>，大禮不辭<button class="annot" aria-expanded="false">小讓<span class="note-pop">細微的謙讓、禮節。</span></button>。如今人方為刀<button class="annot" aria-expanded="false"><ruby>俎<rt>ㄗㄨˇ</rt></ruby><span class="note-pop">切肉用的砧板；「刀俎」比喻掌握生殺權的一方。</span></button>，我為魚肉，<button class="annot" aria-expanded="false">何辭為<span class="note-pop">還告辭做什麼？「何……為」是表示反問的句式。</span></button>？」於是遂去。乃令張良留謝。</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">坐須臾，沛公起如廁，因招樊噲出。</div><div class="plain-line">坐了一會兒，劉邦起身上廁所，趁機把樊噲叫了出去。</div></div>
         <div class="translation-unit"><div class="source-line">沛公已出，項王使都尉陳平召沛公。</div><div class="plain-line">劉邦出去後，項羽派都尉陳平去叫他回來。</div></div>
@@ -337,6 +370,13 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
         <div class="translation-unit"><div class="source-line">「大行不顧細謹，大禮不辭小讓。」</div><div class="plain-line">樊噲說：「做大事不必顧慮細小的禮節，行大禮不必在意細微的謙讓。」</div></div>
         <div class="translation-unit"><div class="source-line">「如今人方為刀俎，我為魚肉，何辭為？」</div><div class="plain-line">「現在別人正像刀和砧板，我們則像任人宰割的魚肉，還告辭做什麼？」</div></div>
         <div class="translation-unit"><div class="source-line">於是遂去。乃令張良留謝。</div><div class="plain-line">劉邦於是直接離開，只叫張良留下來代為告辭謝罪。</div></div>
+      </div></div>
+    </article>
+
+    <article class="passage card">
+      <div class="passage-top"><span class="passage-tag">第十九段｜託付獻禮</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="original"><p>良問曰：「大王來<button class="annot" aria-expanded="false">何操<span class="note-pop">帶了什麼？「操」意為拿、攜帶。</span></button>？」曰：「我持白璧一雙，欲獻項王；玉斗一雙，欲與亞父。<button class="annot" aria-expanded="false">會其怒<span class="note-pop">正碰上他們發怒。「會」意為適逢、正趕上。</span></button>，不敢獻。公為我獻之。」張良曰：「謹諾。」</p></div>
+      <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">良問曰：「大王來何操？」</div><div class="plain-line">張良問：「大王來的時候帶了什麼禮物？」</div></div>
         <div class="translation-unit"><div class="source-line">「我持白璧一雙，欲獻項王；玉斗一雙，欲與亞父。」</div><div class="plain-line">劉邦說：「我帶了一對白璧，想獻給項羽；一對玉斗，想送給范增。」</div></div>
         <div class="translation-unit"><div class="source-line">「會其怒，不敢獻。公為我獻之。」</div><div class="plain-line">「正遇上他們發怒，所以不敢獻出；請你替我獻上。」</div></div>
@@ -345,7 +385,7 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
     </article>
 
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第十二段｜小道返營</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="passage-top"><span class="passage-tag">第二十段｜小道返營</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
       <div class="original"><p>當是時，項王軍在鴻門下，沛公軍在霸上，<button class="annot" aria-expanded="false">相去<span class="note-pop">彼此相距。「去」意為距離。</span></button>四十里。沛公則<button class="annot" aria-expanded="false">置車騎<span class="note-pop">留下車馬和隨從。「置」意為放棄、留下。</span></button>，脫身獨騎，與樊噲、夏侯嬰、<ruby>靳<rt>ㄐㄧㄣˋ</rt></ruby>彊、紀信等四人持劍盾<button class="annot" aria-expanded="false">步走<span class="note-pop">徒步快走。「走」在古文中常指跑或快速行走。</span></button>，從<ruby>酈<rt>ㄌㄧˋ</rt></ruby>山下，<button class="annot" aria-expanded="false">道<ruby>芷<rt>ㄓˇ</rt></ruby>陽<span class="note-pop">取道芷陽。「道」為名詞作動詞。</span></button><button class="annot" aria-expanded="false">閒行<span class="note-pop">抄小路行走。「閒」通「間」。</span></button>。沛公謂張良曰：「從此道至吾軍，不過二十里耳。<button class="annot" aria-expanded="false">度我<span class="note-pop">估計我。「度」音ㄉㄨㄛˋ，意為估量、推測。</span></button>至軍中，公乃入。」</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">當是時，項王軍在鴻門下，沛公軍在霸上，相去四十里。</div><div class="plain-line">當時項羽的軍隊駐在鴻門，劉邦的軍隊駐在霸上，兩地相距四十里。</div></div>
@@ -357,9 +397,10 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
       </div></div>
     </article>
 
+    <div class="story-stage"><span>第五幕</span><b>獻禮善後</b><em>任務 21–22</em></div>
     <article class="passage card">
-      <div class="passage-top"><span class="passage-tag">第十三段｜獻禮善後</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
-      <div class="original"><p>沛公已去，<button class="annot" aria-expanded="false">閒至軍中<span class="note-pop">抄小路回到軍營。「閒」通「間」。</span></button>，張良入謝，曰：「沛公<button class="annot" aria-expanded="false">不勝<ruby>桮<rt>ㄅㄟ</rt></ruby><ruby>杓<rt>ㄕㄠˊ</rt></ruby><span class="note-pop">禁不起飲酒，意指酒力不支。桮杓，酒杯與酒杓，借指飲酒。</span></button>，不能辭。謹使臣良奉白璧一雙，<button class="annot" aria-expanded="false">再拜<span class="note-pop">拜了兩拜，是古代表示恭敬的禮節。</span></button>獻大王足下；玉斗一雙，再拜奉大將軍足下。」項王曰：「沛公安在？」良曰：「聞大王有意<button class="annot" aria-expanded="false">督過之<span class="note-pop">責備他的過失。督過，責備、追究過錯。</span></button>，脫身獨去，已至軍矣。」項王則受璧，置之坐上。亞父受玉斗，置之地，拔劍撞而破之，曰：「唉！<button class="annot" aria-expanded="false">豎子不足與謀<span class="note-pop">豎子：小子。范增憤怒地責罵項羽不值得共謀大事。</span></button>！奪項王天下者，必沛公也。<button class="annot" aria-expanded="false">吾屬<span class="note-pop">我們這些人。</span></button>今<button class="annot" aria-expanded="false">為之虜矣<span class="note-pop">將被他俘虜了。「為」表被動，「之」指劉邦。</span></button>！」沛公至軍，立誅殺曹無傷。</p></div>
+      <div class="passage-top"><span class="passage-tag">第二十一段｜張良獻禮</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="original"><p>沛公已去，<button class="annot" aria-expanded="false">閒至軍中<span class="note-pop">抄小路回到軍營。「閒」通「間」。</span></button>，張良入謝，曰：「沛公<button class="annot" aria-expanded="false">不勝<ruby>桮<rt>ㄅㄟ</rt></ruby><ruby>杓<rt>ㄕㄠˊ</rt></ruby><span class="note-pop">禁不起飲酒，意指酒力不支。桮杓，酒杯與酒杓，借指飲酒。</span></button>，不能辭。謹使臣良奉白璧一雙，<button class="annot" aria-expanded="false">再拜<span class="note-pop">拜了兩拜，是古代表示恭敬的禮節。</span></button>獻大王足下；玉斗一雙，再拜奉大將軍足下。」項王曰：「沛公安在？」良曰：「聞大王有意<button class="annot" aria-expanded="false">督過之<span class="note-pop">責備他的過失。督過，責備、追究過錯。</span></button>，脫身獨去，已至軍矣。」</p></div>
       <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">沛公已去，閒至軍中，張良入謝。</div><div class="plain-line">劉邦離開後，抄小路回到軍中；張良才進帳代為謝罪告辭。</div></div>
         <div class="translation-unit"><div class="source-line">「沛公不勝桮杓，不能辭。」</div><div class="plain-line">張良說：「劉邦禁不起酒力，不能親自告辭。」</div></div>
@@ -367,6 +408,13 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
         <div class="translation-unit"><div class="source-line">「玉斗一雙，再拜奉大將軍足下。」</div><div class="plain-line">「另有一對玉斗，拜了兩拜，敬獻給大將軍范增。」</div></div>
         <div class="translation-unit"><div class="source-line">項王曰：「沛公安在？」</div><div class="plain-line">項羽問：「劉邦現在在哪裡？」</div></div>
         <div class="translation-unit"><div class="source-line">「聞大王有意督過之，脫身獨去，已至軍矣。」</div><div class="plain-line">張良回答：「他聽說大王有意責備他的過失，已經脫身獨自離開，回到軍營了。」</div></div>
+      </div></div>
+    </article>
+
+    <article class="passage card">
+      <div class="passage-top"><span class="passage-tag">第二十二段｜范增碎斗</span><button class="translation-btn" aria-expanded="false">看逐句語譯</button></div>
+      <div class="original"><p>項王則受璧，置之坐上。亞父受玉斗，置之地，拔劍撞而破之，曰：「唉！<button class="annot" aria-expanded="false">豎子不足與謀<span class="note-pop">豎子：小子。范增憤怒地責罵項羽不值得共謀大事。</span></button>！奪項王天下者，必沛公也。<button class="annot" aria-expanded="false">吾屬<span class="note-pop">我們這些人。</span></button>今<button class="annot" aria-expanded="false">為之虜矣<span class="note-pop">將被他俘虜了。「為」表被動，「之」指劉邦。</span></button>！」沛公至軍，立誅殺曹無傷。</p></div>
+      <div class="translation"><div class="translation-list">
         <div class="translation-unit"><div class="source-line">項王則受璧，置之坐上。</div><div class="plain-line">項羽便收下白璧，把它放在座位上。</div></div>
         <div class="translation-unit"><div class="source-line">亞父受玉斗，置之地，拔劍撞而破之。</div><div class="plain-line">范增接過玉斗後，把它丟在地上，拔劍擊碎。</div></div>
         <div class="translation-unit"><div class="source-line">「豎子不足與謀！」</div><div class="plain-line">范增說：「這小子不值得和他共謀大事！」</div></div>
@@ -421,6 +469,41 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
       <div class="card character"><b>范增｜有識而急切</b><small>早看出劉邦志向，屢催項羽除患，卻無法讓主帥採納。</small></div>
       <div class="card character"><b>張良、樊噲｜智勇互補</b><small>張良沉著設策，樊噲勇闖直諫，使團隊由被動轉為脫險。</small></div>
     </div>
+    <article class="card idiom-panel" aria-labelledby="idiomTitle">
+      <div class="idiom-heading">
+        <h3 id="idiomTitle">成語・俗語中的項羽與劉邦</h3>
+        <p>把典故放回時間線，能看見兩人不同的成敗軌跡：項羽長於決戰，卻漸失人心；劉邦兵力一度居劣勢，卻善於收民心、用人才。</p>
+      </div>
+      <div class="rival-idioms">
+        <section class="rival-column" aria-label="項羽相關成語">
+          <div class="rival-title"><strong>項羽｜勇猛到孤立</strong><span>《項羽本紀》</span></div>
+          <ul class="idiom-list">
+            <li class="idiom-item"><span class="idiom-time">宴前</span><div class="idiom-copy"><b>破釜沉舟</b><span>鉅鹿之戰時打破炊具、沉掉渡船，使士卒決一死戰；今比喻下定決心、義無反顧。</span></div></li>
+            <li class="idiom-item"><span class="idiom-time">宴後</span><div class="idiom-copy"><b>沐猴而冠</b><span>有人以此譏諷項羽只顧衣錦還鄉、缺乏長遠眼光；今多比喻虛有其表，也可形容性情急躁。</span></div></li>
+            <li class="idiom-item"><span class="idiom-time">垓下</span><div class="idiom-copy"><b>四面楚歌</b><span>項羽受困垓下，聽見四周漢軍唱楚歌，以為楚地盡失；今比喻四面受敵、孤立無援。</span></div></li>
+            <li class="idiom-item"><span class="idiom-time">烏江</span><div class="idiom-copy"><b>無顏見江東父老</b><span>項羽兵敗至烏江，自認無臉回見江東父兄；後用來形容因羞愧而不敢面對自己人。</span></div></li>
+          </ul>
+        </section>
+        <section class="rival-column" aria-label="劉邦相關成語">
+          <div class="rival-title"><strong>劉邦｜收民心、用人才</strong><span>《高祖本紀》</span></div>
+          <ul class="idiom-list">
+            <li class="idiom-item"><span class="idiom-time">入關</span><div class="idiom-copy"><b>約法三章</b><span>劉邦入咸陽後，與關中父老約定簡明法令；今泛指事先訂好共同遵守的規則。</span></div></li>
+            <li class="idiom-item"><span class="idiom-time">本文呼應</span><div class="idiom-copy"><b>秋毫無犯</b><span>指軍紀嚴明，連微小事物也不侵犯；呼應劉邦自陳「秋毫不敢有所近」與「毫毛不敢有所近」。</span></div></li>
+            <li class="idiom-item"><span class="idiom-time">定天下</span><div class="idiom-copy"><b>運籌帷幄</b><span>劉邦稱讚張良能在軍帳中謀劃、決勝千里；也突顯劉邦知道自己的不足，能任用合適人才。</span></div></li>
+          </ul>
+        </section>
+      </div>
+      <div class="banquet-phrases">
+        <h4>直接從〈鴻門宴〉流傳下來的慣用語</h4>
+        <div class="phrase-grid">
+          <div class="phrase"><b>項莊舞劍，意在沛公</b><span>表面做一件事，真正目的卻指向另一件事或另一個人。</span></div>
+          <div class="phrase"><b>人為刀俎，我為魚肉</b><span>比喻自己受制於人，正處在任人宰割的危險處境。</span></div>
+          <div class="phrase"><b>大行不顧細謹，大禮不辭小讓</b><span>處理大事不必拘泥細節；文中用來說明脫身比告辭禮節更重要。</span></div>
+          <div class="phrase"><b>豎子不足與謀</b><span>范增怒責項羽不值得共同謀劃大事，點出楚營主帥與謀臣無法合作。</span></div>
+        </div>
+        <p class="idiom-reminder">時間提醒：除「項莊舞劍」等本文語句外，破釜沉舟發生於鴻門宴之前；沐猴而冠、四面楚歌與無顏見江東父老則是後續故事。</p>
+      </div>
+    </article>
   </section>
 
   <section class="section" id="quiz">
