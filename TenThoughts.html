@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="諫太宗十思疏互動國文講義：三層八小段、整段語譯、修辭與字詞整理、李世民與魏徵成語補充及即時測驗。">
+<title>諫太宗十思疏｜互動國文講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#2f6f6b;--teal-dark:#1f4a47;--teal-soft:#e4f0ee;--teal-mid:#cfe3e0;--teal-line:#b5cfcb;
+  --gold:#b8892f;--gold-pale:#f3ecdd;--seal:#ad4c3f;
+  --paper:#f7f3ea;--card:#fffdf9;--ink:#292621;--muted:#6f675f;--line:#ded5c7;
+  --success:#3f7457;--danger:#a8473e;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:68px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans TC","PingFang TC",sans-serif;line-height:1.8;overflow-wrap:anywhere}
+button{font:inherit}
+h1,h2,h3,h4,.serif{font-family:"Noto Serif TC","Songti TC",serif}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 26px -24px #29251f}
+
+/* ── Hero ── */
+.hero{position:relative;overflow:hidden;text-align:center;padding:64px 20px 40px;background:linear-gradient(118deg,#fffdf7 0 55%,var(--teal-soft) 55% 78%,var(--teal-mid) 78%);border-bottom:1px solid var(--teal-line)}
+.hero::before{content:"";position:absolute;right:-5%;bottom:-86px;width:50%;height:200px;background:linear-gradient(150deg,transparent 0 28%,rgba(47,111,107,.17) 29% 68%,transparent 69%);transform:skewX(-12deg);pointer-events:none}
+.hero::after{content:"";position:absolute;left:8%;bottom:0;width:40%;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);pointer-events:none}
+.watermark{position:absolute;right:-14px;top:-64px;font:900 250px/1 "Noto Serif TC",serif;color:var(--teal);opacity:.1;pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:900px;margin:auto}
+.eyebrow{display:block;letter-spacing:.5em;font-size:12.5px;color:var(--seal);margin-bottom:10px;font-weight:700}
+.hero h1{margin:0 0 10px;font-size:clamp(34px,6vw,56px);line-height:1.2;color:var(--teal-dark);font-weight:900;letter-spacing:.08em}
+.hero-meta{display:flex;justify-content:center;gap:.3rem .9rem;flex-wrap:wrap;color:var(--muted);font-size:13.5px;letter-spacing:.1em;margin-bottom:16px}
+.hero-meta span:not(:last-child)::after{content:"・";margin-left:.9rem;color:var(--seal)}
+.hero-lead{max-width:690px;margin:0 auto 20px;color:var(--muted);font-size:14.5px;line-height:1.9}
+
+/* ── Toolbar ── */
+.toolbar{position:sticky;top:0;z-index:50;background:rgba(247,243,234,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--teal-line)}
+.toolbar-inner{max-width:980px;margin:auto;padding:8px 14px;display:flex;align-items:center;justify-content:center;gap:16px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;font-size:12.5px;color:var(--muted)}
+.toolbar-inner::-webkit-scrollbar{display:none}
+.toolbar label{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;flex:none}
+.toolbar label input{position:absolute;opacity:0;pointer-events:none}
+.switch{position:relative;width:36px;height:20px;border-radius:999px;background:#b9c9c6;transition:.2s;flex:none}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0004;transition:.2s}
+.toolbar input:checked+.switch{background:var(--teal)}.toolbar input:checked+.switch::after{transform:translateX(16px)}
+.toolbar input:focus-visible+.switch{outline:3px solid var(--gold);outline-offset:2px}
+.divider{width:1px;height:18px;background:var(--line);flex:none}
+.jump{flex:none;padding:5px 3px;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent}
+.jump:hover{color:var(--teal-dark)}.jump.on{color:var(--teal-dark);font-weight:700;border-bottom-color:var(--teal)}
+.score-live{flex:none;color:var(--seal);font-weight:700}
+
+/* ── Layout ── */
+main{max-width:940px;margin:auto;padding:28px 18px 100px}
+.section{margin-bottom:56px}
+.section-head{display:flex;align-items:baseline;gap:12px;padding-bottom:9px;margin-bottom:16px;border-bottom:2px solid var(--teal)}
+.section-no{font:900 15px "Noto Serif TC",serif;color:var(--seal);letter-spacing:.06em}
+.section-head h2{margin:0;font-size:24px;line-height:1.3;color:var(--teal-dark)}
+.section-kicker{margin-left:auto;color:var(--muted);font-size:11px;letter-spacing:.16em}
+.section-intro{max-width:780px;margin:0 0 18px;color:var(--muted);font-size:13.5px}
+.hl{color:var(--seal);font-weight:700;border-bottom:1px dotted var(--seal)}
+
+
+/* ── 背景 ── */
+.background-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:16px}
+.context{padding:24px 28px;border-left:5px solid var(--seal)}
+.context h3{margin:0 0 10px;color:var(--seal);font-size:1.2rem}.context p{margin:0 0 11px;font-size:14.5px}.context p:last-child{margin-bottom:0}.context b{color:var(--seal)}
+.quote{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;min-height:240px;padding:28px;border-radius:14px;background:linear-gradient(145deg,var(--teal),var(--teal-dark));color:#fff}
+.quote::after{content:"德";position:absolute;right:-6px;bottom:-62px;font:900 190px/1 "Noto Serif TC",serif;opacity:.08}
+.quote blockquote{position:relative;margin:0;font:600 1.4rem/1.8 "Noto Serif TC",serif;letter-spacing:.06em}
+.quote cite{position:relative;margin-top:14px;font:400 .85rem "Noto Sans TC",sans-serif;color:#d6e8e5;font-style:normal}
+.camp-compare{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:18px 22px;background:var(--gold-pale);border:1px solid #e6d9bd;border-radius:14px}
+.camp b{display:block;font:800 1.05rem "Noto Serif TC",serif;color:var(--teal-dark);margin-bottom:2px}.camp span{font-size:13px;color:var(--muted)}
+.ratio{display:grid;place-items:center;width:72px;height:72px;border-radius:50%;background:var(--seal);color:#fff;font:700 13px/1.35 "Noto Serif TC",serif;text-align:center;box-shadow:0 0 0 5px #ad4c3f22}
+
+/* ── 課文 ── */
+.stage{position:relative;display:flex;align-items:center;gap:16px;margin:40px 0 14px;padding:0 0 14px;border-bottom:1px dashed var(--teal-line)}
+.stage-no{flex:none;display:grid;place-items:center;width:50px;height:50px;border-radius:14px 4px 14px 4px;background:var(--teal);color:#fff;font:900 24px "Noto Serif TC",serif;box-shadow:4px 4px 0 var(--teal-mid)}
+.stage-body{min-width:0}
+.stage-kicker{display:block;color:var(--seal);font-size:12px;font-weight:700;letter-spacing:.12em}
+.stage h3{margin:1px 0 2px;font-size:20px;line-height:1.4;color:var(--teal-dark)}
+.passage{position:relative;margin-bottom:16px}
+.passage-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:11px 20px;border-bottom:1px solid var(--line);border-radius:13px 13px 0 0;background:var(--gold-pale)}
+.passage-tag{font-weight:700;color:var(--teal-dark);font-size:13.5px;letter-spacing:.04em}
+.passage-tag i{font-style:normal;color:var(--seal);font-weight:800}
+.translation-btn{flex:none;font-size:11.5px;background:var(--paper);color:var(--ink);border:1px solid var(--muted);padding:5px 13px;border-radius:20px;cursor:pointer;white-space:nowrap}
+.translation-btn:hover,.translation-btn[aria-expanded="true"]{background:var(--teal);color:#fff;border-color:var(--teal)}
+.original{padding:24px 28px 22px;font:400 clamp(1.1rem,2.3vw,1.22rem)/2.5 "Noto Serif TC","Songti TC",serif}
+.original p{margin:.1rem 0}.original ruby{ruby-position:over}
+.original rt{font:600 .48em/1 "Noto Sans TC",sans-serif;color:var(--seal)}
+body.hide-zhuyin .original rt{display:none}
+.annot{position:relative;color:var(--seal);font-weight:700;border-bottom:1px dotted var(--seal);border-radius:3px;padding:0 .06em;cursor:pointer}
+.annot::after{content:"\2060" attr(data-n);display:inline;margin-left:1px;vertical-align:super;font:700 .52em/1 "Noto Sans TC",sans-serif}
+.annot:hover,.annot.active{background:#f5e4df}
+.annot:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.translation{display:none;margin:0 28px 24px;padding:12px 16px 4px 20px;border-left:4px solid var(--teal);color:#4f4943;font-size:14.5px;line-height:2.05}
+.translation.show,body.show-all-trans .translation{display:block}
+.translation::before{content:"白話語譯";display:block;margin-bottom:5px;color:var(--teal);font-size:12px;font-weight:800;letter-spacing:.1em}
+.translation p{margin:0 0 8px}
+#glossTip{position:fixed;z-index:100;display:none;max-width:min(340px,calc(100vw - 24px));padding:12px 15px;border-radius:10px;background:#24211d;color:#fff;font-size:13px;line-height:1.7;box-shadow:0 12px 30px #0005}
+#glossTip.show{display:block}
+
+/* ── 論證脈絡 ── */
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+.flow-step{position:relative;padding:18px 16px 16px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--teal);border-radius:12px;box-shadow:0 10px 26px -24px #29251f}
+.flow-step:not(:last-child)::after{content:"▸";position:absolute;right:-17px;top:50%;transform:translateY(-50%);color:var(--teal);font-size:16px}
+.flow-no{display:grid;place-items:center;width:26px;height:26px;margin-bottom:8px;border-radius:50%;background:var(--teal-soft);color:var(--teal-dark);font-size:12px;font-weight:800}
+.flow-step b{display:block;margin-bottom:4px;font:800 18px "Noto Serif TC",serif;color:var(--teal-dark)}
+.flow-step p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.8}
+
+/* ── 修辭 ── */
+.rhet-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.rhet{padding:20px 22px;grid-column:span 2;border-top:4px solid var(--gold)}
+.rhet:nth-child(n+4){grid-column:span 3}
+.rhet h3{margin:0 0 8px;font-size:19px;color:var(--teal-dark)}
+.rhet ul{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px}
+.rhet li{padding:5px 11px;border-left:3px solid var(--teal-line);background:#faf8f3;font:600 13.5px/1.75 "Noto Serif TC",serif;color:var(--ink)}
+.rhet-tip{display:flex;gap:8px;align-items:baseline;margin:0;font-size:12.5px;color:var(--muted);line-height:1.7}
+.rhet-tip span{flex:none;padding:0 8px;border-radius:999px;background:var(--seal);color:#fff;font-size:10.5px;font-weight:700}
+
+/* ── 字詞 ── */
+.table-wrap{overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 10px 26px -24px #29251f}
+.word-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.word-table th{padding:12px 16px;text-align:left;background:var(--gold-pale);color:var(--ink);font:700 14px "Noto Serif TC",serif;border-bottom:2px solid var(--teal)}
+.word-table td{padding:11px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.word-table tr:last-child td{border-bottom:0}.word-table tbody tr:nth-child(even){background:#fbf9f5}
+.word-table .w{font:900 20px "Noto Serif TC",serif;color:var(--seal);white-space:nowrap}
+.word-table .eg{font:600 13.5px/1.75 "Noto Serif TC",serif;color:var(--muted)}
+.type{display:inline-block;padding:1px 10px;border-radius:999px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.t-multi{background:#e4f0ee;color:#1f4a47}.t-pos{background:#f3ecdd;color:#6a4d12}.t-caus{background:#f4e3df;color:#8a3a2f}.t-diff{background:#e6ecd9;color:#44552a}
+
+/* ── 成語 ── */
+.rival-idioms{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.rival-column{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#fff}
+.rival-title{padding:12px 18px;background:var(--teal-soft);border-bottom:1px solid var(--line)}
+.rival-title strong{font:800 1.1rem "Noto Serif TC",serif;color:var(--teal-dark);letter-spacing:.08em}
+.idiom-list{list-style:none;margin:0;padding:0}
+.idiom-item{padding:13px 18px;border-bottom:1px dashed var(--line)}.idiom-item:last-child{border-bottom:0}
+.idiom-item b{display:block;font:800 1.05rem "Noto Serif TC",serif;color:var(--seal)}.idiom-item span{display:block;margin-top:2px;color:var(--muted);font-size:13.5px;line-height:1.75}
+.banquet-phrases{margin-top:16px;padding:18px 20px;border-top:4px solid var(--gold)}
+.banquet-phrases h4{margin:0 0 12px;font-size:1.1rem;color:var(--teal-dark);letter-spacing:.06em}
+.phrase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.phrase{padding:11px 13px;border:1px solid var(--line);border-radius:9px;background:#fff}.phrase b{display:block;font:800 1.02rem "Noto Serif TC",serif;color:var(--seal)}.phrase span{display:block;margin-top:3px;color:var(--muted);font-size:12.5px;line-height:1.7}
+
+/* ── 練習 ── */
+.practice{padding:22px;margin-bottom:18px}
+.practice-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}.practice-head b{font:800 18px "Noto Serif TC",serif;color:var(--teal-dark)}.practice-head>span{font-size:12.5px;color:var(--muted)}.practice-head>span span{color:var(--seal);font-weight:700}
+.practice-intro{margin:6px 0 16px;color:var(--muted);font-size:13px}
+.match-board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 22px}.match-col{display:grid;gap:8px;align-content:start}
+.match-item{width:100%;text-align:left;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:13.5px;line-height:1.6;cursor:pointer;transition:border-color .15s,background .15s}
+.match-item:hover:not(:disabled){border-color:var(--teal);background:#fbfaf6}
+.match-left.selected{border-color:var(--teal);background:var(--teal-soft);box-shadow:inset 0 0 0 2px var(--teal)}
+.match-right{font:600 14.5px/1.6 "Noto Serif TC",serif;color:var(--teal-dark)}
+.match-no{display:inline-block;margin-right:7px;color:var(--seal);font-weight:800}
+.match-item small{display:none;margin-top:3px;font:600 12.5px "Noto Serif TC",serif;color:#315d44}.match-item.done small{display:block}
+.match-item.done{background:#e3f1e8;border-color:var(--success);color:#315d44;cursor:default}
+.match-item.miss{background:#f7e3df;border-color:var(--danger);color:#7f3a34;animation:nudge .35s}
+@keyframes nudge{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.practice-feedback{min-height:24px;margin-top:12px;color:var(--muted);font-size:12.5px;line-height:1.7}.practice-feedback b{color:var(--teal-dark)}
+.cloze-card{padding:16px 18px;margin-bottom:12px;background:#fffdfa;border:1px solid var(--line);border-radius:12px}
+.cloze-title{font-size:11px;color:var(--seal);font-weight:800;letter-spacing:.14em}
+.cloze-text{margin:4px 0 8px;font:600 16px/2.5 "Noto Serif TC","Songti TC",serif}
+.blank{display:inline-block;min-width:3.4em;margin:0 3px;padding:0 8px;border:0;border-bottom:2px solid var(--teal);border-radius:5px 5px 0 0;background:var(--teal-soft);color:var(--teal-dark);font:700 15px/1.9 "Noto Serif TC",serif;text-align:center;cursor:pointer}
+.blank.active{box-shadow:0 0 0 2px var(--seal)}.blank.filled{background:#e3f1e8;border-bottom-color:var(--success);color:#315d44;cursor:default}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:5px 13px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font:600 14px "Noto Serif TC",serif;cursor:pointer}.chip:hover:not(:disabled){border-color:var(--teal);background:var(--teal-soft)}
+.chip.used{opacity:.35;pointer-events:none}.chip.miss{background:#f7e3df;border-color:var(--danger);color:#7f3a34}
+.cloze-note{display:none;margin-top:11px;padding:9px 12px;border-left:3px solid var(--teal);background:var(--teal-soft);font-size:12.5px}.cloze-card.done .cloze-note{display:block}.cloze-note b{color:var(--seal);margin-right:7px}
+.reset{display:block;margin:10px auto 0;padding:7px 18px;border:1px solid var(--teal);border-radius:999px;background:#fff;color:var(--teal-dark);font-size:12px;cursor:pointer}.reset:hover{background:var(--teal);color:#fff}
+
+/* ── 測驗 ── */
+.quiz-card{padding:20px 22px;margin-bottom:14px;border:1px solid var(--line);border-radius:13px;background:var(--card)}
+.quiz-q{font-weight:700;font-size:14.5px;margin-bottom:11px}.quiz-q>span{color:var(--seal);margin-right:7px}
+.quiz-q em{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;background:var(--teal);color:#fff;font-style:normal;font-size:10.5px}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.quiz-options button{width:100%;padding:10px 13px;text-align:left;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font-size:13.5px;line-height:1.65;cursor:pointer}
+.quiz-options button:hover:not(:disabled){border-color:var(--teal);background:#fbfaf6}
+.quiz-options button.correct{background:#e3f1e8;border-color:var(--success);color:#315d44;font-weight:700}
+.quiz-options button.wrong{background:#f7e3df;border-color:var(--danger);color:#7f3a34;text-decoration:line-through}
+.quiz-explain{display:none;margin-top:10px;padding:10px 13px;border-left:3px solid var(--gold);background:var(--gold-pale);font-size:12.5px}.quiz-explain.show{display:block}.quiz-explain b{color:var(--seal);margin-right:7px}
+.quiz-summary{text-align:center;color:var(--teal-dark);font:700 16px "Noto Serif TC",serif;min-height:28px;margin-top:16px}
+
+footer{max-width:760px;margin:auto;text-align:center;padding:10px 20px 90px;color:var(--muted);font-size:11.5px;line-height:1.9}footer a{color:var(--teal-dark)}
+
+/* ── 手機 ── */
+@media(max-width:860px){
+  .flow{grid-template-columns:1fr;gap:18px}.flow-step:not(:last-child)::after{content:"▾";right:auto;left:50%;top:auto;bottom:-19px;transform:translateX(-50%)}
+  .phrase-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:720px){
+  .hero{padding:54px 16px 34px;background:linear-gradient(180deg,#fffdf7 0 60%,var(--teal-soft) 60%)}.watermark{right:-16px;top:-26px;font-size:160px}
+  .toolbar-inner{justify-content:flex-start;gap:14px}
+  main{padding-top:22px}.section-kicker{display:none}.section-head h2{font-size:21px}
+  .background-grid,.rival-idioms{grid-template-columns:1fr}
+  .context{padding:20px 20px}.quote{min-height:170px;padding:22px}
+  .camp-compare{grid-template-columns:1fr;gap:10px}.ratio{margin:auto;width:64px;height:64px}
+  .stage{gap:12px}.stage-no{width:42px;height:42px;font-size:20px;border-radius:12px 3px 12px 3px}.stage h3{font-size:17px}
+  .original{padding:20px 18px 12px;font-size:1.08rem;line-height:2.4}
+  .translation{margin:0 18px 20px;padding:10px 0 2px 14px;font-size:14px}
+  .passage-top{padding:10px 14px}.passage-tag{font-size:13px}
+  .rhet-grid{grid-template-columns:1fr}.rhet,.rhet:nth-child(n+4){grid-column:auto}
+  .word-table thead{display:none}.word-table,.word-table tbody,.word-table tr,.word-table td{display:block;width:100%}
+  .word-table tr{padding:12px 16px;border-bottom:1px solid var(--line)}.word-table tr:last-child{border-bottom:0}
+  .word-table td{padding:2px 0;border:0}.word-table td::before{content:attr(data-l);display:inline-block;width:3.6em;margin-right:6px;color:var(--teal);font-size:11px;font-weight:800;letter-spacing:.06em}
+  .word-table .w{font-size:19px}.word-table .w::before{display:none}
+  .idiom-item{padding:12px 16px}.phrase-grid{grid-template-columns:1fr}.banquet-phrases{padding:16px}
+  .match-board{gap:0 10px}.match-item{padding:8px 9px;font-size:12.5px}.match-right{font-size:13px}
+  .practice{padding:16px 14px}.cloze-text{font-size:15px}
+  .quiz-options{grid-template-columns:1fr}.quiz-card{padding:16px 15px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.match-item.miss{animation:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="watermark" aria-hidden="true">思</span>
+  <div class="hero-inner">
+    <span class="eyebrow">互動國文講義</span>
+    <h1>諫太宗十思疏</h1>
+    <div class="hero-meta"><span>唐．魏徵</span><span>《貞觀政要・君道》</span><span>奏議類（疏）</span></div>
+    <p class="hero-lead">貞觀十一年，唐太宗功業已盛，漸有驕奢之兆。魏徵上疏，先以樹根與水源說明治國的根本，再分析君主為何能創業、卻難守成，最後提出十種自我提醒。全文分成三層、八個小段，一層一層往下讀。</p>
+  </div>
+</header>
+<nav class="toolbar" aria-label="工具列">
+  <div class="toolbar-inner">
+    <label><input id="toggleZhuyin" type="checkbox" checked><span class="switch"></span>顯示注音</label>
+    <label><input id="toggleTrans" type="checkbox"><span class="switch"></span>全文顯示語譯</label>
+    <span class="divider"></span>
+    <a class="jump" href="#context">背景</a><a class="jump" href="#text">課文</a><a class="jump" href="#argument">脈絡</a><a class="jump" href="#rhetoric">修辭</a><a class="jump" href="#words">字詞</a><a class="jump" href="#idioms">成語</a><a class="jump" href="#practice">練習</a><a class="jump" href="#quiz">測驗</a>
+    <span class="divider"></span>
+    <span class="score-live">測驗 <span id="answered">0</span>/<span id="total">10</span>・答對 <span id="score">0</span></span>
+  </div>
+</nav>
+<main>
+  
+  <section class="section" id="context">
+    <div class="section-head"><span class="section-no">01</span><h2>寫作背景</h2><span class="section-kicker">BACKGROUND</span></div>
+    
+    
+    <div class="background-grid">
+      <div class="card context">
+        <h3>貞觀十一年的一份奏疏</h3>
+        <p><b>魏徵</b>（580－643），字玄成，原為太子李建成的屬官，玄武門之變後被唐太宗任用為諫議大夫，以敢於直諫著稱，封鄭國公。太宗曾說，以銅為鏡可以正衣冠，以古為鏡可以知興替，以人為鏡可以明得失，魏徵就是他的「人鏡」。</p><p>貞觀十一年（637），太宗在位十餘年，國力強盛、功業日盛，卻漸漸有了驕逸、鬆懈的跡象。魏徵擔心「貞觀之治」難以善終，於是上疏規勸，這就是〈諫太宗十思疏〉。太宗讀後親筆下詔回覆，表示要把這些話當作自我警惕。</p>
+      </div>
+      <div class="quote">
+        <blockquote>居安思危，戒奢以儉。</blockquote>
+        <cite>— 魏徵〈諫太宗十思疏〉</cite>
+      </div>
+      <div class="camp-compare">
+        <div class="camp"><b>貞觀初年｜憂勤納諫</b><span>太宗以隋亡為戒，重視節儉與聽取意見，例如貞觀二年問魏徵「何謂明君暗君」。</span></div>
+        <div class="ratio">由憂勤<br>到驕逸</div>
+        <div class="camp"><b>貞觀十一年｜漸露驕逸</b><span>功業日盛，太宗漸有鬆懈、奢逸的跡象，魏徵因此上疏，提醒「善始」更要「克終」。</span></div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section" id="text">
+    <div class="section-head"><span class="section-no">02</span><h2>課文與注釋</h2><span class="section-kicker">TEXT &amp; NOTES</span></div>
+    
+    
+    <div class="stage" id="stage-1">
+      <div class="stage-no" aria-hidden="true">一</div>
+      <div class="stage-body">
+        <span class="stage-kicker">第一層</span>
+        <h3>固本浚源：先立根本</h3>
+      </div>
+    </div>
+    <article class="passage card" id="seg-1">
+      <div class="passage-top">
+        <span class="passage-tag"><i>第1段</i>｜立論：樹要靠根，水要靠源</span>
+        <button class="translation-btn" type="button" aria-expanded="false">看語譯</button>
+      </div>
+      <div class="original"><p>臣聞求木之長者，必<span class="annot" data-note="固其根本：使它的根本穩固。固，使動用法，讓它穩固。">固其根本</span>；欲流之遠者，必<span class="annot" data-note="浚其泉源：疏通、挖深它的源頭。浚，音ㄐㄩㄣˋ。"><ruby>浚<rt>ㄐㄩㄣˋ</rt></ruby>其泉源</span>；思國之安者，必積其<span class="annot" data-note="德義：道德與仁義。這是全文的核心：德義就是樹的根、水的源。">德義</span>。源不深而望流之遠，根不固而求木之長，德不厚而思國之治，臣雖<span class="annot" data-note="下愚：極愚笨的人。這裡是魏徵的自謙。">下愚</span>，知其不可，而況於明哲乎！</p></div>
+      <div class="translation"><p>我聽說：想要樹木長得高大的人，一定要先讓它的根穩固；想要水流得長遠的人，一定要先疏通它的源頭；想要國家安定的人，一定要先累積道德與仁義。水源不深卻希望水流長遠，根基不穩卻想要樹木高大，德行不夠深厚卻想要國家大治，我雖然愚笨，也知道這是辦不到的，何況是明智通達的人呢！</p></div>
+    </article>
+    <article class="passage card" id="seg-2">
+      <div class="passage-top">
+        <span class="passage-tag"><i>第2段</i>｜君位越高，越要居安思危</span>
+        <button class="translation-btn" type="button" aria-expanded="false">看語譯</button>
+      </div>
+      <div class="original"><p>人君當<span class="annot" data-note="神器：借指帝位、政權。語出《老子》「天下神器」。">神器</span>之重，居<span class="annot" data-note="域中：天地之間。《老子》說「域中有四大，而王居其一焉」，這裡用來形容君位的尊大。">域中</span>之大，將崇<span class="annot" data-note="極天之峻：高到與天相接的崇高地位。峻，音ㄐㄩㄣˋ，高。">極天之<ruby>峻<rt>ㄐㄩㄣˋ</rt></ruby></span>，永保<span class="annot" data-note="無疆之休：無窮的福祉。休，美善、福慶。">無疆之休</span>。不念<span class="annot" data-note="居安思危：處在安定的時候，要想到可能發生的危難。語出《左傳》。">居安思危</span>，<span class="annot" data-note="戒奢以儉：用節儉來戒除奢侈。以，介詞，相當於「用」。">戒奢以儉</span>，德不處其厚，情不勝其欲，<span class="annot" data-note="斯亦伐根以求木茂，塞源而欲流長者也：這就如同砍掉樹根卻想讓樹木茂盛、堵住源頭卻想讓水流長遠。斯，這；回扣開頭的比喻。">斯亦伐根以求木茂，塞源而欲流長者也</span>。</p></div>
+      <div class="translation"><p>君主肩負著帝位的重任，居於天地間最尊大的位置，想要讓自己的地位崇高得像天一樣高，並且永遠保有無窮的福祉。如果不去想「安定時要預防危難」，也不用節儉來戒除奢侈，德行不夠深厚，情感又壓不過欲望，那就好像砍斷樹根卻想讓樹木茂盛、堵住水源卻想讓水流長遠一樣。</p></div>
+    </article>
+    <div class="stage" id="stage-2">
+      <div class="stage-no" aria-hidden="true">二</div>
+      <div class="stage-body">
+        <span class="stage-kicker">第二層</span>
+        <h3>善始難終：取之易，守之難</h3>
+      </div>
+    </div>
+    <article class="passage card" id="seg-3">
+      <div class="passage-top">
+        <span class="passage-tag"><i>第3段</i>｜開頭容易，善終很難</span>
+        <button class="translation-btn" type="button" aria-expanded="false">看語譯</button>
+      </div>
+      <div class="original"><p><span class="annot" data-note="凡百元首：所有的君主。凡百，一切、所有；元首，君主。">凡百元首</span>，承天景命，莫不<span class="annot" data-note="殷憂而道著：處在深深的憂慮之中，治國之道就顯明。殷，深，音ㄧㄣ。"><ruby>殷<rt>ㄧㄣ</rt></ruby>憂而道著</span>，功成而德衰。有善始者實繁，能<span class="annot" data-note="克終者蓋寡：能夠善終的大概很少。克，能；蓋，大概。意近《詩經》「靡不有初，鮮克有終」。">克終者蓋寡</span>。豈取之易而守之難乎？昔取之而有餘，今守之而不足，何也？</p></div>
+      <div class="translation"><p>歷代的君主承受上天賦予的大命，沒有不是在深深憂慮的時候治道顯明，等到功業成就後德行就衰退。有好開頭的人實在很多，能夠有好結果的大概很少。難道是取得天下容易，而守住天下困難嗎？從前取得天下綽綽有餘，如今守住天下卻力量不足，這是為什麼呢？</p></div>
+    </article>
+    <article class="passage card" id="seg-4">
+      <div class="passage-top">
+        <span class="passage-tag"><i>第4段</i>｜原因：得志之後，人心就散了</span>
+        <button class="translation-btn" type="button" aria-expanded="false">看語譯</button>
+      </div>
+      <div class="original"><p>夫在殷憂，必<span class="annot" data-note="竭誠：竭盡誠意。竭，音ㄐㄧㄝˊ，盡。"><ruby>竭<rt>ㄐㄧㄝˊ</rt></ruby>誠</span>以待下；既得志，則縱情以<span class="annot" data-note="傲物：傲慢地對待他人。物，這裡指人（古今異義）。">傲物</span>。竭誠則<span class="annot" data-note="胡越為一體：北方的胡人與南方的越人，距離遙遠、關係疏遠；這裡說疏遠的人也能團結如一體。">胡越為一體</span>，傲物則<span class="annot" data-note="骨肉為行路：連至親骨肉也會變成路人。行路，路上的陌生人（古今異義）。">骨肉為行路</span>。雖<span class="annot" data-note="董之以嚴刑：用嚴酷的刑罰督責他們。董，督責；以，介詞，用。">董之以嚴刑</span>，<span class="annot" data-note="震之以威怒：用威嚴與憤怒震懾他們。震，威嚇。">震之以威怒</span>，終<span class="annot" data-note="苟免：苟且免於刑罰。">苟免</span>而不懷仁，貌恭而不心服。</p></div>
+      <div class="translation"><p>這是因為：處在深憂之時，一定竭盡誠意對待臣下；等到志得意滿，就放縱情欲、傲視他人。竭盡誠意，連像胡人與越人那樣疏遠的人也能團結如一體；傲慢待人，連骨肉至親也會變成陌路人。即使用嚴酷的刑罰督責他們，用威嚴與憤怒震懾他們，百姓最後也只是苟且免於刑罰，並不感念君王的仁德；表面上恭敬，內心卻不是真心歸服。</p></div>
+    </article>
+    <article class="passage card" id="seg-5">
+      <div class="passage-top">
+        <span class="passage-tag"><i>第5段</i>｜民心如水，不可輕忽</span>
+        <button class="translation-btn" type="button" aria-expanded="false">看語譯</button>
+      </div>
+      <div class="original"><p><span class="annot" data-note="怨不在大，可畏惟人：怨恨不在大小，真正可怕的是人民。人，指人民、民心。">怨不在大，可畏惟人</span>；<span class="annot" data-note="載舟覆舟：水能承載船，也能翻覆船；以水比人民，以舟比君主，典出《荀子》。載，音ㄗㄞˋ。"><ruby>載<rt>ㄗㄞˋ</rt></ruby>舟覆舟</span>，所宜深慎；<span class="annot" data-note="奔車朽索：用腐朽的繩索駕馭奔跑的車馬，比喻治國處境極為危險。典出《尚書・五子之歌》。">奔車<ruby>朽<rt>ㄒㄧㄡˇ</rt></ruby>索</span>，其可忽乎？</p></div>
+      <div class="translation"><p>怨恨不在大小，真正可怕的是人民；水能載船也能翻船，這一點最應該小心謹慎；就像用腐朽的繩索駕馭奔馳的車馬，怎麼可以輕忽呢？</p></div>
+    </article>
+    <div class="stage" id="stage-3">
+      <div class="stage-no" aria-hidden="true">三</div>
+      <div class="stage-body">
+        <span class="stage-kicker">第三層</span>
+        <h3>十思與無為：自我節制，知人善任</h3>
+      </div>
+    </div>
+    <article class="passage card" id="seg-6">
+      <div class="passage-top">
+        <span class="passage-tag"><i>第6段</i>｜十思（上）：欲望、工程、高位、自滿、遊樂</span>
+        <button class="translation-btn" type="button" aria-expanded="false">看語譯</button>
+      </div>
+      <div class="original"><p>君人者，誠能見可欲，則思<span class="annot" data-note="知足以自戒：知道滿足，用來警惕自己。以，連詞，表目的，相當於「來」。">知足以自戒</span>；<span class="annot" data-note="將有作：將要有所興作，如興建工程、徵調勞役。">將有作</span>，則思知止以安人；念高危，則思<span class="annot" data-note="謙沖而自牧：用謙虛柔和來自我修養。沖，音ㄔㄨㄥ，虛；牧，養。">謙<ruby>沖<rt>ㄔㄨㄥ</rt></ruby>而自牧</span>；懼滿溢，則思<span class="annot" data-note="江海下百川：江海居於百川之下，所以能容納百川。下，動詞，居於下位。">江海下百川</span>；<span class="annot" data-note="樂盤遊：喜愛遊樂、打獵。樂，喜好；盤遊，遊樂，多指田獵。">樂盤遊</span>，則思<span class="annot" data-note="三驅以為度：把「三驅」當作限度。三驅有兩說：田獵時三面驅趕、網開一面；或指一年只田獵三次。兩說都強調要有節制。度，限度。">三驅以為度</span>；</p></div>
+      <div class="translation"><p>身為君主，如果真能做到：看見會引起欲望的事物時，就想到知足來警惕自己；將要興建工程、有所作為時，就想到適可而止來安定百姓；想到自己位高而危險時，就想到用謙虛柔和來修養自己；擔心自己自滿過頭時，就想到江海甘居百川之下，所以能容納百川；喜歡遊樂打獵時，就想到「三驅」的規矩，用它當作限度；</p></div>
+    </article>
+    <article class="passage card" id="seg-7">
+      <div class="passage-top">
+        <span class="passage-tag"><i>第7段</i>｜十思（下）：懈怠、蒙蔽、讒邪、賞、罰</span>
+        <button class="translation-btn" type="button" aria-expanded="false">看語譯</button>
+      </div>
+      <div class="original"><p>憂懈怠，則思慎始而敬終；慮<span class="annot" data-note="壅蔽：被堵塞、遮蔽而看不到真相。壅，音ㄩㄥ，堵塞。"><ruby>壅<rt>ㄩㄥ</rt></ruby>蔽</span>，則思虛心以納下；想<ruby>讒<rt>ㄔㄢˊ</rt></ruby>邪，則思<span class="annot" data-note="正身以黜惡：端正自身，來斥退邪惡的人。黜，音ㄔㄨˋ，罷免、斥退。">正身以<ruby>黜<rt>ㄔㄨˋ</rt></ruby>惡</span>；恩所加，則思<span class="annot" data-note="無因喜以謬賞：不要因為一時高興而錯誤地賞賜。謬，音ㄇㄧㄡˋ，錯誤。">無因喜以<ruby>謬<rt>ㄇㄧㄡˋ</rt></ruby>賞</span>；罰所及，則思無因怒而濫刑。</p></div>
+      <div class="translation"><p>擔心自己鬆懈怠惰時，就想到開頭要謹慎、結尾也要同樣恭敬；憂慮自己被蒙蔽時，就想到虛心接納臣下的意見；想到有讒佞奸邪的人時，就想到端正自身來斥退邪惡；施加恩惠時，就想到不要因為一時高興而錯誤賞賜；處罰別人時，就想到不要因為一時憤怒而濫用刑罰。</p></div>
+    </article>
+    <article class="passage card" id="seg-8">
+      <div class="passage-top">
+        <span class="passage-tag"><i>第8段</i>｜收束：知人善任，君臣無事</span>
+        <button class="translation-btn" type="button" aria-expanded="false">看語譯</button>
+      </div>
+      <div class="original"><p>總此十思，<span class="annot" data-note="弘茲九德：發揚這九種德行。弘，發揚。九德出自《尚書》，不必背。">弘茲九德</span>，<span class="annot" data-note="簡能而任之：選拔有才能的人加以任用。簡，選拔。">簡能而任之</span>，擇善而從之，則智者盡其謀，勇者竭其力，仁者播其惠，信者效其忠。<span class="annot" data-note="文武爭馳，君臣無事：文臣武將爭相奔走效力，君主與臣下都不必勞煩。馳，奔走效力。">文武爭馳，君臣無事</span>，可以盡豫遊之樂，可以養<span class="annot" data-note="松喬：赤松子與王子喬，傳說中長壽的仙人。">松喬</span>之壽，<span class="annot" data-note="鳴琴垂拱：彈琴、垂衣拱手，形容君主從容無為而天下大治。">鳴琴垂拱</span>，不言而化。何必勞神苦思，<span class="annot" data-note="代下司職：代替臣下執掌職務。司，主管。">代下司職</span>，役聰明之耳目，虧<span class="annot" data-note="無為之大道：無為而治的道理。無為，順應自然、不過度干預，是道家的政治理念。">無為之大道</span>哉？</p></div>
+      <div class="translation"><p>綜合以上十種思慮，發揚九種德行；選拔有才能的人加以任用，挑選好的意見加以採納。這樣一來，聰明的人貢獻謀略，勇敢的人用盡力量，仁愛的人散播恩惠，守信的人獻出忠心。文臣武將爭相奔走效力，君臣之間都沒有煩心的事；君主可以盡情享受安樂遊賞，也可以頤養如赤松子、王子喬那樣的長壽，彈琴悠閒、垂衣拱手，不必多說，天下自然受到教化。又何必勞心費神、苦苦思索，去代替臣下執掌職務，白白勞役自己聰明的耳目，反而損害了無為而治的大道呢？</p></div>
+    </article>
+  </section>
+  
+  <section class="section" id="argument">
+    <div class="section-head"><span class="section-no">03</span><h2>論證脈絡</h2><span class="section-kicker">ARGUMENT MAP</span></div>
+    
+    
+  <ol class="flow">
+    <li class="flow-step"><span class="flow-no">1</span><b>立論</b><p>以樹根、水源比喻，說明國家安定要靠累積德義。</p></li>
+    <li class="flow-step"><span class="flow-no">2</span><b>分析</b><p>善始容易、善終難：憂患時竭誠待下，得志後傲慢，人心就離散。</p></li>
+    <li class="flow-step"><span class="flow-no">3</span><b>對策</b><p>提出十思自我節制，再知人善任，君臣各盡其職，不必事事親為。</p></li>
+  </ol>
+  </section>
+  
+  <section class="section" id="rhetoric">
+    <div class="section-head"><span class="section-no">04</span><h2>修辭整理</h2><span class="section-kicker">RHETORIC</span></div>
+    
+    
+  <div class="rhet-grid">
+    <article class="card rhet">
+      <h3>譬喻（類比）</h3>
+      <ul><li>「求木之長者，必固其根本；欲流之遠者，必浚其泉源」：以樹根、水源比喻德義</li><li>「伐根以求木茂，塞源而欲流長」：以砍根、堵源比喻不修德</li><li>「載舟覆舟」「奔車朽索」：以舟水比君民，以朽索駕車比治國的危險</li></ul>
+      <p class="rhet-tip"><span>判斷</span>把抽象的道理，說成具體看得見的事物。</p>
+    </article>
+    <article class="card rhet">
+      <h3>排比</h3>
+      <ul><li>「源不深而望流之遠，根不固而求木之長，德不厚而思國之治」</li><li>「智者盡其謀，勇者竭其力，仁者播其惠，信者效其忠」</li><li>「見可欲，則思知足以自戒；將有作，則思知止以安人；念高危，則思謙沖而自牧」</li></ul>
+      <p class="rhet-tip"><span>判斷</span>三句以上、句式相似、語氣一致。</p>
+    </article>
+    <article class="card rhet">
+      <h3>映襯</h3>
+      <ul><li>「竭誠則胡越為一體，傲物則骨肉為行路」</li><li>「昔取之而有餘，今守之而不足」</li><li>「終苟免而不懷仁，貌恭而不心服」</li></ul>
+      <p class="rhet-tip"><span>判斷</span>把相反的兩種情況放在一起對照。</p>
+    </article>
+    <article class="card rhet">
+      <h3>設問</h3>
+      <ul><li>提問：「昔取之而有餘，今守之而不足，何也？」（自問自答）</li><li>激問：「豈取之易而守之難乎」（答案在反面：並不是）</li><li>激問：「奔車朽索，其可忽乎」（答案在反面：不可輕忽）</li></ul>
+      <p class="rhet-tip"><span>判斷</span>自問自答是提問；有「豈」「其可」「何必」這類反問詞、答案在反面的是激問。</p>
+    </article>
+    <article class="card rhet">
+      <h3>借代</h3>
+      <ul><li>「神器之重」「域中之大」：借指帝位</li></ul>
+      <p class="rhet-tip"><span>判斷</span>不直接說本名，借相關的事物代替。</p>
+    </article>
+  </div>
+  </section>
+  
+  <section class="section" id="words">
+    <div class="section-head"><span class="section-no">05</span><h2>字詞整理</h2><span class="section-kicker">KEY WORDS</span></div>
+    
+    
+  <div class="table-wrap">
+    <table class="word-table">
+      <thead><tr><th scope="col">字詞</th><th scope="col">類型</th><th scope="col">本文中的意思</th><th scope="col">原文例句</th></tr></thead>
+      <tbody>
+        <tr><td class="w" data-l="字詞">以</td><td data-l="類型"><span class="type t-multi">一字多義</span></td><td data-l="意思">連詞：來；介詞：用</td><td class="eg" data-l="例句">「知足以自戒」（來）；「戒奢以儉」「董之以嚴刑」（用）</td></tr>
+        <tr><td class="w" data-l="字詞">為</td><td data-l="類型"><span class="type t-multi">一字多義</span></td><td data-l="意思">成為、變成</td><td class="eg" data-l="例句">「胡越為一體」「骨肉為行路」</td></tr>
+        <tr><td class="w" data-l="字詞">克</td><td data-l="類型"><span class="type t-multi">一字多義</span></td><td data-l="意思">能夠（不是克服）</td><td class="eg" data-l="例句">「能克終者蓋寡」</td></tr>
+        <tr><td class="w" data-l="字詞">蓋</td><td data-l="類型"><span class="type t-multi">一字多義</span></td><td data-l="意思">大概、大抵（不是覆蓋）</td><td class="eg" data-l="例句">「蓋寡」</td></tr>
+        <tr><td class="w" data-l="字詞">簡</td><td data-l="類型"><span class="type t-multi">一字多義</span></td><td data-l="意思">選拔、挑選（不是簡單）</td><td class="eg" data-l="例句">「簡能而任之」</td></tr>
+        <tr><td class="w" data-l="字詞">下</td><td data-l="類型"><span class="type t-pos">詞類活用</span></td><td data-l="意思">動詞：居於下位（不是低下）</td><td class="eg" data-l="例句">「江海下百川」</td></tr>
+        <tr><td class="w" data-l="字詞">固</td><td data-l="類型"><span class="type t-caus">使動用法</span></td><td data-l="意思">使它穩固</td><td class="eg" data-l="例句">「必固其根本」</td></tr>
+        <tr><td class="w" data-l="字詞">物</td><td data-l="類型"><span class="type t-diff">古今異義</span></td><td data-l="意思">古：人、他人；今：東西</td><td class="eg" data-l="例句">「縱情以傲物」</td></tr>
+        <tr><td class="w" data-l="字詞">行路</td><td data-l="類型"><span class="type t-diff">古今異義</span></td><td data-l="意思">古：路人；今：走路</td><td class="eg" data-l="例句">「骨肉為行路」</td></tr>
+      </tbody>
+    </table>
+  </div>
+  </section>
+  
+  <section class="section" id="idioms">
+    <div class="section-head"><span class="section-no">06</span><h2>成語・名言補充</h2><span class="section-kicker">IDIOMS</span></div>
+    <p class="section-intro">與李世民、魏徵和本文有關，每個附一句意思。</p>
+    
+  <div class="rival-idioms">
+    <div class="rival-column">
+      <div class="rival-title"><strong>李世民</strong></div>
+      <ul class="idiom-list">
+        <li class="idiom-item"><b>英雄入彀</b><span>彀（ㄍㄡˋ）是弓箭射程的範圍，比喻人才都被網羅進來、為己所用。相傳是太宗看到新進士們魚貫走出時說的話。</span></li>
+        <li class="idiom-item"><b>房謀杜斷</b><span>房玄齡善於謀劃，杜如晦善於決斷，比喻賢臣各有所長、一起輔佐君主。</span></li>
+        <li class="idiom-item"><b>從諫如流</b><span>樂意接受勸告，像水往下流一樣自然。常用來形容肯聽勸諫的君主。</span></li>
+        <li class="idiom-item"><b>割股啖腹</b><span>割自己腿上的肉來填飽肚子。太宗用它說明：君主若損害百姓來養自己，等於毀了自己的根本。</span></li>
+        <li class="idiom-item"><b>林深則鳥棲，水廣則魚遊</b><span>樹林深，鳥自然來棲息；水面廣，魚自然來游。太宗用來比喻德義累積深厚，人心自然歸附。</span></li>
+      </ul>
+    </div>
+    <div class="rival-column">
+      <div class="rival-title"><strong>魏徵</strong></div>
+      <ul class="idiom-list">
+        <li class="idiom-item"><b>犯顏直諫</b><span>不怕冒犯君主的威嚴，直接說出勸告。</span></li>
+        <li class="idiom-item"><b>兼聽則明，偏信則暗</b><span>多聽各方意見，就能明白事理；只信一面之詞，就會糊塗。</span></li>
+        <li class="idiom-item"><b>以人為鏡</b><span>把別人當作鏡子，檢討自己的得失。魏徵過世時，太宗說他是自己的「人鏡」。</span></li>
+        <li class="idiom-item"><b>願為良臣，不為忠臣</b><span>魏徵希望做能和君主一起成就盛世的良臣，而不是君主敗亡、自己也遭殃的忠臣。</span></li>
+        <li class="idiom-item"><b>創業易，守成難</b><span>打下基業容易，守住基業困難。貞觀十年太宗問「草創與守成孰難」，魏徵答守成更難。</span></li>
+      </ul>
+    </div></div>
+  <div class="card banquet-phrases">
+    <h4>從〈十思疏〉來的成語</h4>
+    <div class="phrase-grid"><div class="phrase"><b>居安思危</b><span>處在安定的時候，要想到可能發生的危難。</span></div><div class="phrase"><b>載舟覆舟</b><span>水能載船也能翻船，比喻人民能擁戴君主，也能推翻君主。</span></div><div class="phrase"><b>奔車朽索</b><span>用腐朽的繩子駕馭奔馳的車，比喻處境非常危險。</span></div><div class="phrase"><b>善始克終</b><span>不但開頭做得好，也能堅持到有好結果。</span></div><div class="phrase"><b>謙沖自牧</b><span>用謙虛柔和來自我修養。</span></div><div class="phrase"><b>鳴琴垂拱</b><span>彈琴、垂衣拱手，形容君主從容無為，天下自然大治。</span></div></div>
+  </div>
+  </section>
+  
+  <section class="section" id="practice">
+    <div class="section-head"><span class="section-no">07</span><h2>互動練習</h2><span class="section-kicker">PRACTICE</span></div>
+    <p class="section-intro">把十思放回情境，再補全關鍵句。</p>
+    
+  <div class="card practice" id="matchGame">
+    <div class="practice-head"><b>練習一｜十思連連看</b><span>已配對 <span id="matchCount">0</span> / 10</span></div>
+    <p class="practice-intro">先點左邊的情境，再點右邊最適合的「思」。配對成功後，會顯示它在原文中的說法。</p>
+    <div class="match-board"><div class="match-col">
+      <button class="match-item match-left" type="button" data-i="0"><span class="match-no">①</span>看到令人心動、很想擁有的東西<small class="match-orig" data-orig="見可欲"></small></button>
+      <button class="match-item match-left" type="button" data-i="1"><span class="match-no">②</span>打算興建工程、徵調百姓<small class="match-orig" data-orig="將有作"></small></button>
+      <button class="match-item match-left" type="button" data-i="2"><span class="match-no">③</span>身居高位，感到處境危險<small class="match-orig" data-orig="念高危"></small></button>
+      <button class="match-item match-left" type="button" data-i="3"><span class="match-no">④</span>擔心自己自滿過頭<small class="match-orig" data-orig="懼滿溢"></small></button>
+      <button class="match-item match-left" type="button" data-i="4"><span class="match-no">⑤</span>很想出外打獵遊樂<small class="match-orig" data-orig="樂盤遊"></small></button>
+      <button class="match-item match-left" type="button" data-i="5"><span class="match-no">⑥</span>擔心自己漸漸鬆懈怠惰<small class="match-orig" data-orig="憂懈怠"></small></button>
+      <button class="match-item match-left" type="button" data-i="6"><span class="match-no">⑦</span>憂慮自己被身邊的人蒙蔽<small class="match-orig" data-orig="慮壅蔽"></small></button>
+      <button class="match-item match-left" type="button" data-i="7"><span class="match-no">⑧</span>想到朝中有進讒言的小人<small class="match-orig" data-orig="想讒邪"></small></button>
+      <button class="match-item match-left" type="button" data-i="8"><span class="match-no">⑨</span>要賞賜、提拔某個人<small class="match-orig" data-orig="恩所加"></small></button>
+      <button class="match-item match-left" type="button" data-i="9"><span class="match-no">⑩</span>要處罰、責罰某個人<small class="match-orig" data-orig="罰所及"></small></button></div><div class="match-col">
+      <button class="match-item match-right" type="button" data-i="3">江海下百川</button>
+      <button class="match-item match-right" type="button" data-i="7">正身以黜惡</button>
+      <button class="match-item match-right" type="button" data-i="1">知止以安人</button>
+      <button class="match-item match-right" type="button" data-i="9">無因怒而濫刑</button>
+      <button class="match-item match-right" type="button" data-i="5">慎始而敬終</button>
+      <button class="match-item match-right" type="button" data-i="0">知足以自戒</button>
+      <button class="match-item match-right" type="button" data-i="8">無因喜以謬賞</button>
+      <button class="match-item match-right" type="button" data-i="2">謙沖而自牧</button>
+      <button class="match-item match-right" type="button" data-i="6">虛心以納下</button>
+      <button class="match-item match-right" type="button" data-i="4">三驅以為度</button></div></div>
+    <div class="practice-feedback" id="matchFeedback" aria-live="polite"></div>
+    <button class="reset" id="resetMatch" type="button">重新配對</button>
+  </div>
+  <div class="card practice" id="clozeGame">
+    <div class="practice-head"><b>練習二｜關鍵句克漏字</b><span>完成 <span id="clozeCount">0</span> / 3 組</span></div>
+    <p class="practice-intro">點選空格，再點下方詞語填入；沒有選空格時，會填到第一個空格。答錯的詞語會變紅，可再試一次。</p>
+    
+    <article class="cloze-card" data-card="0">
+      <div class="cloze-title">固本浚源</div>
+      <div class="cloze-text">求木之長者，必固其<button type="button" class="blank" data-answer="根本" data-n="①" aria-label="空格1">①</button>；欲流之遠者，必浚其<button type="button" class="blank" data-answer="泉源" data-n="②" aria-label="空格2">②</button>；思國之安者，必積其<button type="button" class="blank" data-answer="德義" data-n="③" aria-label="空格3">③</button>。</div>
+      <div class="chip-row"><button type="button" class="chip" data-w="根本">根本</button><button type="button" class="chip" data-w="泉源">泉源</button><button type="button" class="chip" data-w="德義">德義</button><button type="button" class="chip" data-w="嚴刑">嚴刑</button><button type="button" class="chip" data-w="威怒">威怒</button><button type="button" class="chip" data-w="百川">百川</button></div>
+      <div class="cloze-note"><b>解析</b>三個目標（木長、流遠、國安）各對應一個根基（根本、泉源、德義），句式整齊，是全文的立論核心。</div>
+    </article>
+    <article class="cloze-card" data-card="1">
+      <div class="cloze-title">善始克終</div>
+      <div class="cloze-text">有善始者<button type="button" class="blank" data-answer="實繁" data-n="①" aria-label="空格1">①</button>，能克終者<button type="button" class="blank" data-answer="蓋寡" data-n="②" aria-label="空格2">②</button>。夫在殷憂，必<button type="button" class="blank" data-answer="竭誠" data-n="③" aria-label="空格3">③</button>以待下；既得志，則<button type="button" class="blank" data-answer="縱情" data-n="④" aria-label="空格4">④</button>以傲物。</div>
+      <div class="chip-row"><button type="button" class="chip" data-w="實繁">實繁</button><button type="button" class="chip" data-w="蓋寡">蓋寡</button><button type="button" class="chip" data-w="竭誠">竭誠</button><button type="button" class="chip" data-w="縱情">縱情</button><button type="button" class="chip" data-w="謙沖">謙沖</button><button type="button" class="chip" data-w="慎始">慎始</button></div>
+      <div class="cloze-note"><b>解析</b>「實繁／蓋寡」寫開頭容易、善終難；「竭誠／縱情」說明難在得志之後態度改變。</div>
+    </article>
+    <article class="cloze-card" data-card="2">
+      <div class="cloze-title">各盡所長</div>
+      <div class="cloze-text">簡能而任之，擇善而從之，則<button type="button" class="blank" data-answer="智者" data-n="①" aria-label="空格1">①</button>盡其謀，<button type="button" class="blank" data-answer="勇者" data-n="②" aria-label="空格2">②</button>竭其力，<button type="button" class="blank" data-answer="仁者" data-n="③" aria-label="空格3">③</button>播其惠，<button type="button" class="blank" data-answer="信者" data-n="④" aria-label="空格4">④</button>效其忠。</div>
+      <div class="chip-row"><button type="button" class="chip" data-w="智者">智者</button><button type="button" class="chip" data-w="勇者">勇者</button><button type="button" class="chip" data-w="仁者">仁者</button><button type="button" class="chip" data-w="信者">信者</button><button type="button" class="chip" data-w="賢者">賢者</button><button type="button" class="chip" data-w="愚者">愚者</button></div>
+      <div class="cloze-note"><b>解析</b>謀屬智、力屬勇、惠屬仁、忠屬信；用人得當，臣下各展所長，君主才能「無事」。</div>
+    </article>
+    <button class="reset" id="resetCloze" type="button">重新練習</button>
+  </div>
+  </section>
+  
+  <section class="section" id="quiz">
+    <div class="section-head"><span class="section-no">08</span><h2>綜合自我測驗</h2><span class="section-kicker">CHECK</span></div>
+    <p class="section-intro">共 10 題；點選後立即顯示答案與解析。</p>
+    
+  <article class="quiz-card" data-answer="3">
+    <div class="quiz-q"><span>Q1</span>「戒奢以儉」的「以」，與下列何者用法相同？<em>字義</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 知足以自戒</button>
+      <button type="button" data-option="1">B. 正身以黜惡</button>
+      <button type="button" data-option="2">C. 虛心以納下</button>
+      <button type="button" data-option="3">D. 董之以嚴刑</button></div>
+    <div class="quiz-explain"><b>詳解</b>「戒奢以儉」是「用節儉來戒除奢侈」，「以」是介詞（用）；「董之以嚴刑」＝用嚴刑督責，用法相同。其餘三項的「以」是連詞，表目的（來）。</div>
+  </article>
+  <article class="quiz-card" data-answer="1">
+    <div class="quiz-q"><span>Q2</span>「有善始者實繁，能克終者蓋寡」的「克」與「蓋」，意思依序為何？<em>字義</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 克服；覆蓋</button>
+      <button type="button" data-option="1">B. 能夠；大概</button>
+      <button type="button" data-option="2">C. 剋制；遮蓋</button>
+      <button type="button" data-option="3">D. 攻下；因為</button></div>
+    <div class="quiz-explain"><b>詳解</b>「克」是能夠，「蓋」是表推測的副詞，意為大概、大抵。全句說有好開頭的人很多，能善終的大概很少。</div>
+  </article>
+  <article class="quiz-card" data-answer="0">
+    <div class="quiz-q"><span>Q3</span>「懼滿溢，則思江海下百川」的「下」，意思為何？<em>詞類活用</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 居於下位</button>
+      <button type="button" data-option="1">B. 低下的</button>
+      <button type="button" data-option="2">C. 往下降</button>
+      <button type="button" data-option="3">D. 下屬</button></div>
+    <div class="quiz-explain"><b>詳解</b>「下」本是方位詞，在這裡作動詞用，意思是「居於下位」：江海甘居百川之下，所以能容納百川。</div>
+  </article>
+  <article class="quiz-card" data-answer="2">
+    <div class="quiz-q"><span>Q4</span>「既得志，則縱情以傲物」的「物」，意思為何？<em>古今異義</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 東西、物品</button>
+      <button type="button" data-option="1">B. 財物</button>
+      <button type="button" data-option="2">C. 他人、旁人</button>
+      <button type="button" data-option="3">D. 萬物</button></div>
+    <div class="quiz-explain"><b>詳解</b>古代的「物」可指人，「傲物」就是傲慢地對待他人；現代的「物」多指東西，是古今異義。</div>
+  </article>
+  <article class="quiz-card" data-answer="1">
+    <div class="quiz-q"><span>Q5</span>「源不深而望流之遠，根不固而求木之長，德不厚而思國之治」運用了何種手法？<em>修辭</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 擬人與誇飾：把樹木與水流寫得像人</button>
+      <button type="button" data-option="1">B. 以樹根、水源類比德義，並以排比加強語勢</button>
+      <button type="button" data-option="2">C. 設問與映襯：先提問再對照</button>
+      <button type="button" data-option="3">D. 借代與轉化：以部分代替整體</button></div>
+    <div class="quiz-explain"><b>詳解</b>三句句式相同，構成排比；並以根、源這類人人明白的事物，類比德義是國家的根本。</div>
+  </article>
+  <article class="quiz-card" data-answer="3">
+    <div class="quiz-q"><span>Q6</span>「豈取之易而守之難乎」與「昔取之而有餘，今守之而不足，何也」，依序是何種設問？<em>修辭</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 提問；激問</button>
+      <button type="button" data-option="1">B. 提問；提問</button>
+      <button type="button" data-option="2">C. 激問；激問</button>
+      <button type="button" data-option="3">D. 激問；提問</button></div>
+    <div class="quiz-explain"><b>詳解</b>前句答案在問題的反面，是激問；後句自問自答、下文就回答，是提問。</div>
+  </article>
+  <article class="quiz-card" data-answer="2">
+    <div class="quiz-q"><span>Q7</span>下列對全文三層關係的說明，何者最恰當？<em>結構</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 第一層寫景，第二層抒情，第三層議論</button>
+      <button type="button" data-option="1">B. 第一層敘事，第二層說理，第三層記錄太宗的回應</button>
+      <button type="button" data-option="2">C. 第一層以比喻立論，第二層分析創業與守成的差別，第三層提出十思對策</button>
+      <button type="button" data-option="3">D. 三層都在分別介紹十種人才</button></div>
+    <div class="quiz-explain"><b>詳解</b>全文由「固本浚源」立論，到「善始難終」分析原因，最後落到「十思」的具體做法，層層推進。</div>
+  </article>
+  <article class="quiz-card" data-answer="0">
+    <div class="quiz-q"><span>Q8</span>有人在困苦時謙卑待人，一旦成名便目中無人，連老朋友也漸漸疏遠。下列何者最能呼應此情形？<em>文意</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 傲物則骨肉為行路</button>
+      <button type="button" data-option="1">B. 源不深而望流之遠</button>
+      <button type="button" data-option="2">C. 載舟覆舟，所宜深慎</button>
+      <button type="button" data-option="3">D. 簡能而任之</button></div>
+    <div class="quiz-explain"><b>詳解</b>得志後傲慢待人，連至親也會變得疏遠，正是「傲物則骨肉為行路」。</div>
+  </article>
+  <article class="quiz-card" data-answer="1">
+    <div class="quiz-q"><span>Q9</span>下列何者與「居安思危」意思最接近？<em>成語</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 高枕無憂</button>
+      <button type="button" data-option="1">B. 未雨綢繆</button>
+      <button type="button" data-option="2">C. 得過且過</button>
+      <button type="button" data-option="3">D. 守株待兔</button></div>
+    <div class="quiz-explain"><b>詳解</b>「未雨綢繆」是在災禍來臨前先做好準備，與「居安思危」意思相近；「高枕無憂」則是毫不憂慮，意思相反。</div>
+  </article>
+  <article class="quiz-card" data-answer="3">
+    <div class="quiz-q"><span>Q10</span>魏徵寫這篇奏疏，最主要是勸太宗做到什麼？<em>主旨</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 增加賦稅與徭役，充實國庫</button>
+      <button type="button" data-option="1">B. 以嚴刑峻法維持天下安定</button>
+      <button type="button" data-option="2">C. 退位讓賢，不再管理國事</button>
+      <button type="button" data-option="3">D. 居安思危、戒奢以儉，積德義並知人善任</button></div>
+    <div class="quiz-explain"><b>詳解</b>全文核心是「思國之安者，必積其德義」，並以十思提醒君主自我節制、任用賢能。</div>
+  </article><div class="quiz-summary" id="quizSummary" aria-live="polite"></div><button class="reset" id="resetQuiz" type="button">重新作答</button>
+  </section>
+</main>
+<footer>
+  諫太宗十思疏．互動國文講義<br>
+  原文依《貞觀政要・君道》；注釋與語譯為整理改寫，並參考<a href="https://cerclearning.tp.edu.tw/" target="_blank" rel="noreferrer">國語文學科中心高中國文學習網</a>等教材。成語典故依《貞觀政要》《荀子》《尚書》等記載整理。
+</footer>
+<div id="glossTip" role="tooltip"></div>
+<script>
+const tip=document.getElementById('glossTip');let activeAnnot=null;
+function closeTip(){tip.classList.remove('show');if(activeAnnot)activeAnnot.classList.remove('active');activeAnnot=null}
+function openTip(el){if(activeAnnot===el){closeTip();return}closeTip();activeAnnot=el;el.classList.add('active');tip.textContent=el.dataset.note;tip.classList.add('show');const r=el.getBoundingClientRect();const w=tip.offsetWidth,h=tip.offsetHeight;let left=Math.min(Math.max(12,r.left),window.innerWidth-w-12);let top=r.bottom+9;if(top+h>window.innerHeight-12)top=Math.max(12,r.top-h-9);tip.style.left=left+'px';tip.style.top=top+'px'}
+document.querySelectorAll('.passage').forEach(card=>card.querySelectorAll('.annot').forEach((el,i)=>{el.dataset.n=i+1}));
+document.querySelectorAll('.annot').forEach(el=>{el.tabIndex=0;el.setAttribute('role','button');el.addEventListener('click',e=>{e.stopPropagation();openTip(el)});el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openTip(el)}})});
+document.addEventListener('click',closeTip);window.addEventListener('scroll',closeTip,{passive:true});window.addEventListener('resize',closeTip);
+document.getElementById('toggleZhuyin').addEventListener('change',e=>document.body.classList.toggle('hide-zhuyin',!e.target.checked));
+document.getElementById('toggleTrans').addEventListener('change',e=>document.body.classList.toggle('show-all-trans',e.target.checked));
+document.querySelectorAll('.translation-btn').forEach(btn=>btn.addEventListener('click',()=>{const card=btn.closest('.passage');const t=card.querySelector('.translation');t.classList.toggle('show');const open=t.classList.contains('show');btn.textContent=open?'收合語譯':'看語譯';btn.setAttribute('aria-expanded',String(open))}));
+let answered=0,score=0;const TOTAL=10;
+document.querySelectorAll('.quiz-card').forEach(card=>{card.querySelectorAll('.quiz-options button').forEach(btn=>btn.addEventListener('click',()=>{if(btn.disabled)return;const answer=Number(card.dataset.answer),pick=Number(btn.dataset.option),buttons=[...card.querySelectorAll('.quiz-options button')];buttons.forEach(b=>b.disabled=true);buttons[answer].classList.add('correct');if(pick!==answer)btn.classList.add('wrong');else score++;answered++;card.querySelector('.quiz-explain').classList.add('show');document.getElementById('answered').textContent=answered;document.getElementById('score').textContent=score;if(answered===TOTAL)document.getElementById('quizSummary').textContent=score===TOTAL?'全數答對，已掌握全文重點。':score>=7?'答對 '+score+' 題，整體理解很穩固。':'答對 '+score+' 題，建議回看語譯與修辭、字詞整理。'}))});
+document.getElementById('resetQuiz').addEventListener('click',()=>{answered=0;score=0;document.getElementById('answered').textContent=0;document.getElementById('score').textContent=0;document.getElementById('quizSummary').textContent='';document.querySelectorAll('.quiz-options button').forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong')});document.querySelectorAll('.quiz-explain').forEach(e=>e.classList.remove('show'));document.getElementById('quiz').scrollIntoView({behavior:'smooth'})});
+(function(){
+const mg=document.getElementById('matchGame');if(!mg)return;
+let sel=null,count=0;const total=mg.querySelectorAll('.match-left').length;
+const fb=document.getElementById('matchFeedback'),cnt=document.getElementById('matchCount');
+function setFb(h){fb.innerHTML=h}
+mg.querySelectorAll('.match-left').forEach(b=>b.addEventListener('click',()=>{if(b.classList.contains('done'))return;mg.querySelectorAll('.match-left').forEach(x=>x.classList.remove('selected'));if(sel===b){sel=null;setFb('');return}sel=b;b.classList.add('selected');setFb('已選擇情境，請在右邊選出相應的「思」。')}));
+mg.querySelectorAll('.match-right').forEach(r=>r.addEventListener('click',()=>{if(r.classList.contains('done'))return;if(!sel){setFb('請先點選左邊的一個情境。');return}
+ if(sel.dataset.i===r.dataset.i){const o=sel.querySelector('.match-orig');o.textContent='原文：'+o.dataset.orig+'，則思'+r.textContent;sel.classList.remove('selected');sel.classList.add('done');r.classList.add('done');count++;cnt.textContent=count;sel=null;setFb(count===total?'<b>十組全部配對成功。</b>十思的每一句，都是在「情境」與「自我提醒」之間建立連結。':'<b>配對正確。</b>')}
+ else{r.classList.add('miss');setTimeout(()=>r.classList.remove('miss'),600);setFb('<b>再想一次。</b>這個提醒和所選情境不太對應。')}}));
+document.getElementById('resetMatch').addEventListener('click',()=>{count=0;sel=null;cnt.textContent=0;setFb('');mg.querySelectorAll('.match-item').forEach(x=>x.classList.remove('done','selected','miss'));mg.querySelectorAll('.match-orig').forEach(o=>o.textContent='')});
+})();
+(function(){
+const cg=document.getElementById('clozeGame');if(!cg)return;
+const cards=[...cg.querySelectorAll('.cloze-card')],cc=document.getElementById('clozeCount');let doneCards=0;
+cards.forEach(card=>{let active=null;const blanks=[...card.querySelectorAll('.blank')];
+ blanks.forEach(b=>b.addEventListener('click',()=>{if(b.classList.contains('filled'))return;blanks.forEach(x=>x.classList.remove('active'));active=b;b.classList.add('active')}));
+ card.querySelectorAll('.chip').forEach(chip=>chip.addEventListener('click',()=>{const target=active&&!active.classList.contains('filled')?active:blanks.find(x=>!x.classList.contains('filled'));if(!target)return;
+  if(target.dataset.answer===chip.dataset.w){target.textContent=chip.dataset.w;target.classList.remove('active');target.classList.add('filled');chip.classList.add('used');active=null;
+   if(blanks.every(x=>x.classList.contains('filled'))){card.classList.add('done');doneCards++;cc.textContent=doneCards}}
+  else{chip.classList.add('miss');setTimeout(()=>chip.classList.remove('miss'),600)}}))});
+document.getElementById('resetCloze').addEventListener('click',()=>{doneCards=0;cc.textContent=0;cards.forEach(card=>{card.classList.remove('done');card.querySelectorAll('.blank').forEach(b=>{b.classList.remove('filled','active');b.textContent=b.dataset.n});card.querySelectorAll('.chip').forEach(c=>c.classList.remove('used','miss'))})});
+})();
+(function(){
+const links=[...document.querySelectorAll('.jump')];const map=new Map(links.map(a=>[a.getAttribute('href').slice(1),a]));
+if(!('IntersectionObserver' in window))return;
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('on'));const a=map.get(e.target.id);if(a)a.classList.add('on')}})},{rootMargin:'-30% 0px -60% 0px'});
+map.forEach((a,id)=>{const s=document.getElementById(id);if(s)io.observe(s)});
+})();
+</script>
+</body>
+</html>
