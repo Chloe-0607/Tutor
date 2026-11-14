@@ -3,286 +3,481 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="適合國中會考複習的古典詩詞讀解。三站練習、12 題閱讀測驗，搭配《岳陽樓記》上課。">
-<title>湖上讀詩｜古典詩詞讀解</title>
+<meta name="description" content="湖景詩詞補充教材，收錄六篇唐宋經典，附字詞注釋、語譯、賞析、詩詞常識與48題互動練習。">
+<title>湖上讀詩｜湖景詩詞補充</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;600;700;800&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#273a34;--muted:#58665b;--lake:#245747;--paper:#f7f5eb;--white:#fffef9;--line:#d9dfd0;--pale:#e5eee4;--clay:#913e30;--gold:#a16f36;--serif:"Noto Serif TC","Songti TC",serif;--sans:"Noto Sans TC","PingFang TC",sans-serif}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.75 var(--sans)}h1,h2,h3,blockquote{font-family:var(--serif)}h1,h2,h3,p{margin-top:0}a{color:var(--lake);text-underline-offset:4px}button,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:default}button,a,summary,textarea{outline-offset:4px}button:focus-visible,a:focus-visible,summary:focus-visible,textarea:focus-visible{outline:3px solid #987133}summary{cursor:pointer}summary:focus-visible{border-radius:3px}[hidden]{display:none!important}
-.wrap{width:min(1060px,calc(100% - 48px));margin:auto}.top{background:var(--white);border-bottom:1px solid var(--line)}.top .wrap{min-height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font:700 18px var(--serif);color:var(--ink);text-decoration:none;letter-spacing:.15em}.brand::before{content:"";display:inline-block;width:9px;height:9px;background:var(--clay);margin-right:12px;border-radius:2px;vertical-align:2px}.toplink{font-size:13px;font-weight:700}
-.hero{position:relative;isolation:isolate;overflow:hidden;border-bottom:1px solid #c6d4c7;background:linear-gradient(132deg,#f3f0df 2%,#eef1e5 47%,#d8e7dc);}.hero::after{content:"湖";position:absolute;font:900 clamp(240px,33vw,475px)/1 var(--serif);right:6%;top:-125px;color:#1e6151;opacity:.07;z-index:-1;pointer-events:none}.hero .wrap{padding:56px 0 48px;position:relative}.hero .wrap::before{content:"";position:absolute;z-index:-1;right:-110px;bottom:-70px;width:540px;height:200px;border:1px solid #75968438;border-radius:50%;box-shadow:0 -14px 0 -13px #7596843d,0 -28px 0 -27px #75968436,0 -41px 0 -40px #75968430;transform:rotate(-7deg);pointer-events:none}
-.eyebrow,.station-kicker{font-size:13px;font-weight:700;color:var(--clay);letter-spacing:.17em;margin:0 0 10px}h1{font-size:clamp(43px,8vw,77px);line-height:1.19;letter-spacing:.09em;margin:0 0 15px;color:#183c31}h2{font-size:clamp(26px,4vw,37px);line-height:1.35;margin-bottom:10px}.intro{color:#43594d;max-width:44em;margin-bottom:22px}.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.button{border:1px solid #aebfb0;border-radius:7px;background:var(--white);color:var(--lake);font-weight:700;padding:8px 14px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.button:hover{background:#ebf0e7}.primary{background:var(--lake);color:white;border-color:var(--lake)}.primary:hover{background:#193f33}.button:disabled{opacity:.54}.quiet{background:none;border:0;color:var(--lake);padding:7px 0;font-weight:700;text-decoration:underline;text-underline-offset:4px}
-.navigation{position:sticky;top:0;z-index:5;background:#fffef9f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.nav-inner{display:flex;align-items:stretch;justify-content:space-between;gap:20px}.nav-items{display:flex;overflow-x:auto;scrollbar-width:thin;gap:3px}.nav-items a{text-decoration:none;color:var(--muted);font-size:14px;font-weight:700;white-space:nowrap;padding:13px 13px 11px;border-bottom:3px solid transparent}.nav-items a[aria-current]{border-color:var(--lake);color:var(--lake);background:#eff4eb}.progress{display:flex;align-items:center;gap:8px;font-size:12px;white-space:nowrap;color:var(--muted)}progress{width:80px;height:7px;accent-color:var(--lake)}
-main{padding:29px 0 53px;scroll-margin-top:53px}.heading{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:13px}.heading h2{margin:0}.meta{color:var(--muted);font-size:13px;margin:0}.panel{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:19px 22px;margin-bottom:16px}.teacher{background:#eef1e6}.teacher summary,.panel summary{font-weight:700;color:var(--lake)}.teacher ul{padding-left:22px;margin:8px 0}.teacher p{margin:8px 0 0}.board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.23fr);gap:20px;align-items:start}.texts{display:grid;gap:12px}.poem{padding:17px 20px;background:var(--white);border:1px solid var(--line);border-left:4px solid #779682;border-radius:8px;min-width:0}.poem:nth-child(even){border-left-color:#b48661}.poem h3{margin:0 0 2px;font-size:20px}.attribution{font-size:12.5px;color:var(--muted);margin-bottom:11px}.poem blockquote{font-size:clamp(16px,2vw,19px);line-height:1.85;margin:0 0 10px;white-space:pre-line}.poem .excerpt{white-space:normal;font-size:15px}.excerpt p{margin:0 0 8px}.poem details{margin-top:8px;border-top:1px solid var(--line);padding-top:7px;font-size:13px}.poem details p{margin:7px 0}.poem summary{color:var(--lake)}
-.quiz{scroll-margin-top:65px;border-top:3px solid var(--lake);min-width:0}.quiz h3{font-size:22px;line-height:1.48;margin:10px 0 13px}.quiz-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.qtag{font-size:13px;color:var(--lake);font-weight:700}.qnum{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px}.options{display:grid;gap:8px;margin-bottom:13px}.choice{color:var(--ink);text-align:left;padding:10px 12px;border:1px solid var(--line);background:#fbfcf7;border-radius:7px;display:flex;align-items:flex-start;gap:9px;line-height:1.55}.choice:hover:not(:disabled){border-color:var(--lake);background:var(--pale)}.letter{font-size:12px;font-weight:700;color:var(--lake);margin-top:2px;flex:0 0 19px}.evidence .choice{font-family:var(--serif);font-weight:600}.choice.good{background:#e5efe2;border-color:#7e9d79}.choice.bad{background:#f8e9e3;border-color:#c68e79}.choice.picked{border-color:var(--lake);background:var(--pale);box-shadow:inset 3px 0 var(--lake)}.choice small{color:var(--muted)}.feedback{font-size:14px;padding:10px 13px;background:#edf3e9;border-radius:7px;margin:12px 0 0}.feedback.wrong{background:#f8eae6;color:#6c382b}.sort-pile{min-height:46px;border:1px dashed #aebfb0;border-radius:7px;padding:8px;margin:8px 0 13px}.sort-pile .choice{width:100%;margin-bottom:5px}.sort-pile p{font-size:13px;color:var(--muted);margin:4px}.quiz-nav{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.review-row{border-bottom:1px solid var(--line);padding:12px 0}.review-row p{margin:4px 0 0;font-size:14px}.review-row:last-child{border-bottom:0}.exam-grid{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}.exam-grid button{min-width:34px;border:1px solid var(--line);background:var(--white);border-radius:5px;color:var(--lake);font-size:13px;padding:3px 6px}.exam-grid button[aria-current]{outline:2px solid var(--lake);outline-offset:1px}.exam-grid button.done{background:var(--pale)}.jump-quiz{display:none}.score{font:700 29px var(--serif);color:var(--lake)}
-.class-plan{display:grid;grid-template-columns:84px 1fr;gap:7px 14px;margin:12px 0 0}.class-plan dt{color:var(--lake);font-weight:700}.class-plan dd{margin:0}.write{width:100%;border:1px solid #aebfb0;min-height:88px;border-radius:7px;padding:9px 11px;background:#fffefb;color:var(--ink);resize:vertical}.exit{margin-top:16px}.exit summary{margin:8px 0 0}.exit p{margin-bottom:8px}.exit label{display:block;font-weight:700;margin:9px 0 3px}
-footer{border-top:1px solid var(--line);padding:19px 0 35px;color:var(--muted);font-size:13px}footer p{margin:5px 0}footer summary{color:var(--lake)}footer ul{padding-left:19px}.skip{position:absolute;left:12px;top:-60px;background:white;padding:8px;z-index:10}.skip:focus{top:5px}
-@media(max-width:740px){.wrap{width:calc(100% - 30px)}.hero .wrap{padding:40px 0 35px}.hero::after{top:-48px;right:-20px}.board{grid-template-columns:1fr;gap:13px}.nav-inner{gap:0;display:block}.progress{display:none}.jump-quiz{display:inline-block;margin-bottom:9px}.nav-items a{padding-inline:11px}.panel{padding:15px}.poem{padding:13px 15px}.heading{align-items:start;flex-direction:column;gap:7px}.top .wrap{min-height:52px}.texts{gap:8px}}
-@media(prefers-reduced-motion:no-preference){.button,.choice{transition:background-color .15s,border-color .15s}}
+:root {
+  --paper:#f7f4ec; --card:#fffefa; --ink:#292a25; --muted:#655f54;
+  --lake:#436d70; --deep:#294d51; --pale:#e8f0ed; --line:#ded9cb;
+  --seal:#a74c3c; --gold:#ae834c; --success:#3c6849;
+  --serif:"Noto Serif TC","Songti TC",serif;
+  --sans:"Noto Sans TC","PingFang TC",sans-serif;
+}
+* {box-sizing:border-box}
+html {scroll-padding-top:100px}
+body {margin:0;background:var(--paper);color:var(--ink);font:500 16px/1.85 var(--sans);overflow-wrap:anywhere}
+h1,h2,h3,h4 {font-family:var(--serif);font-weight:900;line-height:1.5;margin:0 0 10px}
+p {margin:0 0 12px}
+button {font:inherit;cursor:pointer}
+button:disabled {cursor:default}
+a {color:var(--deep);text-underline-offset:4px}
+button:focus-visible,a:focus-visible,summary:focus-visible {outline:3px solid var(--gold);outline-offset:4px}
+[hidden] {display:none!important}
+.wrap {width:min(940px,calc(100% - 36px));margin-inline:auto}
+.hero {position:relative;overflow:hidden;background:radial-gradient(ellipse at 8% 5%,#eee6d5,transparent 63%),linear-gradient(120deg,#f6f3e9,#e6efeb);text-align:center}
+.hero::after {content:"湖";position:absolute;right:max(3vw,12px);top:-48px;font:900 clamp(180px,24vw,260px)/1.3 var(--serif);color:var(--lake);opacity:.075;pointer-events:none}
+.hero-inner {position:relative;z-index:1;padding:49px 0 37px}
+.eyebrow {font-size:12px;font-weight:800;letter-spacing:.26em;color:var(--seal);margin:0 0 9px}
+h1 {font-size:clamp(36px,6vw,52px);letter-spacing:.12em;color:var(--deep);margin-bottom:9px}
+.lead {max-width:540px;margin:0 auto;color:#545b50;font-size:15px;font-weight:600}
+.study-nav {position:sticky;top:0;z-index:20;background:#f7f4ecf5;backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-items {display:flex;overflow-x:auto;scrollbar-width:thin;gap:3px}
+.nav-items a {flex:1 0 auto;text-align:center;color:var(--muted);text-decoration:none;padding:13px 15px 10px;border-bottom:3px solid transparent;font-size:15px;font-weight:800;white-space:nowrap}
+.nav-items a[aria-current] {color:var(--deep);border-bottom-color:var(--lake);background:#e9efea}
+main {padding:26px 0 56px}
+.page-heading {display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:18px}
+h2 {font-size:30px;color:var(--deep);margin-bottom:6px}
+.page-heading p {max-width:660px;font-size:15px;color:var(--muted);margin:0}
+.summary {font-size:13px;font-weight:700;color:var(--muted);white-space:nowrap;align-self:start;padding-top:9px}
+.summary b {font-size:16px;color:var(--seal)}
+.poem-links {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:23px}
+.poem-links a {background:var(--card);border:1px solid var(--line);border-radius:6px;padding:5px 12px;font-size:14px;font-weight:700;text-decoration:none}
+.poem-card {background:var(--card);border:1px solid var(--line);border-radius:13px;margin-bottom:30px;overflow:hidden;scroll-margin-top:75px}
+.poem-header {display:flex;justify-content:space-between;align-items:start;gap:14px;padding:23px 27px 17px;background:linear-gradient(100deg,#edf2ec,#fffefa)}
+.poem-header h3 {font-size:25px;color:var(--deep);margin:0 0 3px}
+.subtitle {font:700 17px/1.6 var(--serif);margin:0 0 4px;color:var(--lake)}
+.byline {color:var(--muted);font-size:14px;font-weight:600}
+.form-tag {background:#fffaf0;border:1px solid #dfceb0;color:#7b5932;border-radius:5px;padding:3px 9px;font-size:12px;font-weight:800;white-space:nowrap;margin-top:3px}
+.poem-body {padding:23px 27px}
+.reading {display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:27px;align-items:start}
+.verse {font:700 22px/2.25 var(--serif);margin:0 0 14px;color:#283c35}
+.verse-line {display:block}
+.verse .stanza {display:block;height:11px}
+.word {display:inline;padding:0;background:transparent;border:0;border-bottom:1px dotted #7f9b87;border-radius:0;font:inherit;line-height:inherit;color:#376556}
+.word[aria-pressed="true"] {background:#dcebdd;color:#214a38}
+.word-note {background:var(--pale);border-radius:7px;padding:10px 13px;font-size:14px;margin:8px 0 14px}
+.word-note strong {color:var(--deep)}
+.word-hint {font-size:12px;color:var(--muted);font-weight:600;margin:0 0 10px}
+.translation {background:#f2f1e7;border-radius:7px;margin-top:13px}
+.translation summary {padding:10px 13px;color:var(--deep);font-weight:800;cursor:pointer;font-size:14px}
+.translation p {padding:0 14px 13px;margin:0;font-size:15px;font-weight:500}
+.reading-points {border-left:1px solid var(--line);padding-left:22px}
+.point + .point {margin-top:15px}
+.point h4 {font:800 15px/1.7 var(--sans);color:var(--seal);margin:0 0 4px}
+.point p {margin:0;font-size:15px;line-height:1.9;color:#514e44}
+.exercise {background:#f7f8f2;border-top:1px solid var(--line);padding:21px 27px 24px;scroll-margin-top:75px}
+.exercise-head {display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}
+.exercise-head strong {font-size:14px;color:var(--lake);font-weight:800}
+.exercise-head span {font-size:13px;color:var(--muted);font-weight:600}
+.question {font:700 19px/1.85 var(--sans);margin:5px 0 13px}
+.options {display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.option {display:flex;gap:10px;align-items:start;background:var(--card);color:var(--ink);border:1px solid #cecfc0;border-radius:7px;text-align:left;padding:11px 13px;font-size:15px;line-height:1.75;font-weight:600}
+.option:hover:not(:disabled) {background:#e9f0e7;border-color:#6e9681}
+.letter {font-weight:800;flex:0 0 18px;color:var(--lake)}
+.option.selected {background:#e5eee4;border-color:#5c876b;box-shadow:inset 3px 0 #5c876b}
+.option.correct {background:#e4efdf;border-color:#689366}
+.option.incorrect {background:#f6e6df;border-color:#bc8370}
+.option small {font-size:12px;font-weight:700}
+.evidence .option {font-family:var(--serif);font-weight:700;font-size:17px}
+.feedback {font-size:15px;padding:11px 14px;border-radius:7px;background:#e5efdf;color:#335638;margin-top:13px}
+.feedback.wrong {color:#744531;background:#f5e8df}
+.quiz-actions {display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.btn {border:1px solid #b9c6b8;background:var(--card);color:var(--deep);border-radius:6px;font-size:14px;font-weight:800;padding:7px 14px;line-height:1.75}
+.btn.primary {background:var(--lake);border-color:var(--lake);color:white}
+.btn:hover:not(:disabled) {filter:brightness(.96)}
+.btn:disabled {opacity:.5}
+.order-zone {padding:10px 12px;margin:10px 0;border:1px dashed #aab9a5;border-radius:7px;min-height:53px}
+.order-zone p {color:var(--muted);font-size:14px;margin:2px}
+.order-zone .option {width:100%;margin:5px 0}
+.order-source {display:grid;gap:8px}
+.order-source .option {width:100%}
+.question-nav {display:flex;gap:6px;flex-wrap:wrap;margin-bottom:15px}
+.question-nav button {min-width:32px;padding:4px 7px;font-size:13px;color:var(--lake);border:1px solid #c7d1bf;background:var(--card);border-radius:4px;font-weight:700}
+.question-nav .answered {background:#e2ecd9}
+.question-nav button[aria-current] {outline:2px solid var(--lake);outline-offset:1px}
+.score {font:900 29px/1.5 var(--serif);color:var(--deep);margin:7px 0 12px}
+.review {padding:14px 0;border-bottom:1px solid var(--line)}
+.review p {font-size:15px;margin:6px 0}
+.review h4 {font:700 17px/1.8 var(--sans);margin-bottom:6px}
+.review summary {font-size:14px;color:var(--deep);font-weight:800;cursor:pointer}
+.exam-layout {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:18px;align-items:start}
+.exam-text {padding:17px 20px;background:var(--card);border:1px solid var(--line);border-radius:9px;margin-bottom:12px}
+.exam-text h3 {font-size:21px;color:var(--deep);margin:0 0 4px}
+.exam-text blockquote {font:700 18px/2.1 var(--serif);white-space:pre-line;margin:10px 0 0}
+.exam-text details {font-size:14px;margin-top:10px}
+.exam-text summary {color:var(--deep);font-weight:700;cursor:pointer}
+.exam-text dl {margin:8px 0}
+.exam-text dt {font-weight:800;color:var(--seal)}
+.exam-text dd {margin:0 0 8px}
+.exam-panel {border:1px solid var(--line);border-radius:9px;background:#f7f8f2;padding:21px}
+.exam-panel .options {grid-template-columns:1fr}
+.info-card {background:var(--card);padding:23px;border:1px solid var(--line);border-radius:10px;margin-bottom:19px}
+.info-card h3 {font-size:22px;color:var(--deep)}
+.table-wrap {overflow-x:auto}
+table {border-collapse:collapse;width:100%;font-size:15px;min-width:590px}
+th,td {padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th {background:var(--pale);color:var(--deep);font-weight:800}
+td {font-weight:500}
+td:first-child {font-weight:700}
+.note {padding:12px 16px;background:#f0e9d9;border-left:4px solid var(--gold);font-size:14px;margin:16px 0 0}
+.form-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.form-grid article {background:var(--card);border:1px solid var(--line);padding:17px;border-radius:8px}
+.form-grid h3 {font-size:19px;color:var(--deep)}
+.form-grid p {font-size:14px;margin:0 0 8px}
+footer {padding:18px 0 34px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+footer summary {cursor:pointer;color:var(--deep);font-weight:700}
+footer p {margin:7px 0}
+.skip {position:absolute;top:-80px;left:12px;padding:8px;background:white;z-index:99}
+.skip:focus {top:8px}
+@media(max-width:760px) {
+ .wrap {width:calc(100% - 28px)}
+ .hero-inner {padding:37px 0 29px}
+ .hero::after {right:-30px;top:-12px}
+ .nav-items a {padding:11px 13px 9px;font-size:14px}
+ .reading {grid-template-columns:1fr;gap:20px}
+ .reading-points {border-left:0;border-top:1px solid var(--line);padding:17px 0 0}
+ .poem-header,.poem-body,.exercise {padding:19px}
+ .verse {font-size:clamp(18px,4.8vw,22px);line-height:2.2}
+ .options,.exam-layout,.form-grid {grid-template-columns:1fr}
+ .page-heading {align-items:start}
+ h2 {font-size:27px}
+ .poem-header h3 {font-size:23px}
+ .lead {font-size:14px}
+ .summary {font-size:11px}
+ .exam-panel {padding:17px}
+ .question {font-size:18px}
+ .form-tag {font-size:11px}
+}
+@media(prefers-reduced-motion:no-preference) {html {scroll-behavior:smooth}}
 </style>
 </head>
 <body>
-<a class="skip" href="#learning">跳到課程</a>
-<header class="top"><div class="wrap"><a class="brand" href="#lake">湖上讀詩</a><a class="toplink" href="%E5%B2%B3%E9%99%BD%E6%A8%93%E8%A8%98.html">〈岳陽樓記〉講義 ↗</a></div></header>
-<div class="hero"><div class="wrap">
-<p class="eyebrow">國中會考・古典詩詞讀解</p>
-<h1>湖上讀詩</h1>
-<p class="intro">從《岳陽樓記》的陰晴湖景讀進唐詩、宋詞與元曲。練習從一句原文找到證據，再說清楚景物、心情和主旨的關係。</p>
-<div class="actions"><a class="button primary" href="#lake" id="start">開始第一站</a><button class="button" type="button" id="plan-button" aria-expanded="false" aria-controls="plan">75 分鐘上課流程</button></div>
-</div></div>
-<nav class="navigation" aria-label="學習單元"><div class="wrap nav-inner">
-<div class="nav-items" id="nav-items"></div><div class="progress"><progress id="progress" max="36" value="0" aria-label="練習完成題數"></progress><span id="progress-count">0 / 36 題</span></div>
-</div></nav>
-<main class="wrap" id="learning" tabindex="-1">
-<section id="plan" class="panel teacher" aria-labelledby="plan-title" hidden>
-<h2 id="plan-title">75 分鐘上課流程</h2>
-<dl class="class-plan">
-<dt>00–22 分</dt><dd><a href="%E5%B2%B3%E9%99%BD%E6%A8%93%E8%A8%98.html">《岳陽樓記》</a>。先問學生為什麼同一座樓會讓人一悲一喜，讀第三至五段，講「不以物喜，不以己悲」與先憂後樂的關係。用原講義的心境題確認。</dd>
-<dt>22–34 分</dt><dd>第一站。並讀〈望洞庭〉，花 3 分鐘講遠近與比喻，讓學生回答第 1、4、5、7 題，剩下時間各找一句原文解釋。</dd>
-<dt>34–46 分</dt><dd>第二站。用 3 分鐘示範「愁眠 → 找景」，讓學生做第 1、3、5、8 題，追問同一畫面為什麼可能襯出孤單。</dd>
-<dt>46–58 分</dt><dd>第三站。先比花鳥，再講詩、詞、曲的形式。請學生做第 2、3、5、7、8 題，口頭比較兩篇的心情與理由。</dd>
-<dt>58–70 分</dt><dd>12 題隨堂測驗。作答中可翻原文，交卷後再一起看錯題詳解。</dd>
-<dt>70–75 分</dt><dd>用「下課前寫一句」收尾，請學生用兩處原文說明同一景物在兩篇作品的作用。</dd>
-</dl>
-</section>
-<div id="content"></div>
-<section class="panel exit" aria-labelledby="exit-title">
-<h3 id="exit-title">下課前寫一句</h3>
-<label for="exit-answer">〈望洞庭〉與《岳陽樓記》晴景都寫月色。各引一處原文，說明它在作品裡的作用。</label>
-<textarea class="write" rows="3" id="exit-answer" placeholder="我選的兩處原文是……"></textarea>
-<details><summary>看示範與檢核</summary><p>〈望洞庭〉的「潭面無風鏡未磨」把無風湖面比作銅鏡，呈現秋夜湖面平靜的觀感。《岳陽樓記》的「靜影沉璧」用玉璧寫湖中的月影；晴景接著引出登樓人的「心曠神怡」，為後文的古仁人心境做鋪墊。</p><p>檢核：兩篇各有一處原文，並且各自說出那一句如何寫景，或怎麼接到人物、心情與主旨。</p></details>
-</section>
-</main>
-<footer><div class="wrap"><p>國中七至九年級・跨版本會考補充（可搭配翰林、康軒、南一）。</p><details><summary>作品與出題參考</summary><ul id="sources"></ul><p>題目與語譯為教學改寫。會考題型參考<a href="https://cap.rcpet.edu.tw/examination.html">國中教育會考歷屆試題</a>。</p></details></div></footer>
+<a class="skip" href="#content">跳到正文</a>
+<header class="hero"><div class="wrap hero-inner"><p class="eyebrow">唐宋經典・詩詞補充</p><h1>湖上讀詩</h1><p class="lead">洞庭的秋月，西湖的晴雨與荷色。<br>六篇湖景詩詞，讀景物，也讀詩人的心意。</p></div></header>
+<nav class="study-nav" aria-label="教材單元"><div class="wrap nav-items" id="navigation"></div></nav>
+<main class="wrap" id="content" tabindex="-1"></main>
+<footer><div class="wrap"><p>國中七至九年級・跨版本詩詞補充（翰林／康軒／南一）。</p><details><summary>選文與參考來源</summary><ul id="sources"></ul><p>原文採常見繁體字版本，標點依閱讀需要調整。注釋、語譯與題目為教學編寫。〈望洞庭湖贈張丞相〉末句採「徒有羨魚情」。</p></details></div></footer>
 <script>
-const works = {
- lake: {title:'望洞庭', by:'唐・劉禹錫', type:'近體詩・七言絕句', lines:['湖光秋月兩相和，','潭面無風鏡未磨。','遙望洞庭山水翠，','白銀盤裡一青螺。'], words:'和：相互映襯、調和。鏡未磨：像未磨亮的銅鏡。青螺：青色的螺，喻指湖中的山。', meaning:'秋月與湖光交融，無風的湖面像一面未磨亮的鏡子。遠看洞庭，湖水像銀盤，湖中的山像一枚青螺。', url:'https://zh.wikisource.org/zh-hant/望洞庭'},
- yue: {title:'岳陽樓記', by:'宋・范仲淹', type:'散文・節錄', lines:['若夫淫雨霏霏，連月不開，陰風怒號，濁浪排空；……登斯樓也，則有去國懷鄉，憂讒畏譏，滿目蕭然，感極而悲者矣。','至若春和景明，波瀾不驚，上下天光，一碧萬頃；……而或長煙一空，皓月千里，浮光躍金，靜影沉璧；……登斯樓也，則有心曠神怡，寵辱偕忘，把酒臨風，其喜洋洋者矣。','予嘗求古仁人之心，或異二者之為，何哉？不以物喜，不以己悲。……先天下之憂而憂，後天下之樂而樂。'], words:'開：放晴。景明：日光明亮。去國：離開國都。璧：中央有孔的扁圓形玉器。斯：此。', meaning:'陰雨引出遷客思鄉與畏讒的悲，晴明引出暫忘寵辱的喜。文章最後轉到古仁人，談公眾的憂樂與責任。', url:'https://zh.wikisource.org/zh-hant/岳陽樓記'},
- bridge: {title:'楓橋夜泊', by:'唐・張繼', type:'近體詩・七言絕句', lines:['月落烏啼霜滿天，','江楓漁火對愁眠。','姑蘇城外寒山寺，','夜半鐘聲到客船。'], words:'泊：停船。姑蘇：今蘇州一帶。客船：旅人乘坐的船。', meaning:'夜裡月落、烏啼，寒意瀰漫。旅人對著江楓與漁火帶愁而眠，寒山寺的鐘聲在半夜傳到客船。', url:'https://zh.wikisource.org/zh-hant/楓橋夜泊'},
- road: {title:'天淨沙・秋思', by:'元・馬致遠', type:'散曲・小令', lines:['枯藤老樹昏鴉，','小橋流水人家，','古道西風瘦馬。','夕陽西下，','斷腸人在天涯。'], words:'昏鴉：黃昏時的烏鴉。西風：秋風。斷腸：極度悲傷。天涯：遙遠的異鄉。', meaning:'傍晚的古道上有枯藤、老樹、烏鴉，也看得見小橋、流水與人家。西風吹著瘦馬，漂泊遠方的人在夕陽下滿懷愁情。', url:'https://zh.wikisource.org/zh-hant/天淨沙·秋思'},
- moon: {title:'西江月・夜行黃沙道中', by:'宋・辛棄疾', type:'詞・上下片', lines:['明月別枝驚鵲，清風半夜鳴蟬。','稻花香裡說豐年，聽取蛙聲一片。','七八個星天外，兩三點雨山前。','舊時茅店社林邊，路轉溪橋忽見。'], words:'別枝：可解作斜出的樹枝，也有驚飛離枝一說。社林：土地廟附近的樹林。見：ㄒㄧㄢˋ，出現。', meaning:'月夜行在田野，鵲、蟬、蛙的聲音與稻花香交織，令人想到豐收。幾點雨落下後，轉過溪橋，熟悉的茅店忽然出現在眼前。', url:'https://zh.wikisource.org/wiki/西江月_(辛棄疾)/夜行黃沙道中'},
- spring: {title:'春望', by:'唐・杜甫', type:'近體詩・五言律詩', lines:['國破山河在，城春草木深。','感時花濺淚，恨別鳥驚心。','烽火連三月，家書抵萬金。','白頭搔更短，渾欲不勝簪。'], words:'國：此指國都。感時：感傷時局。烽火：代指戰事。勝：承受，這裡指稀短的頭髮幾乎插不住髮簪。', meaning:'國都陷落，山河仍在，城中春草長得很深。時局、離別令人落淚心驚。戰事持續，一封家書格外珍貴，愁得白髮稀短。', url:'https://zh.wikisource.org/zh-hant/春望'}
+const poems = {
+  dongting: {
+    title:'望洞庭', author:'劉禹錫', era:'唐', lake:'洞庭湖', form:'七言絕句',
+    lines:['湖光秋月兩相和，','潭面無風鏡未磨。','遙望洞庭山水翠，','白銀盤裡一青螺。'],
+    notes:[['和','ㄏㄜˊ，相互調和、映襯。'],['鏡未磨','湖面像尚未磨亮的銅鏡，呈現柔和、朦朧的光澤。'],['青螺','青色的螺，這裡比喻洞庭湖中的君山。']],
+    translation:'秋夜的湖光與月色相映成趣，無風的湖面像尚未磨亮的銅鏡。遠遠望去，洞庭的湖水與山色青翠，彷彿白銀盤裡放著一枚青螺。',
+    points:[['以小喻大','湖面化作銀盤，湖中的山化作青螺，遼闊山水成了小巧、精緻的畫面。'],['遠望的視角','「遙望」讓君山看來小巧；理解比喻時，要把視線距離一起考慮。'],['清幽與和諧','「兩相和」「無風」配合柔和的月色，形成寧靜、協調的秋夜。']],
+    url:'https://zh.wikisource.org/zh-hant/望洞庭'
+  },
+  meng: {
+    title:'望洞庭湖贈張丞相', author:'孟浩然', era:'唐', lake:'洞庭湖', form:'五言律詩',
+    lines:['八月湖水平，涵虛混太清。','氣蒸雲夢澤，波撼岳陽城。','欲濟無舟楫，端居恥聖明。','坐觀垂釣者，徒有羨魚情。'],
+    notes:[['涵虛','湖水包容、映照著天空。'],['太清','天空。'],['雲夢澤','古代的大澤名稱。'],['撼','ㄏㄢˋ，搖動、震動。'],['濟','渡過。'],['舟楫','船與槳。「楫」讀 ㄐㄧˊ。'],['端居','閒居。'],['聖明','稱頌君主聖明，這裡指聖明之世。'],['羨魚','羨慕別人的收穫。結合贈詩對象，寄寓希望出仕、獲得引薦的心意。']],
+    translation:'八月的湖水漲到與岸相平，水映長空，幾乎與天空連成一片。水氣蒸騰籠罩雲夢澤，波濤彷彿撼動岳陽城。我想渡湖卻缺少船槳，在聖明之世閒居感到羞愧。看著垂釣的人，只能空懷羨魚之情。',
+    points:[['蒸與撼的力量','「蒸」寫水氣向上升騰，「撼」寫波濤衝擊，動詞把湖景寫得雄渾壯闊。'],['景物連到處境','前四句寫湖水，後四句接「渡湖缺舟楫」的形象，轉向自己的處境。'],['贈詩的言外之意','題目指出受贈者是丞相；「欲濟」「羨魚」寄寓希望得到引薦、施展抱負的心意。']],
+    url:'https://zh.wikisource.org/zh-hant/臨洞庭上張丞相'
+  },
+  su: {
+    title:'飲湖上初晴後雨', subtitle:'其二', author:'蘇軾', era:'宋', lake:'杭州西湖', form:'七言絕句',
+    lines:['水光瀲灩晴方好，','山色空濛雨亦奇。','欲把西湖比西子，','淡妝濃抹總相宜。'],
+    notes:[['瀲灩','ㄌㄧㄢˋ ㄧㄢˋ，水波映著光閃動的樣子。'],['空濛','ㄎㄨㄥ ㄇㄥˊ，煙雨迷濛的樣子。「濛」亦有作「蒙」的版本。'],['西子','西施，古代著名的美女。'],['相宜','合適、相稱。']],
+    translation:'晴天的西湖波光閃耀，正是美好；下雨時山色朦朧，也別有奇趣。如果把西湖比作西施，無論淡妝或濃妝，都很相宜。',
+    points:[['晴與雨都入眼','「方好」「亦奇」分別肯定晴景與雨景，寫出不同天氣各有風姿。'],['西湖比西子','用西施的美比擬西湖的美，以人的妝容變化映照湖山不同的面貌。'],['總字收束全詩','「總相宜」把前面的晴雨景色一併收進讚美，表現對西湖的欣賞。']],
+    url:'https://zh.wikisource.org/zh-hant/飲湖上初晴後雨二首'
+  },
+  yang: {
+    title:'曉出淨慈寺送林子方', author:'楊萬里', era:'宋', lake:'杭州西湖', form:'七言絕句',
+    lines:['畢竟西湖六月中，','風光不與四時同。','接天蓮葉無窮碧，','映日荷花別樣紅。'],
+    notes:[['畢竟','到底、終究，帶有強調的語氣。'],['四時','四季；在這首詩中，與「六月中」相對，指其他時節。'],['接天','像是連接到天邊，形容蓮葉鋪展得廣。'],['別樣','格外、特別。']],
+    translation:'到底是西湖六月的時節，風光與其他時候不同。蓮葉一直鋪展到天邊，一片無盡碧綠；荷花映著日光，顯得格外鮮紅。',
+    points:[['先讚嘆，後寫景','前兩句先說六月景色特別，後兩句用蓮葉、荷花的具體畫面說明。'],['廣度與色彩','「接天」「無窮」拉開空間，「碧」「紅」形成鮮明的色彩映襯。'],['詩題與詩中內容','詩題交代清晨送友；詩句著力呈現盛夏湖景，情感判斷仍要回到原文。']],
+    url:'https://zh.wikisource.org/zh-hant/曉出淨慈寺送林子方'
+  },
+  bai: {
+    title:'錢塘湖春行', author:'白居易', era:'唐', lake:'杭州西湖', form:'七言律詩',
+    lines:['孤山寺北賈亭西，水面初平雲腳低。','幾處早鶯爭暖樹，誰家新燕啄春泥。','亂花漸欲迷人眼，淺草才能沒馬蹄。','最愛湖東行不足，綠楊陰裡白沙堤。'],
+    notes:[['錢塘湖','杭州西湖。'],['初平','湖水剛剛漲到與岸相平。'],['暖樹','向陽的樹。'],['亂花','繁多、錯落的花。'],['沒','ㄇㄛˋ，遮沒、蓋過。'],['行不足','遊賞不夠，捨不得離開。']],
+    translation:'從孤山寺北到賈亭西，湖水初漲，低垂的雲與水相接。幾處早來的黃鶯爭著停上向陽的樹，新飛來的燕子啄取春泥。繁花漸漸使人眼花撩亂，淺草才剛遮過馬蹄。我最愛湖東的風景，怎麼遊賞都不夠，尤其是綠楊陰裡的白沙堤。',
+    points:[['早春的程度詞','「初」「早」「新」「漸欲」「才能」共同寫出春天剛展開的樣子。'],['邊走邊看的層次','由湖面轉到鶯燕，再看花草，最後寫到湖東的白沙堤，形成遊賞的移動感。'],['以最愛點出情意','末聯直接寫「最愛」「行不足」，把前面細看春景的欣喜收束起來。']],
+    url:'https://zh.wikisource.org/zh-hant/錢塘湖春行'
+  },
+  ouyang: {
+    title:'採桑子', subtitle:'輕舟短棹西湖好', author:'歐陽脩', era:'宋', lake:'潁州西湖', form:'詞',
+    lines:['輕舟短棹西湖好，綠水逶迤。','芳草長堤，隱隱笙歌處處隨。','無風水面琉璃滑，不覺船移。','微動漣漪，驚起沙禽掠岸飛。'],
+    notes:[['短棹','短槳。「棹」讀 ㄓㄠˋ。'],['逶迤','ㄨㄟ ㄧˊ，曲折綿延的樣子。'],['笙歌','吹笙唱歌，泛指音樂歌聲。'],['琉璃','以琉璃的光滑明澈，比喻平靜的水面。'],['漣漪','ㄌㄧㄢˊ ㄧ，水面上細微的波紋。'],['沙禽','沙洲、水邊的鳥。'],['掠','ㄌㄩㄝˋ，輕快地擦過、飛過。']],
+    translation:'駕著輕舟、划著短槳遊西湖，湖景真好。綠水曲折綿延，長堤鋪滿芳草，隱約的歌樂聲一路相隨。無風的水面像琉璃般光滑，幾乎感覺不到船在移動。微微的水紋泛起，驚動水邊的鳥，牠們沿岸飛去。',
+    points:[['此處的西湖','歐陽脩這組詞寫的是潁州西湖，在今安徽阜陽一帶。讀到地名時，需連同作者與作品背景辨認。'],['聲音與畫面相隨','綠水、芳草提供視覺，隱隱笙歌添入聽覺，呈現從容遊湖的感受。'],['從靜景帶出微動','由無風水面寫到船移、漣漪與鳥飛，細小動作讓平靜湖面更有生氣。']],
+    url:'https://zh.wikisource.org/zh-hant/六一詞'
+  }
 };
-const choose = (source, skill, prompt, options, answer, why) => ({type:'choose', source, skill, prompt, options, answer, why});
-const evidence = (source, prompt, options, answer, why) => ({type:'evidence', source, skill:'圈選原文', prompt, options, answer, why});
-const sort = (source, prompt, options, why) => ({type:'sort', source, skill:'線索排序', prompt, options, answer:[0,1,2], why});
-const stations = [
- {id:'lake', tab:'洞庭湖景', label:'第一站', title:'同一座湖，兩種寫法', src:['lake','yue'], focus:['先指出作者看到什麼，再說他怎麼寫。銀盤與青螺把遠景縮成小巧的畫面；「浮光躍金，靜影沉璧」讓讀者分辨動的光與靜的影。','「不以物喜，不以己悲」寫古仁人如何看待外物、個人得失；後面的「先憂後樂」才交代他們把什麼放在前面。'], ask:'請學生找出兩篇寫月色的句子，各說一個相似處與一個不同處。', qs:[
- evidence(['lake'],'圈出同時交代湖面平靜與使用比喻的一句。',['湖光秋月兩相和','潭面無風鏡未磨','遙望洞庭山水翠','白銀盤裡一青螺'],1,'「無風」寫平靜，「鏡未磨」以鏡面喻湖面。銀盤青螺另寫遠望的湖山。'),
- choose(['lake'],'比喻','「白銀盤裡一青螺」中，盤和螺各對應什麼？',['月亮、湖中漁船','月亮、遠處的山','湖面、湖中的山','湖面、水中的月影'],2,'「洞庭山水翠」已給出比喻的對象：銀盤是湖面，青螺是湖中山。'),
- choose(['lake'],'語詞','「湖光秋月兩相和」的「和」，與哪一句用法最接近？',['琴音與簫聲相和，聽來融洽','他待人和氣，總是笑臉迎人','春風和煦，園中花草復甦','兩隊打完加時，最後仍然打和'],0,'「兩相和」是兩種事物彼此調和、相映。其餘分別指溫和、溫暖、平手。'),
- choose(['lake'],'視角','「遙望」對末句畫面有什麼作用？',['由遠入近，使山的紋理更清楚','將鏡頭轉向月亮，讓湖面退出畫面','以遠處舟船為對照，凸顯山勢雄偉','從遠處看湖中山，使山像盤中小物'],3,'遠望使大山看來小巧，「一青螺」把這種視覺效果具體化。'),
- evidence(['yue'],'圈出晴景中，月影安靜浮現在水裡的寫法。',['皓月千里','浮光躍金','靜影沉璧','上下天光'],2,'「靜影」是安靜的月影，「沉璧」把它比成彷彿沉在水中的玉璧。'),
- sort(['yue'],'依原文的論述先後，把三張卡排好。',['陰晴湖景引出遷客的悲與喜','提出古仁人的心境有別於兩者','寫出先天下憂、後天下樂的主張'],'先以陰晴鋪陳兩種感受，再以「或異二者之為」轉折，最後提出政治倫理。'),
- choose(['lake','yue'],'比較','哪一項最準確說明兩篇如何運用湖景？',['兩篇都藉湖面明暗轉換帶出人物心情的變化','詩把湖山化為可想像的比喻，散文借陰晴推進到人的憂樂','詩以湖景反襯貶官思鄉，散文只寫水勢','兩篇都把湖景的平靜當作古仁人心境的象徵'],1,'劉詩著重呈現遠望月下山水；范文把陰晴與遷客的悲喜對照，最後轉入古仁人的憂樂。'),
- choose(['yue'],'主旨','哪一句最能反駁「古仁人既然不以己悲，就不關心天下」？',['至若春和景明，波瀾不驚','滿目蕭然，感極而悲者矣','心曠神怡，寵辱偕忘','先天下之憂而憂，後天下之樂而樂'],3,'古仁人超越的是個人得失，他們仍把天下人的憂樂放在心上。')
- ]},
- {id:'journey', tab:'旅人心境', label:'第二站', title:'看得見的景，讀得出的愁', src:['bridge','road'], focus:['先找直接點出感受的字，再回頭找哪些景物放大了它。「愁眠」與「斷腸」是支點，兩篇的「客船」與「天涯」則提示人處在旅途。','小橋流水人家，可以讀成溫暖的人居畫面。接在漂泊的旅途裡，這份安定反而把思歸寫得更清楚。'], ask:'把「斷腸人在天涯」暫時遮起來，請學生用兩個景物猜心情，再用末句檢查。', qs:[
- evidence(['bridge'],'要證明旅人心裡有愁，最直接的原文是哪一句？',['月落烏啼霜滿天','江楓漁火對愁眠','姑蘇城外寒山寺','夜半鐘聲到客船'],1,'「愁眠」把情緒直接寫出。鐘聲或霜景則是營造情緒的線索。'),
- choose(['bridge'],'感官','哪一組按順序對應「聽覺 → 視覺」？',['烏啼 → 漁火','漁火 → 鐘聲','霜滿天 → 江楓','夜半 → 客船'],0,'烏啼是聲音，漁火是光。判斷時可問「用耳朵或眼睛接收到的是什麼？」'),
- choose(['bridge'],'煉字','「夜半鐘聲到客船」的「到」讓讀者感受到什麼？',['客船靠岸的時間恰好是半夜','鐘聲隨著旅人的船向遠方移動','遠處的聲音穿過夜色，抵達旅人所在的位置','旅人半夜由客船出發，循聲前往寺院'],2,'句子的主體是鐘聲。它從寺院傳到客船，將遠近兩個空間連起來。'),
- evidence(['road'],'圈出直接點明人物處境與心情的一句。',['枯藤老樹昏鴉','小橋流水人家','古道西風瘦馬','斷腸人在天涯'],3,'「斷腸」點出心情，「人在天涯」交代漂泊在遠方。'),
- choose(['road'],'景情關係','「小橋流水人家」夾在枯藤、古道之間，與全曲結尾對讀，最合理的解讀是什麼？',['以安定的住家景象，襯出旅人遠在他鄉','說明旅人已經抵達自己家中','以熱鬧的村落聲音，壓過旅人的愁','點明旅人遠行的目的是拜訪溪邊故友'],0,'「人家」給人有地方可歸的感覺，和末句「人在天涯」形成對照。'),
- sort(['road'],'依原文的鏡頭次序排列。',['前三句並列枯藤、人家與古道等景物','「夕陽西下」推至暮色將深','「斷腸人在天涯」點出漂泊者'],'先鋪景，再交代夕陽下沉，最後才讓人與情緒明朗。'),
- choose(['bridge','road'],'比較','兩篇的「漁火」與「人家」可以怎麼一起讀？',['都是旅人家中的燈火，象徵團圓','都是季節特有標誌，明確標示深秋','都暗示旅人即將靠岸回家','都寫出附近有人生活，卻無法證明旅人已經到家'],3,'漁火來自水邊人事，人家是住家。作品另以客船、天涯交代人物的旅途位置。'),
- choose(['bridge','road'],'比較','兩篇的收尾手法有什麼差異？',['張詩以暮色點出愁人，馬曲用鐘聲帶到旅人','張詩以聲音收向客船，馬曲以「斷腸」點明人的情緒','張詩與馬曲都在最後一句首次點出憂愁','張詩與馬曲都在最後一句直白宣告盼望歸家'],1,'張詩第二句已寫「愁」，末句聚焦到船的鐘聲；馬曲末句直接出現「斷腸人」。')
- ]},
- {id:'mood', tab:'反差與文體', label:'第三站', title:'同樣有花鳥，為什麼心情不同？', src:['moon','spring'], focus:['辛詞的蛙蟬和稻花香扣住田野與豐年，杜詩的花鳥卻靠著「國破、感時、恨別」變成傷心的景。','文體先看可驗證的形式：〈春望〉是五字八句的五律；〈西江月〉是詞牌，〈夜行黃沙道中〉是題目；〈天淨沙〉是曲牌。'], ask:'各找一個詞句，證明「鳥聲不一定讓人覺得愉快」，說明周圍哪個詞讓意思改變。', qs:[
- choose(['moon'],'感官','哪一句最明確地讓人聯想到嗅覺？',['明月別枝驚鵲','稻花香裡說豐年','聽取蛙聲一片','兩三點雨山前'],1,'稻花「香」是嗅覺線索，其餘主要寫聽覺、視覺或情境。'),
- evidence(['moon'],'哪一處最能證明轉過路後，熟悉的店才突然進入眼簾？',['清風半夜鳴蟬','七八個星天外','舊時茅店社林邊','路轉溪橋忽見'],3,'「路轉」交代移動，「忽見」寫突然出現，前句的「舊時茅店」是出現的景物。'),
- choose(['moon'],'文體','整理這首詞的筆記時，哪一項標示正確？',['西江月是詞牌，夜行黃沙道中是題目','西江月是宮調，黃沙道中是曲牌','西江月是題目，夜行黃沙道中是詞牌','西江月是詩題，夜行黃沙道中是副歌'],0,'「西江月」是用於填詞的詞牌，「夜行黃沙道中」交代作品題意。'),
- evidence(['spring'],'哪句最直接把時序的春意與城中的破敗放在一起？',['國破山河在，城春草木深','烽火連三月，家書抵萬金','白頭搔更短，渾欲不勝簪','感時花濺淚，恨別鳥驚心'],0,'「城春」寫時序，「國破」寫時局，「草木深」可見城中荒蕪。春景襯出破城的蕭條。'),
- choose(['spring'],'語句理解','「家書抵萬金」最貼近哪種情境？',['家人把積蓄裝進信封寄到軍中','離亂使消息難通，一封平安信格外珍貴','戰火讓送信費用高得驚人','有人用戰場消息向親友換取錢財'],1,'前句「烽火連三月」交代戰事持續。抵萬金是誇張情感價值。'),
- sort(['spring'],'按原詩從城中到個人的脈絡排序。',['以國都的破敗和春景開篇','由戰火綿延帶出家書珍貴','以搔首與頭髮稀短寫自身愁苦'],'題卡跳過第二聯。首聯寫城，第三聯寫戰事和家書，尾聯回到自己的身體。'),
- choose(['moon','spring'],'比較','兩篇都有鳥，哪個比較有原文支撐？',['兩篇都用鳥的歸巢強化思鄉','辛詞的驚鵲凸顯戰亂，杜詩的驚心凸顯春遊逸興','辛詞的鵲和蟬寫夜行所見聞，杜詩的鳥與時局、離別的愁相聯','辛詞用鳥預告秋天將到，杜詩用鳥證明戰事結束'],2,'辛詞的鳥聲屬田野夜景；杜詩「感時」「恨別」給花鳥的描寫加上時局與離愁。'),
- choose(['spring','road'],'文體','把兩篇的文體寫在索引卡上，哪一張卡對兩篇都標得正確？',['《春望》五言絕句；《秋思》散曲小令','《春望》五言律詩；《秋思》詞','《春望》五言律詩；《秋思》散曲小令','《春望》七言律詩；《秋思》散曲套數'],2,'《春望》五字八句，是五言律詩；《天淨沙・秋思》用曲牌「天淨沙」，屬散曲小令。')
- ]}
+const chapters = [
+  {id:'dongting',title:'洞庭湖',intro:'一片秋月下的湖山，一湖撼城的波濤。兩位唐代詩人，寫出洞庭的不同面貌。',poems:['dongting','meng']},
+  {id:'hangzhou',title:'杭州西湖',intro:'從早春的新燕、六月的荷花，到晴雨之間的山色，看西湖在不同時節與天氣裡的風姿。',poems:['su','yang','bai']},
+  {id:'yingzhou',title:'潁州西湖',intro:'歐陽脩以〈採桑子〉寫遊湖之樂。沿著舟行的視線，讀出湖面的聲音、光澤與微動。',poems:['ouyang']}
 ];
+const choice = (source, skill, prompt, options, answer, why) => ({type:'choice',source,skill,prompt,options,answer,why});
+const evidence = (source, prompt, options, answer, why) => ({type:'evidence',source,skill:'原文判讀',prompt,options,answer,why});
+const order = (source, prompt, options, why) => ({type:'order',source,skill:'線索排序',prompt,options,answer:[0,1,2],why});
+const practice = {
+ dongting:[
+  evidence(['dongting'],'哪一句同時寫出「風平」與湖面的比喻？',['湖光秋月兩相和','潭面無風鏡未磨','遙望洞庭山水翠','白銀盤裡一青螺'],1,'「無風」指出湖面平靜，「鏡未磨」把湖面比作未磨亮的銅鏡。'),
+  choice(['dongting'],'比喻','「白銀盤裡一青螺」的盤與螺，依序對應什麼？',['月亮與湖中漁船','月亮與湖中的山','湖面與湖中的山','湖面與水中月影'],2,'前句「洞庭山水翠」點出所望之景。銀盤喻湖面，青螺喻湖中的君山。'),
+  choice(['dongting'],'語詞','「兩相和」最接近哪一種關係？',['湖光與月色相映，彼此協調','湖水與月光交替，輪流出現','湖水因月色照耀而升溫','湖水和天空顏色完全一致'],0,'「相和」強調彼此調和、映襯，沒有輪流、升溫或色彩完全一致的意思。'),
+  choice(['dongting'],'視角','「遙望」如何幫助讀者理解末句？',['表示作者駕舟靠近君山，才看清螺紋','交代作者抬頭望月，湖面逐漸退出視野','讓作者能看清湖底，所以辨認出青螺','遠看使湖中山顯得小巧，像盤中一枚螺'],3,'「青螺」取的是遠望時山體的小巧外形，和觀看距離有關。'),
+  choice(['dongting'],'情境推論','有人說這首秋詩寫的是蕭瑟悲愁。哪個回應最有原文依據？',['「秋月」已決定全詩基調，可省略其他句','「兩相和」「無風」連同銀盤青螺，更支持清幽和諧的感受','「鏡未磨」表示作者貧困，證明心情悲傷','「一青螺」暗示詩人獨居，所以必然思鄉'],1,'題材或季節不能單獨決定情感。全詩的調和、平靜與精緻比喻，共同支持清幽的基調。'),
+  choice(['dongting'],'意象','將「白銀盤裡一青螺」改成「湖面很廣，君山很大」，最明顯失去什麼？',['夜色從深轉亮的時間層次','詩人由岸邊登舟的行動線索','藉日常小物寫出遠景形貌的趣味','借君山表達渴望出仕的寄託'],2,'原句把宏大的山水轉成可想像、可把玩的盤與螺，呈現精巧的視覺趣味。')
+ ],
+ meng:[
+  evidence(['meng'],'哪一聯最直接以兩個有力量的動詞寫出湖的氣勢？',['八月湖水平，涵虛混太清','氣蒸雲夢澤，波撼岳陽城','欲濟無舟楫，端居恥聖明','坐觀垂釣者，徒有羨魚情'],1,'「蒸」寫水氣上騰，「撼」寫波濤震動的力量。'),
+  choice(['meng'],'語句理解','「涵虛混太清」呈現怎樣的畫面？',['湖水映著天空，水天彷彿融為一體','湖面結冰，天空因此顯得清澈','水底藏著雲霧，只有近處的岸清楚','湖面波紋消失，映出清晰的山峰'],0,'「虛」「太清」都和天空有關，「涵」「混」寫水映天空、水天相接。'),
+  choice(['meng'],'言外之意','結合詩題與「端居恥聖明」，「欲濟無舟楫」最適合怎麼理解？',['詩人以缺船槳為由，婉拒丞相相邀','詩人請丞相派船，替他運送漁獲','詩人想離開官場，卻沒有返鄉工具','以想渡湖卻無船槳，寄寓想出仕卻缺少引薦'],3,'詩是贈給丞相的，「恥」於閒居表達進取心。渡湖缺舟楫因而有求引薦的言外之意。'),
+  order(['meng'],'依詩意推進排列三個部分。',['以水天相接、蒸騰波濤描寫洞庭','由「欲濟」寫缺舟楫與閒居的處境','以垂釣、羨魚委婉寄託求仕心意'],'前四句寫景，頸聯轉向自身，尾聯以羨魚收束心意。'),
+  choice(['meng'],'主旨','把這首詩當作贈給有權引薦者的作品，哪句最能承接「羨魚」的心意？',['我嚮往安居漁村，願和您一同退隱','我盼有機會施展才能，願蒙您引薦','我對仕途已無期待，只想欣賞洞庭','我將以捕魚維生，希望獲得漁具'],1,'結合「端居恥聖明」和受贈者身分，尾聯委婉表達希望入仕。'),
+  choice(['meng'],'形式','此詩每句五字，共八句。其中「氣蒸雲夢澤，波撼岳陽城」屬於哪一聯？',['首聯','頸聯','頷聯','尾聯'],2,'律詩每兩句成一聯，依序是首、頷、頸、尾。這兩句是第三、四句，屬頷聯。')
+ ],
+ su:[
+  evidence(['su'],'要證明作者同樣欣賞雨天西湖，哪一句最直接？',['水光瀲灩晴方好','山色空濛雨亦奇','欲把西湖比西子','淡妝濃抹總相宜'],1,'「雨亦奇」直接肯定雨景，「亦」還把雨景和前句的晴景連在一起。'),
+  choice(['su'],'字詞辨義','「瀲灩」與「空濛」依序描寫什麼？',['波光閃動／煙雨迷濛','水氣蒸騰／月影清晰','波濤洶湧／山色青翠','水面結冰／霧氣消散'],0,'前者寫晴天水光，後者寫雨中朦朧山色。'),
+  choice(['su'],'比喻','「欲把西湖比西子」以哪個共同特質連結兩者？',['都出現在相同年代','都因身世坎坷而令人憐惜','都具有動人的美，面貌變化仍各有風姿','都只能在濃妝或晴天時展現美感'],2,'西子是西施。後句「淡妝濃抹總相宜」把不同面貌都美的特點連起來。'),
+  choice(['su'],'煉字','若把「總相宜」改成「才相宜」，對詩意有什麼影響？',['兩種妝容的字數改變，詩便失去七言形式','更明確表示西湖只有下雨才值得欣賞','原來全面肯定的語氣轉成有條件，前後的讚美關係也改變','原來明確說出季節，改後只剩天氣'],2,'「總」統攝淡妝濃抹，對應晴雨皆美；「才」會帶出條件限制。'),
+  choice(['su'],'結構','前兩句與後兩句最恰當的關係是什麼？',['先寫湖上兩次相逢，再回憶西施','先寫晴雨實景，再用美人妝容概括其美','先借西施說理，再以晴雨作例證','先批評晴雨無常，再讚嘆西施命運'],1,'前半具體描寫晴雨，後半引入比喻，把兩種景色都納入讚美。'),
+  choice(['su'],'推論界線','哪一項賞析超出了原文能支持的範圍？',['晴景與雨景各有特色','西子是用來比喻西湖的形象','「總」將兩種面貌一併肯定','作者因失意，故意說晴天景色較差'],3,'詩句明言「晴方好」。原文沒有以失意貶抑晴景的線索。')
+ ],
+ yang:[
+  evidence(['yang'],'哪一句同時用空間廣度與色彩寫蓮葉？',['畢竟西湖六月中','風光不與四時同','接天蓮葉無窮碧','映日荷花別樣紅'],2,'「接天」「無窮」寫連綿廣度，「碧」寫顏色。'),
+  choice(['yang'],'語詞','「風光不與四時同」中的「四時」，依上下文最接近哪個意思？',['一天中的四個時段','當時鐘面上的四點','春夏秋冬各自的第一天','六月以外的其他時節'],3,'「六月中」已提出所讚賞的時節，四時在此與六月相對，泛指其他時候。'),
+  choice(['yang'],'色彩','「接天蓮葉無窮碧，映日荷花別樣紅」最突出的視覺安排是什麼？',['無邊的綠襯出日光中的紅花','由紅花轉為白花，表現時間推移','綠葉與紅花融成同一顏色','先看湖底，再看荷葉背面'],0,'大片碧綠與格外鮮紅相互映襯，再由「映日」點出日光效果。'),
+  order(['yang'],'將本詩的表達順序排好。',['以「六月中」點出特定時節','說明這時的風光與其他時節不同','用碧葉、紅荷展開具體畫面'],'先指明時節，再提出感受，末兩句以景物支撐前面的讚嘆。'),
+  choice(['yang'],'詩題與內容','詩題有「送林子方」，全詩卻集中寫蓮葉荷花。哪個判斷最合理？',['凡是送別題目，末句都必須寫流淚','清晨送友是題目交代的情境，詩中呈現對盛夏湖景的讚賞','送別題目證明「別樣紅」是離別悲傷的暗語','題目與內容沒有共同地點，因此必有誤抄'],1,'題目交代送別的情境，正文仍要由實際描寫辨認情感。「別樣」指格外。'),
+  choice(['yang'],'主旨','如果為這首詩配一張照片，哪張最能回應後兩句？',['深秋枯荷立在暮色裡，水面泛金','細雨中荷葉低垂，遠山輪廓模糊','日光下大片綠葉延展，紅荷穿插其間','夜裡月光照著一枝白荷，湖面無風'],2,'詩中最明確的條件是日光、大片碧綠蓮葉與鮮紅荷花。')
+ ],
+ bai:[
+  evidence(['bai'],'若要從草的生長程度證明「早春」，哪句最適合？',['水面初平雲腳低','誰家新燕啄春泥','亂花漸欲迷人眼','淺草才能沒馬蹄'],3,'「淺」「才能」寫草剛剛長到遮過馬蹄的程度。'),
+  choice(['bai'],'煉字','「幾處早鶯爭暖樹」與「誰家新燕啄春泥」中，「爭」「啄」的作用是什麼？',['凸顯鳥群慌亂，預告暴雨將至','具體寫鳥的活動，帶出初春的生氣','使春泥與樹木具有人的語言','把近景改成遠景，隱去鳥的形象'],1,'鶯爭向陽之樹，燕啄泥築巢，動詞讓初春的生機可見。'),
+  choice(['bai'],'語句理解','「最愛湖東行不足」應如何語譯？',['最喜歡湖東，怎麼遊賞都不夠','最喜歡湖東，卻因腿傷走不動','湖東景色太少，沒有足夠的路可走','想去湖東，但因時間不足而放棄'],0,'「行不足」承接「最愛」，寫留連的心情。'),
+  choice(['bai'],'線索整合','要把「早春」與「春末繁盛」分開，哪組字最有判斷力？',['孤山、賈亭、白沙堤','綠楊、水面、雲腳','最愛、湖東、暖樹','初、早、新、漸欲、才能'],3,'這些字一起標示剛開始、漸漸發生、剛剛達到的程度。單靠花草或地名不夠。'),
+  order(['bai'],'依詩中景物出現的先後排列。',['從湖水與低雲寫到鶯燕活動','寫繁花與剛遮過馬蹄的草','以最愛的湖東白沙堤收束'],'首聯寫地點與水雲，頷聯寫鶯燕，頸聯寫花草，尾聯收於湖東。'),
+  choice(['bai'],'對仗','「幾處早鶯爭暖樹，誰家新燕啄春泥」中，哪組詞位於相對位置且類別相應？',['早鶯／新燕','幾處／春泥','暖樹／誰家','爭／新'],0,'早鶯與新燕都指鳥及其修飾語，並在兩句中居於相同位置。')
+ ],
+ ouyang:[
+  evidence(['ouyang'],'哪句最直接提供聽覺線索？',['綠水逶迤','芳草長堤','隱隱笙歌處處隨','無風水面琉璃滑'],2,'「笙歌」是樂聲和歌聲，「隱隱」則寫遠處、輕微的聽覺感受。'),
+  choice(['ouyang'],'比喻','「無風水面琉璃滑」用琉璃寫水面，最主要取其哪個特點？',['易碎，需要小心保護','顏色鮮紅，能襯托芳草','價格昂貴，象徵遊湖者身分','光滑明澈，呼應風平水靜'],3,'「無風」「滑」限定了比喻的焦點，是水面的光滑明澈。'),
+  choice(['ouyang'],'動靜','「不覺船移」與「微動漣漪」放在一起，如何理解最合理？',['船一直停泊，水紋來自暴風','船行平穩得難以察覺，細微水紋才顯出移動','船速太快，所以詩人看不見水紋','船已上岸，詞人回憶水面移動'],1,'「不覺」寫人的感受，「微動」寫水面的細小變化，兩者共同呈現平穩而輕微的舟行。'),
+  choice(['ouyang'],'文學常識','〈採桑子・輕舟短棹西湖好〉的名稱應怎樣拆解？',['採桑子是詞牌，輕舟短棹西湖好是本詞起句','採桑子是作者的號，後面是正式篇名','採桑子是地名，後面是律詩首聯','採桑子是贈詩對象，後面是曲牌'],0,'詞常以詞牌加起句識別篇目。「採桑子」規定相應格式。'),
+  choice(['ouyang'],'地名辨識','資料卡寫「本詞出自歐陽脩歌詠潁州西湖的組詞」。據此，哪個處理最合理？',['把所有題為西湖的作品都列入杭州遊記','由作者姓氏推斷此湖也稱歐陽湖','將潁州西湖另列，和蘇軾所詠的杭州西湖區分','把潁州當作杭州西湖的古名'],2,'背景資料已明確指出潁州西湖。相同名稱的湖泊，需要根據作品背景辨認。'),
+  choice(['ouyang'],'心境','全詞的舟行、水面、樂聲和沙禽，較共同指向哪種感受？',['急欲歸鄉，對湖面暗藏危險保持戒備','希望入仕，藉船槳表達求薦心情','送別失意，以沙禽的飛離寫孤單','悠閒遊賞，細察湖上細微的聲色變化'],3,'輕舟、隱隱笙歌、不覺船移與微動水紋，都呈現從容欣賞的情境。')
+ ]
+};
 const exam = [
- choose(['lake','yue'],'題組一｜洞庭月色','兩篇都寫水面的月色。哪一組引文最能證明作者都用了實物比喻？',['「湖光秋月兩相和」／「皓月千里」','「潭面無風鏡未磨」／「靜影沉璧」','「遙望洞庭山水翠」／「上下天光」','「白銀盤裡一青螺」／「春和景明」'],1,'兩處分別用鏡與玉璧寫水上的景象。其餘至少有一處沒用實物譬喻。'),
- choose(['lake','yue'],'題組一｜洞庭月色','若為《岳陽樓記》月色段摘下「浮光躍金，靜影沉璧」八字，哪個賞析同時照顧到兩句？',['由湖心拉近到岸邊，依序寫兩個不同地點','以由亮轉暗的時間變化交代夜色漸深','寫兩次浪起，凸顯洞庭湖的風勢','把閃動的水光與安靜的月影並置'],3,'「躍」與「靜」「沉」讓水上同時有閃動與安靜兩種觀感。'),
- choose(['lake','yue'],'題組一｜洞庭月色','若把兩篇放在同一個閱讀展區，哪一張文案最貼近它們的終點？',['一篇將水光收進遠望的湖山畫面，一篇由登樓悲喜談心志和責任','一篇解釋何以重修樓閣，一篇說明詩人如何在湖上行船','兩篇都以寧靜的湖面聲援被貶的友人','兩篇都歸結為不必在意民間憂樂'],0,'劉詩收在洞庭湖山的形象，范文收在古仁人的天下憂樂。'),
- choose(['bridge','road'],'題組二｜客船與古道','如果把兩首拍成短片，哪一個聲音安排最符合原文？',['張詩的鐘從船內傳到寺院，馬曲最後有暮鴉啼聲','張詩的烏啼出現在天亮後，馬曲以鐘聲報出夜半','張詩讓寺鐘在半夜傳到船上，馬曲以秋風吹過古道配夕陽','張詩由夜半鼓聲交代城門開啟，馬曲始終只聽到船槳聲'],2,'「鐘聲到客船」交代聲音的方向；古道的西風和夕陽都是馬曲原有線索。'),
- choose(['bridge','road'],'題組二｜客船與古道','哪個說法最能指出作品怎麼交代旅人的位置？',['「客船」是張詩地名，「天涯」是元曲地名','兩篇都用地名明確指出旅人位於家鄉','張詩以漁火定位旅人身分，馬曲以老樹指認家屋','張詩寫客船所在的水域，馬曲寫古道與身在遠方的處境'],3,'張詩的客船接收寺鐘，所在是舟中水域；馬曲的古道、天涯讓人知道漂泊在外。'),
- choose(['bridge','road'],'題組二｜客船與古道','哪個細節最適合用來反駁「有住家的畫面，作者應是在描寫團圓」？',['「小橋流水人家」後落在「斷腸人在天涯」','「江楓漁火」與「小橋流水」都有水','「夕陽西下」呼應「月落」的天色','「姑蘇城外」寫出了寒山寺所在'],0,'末句直指人在遠方且極度悲傷。人家可以和漂泊的處境互相襯托。'),
- choose(['moon','spring'],'題組三｜兩種花鳥','哪組詞語最能同時點出一篇對收成的聯想、另一篇對離亂的牽掛？',['蛙聲／春城','豐年／家書','社林／草木','茅店／白頭'],1,'「說豐年」點出田野景物引發的聯想。「家書抵萬金」和戰時親友音訊難通有關。'),
- choose(['moon','spring'],'題組三｜兩種花鳥','哪筆註解恰好說明「明月別枝驚鵲」和「恨別鳥驚心」怎麼用「驚」？',['兩處都是鳥看到旅人之後飛走','兩處的「驚」都指作者驚嘆風景優美','辛詞寫鵲受到驚動，杜詩寫人因鳥更加心驚','辛詞寫自己遇到鳥心驚，杜詩寫鳥因烽火驚飛'],2,'辛詞的對象是鵲，杜詩的「心」和「恨別」讓情緒落回抒情者。'),
- choose(['moon','spring'],'題組三｜兩種花鳥','老師要學生改寫兩篇各自的背景摘要，哪組最合理？',['鄉村夜行，聲香與雨點先後入詞；國都陷落，戰事與離別進入春景','送別友人，以蟬聲交代秋日；春遊都城，以花鳥慶祝戰事結束','暴雨阻路，整夜找不到地方；長夜思鄉，以月亮寫家書難寄','夜訪寺院，鐘聲指引找到茅店；田間耕作，感嘆烽火擾亂收成'],0,'「夜行」與詞中聲香、微雨相合；《春望》用國破、烽火和家書串起春景與離亂。'),
- choose(['yue','spring'],'題組四｜個人與時局','兩篇都容得下關心公共處境的閱讀，哪個比較最貼近文本？',['兩篇都因看見國都陷落而懷念家鄉','兩篇都把憂國寫成在廟堂任職的條件','杜詩描寫國破與離別的交纏，范文提出先替天下人憂慮的價值','杜詩以晴雨對照人民憂樂，范文以家書寫戰時離愁'],2,'國破、烽火、家書構成杜詩的時局與私情；范文透過「先天下」提出承擔。'),
- choose(['yue','spring'],'題組四｜個人與時局','哪一句最能作為「作者從自身感受提升為一項做人原則」的例證？',['感時花濺淚，恨別鳥驚心','先天下之憂而憂，後天下之樂而樂','烽火連三月，家書抵萬金','而或長煙一空，皓月千里'],1,'「先／後」交代應如何安排自己與天下人的憂樂，具有一般性。'),
- choose(['yue','spring'],'題組四｜個人與時局','讀者把《春望》的「感時花濺淚」和《岳陽樓記》的「滿目蕭然」放在一起，何者最準確？',['兩者的悲都起於陰雨；文章結尾延續同一場雨','杜詩由外界景物與時局牽動感傷，范文讓陰雨悲景成為後文轉折的鋪墊','兩者都寫古仁人為百姓落淚','范文以國都陷落交代悲傷來源，杜詩以被貶後畏人譏諷交代離愁'],1,'杜詩「感時」明指時局；范文陰雨段寫遷客感受，後文才提出古仁人。')
+ choice(['dongting','meng'],'洞庭湖比較','同樣寫洞庭，下列哪一項最準確比較兩詩的主要湖景？',['劉詩由遠而近寫風浪，孟詩由近而遠寫月影','劉詩以無風、月色與小巧比喻寫清幽，孟詩以蒸騰、震撼寫壯闊','劉詩以冬雪襯托君山，孟詩以秋月描寫岸邊','兩詩都以近看的細節表達湖山的輕巧柔美'],1,'「無風、青螺」和「氣蒸、波撼」形成鮮明的動靜與氣勢差異。'),
+ choice(['dongting','meng'],'洞庭湖比較','哪項比較最能照顧到兩首詩的結尾？',['兩詩都藉垂釣者表達希望退隱','劉詩由青螺表達思歸，孟詩由羨魚表達捕魚喜悅','劉詩收在想像中的湖山形貌，孟詩轉入求仕與盼望引薦的寄託','劉詩批評君山過小，孟詩讚美魚群豐盛'],2,'劉詩末句完成精巧比喻；孟詩的末句要結合題目與「端居恥聖明」理解。'),
+ choice(['dongting','meng'],'洞庭湖比較','某讀者說「水勢大，詩人一定在寫政治抱負」。哪個修正最恰當？',['水勢只適合寫山水詩，和抱負無關','應改以作者朝代判斷是否求仕','有「湖」字就足以判斷政治用意','須連同受贈對象、欲濟與羨魚等線索，才能支持求仕的解讀'],3,'孟詩的求仕意涵來自全詩與題目的共同線索，水勢本身無法單獨證明。'),
+ choice(['su','yang'],'晴雨與荷色','蘇軾與楊萬里都讚美西湖，但各自比較的範圍是什麼？',['蘇詩比較晴雨面貌，楊詩突出六月和其他時節的差異','蘇詩比較早晚，楊詩比較晴雨','蘇詩比較杭州與潁州，楊詩比較兩座寺院','蘇詩比較春秋，楊詩比較日月'],0,'「晴、雨」與「六月中、四時」分別界定兩詩的比較範圍。'),
+ choice(['su','yang'],'晴雨與荷色','哪一項同時說明兩篇後半的作用？',['兩篇都由寫景轉向請友人引薦','蘇詩以美人比喻統攝晴雨，楊詩以蓮葉荷花具體展現六月的特色','蘇詩寫離愁，楊詩以雨景安慰友人','兩篇都從生動具體的景色轉成歷史議論'],1,'蘇詩由實景轉向概括性的比喻，楊詩由前半讚嘆轉向具體的碧葉紅荷。'),
+ choice(['su','yang'],'晴雨與荷色','哪一句賞析使用了原文沒有支持的推論？',['「雨亦奇」顯示蘇軾也欣賞雨景','「接天」加大蓮葉連綿的空間感','兩詩都因送友而對天氣轉壞感到失落','「總相宜」與「別樣紅」都含有欣賞的語氣'],2,'蘇詩肯定晴雨，楊詩讚美盛夏荷景；兩詩都沒有因天氣轉壞而失落的敘述。'),
+ choice(['bai','yang'],'春夏的西湖','把兩詩的景物卡混在一起，哪一組最適合標為「早春／盛夏」？',['新燕啄泥／蓮葉接天','綠楊陰裡／孤山寺北','映日荷花／早鶯暖樹','白沙堤／淨慈寺'],0,'新燕啄春泥是初春的生機，接天蓮葉與荷花呼應六月的盛夏。地名無法單獨分季節。'),
+ choice(['bai','yang'],'春夏的西湖','「淺草才能沒馬蹄」與「接天蓮葉無窮碧」呈現的生長樣貌有何差異？',['前者盛開，後者凋零','前者以氣味寫植物，後者以聲音寫植物','兩者都指出植物稀疏到幾乎看不見','前者寫剛長起的低草，後者寫盛大連綿的蓮葉'],3,'「淺、才能」與「接天、無窮」分別突出剛起的程度和廣闊的繁盛。'),
+ choice(['bai','yang'],'春夏的西湖','如果只比較表達順序，哪項最合理？',['白詩與楊詩都從求仕之意開始，再寫景','白詩一路寫所見，末聯點出最愛；楊詩先說六月風光特別，再展開荷景','白詩先下結論，楊詩最後才表達六月特別','兩詩都在最後一句才首次交代湖泊名稱'],1,'白詩以「最愛」收束前面的遊賞，楊詩前兩句先提出特別，再用後兩句展開。'),
+ choice(['dongting','ouyang'],'平靜的水面','「潭面無風鏡未磨」與「無風水面琉璃滑」的共同寫法為何？',['都以舟行速度比喻心情焦躁','都借詩題說明求引薦的原因','都以實物的表面質感比喻風平時的湖面','都以鳥飛方向描寫月影變化'],2,'鏡面與琉璃都讓無風湖面的質感具體可見。'),
+ choice(['dongting','ouyang'],'平靜的水面','下列何者最能指出兩篇觀看方式的差異？',['劉詩從遠處凝望湖山，歐詞隨輕舟移動細察湖上聲色','劉詩從湖底看山，歐詞從山頂看船','兩篇都站在城牆上觀察浪濤','兩篇都以急行船隻寫湖面的危險'],0,'「遙望」和「輕舟、不覺船移、處處隨」分別支持遠望與舟行的觀看方式。'),
+ choice(['su','ouyang'],'地名與文體','資料說明歐陽脩此詞詠潁州西湖。哪張索引卡完整而正確？',['蘇軾／潁州西湖／詞；歐陽脩／杭州西湖／七絕','蘇軾／杭州西湖／七律；歐陽脩／杭州西湖／詞','蘇軾／杭州西湖／七絕；歐陽脩／潁州西湖／七絕','蘇軾／杭州西湖／七絕；歐陽脩／潁州西湖／詞'],3,'蘇詩七字四句，是七絕；歐作依「採桑子」詞牌填寫，所詠是潁州西湖。')
 ];
-const key = 'lake-reading-v1';
-const html = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[char]);
-const byId = id => document.getElementById(id);
-const newRound = () => ({index:0, answers:{}, submitted:false});
-let saved = {};
-try { saved = JSON.parse(localStorage.getItem(key)) || {}; } catch {}
-const rounds = Object.fromEntries([...stations.map(s=>s.id),'exam'].map(id=>[id,saved.rounds?.[id] || newRound()]));
-const exitAnswer = byId('exit-answer');
-exitAnswer.value = saved.exit || '';
-function persist(){
-  try {localStorage.setItem(key,JSON.stringify({rounds, exit:exitAnswer.value}));} catch {}
+const $ = id => document.getElementById(id);
+const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[char]);
+const storageKey = 'lake-poetry-independent-v2';
+const allQuestions = {...practice, exam};
+const totalQuestions = Object.values(allQuestions).reduce((sum,qs)=>sum+qs.length,0);
+const navigation = [...chapters.map(chapter=>[chapter.id,chapter.title]),['compare','詩詞比較'],['exam','綜合測驗']];
+const rounds = {};
+const orderDrafts = {};
+let stored = {};
+let active = 'dongting';
+try {stored = JSON.parse(localStorage.getItem(storageKey)) || {};} catch {}
+function newRound() {return {index:0,answers:{},submitted:false};}
+for(const [id,questions] of Object.entries(allQuestions)) {
+  const previous = stored[id];
+  const round = newRound();
+  if(previous && typeof previous==='object') {
+    round.index = Number.isInteger(previous.index) && previous.index>=0 && previous.index<questions.length ? previous.index : 0;
+    for(const [key,pick] of Object.entries(previous.answers || {})) {
+      const q = questions[key];
+      if(!q) continue;
+      const valid = q.type==='order' ? Array.isArray(pick) && pick.length===q.options.length && new Set(pick).size===pick.length && pick.every(n=>Number.isInteger(n)&&n>=0&&n<q.options.length) : Number.isInteger(pick)&&pick>=0&&pick<q.options.length;
+      if(valid) round.answers[key]=pick;
+    }
+    round.submitted = previous.submitted===true && Object.keys(round.answers).length===questions.length;
+  }
+  rounds[id]=round;
+  orderDrafts[id]=[];
 }
-exitAnswer.addEventListener('input',persist);
-let sortDraft = [];
-let active = 'lake';
-const titles = [...stations.map(s=>[s.id,s.tab]),['exam','隨堂測驗']];
-byId('nav-items').innerHTML = titles.map(([id,title])=>`<a href="#${id}" data-section="${id}">${title}</a>`).join('');
-byId('sources').innerHTML = Object.values(works).map(w=>`<li>${html(w.by)}〈${html(w.title)}〉 <a href="${html(w.url)}">原文</a></li>`).join('');
-byId('plan-button').addEventListener('click',event=>{
-  const plan = byId('plan');
-  plan.hidden = !plan.hidden;
-  event.currentTarget.setAttribute('aria-expanded',String(!plan.hidden));
-  if(!plan.hidden) plan.scrollIntoView({block:'nearest'});
-});
-function worksMarkup(ids, inExam){
+function save() {try {localStorage.setItem(storageKey,JSON.stringify(rounds));} catch {}}
+function correct(q,pick) {return q.type==='order' ? Array.isArray(pick)&&q.answer.every((n,i)=>n===pick[i]) : q.answer===pick;}
+function answerText(q,pick) {
+  if(pick===undefined) return '未作答';
+  return q.type==='order' ? pick.map(n=>q.options[n]).join(' → ') : q.options[pick];
+}
+function completedCount() {return Object.values(rounds).reduce((sum,round)=>sum+Object.keys(round.answers).length,0);}
+function summary() {return `<div class="summary">已答 <b id="completed">${completedCount()}</b> / ${totalQuestions} 題</div>`;}
+function lineMarkup(line,poemId) {
+  const words = poems[poemId].notes.map(([word],index)=>({word,index})).filter(({word})=>line.includes(word)).sort((a,b)=>b.word.length-a.word.length);
+  let result='';
+  let offset=0;
+  while(offset<line.length) {
+    const found = words.find(({word})=>line.startsWith(word,offset));
+    if(found) {
+      result+=`<button type="button" class="word" data-word="${found.index}" data-poem="${poemId}" aria-pressed="false" aria-controls="note-${poemId}">${escapeHTML(found.word)}</button>`;
+      offset+=found.word.length;
+    } else {
+      result+=escapeHTML(line[offset]);
+      offset++;
+    }
+  }
+  return result;
+}
+function poemMarkup(id) {
+  const p = poems[id];
+  const lines = p.lines.map((line,i)=>`${id==='ouyang'&&i===2?'<span class="stanza" aria-hidden="true"></span>':''}<span class="verse-line">${lineMarkup(line,id)}</span>`).join('');
+  return `<article class="poem-card" id="poem-${id}">
+  <header class="poem-header"><div><h3>${escapeHTML(p.title)}</h3>${p.subtitle?`<p class="subtitle">${escapeHTML(p.subtitle)}</p>`:''}<div class="byline">${p.era}・${p.author}　｜　${p.lake}</div></div><span class="form-tag">${p.form}</span></header>
+  <div class="poem-body"><div class="reading"><div><div class="verse">${lines}</div><p class="word-hint">點選標色詞語可看注釋</p><div class="word-note" id="note-${id}" hidden role="status"></div><details class="translation"><summary>白話語譯</summary><p>${escapeHTML(p.translation)}</p></details></div>
+  <div class="reading-points">${p.points.map(([title,body])=>`<section class="point"><h4>${escapeHTML(title)}</h4><p>${escapeHTML(body)}</p></section>`).join('')}</div></div></div>
+  <section class="exercise" id="quiz-${id}" data-quiz="${id}" aria-label="${escapeHTML(p.title)}練習">${quizMarkup(id)}</section></article>`;
+}
+function examTexts(ids) {
   return ids.map(id=>{
-    const w = works[id];
-    const lines = id === 'yue' ? w.lines.map(line=>`<p>${html(line)}</p>`).join('') : html(w.lines.join('\n'));
-    return `<article class="poem"><h3>${html(w.title)}</h3><div class="attribution">${html(w.by)}${inExam ? (id === 'yue' ? '｜節錄' : '') : `｜${html(w.type)}`}</div><blockquote class="${id === 'yue' ? 'excerpt' : ''}">${lines}</blockquote><details><summary>${inExam ? '詞語提示' : '字詞與白話'}</summary><p>${html(w.words)}</p>${inExam ? '' : `<p>${html(w.meaning)}</p>`}</details></article>`;
+    const p=poems[id];
+    return `<article class="exam-text"><h3>${escapeHTML(p.title)}</h3><div class="byline">${p.era}・${p.author}${p.subtitle?`　${escapeHTML(p.subtitle)}`:''}</div><blockquote>${escapeHTML(p.lines.join('\n'))}</blockquote><details><summary>字詞注釋</summary><dl>${p.notes.map(([word,meaning])=>`<dt>${escapeHTML(word)}</dt><dd>${escapeHTML(meaning)}</dd>`).join('')}</dl></details></article>`;
   }).join('');
 }
-function isCorrect(q,pick){
-  return q.type === 'sort' ? Array.isArray(pick) && q.answer.every((x,i)=>pick[i]===x) : q.answer === pick;
+function resultMarkup(id) {
+  const questions=allQuestions[id];
+  const round=rounds[id];
+  const mistakes=questions.map((q,i)=>({q,i,pick:round.answers[i]})).filter(({q,pick})=>!correct(q,pick));
+  return `<div class="exercise-head"><strong>${id==='exam'?'綜合測驗結果':'本篇練習完成'}</strong></div><h4 class="score" id="question-${id}" tabindex="-1">${questions.length-mistakes.length} / ${questions.length} 題答對</h4>
+  ${mistakes.length?mistakes.map(({q,i,pick})=>`<article class="review"><h4>第 ${i+1} 題　${escapeHTML(q.prompt)}</h4><p>你的答案　${escapeHTML(answerText(q,pick))}</p><p><strong>正確答案　${escapeHTML(answerText(q,q.answer))}</strong></p><p>${escapeHTML(q.why)}</p>${id==='exam'?`<details><summary>回看原文</summary>${examTexts(q.source)}</details>`:''}</article>`).join(''):'<p>全部答對。可切換單元繼續閱讀與練習。</p>'}
+  <div class="quiz-actions"><button type="button" class="btn" data-action="reset">重新作答</button></div>`;
 }
-function answersText(q,pick){
-  if(pick === undefined) return '未作答';
-  return q.type === 'sort' ? pick.map(i=>q.options[i]).join(' → ') : q.options[pick];
-}
-function nextSection(){
-  const i = titles.findIndex(([id])=>id===active);
-  return titles[i+1];
-}
-function resultMarkup(questions,round,inExam){
-  const errors = questions.map((q,i)=>({q,i,pick:round.answers[i]})).filter(({q,pick})=>!isCorrect(q,pick));
-  const next = nextSection();
-  return `<h3 tabindex="-1" id="question-heading">${inExam ? '測驗結果' : '本站完成'}</h3>
-    <p class="score">${questions.length-errors.length} / ${questions.length} 題答對</p>
-    ${errors.length ? `<details open><summary>錯題與解析（${errors.length} 題）</summary>${errors.map(({q,i,pick})=>`<article class="review-row"><strong>第 ${i+1} 題　${html(q.prompt)}</strong><p>你的答案：${html(answersText(q,pick))}</p><p>正解：${html(answersText(q,q.answer))}</p><p>${html(q.why)}</p><details><summary>回看原文</summary>${worksMarkup(q.source,true)}</details></article>`).join('')}</details>` : '<p>全答對了。試著用一句原文說明你的判斷。</p>'}
-    <div class="quiz-nav"><button type="button" class="button" data-action="retry">重新作答</button>${next ? `<a class="button primary jump" href="#${next[0]}">前往${next[1]}</a>` : ''}</div>`;
-}
-function optionsMarkup(q,pick,checked,index){
-  if(q.type==='sort'){
-    const current = checked ? pick : sortDraft;
-    const presented = [[2,0,1],[1,2,0],[2,1,0]][Math.floor(index/5)%3];
-    const buttons = (items,placed)=>items.map((option,i)=>`<button type="button" class="choice" data-action="${placed ? 'remove' : 'add'}" data-value="${option}" ${checked ? 'disabled' : ''}><span class="letter">${placed ? i+1 : '+'}</span>${html(q.options[option])}</button>`).join('');
-    return `<p class="meta">依順序點卡片，再按確認。點已排的卡片可移回。</p><div class="sort-pile">${current.length ? buttons(current,true) : '<p>依序放入 3 張卡片</p>'}</div><div class="options">${buttons(presented.filter(i=>!current.includes(i)),false)}</div>`;
+function optionsMarkup(id,q,pick,revealed) {
+  if(q.type==='order') {
+    const draft=revealed?pick:orderDrafts[id];
+    const selected=draft.map((n,i)=>`<button type="button" class="option" data-action="remove" data-value="${n}" ${revealed?'disabled':''}><span class="letter">${i+1}</span><span>${escapeHTML(q.options[n])}</span></button>`).join('');
+    const remaining=[2,0,1].filter(n=>!draft.includes(n));
+    return `<p class="word-hint">依序點選卡片，排好後確認；點已排的卡片可移回。</p><div class="order-zone">${selected||'<p>將三張卡片排在這裡</p>'}</div><div class="order-source">${remaining.map(n=>`<button type="button" class="option" data-action="add" data-value="${n}"><span class="letter">＋</span><span>${escapeHTML(q.options[n])}</span></button>`).join('')}</div>`;
   }
-  return `<div class="options ${q.type==='evidence' ? 'evidence' : ''}">${q.options.map((option,i)=>{
-    const selected = pick===i;
-    const style = checked ? (i===q.answer ? 'good' : selected ? 'bad' : '') : selected ? 'picked' : '';
-    const mark = checked ? (i===q.answer ? '<small>（正解）</small>' : selected ? '<small>（你的答案）</small>' : '') : '';
-    return `<button type="button" class="choice ${style}" data-action="pick" data-value="${i}" ${checked ? 'disabled' : `aria-pressed="${selected}"`}><span class="letter">${'ABCD'[i]}</span><span>${html(option)} ${mark}</span></button>`;
+  return `<div class="options ${q.type==='evidence'?'evidence':''}">${q.options.map((option,i)=>{
+    const selected=pick===i;
+    const state=revealed?(q.answer===i?'correct':selected?'incorrect':''):(selected?'selected':'');
+    const label=revealed?(q.answer===i?'（正解）':selected?'（你的答案）':''):'';
+    return `<button type="button" class="option ${state}" data-action="pick" data-value="${i}" ${revealed?'disabled':`aria-pressed="${selected}"`}><span class="letter">${'ABCD'[i]}</span><span>${escapeHTML(option)} ${label?`<small>${label}</small>`:''}</span></button>`;
   }).join('')}</div>`;
 }
-function questionMarkup(questions,round,inExam){
-  const {index,answers} = round;
-  const q = questions[index];
-  const pick = answers[index];
-  const checked = !inExam && pick !== undefined;
-  const correct = checked && isCorrect(q,pick);
-  const last = index === questions.length-1;
-  const missing = questions.length-Object.keys(answers).length;
-  return `<div class="quiz-head"><span class="qtag">${html(q.skill)}</span><span class="qnum">第 ${index+1} / ${questions.length} 題</span></div>
-  <h3 tabindex="-1" id="question-heading">${html(q.prompt)}</h3>${optionsMarkup(q,pick,checked,index)}
-  ${checked ? `<div class="feedback ${correct ? '' : 'wrong'}" role="status" id="answer-feedback" tabindex="-1"><strong>${correct ? '答對了' : '再看一次'}</strong>　${html(q.why)}</div>` : ''}
-  <div class="quiz-nav">
-  ${index>0 ? '<button type="button" class="button" data-action="prev">上一題</button>' : ''}
-  ${q.type==='sort' && !checked ? `<button type="button" class="button primary" data-action="check" ${sortDraft.length!==q.options.length ? 'disabled' : ''}>確認排序</button>` : ''}
-  ${last && inExam ? '' : `<button type="button" class="button ${q.type==='sort'&&!checked ? '' : 'primary'}" data-action="next" ${!inExam && last && missing ? 'disabled' : ''}>${last ? '看本站結果' : inExam || checked ? '下一題' : '先跳過'}</button>`}
-  ${inExam ? `<button type="button" class="button ${last ? 'primary' : ''}" data-action="submit" ${missing ? 'disabled' : ''}>交卷${missing ? `（剩 ${missing} 題）` : ''}</button>` : ''}
-  ${!inExam && last && missing ? '<button type="button" class="quiet" data-action="missing">回到未答題</button>' : ''}
+function quizMarkup(id) {
+  const round=rounds[id];
+  const questions=allQuestions[id];
+  if(round.submitted) return resultMarkup(id);
+  const index=round.index;
+  const q=questions[index];
+  const pick=round.answers[index];
+  const isExam=id==='exam';
+  const revealed=!isExam&&pick!==undefined;
+  const missing=questions.length-Object.keys(round.answers).length;
+  const last=index===questions.length-1;
+  const nav=isExam?`<div class="question-nav" role="group" aria-label="測驗題號">${questions.map((_,i)=>`<button type="button" data-action="jump" data-value="${i}" aria-label="第 ${i+1} 題，${round.answers[i]===undefined?'未答':'已答'}" ${i===index?'aria-current="step"':''} class="${round.answers[i]===undefined?'':'answered'}">${i+1}</button>`).join('')}</div>`:'';
+  return `${nav}<div class="exercise-head"><strong>${isExam?q.skill:'即時練習・'+q.skill}</strong><span>第 ${index+1} / ${questions.length} 題</span></div>
+  <h4 class="question" id="question-${id}" tabindex="-1">${escapeHTML(q.prompt)}</h4>${optionsMarkup(id,q,pick,revealed)}
+  ${revealed?`<div class="feedback ${correct(q,pick)?'':'wrong'}" id="feedback-${id}" role="status" tabindex="-1"><strong>${correct(q,pick)?'答對了':'再看一次'}</strong>　${escapeHTML(q.why)}</div>`:''}
+  <div class="quiz-actions">
+  ${index>0?'<button type="button" class="btn" data-action="previous">上一題</button>':''}
+  ${q.type==='order'&&!revealed?`<button type="button" class="btn primary" data-action="check" ${orderDrafts[id].length===3?'':'disabled'}>確認排序</button>`:''}
+  ${!last?`<button type="button" class="btn ${q.type==='order'&&!revealed?'':'primary'}" data-action="next">${!isExam&&!revealed?'先跳過':'下一題'}</button>`:''}
+  ${last&&!isExam?`<button type="button" class="btn primary" data-action="finish" ${missing?'disabled':''}>看練習結果</button>`:''}
+  ${isExam?`<button type="button" class="btn ${last?'primary':''}" data-action="finish" ${missing?'disabled':''}>交卷${missing?`（還有 ${missing} 題）`:''}</button>`:''}
+  ${last&&missing?'<button type="button" class="btn" data-action="unanswered">回到未答題</button>':''}
   </div>`;
 }
-function refreshProgress(){
-  const count = Object.values(rounds).reduce((n,r)=>n+Object.keys(r.answers).length,0);
-  byId('progress').value = count;
-  byId('progress-count').textContent = `${count} / 36 題`;
+function compareMarkup() {
+  return `<div class="page-heading"><div><h2>詩詞比較</h2><p>從湖名、文體到寫景方法，整理六篇選文的關係。</p></div>${summary()}</div>
+  <section class="info-card"><h3>詩中的湖</h3><div class="table-wrap"><table><thead><tr><th scope="col">湖泊</th><th scope="col">地點</th><th scope="col">本頁選文</th></tr></thead><tbody>
+  <tr><td>洞庭湖</td><td>湖南</td><td>劉禹錫〈望洞庭〉<br>孟浩然〈望洞庭湖贈張丞相〉</td></tr><tr><td>杭州西湖</td><td>浙江杭州，又稱錢塘湖</td><td>蘇軾〈飲湖上初晴後雨〉<br>楊萬里〈曉出淨慈寺送林子方〉<br>白居易〈錢塘湖春行〉</td></tr><tr><td>潁州西湖</td><td>今安徽阜陽一帶</td><td>歐陽脩〈採桑子〉</td></tr></tbody></table></div><p class="note">相同的「西湖」名稱，可以指向不同地方。讀作品時，把作者與背景一起納入判斷。</p></section>
+  <section class="info-card"><h3>形式怎麼看</h3><div class="table-wrap"><table><thead><tr><th scope="col">文體</th><th scope="col">基本形式</th><th scope="col">本頁例子</th></tr></thead><tbody>
+  <tr><td>七言絕句</td><td>四句，每句七字</td><td>〈望洞庭〉、〈飲湖上初晴後雨〉、〈曉出淨慈寺送林子方〉</td></tr><tr><td>五言律詩</td><td>八句，每句五字</td><td>〈望洞庭湖贈張丞相〉</td></tr><tr><td>七言律詩</td><td>八句，每句七字</td><td>〈錢塘湖春行〉</td></tr><tr><td>詞</td><td>依詞牌安排字數、句式、平仄與用韻</td><td>〈採桑子〉，本篇分為上下兩片</td></tr></tbody></table></div><p class="note">計算詩的句數時，以每個五字或七字單位算一句。五言律詩四行排版，仍是八句。絕句、律詩的判別還包括格律，表中的句數與字數是辨認這幾篇作品的起點。</p></section>
+  <section class="info-card"><h3>律詩的四聯</h3><div class="table-wrap"><table><thead><tr><th scope="col">聯名</th><th scope="col">句次</th><th scope="col">〈錢塘湖春行〉</th></tr></thead><tbody>
+  <tr><td>首聯</td><td>第一、二句</td><td>孤山寺北賈亭西，水面初平雲腳低。</td></tr><tr><td>頷聯</td><td>第三、四句</td><td>幾處早鶯爭暖樹，誰家新燕啄春泥。</td></tr><tr><td>頸聯</td><td>第五、六句</td><td>亂花漸欲迷人眼，淺草才能沒馬蹄。</td></tr><tr><td>尾聯</td><td>第七、八句</td><td>最愛湖東行不足，綠楊陰裡白沙堤。</td></tr></tbody></table></div><p class="note">律詩的頷聯、頸聯通常要求對仗。可觀察「早鶯／新燕」「爭／啄」「暖樹／春泥」在相對位置的詞類與結構。</p></section>
+  <div class="form-grid"><article><h3>用比喻寫景</h3><p>鏡、銀盤、青螺、西子、琉璃，讓湖的形貌與質感變得具體。</p><p><strong>判斷時找出被比喻的對象，以及兩者的相似點。</strong></p></article><article><h3>用字寫動靜</h3><p>「蒸、撼」寫力量，「微動、不覺」寫細小而平穩的變化。</p><p><strong>看動作的程度，再連到整體的湖景與心境。</strong></p></article><article><h3>由景讀情</h3><p>「最愛」「總相宜」直接流露欣賞，「羨魚」要結合贈詩背景。</p><p><strong>用全篇線索支持情感與主旨的判讀。</strong></p></article></div>`;
 }
-function render(keepText = false){
-  const inExam = active === 'exam';
-  const station = stations.find(s=>s.id===active);
-  const round = rounds[active];
-  const qs = inExam ? exam : station.qs;
-  const q = qs[round.index];
-  const title = inExam ? '隨堂測驗' : station.title;
-  const src = inExam ? q.source : [...new Set([...station.src,...q.source])];
-  const quiz = round.submitted ? resultMarkup(qs,round,inExam) : questionMarkup(qs,round,inExam);
-  const numberNav = inExam && !round.submitted ? `<div class="exam-grid" role="group" aria-label="測驗題號">${qs.map((_,i)=>`<button type="button" data-action="jump" data-value="${i}" aria-label="第 ${i+1} 題${round.answers[i]===undefined ? '，未作答' : '，已作答'}" ${round.index===i ? 'aria-current="step"' : ''} class="${round.answers[i]===undefined ? '' : 'done'}">${i+1}</button>`).join('')}</div>` : '';
-  if(keepText && byId('quiz')) {
-    byId('quiz').innerHTML = numberNav + quiz;
+function renderPage(move=false) {
+  const requested=location.hash.slice(1);
+  if(navigation.some(([id])=>id===requested)) active=requested;
+  const chapter=chapters.find(item=>item.id===active);
+  if(chapter) {
+    $('content').innerHTML=`<div class="page-heading"><div><h2 id="page-title" tabindex="-1">${chapter.title}</h2><p>${chapter.intro}</p></div>${summary()}</div><div class="poem-links">${chapter.poems.map(id=>`<a href="#poem-${id}" data-scroll="poem-${id}">${poems[id].title}</a>`).join('')}</div>${chapter.poems.map(poemMarkup).join('')}`;
+  } else if(active==='compare') {
+    $('content').innerHTML=compareMarkup();
   } else {
-    byId('content').innerHTML = `<div class="heading"><div><p class="station-kicker">${inExam ? '會考閱讀題組' : station.label}</p><h2 id="unit-title" tabindex="-1">${html(title)}</h2></div><p class="meta">${inExam ? '12 題・交卷後顯示詳解' : '8 題・即時解析'}</p></div>
-    ${inExam ? '' : `<details class="panel teacher"><summary>老師先講｜抓兩個重點</summary><ul>${station.focus.map(f=>`<li>${html(f)}</li>`).join('')}</ul><p><strong>口頭追問</strong>　${html(station.ask)}</p></details>`}
-    <button type="button" class="quiet jump-quiz" data-action="skip-text">跳到題目</button><div class="board">${round.submitted && inExam ? '<div class="panel"><strong>測驗已交卷</strong><p>展開錯題的「回看原文」，找出判斷依據。</p></div>' : `<div class="texts" aria-label="閱讀文本">${worksMarkup(src,inExam)}</div>`}
-    <section id="quiz" class="panel quiz" aria-label="互動題目">${numberNav}${quiz}</section></div>`;
+    $('content').innerHTML=`<div class="page-heading"><div><h2 id="page-title" tabindex="-1">綜合測驗</h2><p>12 題跨篇閱讀比較，可回看原文；交卷後顯示分數與詳解。</p></div>${summary()}</div><div class="exam-layout"><div id="exam-texts">${rounds.exam.submitted?'<div class="info-card"><h3>作答完成</h3><p>可在錯題解析裡展開原文，重新核對判斷依據。</p></div>':examTexts(exam[rounds.exam.index].source)}</div><section class="exam-panel" id="quiz-exam" data-quiz="exam" aria-label="綜合測驗">${quizMarkup('exam')}</section></div>`;
   }
-  byId('nav-items').querySelectorAll('a').forEach(a=>{
-    if(a.dataset.section===active) a.setAttribute('aria-current','page');
+  $('navigation').querySelectorAll('a').forEach(a=>{
+    if(a.dataset.page===active) a.setAttribute('aria-current','page');
     else a.removeAttribute('aria-current');
   });
-  refreshProgress();
+  if(move) {$('content').scrollIntoView({block:'start'});$('content').focus({preventScroll:true});}
 }
-function scrollToLearning(){
-  byId('learning').scrollIntoView({block:'start'});
-}
-function syncRoute(move){
-  const requested = location.hash.slice(1);
-  active = titles.some(([id])=>id===requested) ? requested : 'lake';
-  sortDraft = [];
-  render();
-  if(move && requested !== 'learning'){
-    scrollToLearning();
-    byId('unit-title').focus({preventScroll:true});
-  }
-}
-window.addEventListener('hashchange',()=>syncRoute(true));
-byId('start').addEventListener('click',()=>{if(location.hash==='#lake')scrollToLearning();});
-byId('content').addEventListener('click',event=>{
-  const btn = event.target.closest('button[data-action]');
-  if(!btn) return;
-  if(btn.dataset.action==='skip-text'){
-    byId('quiz').scrollIntoView({block:'start'});
-    byId('question-heading').focus({preventScroll:true});
+$('navigation').innerHTML=navigation.map(([id,title])=>`<a href="#${id}" data-page="${id}">${title}</a>`).join('');
+$('sources').innerHTML=Object.values(poems).map(p=>`<li>${p.author}〈${p.title}〉　<a href="${escapeHTML(p.url)}" target="_blank" rel="noopener">原文出處</a></li>`).join('')+'<li><a href="https://dict.revised.moe.edu.tw/dictView.jsp?ID=64118" target="_blank" rel="noopener">教育部《重編國語辭典修訂本》「漣漪」</a></li><li><a href="https://zh.wikisource.org/zh-hant/文忠集_(歐陽修,_四庫全書本)/卷131" target="_blank" rel="noopener">《文忠集》西湖念語與採桑子組詞</a></li>';
+$('content').addEventListener('click',event=>{
+  const word=event.target.closest('button[data-word]');
+  if(word) {
+    const id=word.dataset.poem;
+    const [term,meaning]=poems[id].notes[Number(word.dataset.word)];
+    const same=word.getAttribute('aria-pressed')==='true';
+    $('poem-'+id).querySelectorAll('.word').forEach(b=>b.setAttribute('aria-pressed','false'));
+    word.setAttribute('aria-pressed',String(!same));
+    const note=$('note-'+id);
+    note.innerHTML=`<strong>${escapeHTML(term)}</strong>　${escapeHTML(meaning)}`;
+    note.hidden=same;
     return;
   }
-  const {action,value} = btn.dataset;
-  const n = Number(value);
-  const inExam = active==='exam';
-  const round = rounds[active];
-  const qs = inExam ? exam : stations.find(s=>s.id===active).qs;
-  const previous = round.index;
-  switch(action){
-    case 'pick': round.answers[round.index] = n; break;
-    case 'add': sortDraft.push(n); break;
-    case 'remove': sortDraft = sortDraft.filter(i=>i!==n); break;
-    case 'check': round.answers[round.index] = [...sortDraft]; break;
-    case 'prev': round.index--; break;
-    case 'next':
-      if(round.index+1<qs.length) round.index++;
-      else if(Object.keys(round.answers).length===qs.length) round.submitted=true;
-      break;
-    case 'jump': round.index=n; break;
-    case 'missing': round.index=qs.findIndex((_,i)=>round.answers[i]===undefined); break;
-    case 'submit': if(Object.keys(round.answers).length===qs.length) round.submitted=true; break;
-    case 'retry': rounds[active]=newRound(); break;
+  const anchor=event.target.closest('a[data-scroll]');
+  if(anchor) {event.preventDefault();$(anchor.dataset.scroll).scrollIntoView({block:'start'});return;}
+  const button=event.target.closest('button[data-action]');
+  if(!button||button.disabled) return;
+  const id=button.closest('[data-quiz]').dataset.quiz;
+  const round=rounds[id];
+  const qs=allQuestions[id];
+  const oldIndex=round.index;
+  const {action,value}=button.dataset;
+  const pick=Number(value);
+  switch(action) {
+    case 'pick': round.answers[round.index]=pick; break;
+    case 'add': if(!orderDrafts[id].includes(pick)) orderDrafts[id].push(pick); break;
+    case 'remove': orderDrafts[id]=orderDrafts[id].filter(n=>n!==pick); break;
+    case 'check': if(orderDrafts[id].length===3) round.answers[round.index]=[...orderDrafts[id]]; break;
+    case 'next': round.index=Math.min(round.index+1,qs.length-1); break;
+    case 'previous': round.index=Math.max(round.index-1,0); break;
+    case 'jump': round.index=pick; break;
+    case 'unanswered': round.index=qs.findIndex((q,i)=>round.answers[i]===undefined); break;
+    case 'finish': if(Object.keys(round.answers).length===qs.length) round.submitted=true; break;
+    case 'reset': rounds[id]=newRound(); break;
   }
-  if(previous!==round.index || action==='retry') sortDraft=[];
-  const sourceChanged = qs[previous].source.join() !== qs[round.index].source.join();
-  render(!sourceChanged && !round.submitted && action!=='retry');
-  persist();
-  if(action==='add'||action==='remove'){
-    (byId('quiz').querySelector('button[data-action="add"]:not(:disabled),button[data-action="check"]:not(:disabled)') ?? byId('question-heading')).focus({preventScroll:true});
-  } else if(inExam && action==='pick'){
-    byId('quiz').querySelector(`[data-action="pick"][data-value="${n}"]`).focus({preventScroll:true});
+  if(oldIndex!==round.index||action==='reset') orderDrafts[id]=[];
+  const quiz=$('quiz-'+id);
+  quiz.innerHTML=quizMarkup(id);
+  if(id==='exam') $('exam-texts').innerHTML=rounds.exam.submitted?'<div class="info-card"><h3>作答完成</h3><p>可在錯題解析裡展開原文，重新核對判斷依據。</p></div>':examTexts(exam[rounds.exam.index].source);
+  $('completed').textContent=completedCount();
+  save();
+  if(action==='add'||action==='remove') {
+    (quiz.querySelector('button[data-action="add"],button[data-action="check"]')||$('question-'+id)).focus({preventScroll:true});
+  } else if(id==='exam'&&action==='pick') {
+    quiz.querySelector(`[data-action="pick"][data-value="${pick}"]`).focus({preventScroll:true});
   } else {
-    const target = byId('answer-feedback') && (action==='pick'||action==='check') ? byId('answer-feedback') : byId('question-heading');
+    const feedback=$('feedback-'+id);
+    const target=feedback&&(action==='pick'||action==='check')?feedback:$('question-'+id);
     target.focus({preventScroll:action==='pick'||action==='check'});
   }
 });
-syncRoute(false);
+window.addEventListener('hashchange',()=>renderPage(true));
+renderPage(false);
 
 </script>
 </body>
