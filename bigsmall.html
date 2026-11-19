@@ -73,6 +73,7 @@ main{max-width:940px;margin:auto;padding:30px 18px 100px}
 .quiz-finish{display:none;text-align:center;padding:1.5rem;margin-top:1rem;border-radius:12px;background:var(--common-pale)}.quiz-finish.show{display:block}.quiz-finish strong{display:block;font:700 1.5rem "Noto Serif TC",serif;color:var(--common)}.restart{margin-top:.8rem;border:0;border-radius:8px;background:var(--seal);color:white;padding:.65rem 1rem;cursor:pointer}
 footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.82rem}
 @media(max-width:760px){.hero{padding:56px 18px 36px}.watermark{right:-18px;top:-28px;font-size:156px}.toolbar-inner{justify-content:flex-start;padding:10px 12px}.jump{display:none}.background-grid,.explore-grid,.axis{grid-template-columns:1fr}.axis-center{transform:rotate(90deg);height:28px}.fact-strip{grid-template-columns:1fr 1fr}.fact:nth-child(2){border-right:0}.fact:nth-child(-n+2){border-bottom:1px solid var(--line)}.original{padding:20px 18px 16px;font-size:1.07rem}.notes-hint{margin:0 18px}.translation{margin:0 18px 20px;padding:10px 0 4px 16px}.note-pop{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);width:calc(100vw - 2rem)}.options{grid-template-columns:1fr}}
+.translation-paragraph{margin:0;line-height:2.05}
 </style>
 </head>
 <body class="show-zhuyin">
@@ -103,8 +104,8 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
   </section>
 
   <section class="section" id="text">
-    <div class="section-head"><div><div class="section-kicker">Read &amp; Annotate</div><h2>課文與逐句語譯</h2></div></div>
-    <p class="section-intro">全文依原文脈絡整理為 3 個完整大段。點擊標色詞語或右上角數字查看注釋；每段都可展開逐句白話語譯。</p>
+    <div class="section-head"><div><div class="section-kicker">Read &amp; Annotate</div><h2>課文與整段語譯</h2></div></div>
+    <p class="section-intro">全文依原文脈絡整理為 3 個完整大段。點擊標色詞語或右上角數字查看注釋；每段都可展開整段白話語譯。</p>
 
     <article class="passage card"><div class="passage-top"><span class="passage-tag">第一段｜蜡祭後嘆魯，言偃發問</span><button class="translation-btn" aria-expanded="false">查看語譯</button></div>
       <div class="original">
@@ -112,7 +113,7 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
         <p>孔子曰：「大道之行也，與<button class="annot" aria-expanded="false">三代之英<span class="note-pop">夏、商、周三代傑出的統治者。</span></button>，丘<button class="annot" aria-expanded="false">未之<ruby>逮<rt>ㄉㄞˋ</rt></ruby>也<span class="note-pop">沒有趕上它。「未之逮」為否定句中代詞受詞前置，即「未逮之」。</span></button>，而<button class="annot" aria-expanded="false">有志焉<span class="note-pop">從古代文獻中記得、了解這些制度。志，記載、記憶。</span></button>。」</p>
       </div>
       <div class="notes-hint"><span class="dot"></span><span>點擊 <b>標色詞語</b> 或右上角數字，查看該處注釋</span></div>
-      <div class="translation"><p>從前，孔子參與魯國的歲末大祭，擔任助祭賓客。典禮結束後，他登上宮門兩側的樓臺，長聲嘆息。孔子的嘆息，大概是在感嘆魯國的禮制衰微。弟子言偃隨侍在旁，問道：「先生為什麼嘆息呢？」</p><p>孔子說：「大道施行的時代，以及夏、商、周三代英明人物在位的時期，我雖然沒有親身趕上，卻能從古代記載中知道這些情形。」</p></div>
+      <div class="translation"><p class="translation-paragraph">從前，孔子參與魯國的歲末大祭，擔任助祭賓客。典禮結束後，他登上宮門兩側的樓臺，長聲嘆息。孔子的嘆息，大概是在感嘆魯國的禮制衰微。弟子言偃隨侍在旁，問道：「先生為什麼嘆息呢？」孔子說：「大道施行的時代，以及夏、商、周三代英明人物在位的時期，我雖然沒有親身趕上，卻能從古代記載中知道這些情形。」</p></div>
     </article>
 
     <article class="passage card"><div class="passage-top"><span class="passage-tag">第二段｜天下為公的大同社會</span><button class="translation-btn" aria-expanded="false">查看語譯</button></div>
@@ -122,7 +123,7 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
         <p>貨<button class="annot" aria-expanded="false"><ruby>惡<rt>ㄨˋ</rt></ruby>其棄於地也<span class="note-pop">厭惡資源被丟棄浪費。惡，厭惡。</span></button>，不必藏於己；力惡其不出於身也，不必為己。是故<button class="annot" aria-expanded="false">謀閉而不興<span class="note-pop">奸邪的計謀被杜絕，不再發生。閉，杜絕。</span></button>，<button class="annot" aria-expanded="false">盜竊亂賊而不作<span class="note-pop">偷竊、作亂與害人的事情不再發生。亂，作亂；賊，害人。</span></button>，故<button class="annot" aria-expanded="false">外戶而不閉<span class="note-pop">外門不必關閉，表示社會安定、夜不閉戶。</span></button>，是謂「大同」。</p>
       </div>
       <div class="notes-hint"><span class="dot"></span><span>點擊 <b>標色詞語</b> 或右上角數字，查看該處注釋</span></div>
-      <div class="translation"><p>大道施行的時代，天下為全體人民所共有。社會選拔有德行的人，推舉有才能的人，人人講求信用並培養和睦關係。</p><p>所以人們不只親愛自己的父母，也不只慈愛自己的子女；還使老年人能安享晚年，壯年人能發揮能力，幼童能順利成長，鰥夫、寡婦、孤兒、老而無子者、身有障礙或久病的人都能獲得照顧。男子有職業，女子有安定的歸宿。</p><p>人們厭惡物資被丟棄浪費，卻不一定要私藏在自己家中；也厭惡有能力卻不肯付出，但付出不一定只為個人利益。因此奸邪計謀被杜絕，偷竊、作亂和害人的事情不再發生，外門不必關閉。這就叫做「大同」。</p></div>
+      <div class="translation"><p class="translation-paragraph">大道施行的時代，天下為全體人民所共有。社會選拔有德行的人，推舉有才能的人，人人講求信用並培養和睦關係。所以人們不只親愛自己的父母，也不只慈愛自己的子女；還使老年人能安享晚年，壯年人能發揮能力，幼童能順利成長，鰥夫、寡婦、孤兒、老而無子者、身有障礙或久病的人都能獲得照顧。男子有職業，女子有安定的歸宿。人們厭惡物資被丟棄浪費，卻不一定要私藏在自己家中；也厭惡有能力卻不肯付出，但付出不一定只為個人利益。因此奸邪計謀被杜絕，偷竊、作亂和害人的事情不再發生，外門不必關閉。這就叫做「大同」。</p></div>
     </article>
 
     <article class="passage card"><div class="passage-top"><span class="passage-tag">第三段｜以禮維繫的小康社會</span><button class="translation-btn" aria-expanded="false">查看語譯</button></div>
@@ -132,7 +133,7 @@ footer{text-align:center;padding:30px 20px 100px;color:var(--muted);font-size:.8
         <p>禹、湯、文、武、成王、周公，<button class="annot" aria-expanded="false">由此其選也<span class="note-pop">是小康之世中選拔出的傑出人物。</span></button>。此六君子者，未有不謹於禮者也。以<button class="annot" aria-expanded="false">著其義<span class="note-pop">彰明人民應遵守的道義。著，使……彰明。</span></button>，以考其信，<button class="annot" aria-expanded="false">著有過<span class="note-pop">使有過失的人明白顯現，以便警惕改正。</span></button>，<button class="annot" aria-expanded="false">刑仁講讓<span class="note-pop">以仁德作為典範，並講求禮讓。刑，通「型」，典範、示範。</span></button>，示民有常。如有不由此者，<button class="annot" aria-expanded="false">在<ruby>埶<rt>ㄕˋ</rt></ruby>者去<span class="note-pop">在位掌權者會被罷免。埶，同「勢」，指權位。</span></button>，眾以為殃，是謂「小康」。</p>
       </div>
       <div class="notes-hint"><span class="dot"></span><span>點擊 <b>標色詞語</b> 或右上角數字，查看該處注釋</span></div>
-      <div class="translation"><p>如今大道已經隱沒，天下成為一家一姓的私產；每個人只親愛自己的父母，只慈愛自己的子女，物資與人力都為自己的利益使用。在位者把父死子繼、兄終弟及視為制度，用城牆與護城河鞏固防禦，並以禮義作為社會綱紀。</p><p>用禮義端正君臣關係，使父子親情敦厚，使兄弟和睦，使夫婦和諧；並用禮義建立制度、確立田地與里居規範，尊崇勇敢而有智慧的人，把建立功業視為自己的目標。因此奸謀從此產生，戰爭也由此興起。</p><p>禹、湯、文王、武王、成王、周公，是小康之世中選出的傑出人物。這六位君子沒有不謹守禮制的。他們用禮彰明道義、考察誠信、顯示過錯，以仁德作為典範並講求禮讓，向人民昭示固定的規範。如果在位者不依循禮制，就會被罷免，民眾也把他視為禍害。這就叫做「小康」。</p></div>
+      <div class="translation"><p class="translation-paragraph">如今大道已經隱沒，天下成為一家一姓的私產；每個人只親愛自己的父母，只慈愛自己的子女，物資與人力都為自己的利益使用。在位者把父死子繼、兄終弟及視為制度，用城牆與護城河鞏固防禦，並以禮義作為社會綱紀。用禮義端正君臣關係，使父子親情敦厚，使兄弟和睦，使夫婦和諧；並用禮義建立制度、確立田地與里居規範，尊崇勇敢而有智慧的人，把建立功業視為自己的目標。因此奸謀從此產生，戰爭也由此興起。禹、湯、文王、武王、成王、周公，是小康之世中選出的傑出人物。這六位君子沒有不謹守禮制的。他們用禮彰明道義、考察誠信、顯示過錯，以仁德作為典範並講求禮讓，向人民昭示固定的規範。如果在位者不依循禮制，就會被罷免，民眾也把他視為禍害。這就叫做「小康」。</p></div>
     </article>
   </section>
 

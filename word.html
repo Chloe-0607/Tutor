@@ -211,6 +211,27 @@ body{
   border:1px solid var(--line);
 }
 
+/* teaching flow */
+.lesson-path{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 24px;}
+.step-card{background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:16px;}
+.step-card .num{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;border-radius:50%;background:var(--ink);color:var(--paper2);font-weight:700;margin-bottom:8px;}
+.step-card h3{font-family:"Noto Serif TC",serif;font-size:17px;margin:0 0 6px;}
+.step-card p{font-size:13px;color:var(--ink-soft);margin:0;}
+.rule-card{background:var(--jade-light);border-left:4px solid var(--jade);border-radius:0 8px 8px 0;padding:14px 16px;margin:0 0 18px;font-size:14px;}
+.rule-card strong{color:var(--jade);}
+.memory-note{background:#F3E1DB;border-left-color:var(--seal);}
+.memory-note strong{color:var(--seal-dark);}
+.practice-btn,.more-btn{font-family:inherit;font-weight:700;border-radius:8px;padding:10px 16px;cursor:pointer;margin:18px 8px 4px 0;}
+.practice-btn{background:var(--seal);border:1px solid var(--seal);color:#fff;}
+.more-btn{background:var(--paper2);border:1px solid var(--line);color:var(--ink-soft);}
+.lesson-table{width:100%;border-collapse:collapse;background:var(--paper2);margin:14px 0 20px;}
+.lesson-table th,.lesson-table td{border:1px solid var(--line);padding:10px;text-align:left;font-size:13px;vertical-align:top;}
+.lesson-table th{background:var(--ink);color:var(--paper2);}
+.memory-group{border:1px solid var(--line);border-radius:10px;background:var(--paper2);margin:10px 0;overflow:hidden;}
+.memory-group summary{cursor:pointer;font-family:"Noto Serif TC",serif;font-weight:700;padding:14px 16px;}
+.memory-body{padding:0 16px 16px;}
+@media(max-width:680px){.lesson-path{grid-template-columns:1fr;}}
+
 /* ---------- quiz ---------- */
 .quiz-setup{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:22px;text-align:center;}
 .quiz-setup h3{font-family:"Noto Serif TC",serif;margin-top:0;}
@@ -303,22 +324,48 @@ footer{text-align:center;padding:30px 0;color:var(--ink-soft);font-size:12px;}
   <div class="hero-seal">義</div>
   <div class="eyebrow">單元肆　國文會考</div>
   <h1>判別字義</h1>
-  <p>量詞・實數虛數・一字多義・其他特殊字義　—　四站閃卡複習，再加一份延伸測驗，練到看字就懂。</p>
+  <p>先學會用語境判斷，再整理少量必背內容；每教完一類就立刻練習，不把所有重點一次塞完。</p>
 </div>
 
 <div class="tabs" id="tabs"></div>
 
 <div class="wrap">
 
+  <!-- 教學起點 -->
+  <section class="station" data-station="method">
+    <div class="station-head">
+      <span class="tag">教學起點</span>
+      <h2>先教一套可以重複使用的方法</h2>
+      <p>這一頁先講 8～10 分鐘。學生遇到陌生字義時，先照三步驟判斷；只有典故、通同字與少見搭配才另外記。</p>
+    </div>
+    <div class="lesson-path">
+      <div class="step-card"><span class="num">1</span><h3>圈出目標字</h3><p>先確認題目問的是哪一個字，不急著看選項，也不要只憑第一印象。</p></div>
+      <div class="step-card"><span class="num">2</span><h3>讀前後搭配</h3><p>看它和誰搭配、放在句中做什麼。量詞看名詞，虛實數看能否一一對應，多義字看上下文。</p></div>
+      <div class="step-card"><span class="num">3</span><h3>代回原句驗證</h3><p>把選項換回原句讀一次；句意通順、詞性合適，而且符合全文語氣，才算答案。</p></div>
+    </div>
+    <table class="lesson-table">
+      <tr><th>題型</th><th>先問什麼</th><th>主要靠什麼判斷</th></tr>
+      <tr><td>量詞</td><td>後面接的是什麼名詞？</td><td>固定搭配，例如「一席話」「一闋詞」</td></tr>
+      <tr><td>實數／虛數</td><td>數字能不能指出確切對象或數量？</td><td>能列出通常是實數；只表多、少或誇飾通常是虛數</td></tr>
+      <tr><td>一字多義</td><td>換成哪個意思，整句最通順？</td><td>上下文、詞性與句型</td></tr>
+      <tr><td>特殊字義</td><td>這是可以推理，還是課內固定知識？</td><td>人稱可看說話角色；通同字、典故與少見方位義需記憶</td></tr>
+    </table>
+    <div class="rule-card memory-note"><strong>老師的教學界線：</strong>先要求學生說出判斷理由，再公布答案。題目若只能靠字源、典故或少見用法作答，會明確標成「需記憶」，不假裝成可以推理的題目。</div>
+    <button class="practice-btn" data-focus="方法暖身">先做 4 題方法暖身</button>
+  </section>
+
   <!-- 站1 量詞 -->
   <section class="station" data-station="liangci">
     <div class="station-head">
       <span class="tag">第 1 站</span>
       <h2>量詞</h2>
-      <p>點卡片翻面看例句與說明。同樣是「一個東西」，換個量詞意思差很多。</p>
+      <p>先看量詞後面的名詞，再想固定搭配。課堂先教核心 12 個，其餘留作查表，不必一次背完。</p>
     </div>
+    <div class="rule-card"><strong>判斷方法：</strong>把「一（　）＋名詞」完整讀出來。先用常見搭配排除，再比較量詞強調的是形狀、單位還是次數。</div>
     <input class="search" id="search-liangci" placeholder="搜尋量詞，例如：輪">
     <div class="grid" id="grid-liangci"></div>
+    <button class="more-btn" id="more-liangci">展開完整量詞表</button>
+    <button class="practice-btn" data-focus="量詞">立刻練 5 題量詞</button>
   </section>
 
   <!-- 站2 實數虛數 -->
@@ -326,14 +373,17 @@ footer{text-align:center;padding:30px 0;color:var(--ink-soft);font-size:12px;}
     <div class="station-head">
       <span class="tag">第 2 站</span>
       <h2>實數・虛數</h2>
-      <p>成語裡的數字，有時候是真的在算數量，有時候只是「很多」或「很少」的誇飾。</p>
+      <p>不要看到數字就直接判斷。先問：能不能指出確切的對象或數量？課堂先練可推理的例子，典故另標需記憶。</p>
     </div>
+    <div class="rule-card"><strong>判斷方法：</strong>能清楚列出「是哪幾個、哪幾件」通常是實數；數字只用來表示很多、很少、反覆或誇張，通常是虛數。若要知道典故才能判斷，就歸到「需記憶」。</div>
     <div class="filter-row">
       <button class="filter-btn active" data-f="all">全部</button>
       <button class="filter-btn" data-f="real">實數</button>
       <button class="filter-btn" data-f="virtual">虛數</button>
     </div>
     <div id="list-shixu"></div>
+    <button class="more-btn" id="more-shixu">展開完整成語表</button>
+    <button class="practice-btn" data-focus="數字成語">立刻練 5 題實數／虛數</button>
   </section>
 
   <!-- 站3 一字多義 -->
@@ -341,10 +391,12 @@ footer{text-align:center;padding:30px 0;color:var(--ink-soft);font-size:12px;}
     <div class="station-head">
       <span class="tag">第 3 站</span>
       <h2>重要字義・一字多義</h2>
-      <p>同一個字，詞性不同、位置不同，意思就跟著變。點開字卡看常見的幾種用法。</p>
+      <p>這一站不背孤立解釋，而是練「代回原句」。課堂先教 10 個高頻字，其餘可用搜尋查表。</p>
     </div>
+    <div class="rule-card"><strong>判斷方法：</strong>先判斷這個字在句中做動作、連接關係，還是代替人物；再把候選意思代回整句，選擇語意與詞性都通順的一個。</div>
     <input class="search" id="search-duoyi" placeholder="搜尋字，例如：之">
     <div id="acc-duoyi"></div>
+    <button class="practice-btn" data-focus="一字多義">立刻練 6 題語境判斷</button>
   </section>
 
   <!-- 站4 其他特殊字義 -->
@@ -352,24 +404,21 @@ footer{text-align:center;padding:30px 0;color:var(--ink-soft);font-size:12px;}
     <div class="station-head">
       <span class="tag">第 4 站</span>
       <h2>其他特殊字義</h2>
-      <p>顏色詞、方位詞、人稱代名詞與常見通同字，考題出現頻率都不低。</p>
+      <p>這些內容不是同一種判斷法。人稱先看說話角色；顏色可看意象；方位特殊義與通同字則列入「需記憶」。</p>
     </div>
-    <div class="subhead">形容顏色的詞語</div>
-    <div class="color-grid" id="grid-color"></div>
-    <div class="subhead">方位詞（實指 / 虛指）</div>
-    <div id="list-direction"></div>
-    <div class="subhead">人稱代名詞</div>
-    <div class="grid" id="grid-pronoun"></div>
-    <div class="subhead">常見通同字（精選高頻）</div>
-    <div class="grid" id="grid-tongjia"></div>
+    <details class="memory-group" open><summary>先教：人稱代名詞（可由說話角色判斷）</summary><div class="memory-body"><div class="grid" id="grid-pronoun"></div></div></details>
+    <details class="memory-group"><summary>再教：顏色詞（常見意象）</summary><div class="memory-body"><div class="color-grid" id="grid-color"></div></div></details>
+    <details class="memory-group"><summary>需記憶：方位詞的特殊義</summary><div class="memory-body"><div id="list-direction"></div></div></details>
+    <details class="memory-group"><summary>需記憶：課內常見通同字</summary><div class="memory-body"><div class="grid" id="grid-tongjia"></div></div></details>
+    <button class="practice-btn" data-focus="特殊字義">立刻練 6 題特殊字義</button>
   </section>
 
   <!-- 測驗 -->
   <section class="station" data-station="quiz">
     <div class="station-head">
       <span class="tag">延伸測驗</span>
-      <h2>即時操練＋</h2>
-      <p>65 題全新題目，涵蓋四站內容，選你想加強的類別，或全部一起來。</p>
+      <h2>每回 10 題綜合練習</h2>
+      <p>先選範圍；每回最多 10 題，答完看解析，再回到對應段落補強。</p>
     </div>
 
     <div class="quiz-setup" id="quiz-setup">
@@ -403,11 +452,11 @@ footer{text-align:center;padding:30px 0;color:var(--ink-soft);font-size:12px;}
 
 </div>
 
-<footer>依課本「判別字義」單元整理，精選高頻內容，並新增延伸練習題。</footer>
+<footer>依課本「判別字義」單元與教育部國語辭典資料整理；教材版本未註明，僅供課堂複習使用。</footer>
 
 <script>
 /* ================= DATA ================= */
-const LIANGCI = [
+const LIANGCI_LEGACY = [
 ["輪","一輪明月（滿月，強調圓）"],["彎","一彎新月（弦月，強調弧形）"],
 ["幅","一幅油畫、三幅掛圖"],["副","一副碗筷、三副眼鏡"],
 ["具","棺材兩具、一具屍體"],["襲","一襲新衣、一襲洋裝"],
@@ -428,7 +477,22 @@ const LIANGCI = [
 ["帖","一帖中藥"],["罈","一罈醬菜、兩罈酒"]
 ];
 
-const SHIXU = [
+const LIANGCI = [
+["輪","一輪明月（強調圓形）"],["彎","一彎新月（強調弧形）"],
+["幅","一幅畫、三幅掛圖"],["副","一副碗筷、兩副眼鏡"],
+["具","一具屍體、棺木兩具"],["襲","一襲新衣、一襲長裙"],
+["席","一席話、三席名額"],["番","一番功夫、三番兩次"],
+["局","一局棋、對弈兩局"],["宗","一宗案件、一宗買賣"],
+["手","寫一手好字、彈一手好琴"],["抹","一抹浮雲、一抹餘暉"],
+["股","一股勁、一股幽香"],["陣","一陣風、一陣騷動"],
+["卷","一卷紙、讀書破萬卷"],["齣","一齣戲"],
+["尊","三尊佛像"],["撮","一撮鹽、兩撮頭髮"],
+["盅","一盅湯"],["闋","一闋詞、歌數闋"],
+["匹","一匹布、兩匹馬"],["頓","一頓飯、責罵一頓"],
+["帖","一帖中藥"],["罈","一罈酒、兩罈醬菜"]
+];
+
+const SHIXU_LEGACY = [
 ["滄海一粟","real","「一」粒米，比喻極其渺小。"],
 ["一命嗚呼","real","指生命結束。"],
 ["兩袖清風","real","兩邊衣袖空無一物，比喻官吏清廉。"],
@@ -467,7 +531,26 @@ const SHIXU = [
 ["萬事俱備，只欠東風","virtual","一切都準備好了，就缺最後的關鍵條件。"]
 ];
 
-const DUOYI = [
+const SHIXU = [
+["歲寒三友","real","【需記憶】固定指松、竹、梅三種植物，能一一列出。"],
+["三不朽","real","【需記憶】固定指立德、立功、立言三件事。"],
+["四書五經","real","【需記憶】四書與五經各有固定範圍，數字有確切所指。"],
+["三從四德","real","【需記憶】「三從」「四德」都有固定內容。"],
+["五體投地","real","【需記憶】原指兩膝、兩肘和頭著地。"],
+["半斤八兩","real","【需記憶】舊制一斤十六兩，半斤正好八兩。"],
+["八仙過海","real","【需記憶】指傳說中的八位仙人。"],
+["三心二意","virtual","數字不是確切計數，用來形容心意不定。"],
+["三思而後行","virtual","「三思」指反覆、多次思考，不限恰好三次。"],
+["白髮三千丈","virtual","以誇張數字形容白髮很長。"],
+["五顏六色","virtual","泛指色彩種類繁多，不是恰好五種和六種。"],
+["七嘴八舌","virtual","泛指人多口雜，不是恰好七張嘴、八條舌。"],
+["九死一生","virtual","誇張形容處境極危險，不是精確次數。"],
+["百折不撓","virtual","「百」泛指挫折很多，不是恰好一百次。"],
+["千篇一律","virtual","「千」泛指篇數很多。"],
+["萬紫千紅","virtual","「萬、千」泛指色彩繁多。"]
+];
+
+const DUOYI_LEGACY = [
 ["之",[["動","往","黃鶴樓送孟浩然之廣陵","（在黃鶴樓）送孟浩然前往廣陵。"],["助","無義（賓語提前）","何陋之有","有什麼簡陋的呢？"]]],
 ["去",[["動","離開","朝辭爺孃去，暮宿黃河邊","早上辭別父母離開，晚上住在黃河邊。"],["動","距離","河漢清且淺，相去復幾許","銀河清淺，彼此距離又有多遠？"]]],
 ["謝",[["動","賠罪、認錯","獨有斬賈充，少可以謝天下耳","只有斬首賈充，才可稍稍賠罪於天下。"],["動","拒絕、推卻","公子謝曰：臣非敢辭也","公子拒絕說：我不是推辭。"]]],
@@ -503,7 +586,20 @@ const DUOYI = [
 ["卒",[["副","終究","一夜數徙床，卒無乾處","一夜多次遷移床鋪，終究沒一處是乾的。"],["動","死亡","晚年與修唐書，書成未奏而卒","晚年參與編修唐書，還沒完成就死了。"]]]
 ];
 
-const COLORS = [
+const DUOYI = [
+["之",[["動","往、到","黃鶴樓送孟浩然之廣陵","送孟浩然前往廣陵。"],["助","無實義（賓語提前的標記）","何陋之有","相當於「有何陋」，有什麼簡陋的呢？"]]],
+["以",[["介","用、拿","余以杖擊蛇","我用手杖打蛇。"],["介","因為、由於","不以人廢言","不因為一個人的品德不好，就捨棄他正確的話。"]]],
+["於",[["介","從","千里之行，始於足下","遙遠的路程，從腳下第一步開始。"],["介","比","苛政猛於虎也","嚴苛的政令比老虎還凶猛。"]]],
+["比",[["動","比較","人比黃花瘦","人比菊花更加消瘦。"],["介／副","等到","比及三年，可使有勇","等到三年後，可以使人民勇敢。"]]],
+["見",[["助","被（表被動）","吾常見笑於大方之家","我常被內行人譏笑。"],["代詞性成分","我","幸勿見怪","希望不要怪我。"]]],
+["令",[["形","美好、和善","巧言令色，鮮矣仁","說漂亮話、裝出和善臉色的人，很少有仁德。"],["動","使、讓","無竹令人俗","沒有竹子會使人變得庸俗。"]]],
+["徒",[["副","白白地","徒勞心力","白白耗費心力。"],["副","只有、僅僅","家居徒四壁立","家中只有四面牆。"]]],
+["其",[["副","大概（表推測）","其恕乎","大概就是「恕」吧。"],["副","難道（表反詰）","國無主，其能久乎","國家沒有君主，難道能長久嗎？"]]],
+["為",[["動","作為、當作","因以為號焉","因此把它當作自己的別號。"],["介","被","二蟲盡為所吞","兩隻蟲全被吞食。"]]],
+["適",[["副","剛才、恰好","適才在此","剛才在這裡。"],["動","往、到","他適","到別處去。"]]]
+];
+
+const COLORS_LEGACY = [
 ["白色","素帳、明眸皓齒、鶴髮童顏"],["黃色","面黃飢瘦"],
 ["淡青色","水皆縹碧"],["綠色","蒼松翠柏"],
 ["青綠色","滄海桑田、樓上晴天碧四垂"],
@@ -511,7 +607,14 @@ const COLORS = [
 ["黑色","烏雲、黔首、黧黑、其色墨、玄端章甫、青紅皁白、朝如青絲暮成雪"]
 ];
 
-const DIRECTION = [
+const COLORS = [
+["白色","素手、皓齒、鶴髮"],["黃色","面黃肌瘦"],
+["淡青色","縹碧"],["綠色","翠柏"],
+["青綠色","碧水"],["紅色","緋紅、丹楓、朱曦"],
+["青黑色","黛青"],["黑色","烏雲、黔首、黧黑、玄衣"]
+];
+
+const DIRECTION_LEGACY = [
 ["東西","實指：東窗事發、大江東去、日薄西山、駕鶴西歸","虛指：作東（請客的人）、東倒西歪（無義）、買東西（物品）"],
 ["南北","實指：坐北朝南、南轅北轍","虛指：終南捷徑（地名）、追亡逐北（敗逃的軍隊）"],
 ["上下","實指：梁上君子、股掌之上、胯下之辱、瓜田李下","虛指：成千上萬（將近）、上流社會（地位高）、禮賢下士（謙讓）"],
@@ -519,7 +622,14 @@ const DIRECTION = [
 ["前後","實指：自掃門前雪、勇往直前、拋諸腦後、瞠乎其後","虛指：前車之鑑（過去）、前景看好（未來）、後患無窮（未來）"]
 ];
 
-const PRONOUN = [
+const DIRECTION = [
+["東／西","實指：大江東去、日薄西山","需記憶：東道主（接待賓客的主人）、駕鶴西歸（死亡的婉辭）"],
+["南／北","實指：坐北朝南、南轅北轍","需記憶：追亡逐北的「北」指敗逃者"],
+["左／右","實指：左顧右盼、向右看齊","需記憶：左遷（降職）、無出其右（沒有人能勝過他）"],
+["前／後","實指：勇往直前、拋諸腦後","引申：前車之鑑指過去的教訓；後患指未來的禍患"]
+];
+
+const PRONOUN_LEGACY = [
 ["余","第一人稱（我）","余憶童稚時，能張目對日"],
 ["予","第一人稱（我）","予獨愛蓮之出淤泥而不染"],
 ["吾","第一人稱（我）","吾十有五而志於學"],
@@ -534,7 +644,20 @@ const PRONOUN = [
 ["伊","第三人稱（他）","所謂伊人，在水一方"]
 ];
 
-const TONGJIA = [
+const PRONOUN = [
+["余","第一人稱（我）","余憶童稚時"],
+["予","第一人稱（我）","予獨愛蓮之出淤泥而不染"],
+["吾","第一人稱（我）","吾十有五而志於學"],
+["僕","第一人稱（謙稱，我）","足下久不得僕書"],
+["子","第二人稱（你）","子何恃而往"],
+["爾","第二人稱（你）","爾安敢輕吾射"],
+["汝／女","第二人稱（你）","女以予為多學而識之者與"],
+["君","第二人稱（你）","君自故鄉來"],
+["彼","第三人稱（他／對方）","知己知彼"],
+["伊","第三人稱（他／她）","所謂伊人，在水一方"]
+];
+
+const TONGJIA_LEGACY = [
 ["拂","弼","輔佐"],["暴","曝","晒"],["俛","俯","低頭"],
 ["啖","噉","吃"],["娘","孃","媽媽"],["怜","憐","可憐"],
 ["衡","橫","阻塞不順"],["弟","悌","和順恭敬對待兄長"],
@@ -547,8 +670,21 @@ const TONGJIA = [
 ["止","只","僅"]
 ];
 
+const TONGJIA = [
+["暴","曝","晒；如「一暴十寒」"],
+["反","返","返回"],
+["說","悅","高興、喜悅"],
+["亡","無","沒有"],
+["女","汝","你"],
+["有","又","用於整數與零數之間，如「十有五」"],
+["衡","橫","梗塞、不順"],
+["拂","弼","輔佐"],
+["無","毋","不要"],
+["食","飼","餵養"]
+];
+
 /* ================= QUIZ QUESTIONS ================= */
-const QUIZ = [
+const QUIZ_LEGACY = [
 // 量詞
 {cat:"量詞",q:"一（　）幽香撲鼻而來",opts:["股","陣","抹","團"],ans:"股",ex:"「股」可形容氣味、力道，如一股幽香、一股勁。"},
 {cat:"量詞",q:"他寫了一（　）好字，令人佩服",opts:["手","把","枚","幅"],ans:"手",ex:"「手」作技藝的量詞，如一手好字、一手好琴。"},
@@ -621,13 +757,51 @@ const QUIZ = [
 {cat:"數字成語",q:"「才高八斗」用來稱譽？",opts:["稱譽人才學很高","形容人處世圓滑","形容極危險的境遇","形容書讀很多"],ans:"稱譽人才學很高",ex:"謝靈運讚曹植獨占八斗之才。"}
 ];
 
+// 精簡後的課堂題庫：以可套用的判斷流程為主；只能靠固定知識作答者明標「需記憶」。
+const QUIZ = [
+  {cat:"方法暖身",q:"判別「苛政猛於虎也」的「於」時，第一步最適合做什麼？",opts:["只背「於」的所有解釋","讀前後的「苛政猛」與「虎」，判斷兩者關係","看到文言文就選「在」","先查作者年代"],ans:"讀前後的「苛政猛」與「虎」，判斷兩者關係",ex:"先讀搭配：句子在比較苛政與老虎，因此「於」相當於「比」。"},
+  {cat:"方法暖身",q:"遇到「一（　）話」的量詞題，應先抓哪個線索？",opts:["名詞「話」","數字「一」","句號","說話者姓名"],ans:"名詞「話」",ex:"量詞要看後接名詞；「話」的固定搭配是「一席話」。"},
+  {cat:"方法暖身",q:"判斷成語中的數字是實數或虛數，最先要問什麼？",opts:["數字筆畫多不多","能不能指出確切對象或數量","成語有沒有四個字","數字是不是偶數"],ans:"能不能指出確切對象或數量",ex:"能具體列出對象通常是實數；只表示多、少、反覆或誇飾通常是虛數。"},
+  {cat:"方法暖身",q:"下列哪一類最常需要另外記憶，不能只靠上下文穩定推出？",opts:["通同字與典故","一般量詞搭配","句中的比較關係","說話者自稱"],ans:"通同字與典故",ex:"通同字與典故屬課內固定知識；講義會明標「需記憶」。"},
+
+  {cat:"量詞",q:"夜空中升起一（　）明月。先看「明月」圓滿的形象，應填哪個量詞？",opts:["輪","席","宗","闋"],ans:"輪",ex:"「輪」可用於圓形事物；固定搭配為「一輪明月」。"},
+  {cat:"量詞",q:"天邊掛著一（　）新月，形狀像弧線。應填哪個量詞？",opts:["彎","副","具","載"],ans:"彎",ex:"「彎」強調弧形，常說「一彎新月」。"},
+  {cat:"量詞",q:"聽君一（　）話，勝讀十年書。後接「話」，應填哪個量詞？",opts:["席","襲","幀","尊"],ans:"席",ex:"「席」可計算談話的次數，固定說法是「一席話」。"},
+  {cat:"量詞",q:"她填了一（　）詞。計算詞作，應填哪個量詞？",opts:["闋","宗","股","局"],ans:"闋",ex:"「闋」可計算歌、詞、曲。"},
+  {cat:"量詞",q:"警方偵破一（　）案件。後接「案件」，應填哪個量詞？",opts:["宗","抹","盅","彎"],ans:"宗",ex:"「宗」可計算交易或案件，如「一宗案件」。"},
+
+  {cat:"數字成語",q:"「四書五經」中的數字可以列出固定典籍，屬於哪一類？",opts:["實數","虛數","量詞","通同字"],ans:"實數",ex:"四書與五經都能列出固定對象，因此數字有確切所指，判為實數。"},
+  {cat:"數字成語",q:"「歲寒三友」指松、竹、梅三種植物，數字「三」屬於哪一類？",opts:["實數","虛數","誇飾","無義"],ans:"實數",ex:"松、竹、梅正好三種，可以一一列出，所以是實數。"},
+  {cat:"數字成語",q:"「五顏六色」只是形容色彩很多，不要求正好五種顏色、六種色彩，屬於哪一類？",opts:["實數","虛數","量詞","人稱"],ans:"虛數",ex:"數字用來泛指種類繁多，不能列出固定的五與六，因此是虛數。"},
+  {cat:"數字成語",q:"「百折不撓」表示經歷很多挫折仍不屈服，「百」屬於哪一類？",opts:["實數","虛數","方位詞","代名詞"],ans:"虛數",ex:"「百」表示次數很多，不是恰好一百次，所以是虛數。"},
+  {cat:"數字成語",q:"【需記憶】「五體投地」原指兩膝、兩肘和頭著地。此處「五」屬於哪一類？",opts:["實數","虛數","誇飾","無法判斷"],ans:"實數",ex:"這題需知道典故：兩膝、兩肘與頭合計五個部位，所以是實數。"},
+
+  {cat:"一字多義",q:"「黃鶴樓送孟浩然之廣陵」的「之」，代回哪個意思最通順？",opts:["前往","他","的","這件事"],ans:"前往",ex:"孟浩然是前往廣陵；「之」在此作動詞，意思是「往、到」。"},
+  {cat:"一字多義",q:"「何陋之有」的「之」沒有實際詞義，作用是把賓語提前。應選哪一項？",opts:["結構助詞，無實義","前往","代替陋室","因此"],ans:"結構助詞，無實義",ex:"這是「何陋之有」的固定倒裝句型，相當於「有何陋」。"},
+  {cat:"一字多義",q:"「余以杖擊蛇」的「以」，從「杖」是工具判斷，意思是？",opts:["用、拿","因為","認為","以後"],ans:"用、拿",ex:"把答案代回：我用手杖打蛇，句意通順；「以」在此引出工具。"},
+  {cat:"一字多義",q:"「苛政猛於虎也」把苛政和老虎相比，「於」的意思是？",opts:["比","在","從","被"],ans:"比",ex:"形容詞「猛」後接比較對象「虎」，所以「於」表示「比」。"},
+  {cat:"一字多義",q:"「無竹令人俗」中的「令」放在「人」前，表示造成某種結果。意思是？",opts:["使、讓","美好","命令","縣令"],ans:"使、讓",ex:"代回原句：沒有竹子會使人變得庸俗，因此「令」是使、讓。"},
+  {cat:"一字多義",q:"「家居徒四壁立」是說家中僅有四面牆，「徒」的意思是？",opts:["只有、僅僅","徒弟","步行","白費"],ans:"只有、僅僅",ex:"由貧困語境可知，句意是家中只有四面牆。"},
+
+  {cat:"特殊字義",q:"「余憶童稚時」是作者自述往事，「余」指誰？",opts:["我","你","他","眾人"],ans:"我",ex:"由說話者自述可判斷，「余」是第一人稱「我」。"},
+  {cat:"特殊字義",q:"「所謂伊人，在水一方」中的「伊」指被思念的人，屬於哪一人稱？",opts:["第三人稱","第一人稱","第二人稱","疑問代詞"],ans:"第三人稱",ex:"「伊」在此相當於「他／她」，是第三人稱。"},
+  {cat:"特殊字義",q:"「纖纖擢素手」形容女子白皙的手，「素」表示哪種顏色？",opts:["白色","紅色","黑色","綠色"],ans:"白色",ex:"由「白皙」語境可知，「素手」的「素」指白色。"},
+  {cat:"特殊字義",q:"【需記憶】古文中的「左遷」通常指什麼？",opts:["降職、貶官","升官","向左移動","回鄉"],ans:"降職、貶官",ex:"「左遷」是固定的古代官職用語，需記憶為降職、貶官。"},
+
+  {cat:"通同字",q:"【需記憶】「一暴十寒」的「暴」同「曝」，意思是？",opts:["晒","凶狠","突然","瀑布"],ans:"晒",ex:"「暴」讀ㄆㄨˋ，同「曝」，指在日光下曝晒。"},
+  {cat:"通同字",q:"【需記憶】「無道人之短」中的「無」同「毋」，意思是？",opts:["不要","沒有","無論","不曾"],ans:"不要",ex:"「毋」表示禁止或勸止；整句是「不要說別人的短處」。"},
+  {cat:"通同字",q:"【需記憶】「反」在古文中有時同「返」，意思是？",opts:["返回","反對","相反","反省"],ans:"返回",ex:"這是固定通同關係：「反」同「返」，表示回去。"},
+  {cat:"通同字",q:"【需記憶】「學而時習之，不亦說乎」的「說」同「悅」，意思是？",opts:["高興、喜悅","說話","解釋","勸說"],ans:"高興、喜悅",ex:"「說」讀ㄩㄝˋ，同「悅」，表示心中喜悅。"}
+];
+
 /* ================= RENDER ================= */
 const stations = [
+  {id:"method",label:"先學方法"},
   {id:"liangci",label:"① 量詞"},
   {id:"shixu",label:"② 實數虛數"},
   {id:"duoyi",label:"③ 一字多義"},
-  {id:"other",label:"④ 其他字義"},
-  {id:"quiz",label:"✎ 延伸測驗"}
+  {id:"other",label:"④ 必背整理"},
+  {id:"quiz",label:"課堂練習"}
 ];
 const tabsEl = document.getElementById('tabs');
 stations.forEach((s,i)=>{
@@ -642,12 +816,15 @@ function switchStation(id){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id));
   document.querySelectorAll('.station').forEach(s=>s.classList.toggle('active',s.dataset.station===id));
 }
-document.querySelector('.station[data-station="liangci"]').classList.add('active');
+document.querySelector('.station[data-station="method"]').classList.add('active');
 
+let liangciExpanded=false;
 function renderLiangci(filter){
   const grid=document.getElementById('grid-liangci');
   grid.innerHTML='';
-  LIANGCI.filter(x=>!filter||x[0].includes(filter)).forEach(([ch,ex])=>{
+  let items=LIANGCI.filter(x=>!filter||x[0].includes(filter)||x[1].includes(filter));
+  if(!filter&&!liangciExpanded)items=items.slice(0,12);
+  items.forEach(([ch,ex])=>{
     const card=document.createElement('div');
     card.className='card';
     card.innerHTML=`<div class="card-inner">
@@ -660,12 +837,19 @@ function renderLiangci(filter){
 }
 renderLiangci('');
 document.getElementById('search-liangci').addEventListener('input',e=>renderLiangci(e.target.value.trim()));
+document.getElementById('more-liangci').onclick=()=>{
+  liangciExpanded=!liangciExpanded;
+  document.getElementById('more-liangci').textContent=liangciExpanded?'收回核心 12 個':'展開完整量詞表';
+  renderLiangci(document.getElementById('search-liangci').value.trim());
+};
 
 let shixuFilter='all';
+let shixuExpanded=false;
+const SHIXU_CORE=new Set(['歲寒三友','四書五經','五體投地','三思而後行','五顏六色','百折不撓','千篇一律','萬紫千紅']);
 function renderShixu(){
   const box=document.getElementById('list-shixu');
   box.innerHTML='';
-  SHIXU.filter(x=>shixuFilter==='all'||x[1]===shixuFilter).forEach(([term,type,mean])=>{
+  SHIXU.filter(x=>(shixuFilter==='all'||x[1]===shixuFilter)&&(shixuExpanded||SHIXU_CORE.has(x[0]))).forEach(([term,type,mean])=>{
     const row=document.createElement('div');
     row.className='idiom-row';
     row.innerHTML=`<span class="term">${term}</span><span class="pill ${type}">${type==='real'?'實數':'虛數'}</span><span class="meaning">${mean}</span>`;
@@ -681,11 +865,18 @@ document.querySelectorAll('.filter-btn').forEach(btn=>{
     renderShixu();
   };
 });
+document.getElementById('more-shixu').onclick=()=>{
+  shixuExpanded=!shixuExpanded;
+  document.getElementById('more-shixu').textContent=shixuExpanded?'收回核心例子':'展開完整成語表';
+  renderShixu();
+};
 
+let duoyiExpanded=false;
+const DUOYI_CORE=new Set(['之','以','於','比','見','令','徒','其','為','適']);
 function renderDuoyi(filter){
   const box=document.getElementById('acc-duoyi');
   box.innerHTML='';
-  DUOYI.filter(x=>!filter||x[0].includes(filter)).forEach(([ch,senses])=>{
+  DUOYI.filter(x=>(!filter||x[0].includes(filter))&&(filter||duoyiExpanded||DUOYI_CORE.has(x[0]))).forEach(([ch,senses])=>{
     const acc=document.createElement('div');
     acc.className='acc';
     const sensesHtml=senses.map(([pos,mean,ex,tr])=>`
@@ -756,6 +947,7 @@ const catGrid=document.getElementById('cat-grid');
 cats.forEach(c=>{
   const chip=document.createElement('div');
   chip.className='cat-chip active';
+  chip.dataset.cat=c;
   chip.textContent=c+`（${QUIZ.filter(q=>q.cat===c).length}題）`;
   chip.onclick=()=>{
     if(selectedCats.has(c)){selectedCats.delete(c);chip.classList.remove('active');}
@@ -766,10 +958,22 @@ cats.forEach(c=>{
 
 let quizPool=[],qi=0,score=0;
 
+document.querySelectorAll('[data-focus]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const focus=btn.dataset.focus;
+    const wanted=focus==='特殊字義'?['特殊字義','通同字']:[focus];
+    selectedCats=new Set(wanted);
+    document.querySelectorAll('.cat-chip').forEach(chip=>chip.classList.toggle('active',selectedCats.has(chip.dataset.cat)));
+    switchStation('quiz');
+    document.getElementById('start-btn').click();
+  });
+});
+
 document.getElementById('start-btn').onclick=()=>{
   quizPool=QUIZ.filter(q=>selectedCats.has(q.cat));
   if(quizPool.length===0){quizPool=[...QUIZ];}
   for(let i=quizPool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[quizPool[i],quizPool[j]]=[quizPool[j],quizPool[i]];}
+  quizPool=quizPool.slice(0,10);
   qi=0;score=0;
   document.getElementById('quiz-setup').style.display='none';
   document.getElementById('result-box').style.display='none';
