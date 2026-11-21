@@ -21,7 +21,7 @@ html {scroll-padding-top:100px}
 body {margin:0;background:var(--paper);color:var(--ink);font:500 16px/1.85 var(--sans);overflow-wrap:anywhere}
 h1,h2,h3,h4 {font-family:var(--serif);font-weight:900;line-height:1.5;margin:0 0 10px}
 p {margin:0 0 12px}
-button {font:inherit;cursor:pointer}
+button {font:inherit;cursor:pointer;touch-action:manipulation}
 button:disabled {cursor:default}
 a {color:var(--deep);text-underline-offset:4px}
 button:focus-visible,a:focus-visible,summary:focus-visible {outline:3px solid var(--gold);outline-offset:4px}
@@ -72,6 +72,8 @@ h2 {font-size:30px;color:var(--deep);margin-bottom:6px}
 .exercise-head {display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}
 .exercise-head strong {font-size:14px;color:var(--lake);font-weight:800}
 .exercise-head span {font-size:13px;color:var(--muted);font-weight:600}
+.head-tools {display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.btn.small {font-size:13px;padding:2px 10px}
 .question {font:700 19px/1.85 var(--sans);margin:5px 0 13px}
 .options {display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .option {display:flex;gap:10px;align-items:start;background:var(--card);color:var(--ink);border:1px solid #cecfc0;border-radius:7px;text-align:left;padding:11px 13px;font-size:15px;line-height:1.75;font-weight:600}
@@ -285,24 +287,35 @@ const exam = [
 ];
 const $ = id => document.getElementById(id);
 const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[char]);
-const storageKey = 'lake-poetry-independent-v2';
+const storageKey = 'lake-poetry-independent-v3';
 const allQuestions = {...practice, exam};
+// 每題依題幹、選項、答案算出指紋；題目改過，舊作答就不會套到新題目上
+function signature(q) {
+  const text = JSON.stringify([q.type,q.prompt,q.options,q.answer]);
+  let hash = 5381;
+  for(let i=0;i<text.length;i++) hash = ((hash*33)^text.charCodeAt(i))>>>0;
+  return hash.toString(36);
+}
+const questionChecks = Object.fromEntries(Object.entries(allQuestions).map(([id,qs])=>[id,qs.map(signature)]));
 const totalQuestions = Object.values(allQuestions).reduce((sum,qs)=>sum+qs.length,0);
 const navigation = [...chapters.map(chapter=>[chapter.id,chapter.title]),['compare','詩詞比較'],['exam','綜合測驗']];
 const rounds = {};
 const orderDrafts = {};
 let stored = {};
 let active = 'dongting';
+let quietUntil = 0;
 try {stored = JSON.parse(localStorage.getItem(storageKey)) || {};} catch {}
+try {localStorage.removeItem('lake-poetry-independent-v2');} catch {}
 function newRound() {return {index:0,answers:{},submitted:false};}
 for(const [id,questions] of Object.entries(allQuestions)) {
   const previous = stored[id];
   const round = newRound();
   if(previous && typeof previous==='object') {
     round.index = Number.isInteger(previous.index) && previous.index>=0 && previous.index<questions.length ? previous.index : 0;
+    const checks = Array.isArray(previous.checks) ? previous.checks : [];
     for(const [key,pick] of Object.entries(previous.answers || {})) {
       const q = questions[key];
-      if(!q) continue;
+      if(!q || checks[key]!==questionChecks[id][key]) continue;
       const valid = q.type==='order' ? Array.isArray(pick) && pick.length===q.options.length && new Set(pick).size===pick.length && pick.every(n=>Number.isInteger(n)&&n>=0&&n<q.options.length) : Number.isInteger(pick)&&pick>=0&&pick<q.options.length;
       if(valid) round.answers[key]=pick;
     }
@@ -311,7 +324,11 @@ for(const [id,questions] of Object.entries(allQuestions)) {
   rounds[id]=round;
   orderDrafts[id]=[];
 }
-function save() {try {localStorage.setItem(storageKey,JSON.stringify(rounds));} catch {}}
+function save() {
+  const data = {};
+  for(const [id,round] of Object.entries(rounds)) data[id] = {...round,checks:questionChecks[id]};
+  try {localStorage.setItem(storageKey,JSON.stringify(data));} catch {}
+}
 function correct(q,pick) {return q.type==='order' ? Array.isArray(pick)&&q.answer.every((n,i)=>n===pick[i]) : q.answer===pick;}
 function answerText(q,pick) {
   if(pick===undefined) return '未作答';
@@ -384,11 +401,12 @@ function quizMarkup(id) {
   const missing=questions.length-Object.keys(round.answers).length;
   const last=index===questions.length-1;
   const nav=isExam?`<div class="question-nav" role="group" aria-label="測驗題號">${questions.map((_,i)=>`<button type="button" data-action="jump" data-value="${i}" aria-label="第 ${i+1} 題，${round.answers[i]===undefined?'未答':'已答'}" ${i===index?'aria-current="step"':''} class="${round.answers[i]===undefined?'':'answered'}">${i+1}</button>`).join('')}</div>`:'';
-  return `${nav}<div class="exercise-head"><strong>${isExam?q.skill:'即時練習・'+q.skill}</strong><span>第 ${index+1} / ${questions.length} 題</span></div>
+  const resetButton=Object.keys(round.answers).length?`<button type="button" class="btn small" data-action="reset" data-label="${isExam?'清除作答':'重做本篇'}">${isExam?'清除作答':'重做本篇'}</button>`:'';
+  return `${nav}<div class="exercise-head"><strong>${isExam?q.skill:'即時練習・'+q.skill}</strong><span class="head-tools"><span>第 ${index+1} / ${questions.length} 題</span>${resetButton}</span></div>
   <h4 class="question" id="question-${id}" tabindex="-1">${escapeHTML(q.prompt)}</h4>${optionsMarkup(id,q,pick,revealed)}
   ${revealed?`<div class="feedback ${correct(q,pick)?'':'wrong'}" id="feedback-${id}" role="status" tabindex="-1"><strong>${correct(q,pick)?'答對了':'再看一次'}</strong>　${escapeHTML(q.why)}</div>`:''}
   <div class="quiz-actions">
-  ${index>0?'<button type="button" class="btn" data-action="previous">上一題</button>':''}
+  <button type="button" class="btn" data-action="previous" ${index>0?'':'disabled'}>上一題</button>
   ${q.type==='order'&&!revealed?`<button type="button" class="btn primary" data-action="check" ${orderDrafts[id].length===3?'':'disabled'}>確認排序</button>`:''}
   ${!last?`<button type="button" class="btn ${q.type==='order'&&!revealed?'':'primary'}" data-action="next">${!isExam&&!revealed?'先跳過':'下一題'}</button>`:''}
   ${last&&!isExam?`<button type="button" class="btn primary" data-action="finish" ${missing?'disabled':''}>看練習結果</button>`:''}
@@ -442,12 +460,21 @@ $('content').addEventListener('click',event=>{
   if(anchor) {event.preventDefault();$(anchor.dataset.scroll).scrollIntoView({block:'start'});return;}
   const button=event.target.closest('button[data-action]');
   if(!button||button.disabled) return;
+  // 換題後短暫忽略點擊，避免連點時第二下落在新題目的選項上
+  if(performance.now()<quietUntil) return;
   const id=button.closest('[data-quiz]').dataset.quiz;
   const round=rounds[id];
   const qs=allQuestions[id];
   const oldIndex=round.index;
   const {action,value}=button.dataset;
   const pick=Number(value);
+  if(action==='reset'&&!round.submitted&&button.dataset.armed!=='true') {
+    button.dataset.armed='true';
+    button.textContent='再按一次確認';
+    quietUntil=performance.now()+400;
+    setTimeout(()=>{if(button.isConnected){button.dataset.armed='false';button.textContent=button.dataset.label;}},3000);
+    return;
+  }
   switch(action) {
     case 'pick': round.answers[round.index]=pick; break;
     case 'add': if(!orderDrafts[id].includes(pick)) orderDrafts[id].push(pick); break;
@@ -461,6 +488,7 @@ $('content').addEventListener('click',event=>{
     case 'reset': rounds[id]=newRound(); break;
   }
   if(oldIndex!==round.index||action==='reset') orderDrafts[id]=[];
+  if(oldIndex!==round.index||action==='reset'||action==='finish') quietUntil=performance.now()+400;
   const quiz=$('quiz-'+id);
   quiz.innerHTML=quizMarkup(id);
   if(id==='exam') $('exam-texts').innerHTML=rounds.exam.submitted?'<div class="info-card"><h3>作答完成</h3><p>可在錯題解析裡展開原文，重新核對判斷依據。</p></div>':examTexts(exam[rounds.exam.index].source);
