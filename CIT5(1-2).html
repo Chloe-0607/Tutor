@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="國中公民第五冊消費與生產第1、2章重點互動講義，包含機會成本、消費選擇、生產、需求與供給。">
+<title>消費與生產｜公民重點互動講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rice:#fbfaf6;
+    --paper:#ffffff;
+    --paper-warm:#f2f5f7;
+    --ink:#283746;
+    --ink-soft:#687789;
+    --ledger:#3d74a3;
+    --ledger-deep:#25547f;
+    --ledger-soft:#e3eef7;
+    --grain:#c79b56;
+    --grain-soft:#f7edd9;
+    --clay:#5c8db5;
+    --clay-soft:#e9f2f8;
+    --sprout:#7392a0;
+    --sprout-soft:#e5eef1;
+    --line:#d9e1e7;
+    --correct:#39704d;
+    --wrong:#a23f37;
+    --shadow:0 14px 36px -30px rgba(37,84,127,.34);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--rice);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.72;min-height:100vh}
+  button,input{font:inherit}
+  button{touch-action:manipulation}
+  .watermark{position:fixed;right:-.05em;top:-.18em;z-index:0;font-family:'Noto Serif TC',serif;font-size:min(52vw,520px);font-weight:900;line-height:1;color:var(--ledger);opacity:.035;pointer-events:none;transition:opacity .25s}
+  .wrap{position:relative;z-index:1;width:min(100% - 32px,980px);margin:0 auto;padding-bottom:72px}
+  header{padding:52px 0 30px;border-bottom:1px solid var(--ledger);text-align:center}
+  .eyebrow{font-size:12px;letter-spacing:.3em;color:var(--clay);font-weight:700;margin-bottom:12px}
+  h1,h2,h3{font-family:'Noto Serif TC',serif}
+  h1{font-size:clamp(28px,5vw,46px);line-height:1.3;margin:0;color:var(--ledger-deep);letter-spacing:.03em}
+  header .lead{color:var(--ink-soft);margin:12px auto 0;max-width:700px;font-size:15px}
+  .tabs{position:sticky;top:0;z-index:30;display:flex;gap:7px;padding:12px 0;background:rgba(247,244,236,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);overflow-x:auto}
+  .tab-btn{flex:1 0 148px;border:1px solid var(--ledger);background:var(--paper);color:var(--ledger-deep);padding:9px 10px;border-radius:7px;cursor:pointer;font-weight:700;font-size:13px;line-height:1.35}
+  .tab-btn small{display:block;font-weight:500;font-size:10px;color:var(--ink-soft);margin-top:2px}
+  .tab-btn.active{background:var(--ledger-deep);color:#fff}
+  .tab-btn.active small{color:#dce9e7}
+  main{padding-top:30px}
+  .chapter-section{display:none;animation:rise .35s ease}
+  .chapter-section.active{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+  .section-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px}
+  .section-kicker{display:inline-flex;align-items:center;justify-content:center;min-width:52px;height:28px;border:1px solid var(--clay);color:var(--clay);font-family:'Noto Serif TC',serif;font-size:12px;font-weight:700;letter-spacing:.08em}
+  .section-head h2{font-size:clamp(23px,4vw,32px);line-height:1.3;margin:0;color:var(--ledger-deep)}
+  .section-head p{margin:5px 0 0;color:var(--ink-soft);font-size:14px}
+  .card-grid,.formula-grid,.lab-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;box-shadow:var(--shadow)}
+  .card.wide{grid-column:1/-1}
+  .card h3{margin:0 0 10px;color:var(--ledger-deep);font-size:17px;line-height:1.45}
+  .card p{margin:6px 0;font-size:14px}
+  .card ul,.card ol{margin:8px 0;padding-left:21px;font-size:14px}
+  .card li{margin:5px 0}
+  .card-label{display:inline-block;font-size:10px;letter-spacing:.13em;color:var(--clay);font-weight:800;margin-bottom:8px}
+  .key{color:var(--clay);font-weight:700}
+  .key-ledger{color:var(--ledger);font-weight:700}
+  .soft{color:var(--ink-soft)}
+  .micro{font-size:12px!important;color:var(--ink-soft)}
+  .lecture-sheet{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--ledger);border-radius:8px;padding:24px;margin:14px 0 20px;box-shadow:var(--shadow)}
+  .lecture-sheet h3{margin:0 0 12px;color:var(--ledger-deep);font-size:21px}
+  .lecture-sheet>p{font-size:15px;margin:8px 0}
+  .concept-lines{margin-top:18px;border-top:1px solid var(--line)}
+  .concept-line{display:grid;grid-template-columns:128px 1fr;gap:18px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .concept-line b{color:var(--ledger-deep);font-family:'Noto Serif TC',serif}
+  .incentive-matrix{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0 20px}
+  .incentive-card{background:#fff;border:1px solid var(--line);border-radius:9px;padding:17px 18px;box-shadow:var(--shadow)}
+  .incentive-card h4{font-family:'Noto Serif TC',serif;color:var(--ledger-deep);font-size:16px;margin:0 0 7px}
+  .incentive-card p{font-size:13px;margin:4px 0}
+  .incentive-tag{display:inline-block;margin-bottom:8px;padding:2px 8px;border-radius:999px;background:var(--ledger-soft);color:var(--ledger-deep);font-size:10px;font-weight:800;letter-spacing:.1em}
+  .incentive-card.negative{border-left:4px solid #a55a53}
+  .incentive-card.positive{border-left:4px solid var(--ledger)}
+  .example-line{background:#f4f8fb;border-left:4px solid var(--ledger);padding:13px 15px;border-radius:0 8px 8px 0;margin:12px 0 18px;font-size:13px}
+  .product-types{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+  .product-type{background:#f5f8fb;border:1px solid var(--line);border-radius:8px;padding:15px}
+  .product-type span{display:block;font-size:11px;color:var(--ink-soft);letter-spacing:.08em;margin-bottom:2px}
+  .product-type strong{display:block;font-family:'Noto Serif TC',serif;color:var(--ledger-deep);font-size:21px;margin-bottom:4px}
+  .product-type p{font-size:13px;margin:0}
+  .mini-title{font-family:'Noto Serif TC',serif;color:var(--ledger-deep);font-size:19px;margin:30px 0 12px;padding-left:12px;border-left:3px solid var(--grain)}
+  .flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin:14px 0}
+  .flow-step{flex:1 1 150px;background:var(--paper);border:1px solid var(--line);padding:14px;border-radius:8px;font-size:13px}
+  .flow-step b{display:block;color:var(--clay);margin-bottom:4px}
+  .flow-arrow{display:flex;align-items:center;color:var(--grain);font-weight:900}
+  .formula{background:var(--ledger-deep);color:#fff;border-radius:10px;padding:20px;min-height:130px;display:flex;flex-direction:column;justify-content:center}
+  .formula .name{font-size:12px;letter-spacing:.12em;color:#cde0dd;margin-bottom:8px}
+  .formula strong{font-family:'Noto Serif TC',serif;font-size:clamp(18px,3vw,24px);line-height:1.45}
+  .formula small{margin-top:8px;color:#dce9e7}
+  .formula-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:9px;margin:12px 0}
+  .formula-step-card{background:#fff;border:1px solid var(--line);border-top:4px solid var(--ledger);border-radius:9px;padding:18px;box-shadow:var(--shadow)}
+  .formula-step-card.focus{background:linear-gradient(145deg,#f7fbff 0%,var(--ledger-soft) 100%);border:2px solid var(--ledger);border-top-width:6px;box-shadow:0 15px 32px -23px rgba(37,84,127,.58);transform:translateY(-3px)}
+  .formula-step-card .step-no{display:inline-flex;width:25px;height:25px;align-items:center;justify-content:center;border-radius:50%;background:var(--ledger);color:#fff;font-weight:800;font-size:12px;margin-bottom:9px}
+  .formula-step-card .must-label{display:inline-block;margin-left:7px;padding:2px 8px;border-radius:999px;background:var(--ledger-deep);color:#fff;font-size:10px;font-weight:800;letter-spacing:.08em;vertical-align:7px}
+  .formula-step-card h4{font-family:'Noto Serif TC',serif;color:var(--ledger-deep);font-size:17px;margin:0 0 8px}
+  .formula-step-card strong{display:block;color:var(--ink);font-size:15px;line-height:1.55}
+  .formula-step-card.focus strong{color:var(--ledger-deep);font-size:18px;font-weight:800}
+  .formula-step-card p{font-size:12px;color:var(--ink-soft);margin:7px 0 0}
+  .formula-join{align-self:center;color:var(--ledger);font-size:21px;font-weight:900}
+  .formula-compare{border:1px solid var(--ledger);background:var(--ledger-soft);color:var(--ledger-deep);border-radius:8px;padding:12px 15px;margin:12px 0 20px;font-size:13px}
+  .mnemonic{margin:18px 0;background:var(--grain-soft);border:1px solid var(--grain);border-radius:9px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+  .mnemonic b{flex:0 0 auto;background:var(--grain);color:#fff;padding:3px 9px;border-radius:4px;font-size:12px;letter-spacing:.08em}
+  .mnemonic p{margin:0;font-family:'Noto Serif TC',serif;font-weight:700}
+  .trap{background:var(--clay-soft);border-left:4px solid var(--clay);padding:14px 16px;margin:15px 0;border-radius:0 8px 8px 0;font-size:14px}
+  .trap strong{color:var(--clay)}
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:9px;background:var(--paper);margin:13px 0 20px}
+  table{width:100%;border-collapse:collapse;min-width:620px;font-size:13px}
+  th{background:var(--ledger-deep);color:#fff;text-align:left;padding:10px 12px;font-weight:700}
+  td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+  tbody tr:nth-child(even){background:#f6f1e6}
+  .now{display:inline-block;border:1px solid var(--sprout);background:var(--sprout-soft);color:#3f6044;border-radius:999px;padding:2px 8px;font-size:11px;font-weight:700}
+  .worked{border:1px solid var(--line);background:var(--paper);border-radius:10px;margin:12px 0;overflow:hidden}
+  .worked summary{cursor:pointer;padding:15px 18px;font-weight:700;color:var(--ledger-deep);list-style:none}
+  .worked summary::-webkit-details-marker{display:none}
+  .worked summary::after{content:'展開列式';float:right;color:var(--clay);font-size:12px}
+  .worked[open] summary::after{content:'收起'}
+  .worked-body{padding:0 18px 18px;font-size:14px}
+  .steps{counter-reset:calc-step;list-style:none!important;padding:0!important}
+  .steps li{counter-increment:calc-step;position:relative;padding:8px 10px 8px 42px;margin:4px 0;background:#f7f3e9;border-radius:6px}
+  .steps li::before{content:counter(calc-step);position:absolute;left:10px;top:8px;width:22px;height:22px;border-radius:50%;background:var(--ledger);color:#fff;text-align:center;line-height:22px;font-size:12px;font-weight:700}
+  .svg-card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:18px;margin:16px 0}
+  .curve-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .curve-btn{border:1px solid var(--ledger);background:#fff;color:var(--ledger-deep);padding:7px 11px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer}
+  .curve-btn.active{background:var(--ledger-deep);color:#fff}
+  .curve-note{background:var(--ledger-soft);padding:11px 13px;border-radius:7px;font-size:13px;min-height:48px}
+  .classify-panel{margin-top:20px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px}
+  .scenario-box{background:#f5f8fa;border-left:4px solid var(--ledger);padding:16px 18px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+  .bucket-buttons,.option-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}
+  .bucket-btn,.option-btn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:11px 12px;border-radius:7px;cursor:pointer;text-align:left;font-size:13px;transition:.15s}
+  .bucket-btn:hover,.option-btn:hover{border-color:var(--ledger);background:var(--ledger-soft)}
+  .bucket-btn:disabled,.option-btn:disabled{cursor:default;opacity:.85}
+  .bucket-btn.correct,.option-btn.correct{border-color:var(--correct);background:#e4f0e7;color:#244d32}
+  .bucket-btn.wrong,.option-btn.wrong{border-color:var(--wrong);background:#f6e2df;color:#7e2c27}
+  .feedback{display:none;margin-top:12px;padding:12px 14px;border-radius:7px;font-size:13px;line-height:1.65}
+  .feedback.show{display:block}
+  .feedback.good{background:#e4f0e7;border-left:4px solid var(--correct)}
+  .feedback.bad{background:#f6e2df;border-left:4px solid var(--wrong)}
+  .mini-progress{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;font-size:12px;color:var(--ink-soft)}
+  .progress-track{height:7px;background:var(--paper-warm);border-radius:999px;overflow:hidden;flex:1}
+  .progress-fill{height:100%;width:0;background:var(--clay);transition:width .3s}
+  .lab-card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;box-shadow:var(--shadow)}
+  .lab-card h3{margin:0 0 5px;color:var(--ledger-deep);font-size:18px}
+  .input-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+  label.input-label{display:block;font-size:12px;color:var(--ink-soft)}
+  .input-label input{display:block;width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;margin-top:4px;background:#fff;color:var(--ink)}
+  .result-board{background:var(--ledger-deep);color:#fff;border-radius:8px;padding:15px;margin-top:12px}
+  .result-board .row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(255,255,255,.18);padding:5px 0;font-size:13px}
+  .result-board .row:last-child{border:0;font-size:16px;font-weight:700;color:#f3d99e}
+  .equation{margin-top:10px;background:#edf3f1;color:var(--ledger-deep);border-radius:6px;padding:9px 11px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;overflow-x:auto}
+  .revenue-table{display:grid;grid-template-columns:1.1fr repeat(3,1fr);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:14px;font-size:12px}
+  .revenue-table div{padding:9px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+  .revenue-table div:nth-child(4n){border-right:0}
+  .revenue-table .head{background:var(--ledger-deep);color:#fff;font-weight:700}
+  .revenue-table .best{background:var(--grain-soft);font-weight:800;color:#704b16}
+  .range-line{display:flex;align-items:center;gap:10px;margin:11px 0}
+  .range-line input{width:100%}
+  .range-value{min-width:58px;color:var(--clay);font-weight:800;text-align:right}
+  .quiz-shell{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow)}
+  .quiz-top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:12px;flex-wrap:wrap}
+  .quiz-count{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--ledger-deep)}
+  .difficulty{font-size:11px;border:1px solid var(--grain);color:#77541f;background:var(--grain-soft);border-radius:999px;padding:3px 9px}
+  .quiz-progress{height:8px;background:var(--paper-warm);border-radius:999px;overflow:hidden;margin-bottom:19px}
+  .quiz-progress span{display:block;height:100%;background:var(--clay);width:0;transition:width .3s}
+  .quiz-kind{font-size:11px;letter-spacing:.11em;color:var(--clay);font-weight:800;margin-bottom:6px}
+  .quiz-stem{font-size:15px;margin:0 0 12px;white-space:pre-line}
+  .quiz-table{width:100%;min-width:0;margin:12px 0;border:1px solid var(--line);font-size:12px}
+  .quiz-table th,.quiz-table td{padding:7px 8px}
+  .answer-input{display:flex;gap:8px;margin-top:12px}
+  .answer-input input{min-width:0;flex:1;border:1px solid var(--line);border-radius:7px;padding:11px;background:#fff}
+  .submit-btn,.next-btn,.reset-btn{border:0;background:var(--ledger-deep);color:#fff;border-radius:7px;padding:10px 16px;cursor:pointer;font-weight:700;font-size:13px}
+  .submit-btn:hover,.next-btn:hover,.reset-btn:hover{background:var(--ledger)}
+  .next-row{display:none;justify-content:flex-end;margin-top:14px}
+  .next-row.show{display:flex}
+  .multi-hint{font-size:12px;color:var(--ink-soft);margin-top:5px}
+  .option-btn.selected{border-color:var(--ledger);background:var(--ledger-soft)}
+  .final-score{text-align:center;padding:18px 0 8px}
+  .score-ring{width:120px;height:120px;border-radius:50%;border:8px solid var(--ledger-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:5px auto 18px;color:var(--ledger-deep)}
+  .score-ring strong{font-family:'Noto Serif TC',serif;font-size:32px;line-height:1}
+  .score-ring small{font-size:11px;color:var(--ink-soft)}
+  .review-list{text-align:left;display:grid;gap:8px;margin:15px 0}
+  .review-item{border:1px solid var(--line);border-radius:7px;padding:10px 12px;font-size:12px;background:#fff}
+  .review-item.good{border-left:4px solid var(--correct)}
+  .review-item.bad{border-left:4px solid var(--wrong)}
+  footer{margin-top:42px;padding:20px 0;border-top:1px solid var(--line);text-align:center;color:var(--ink-soft);font-size:11px}
+  .noscript{background:#fff2cf;border:1px solid #d5b96f;padding:12px;margin-top:16px}
+  @media(max-width:760px){
+    .wrap{width:min(100% - 22px,980px)}
+    header{padding-top:36px}
+    .card-grid,.formula-grid,.lab-grid{grid-template-columns:1fr}
+    .card.wide{grid-column:auto}
+    .bucket-buttons,.option-list{grid-template-columns:1fr}
+    .tabs{margin-left:-2px;margin-right:-2px}
+    .tab-btn{flex-basis:132px}
+    .flow-arrow{display:none}
+    .input-grid{grid-template-columns:1fr}
+    .quiz-shell{padding:16px}
+    .revenue-table{font-size:11px}
+    .concept-line{grid-template-columns:1fr;gap:3px}
+    .incentive-matrix,.product-types{grid-template-columns:1fr}
+    .formula-flow{grid-template-columns:1fr}
+    .formula-join{text-align:center;transform:rotate(90deg)}
+  }
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="watermark" id="wm" aria-hidden="true">選</div>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">國中公民・第五冊</div>
+    <h1>消費與生產</h1>
+    <p class="lead">從有限資源下的選擇與機會成本，理解消費者和生產者如何做決定，再練習需求、供給、收入、成本與利潤。</p>
+  </header>
+
+  <nav class="tabs" aria-label="章節導覽">
+    <button class="tab-btn active" type="button" data-tab="ch1"><span>第 1 章</span><small>選擇、機會成本與消費</small></button>
+    <button class="tab-btn" type="button" data-tab="ch2"><span>第 2 章</span><small>生產與供給</small></button>
+    <button class="tab-btn" type="button" data-tab="challenge"><span>綜合測驗</span><small>觀念、情境與計算</small></button>
+  </nav>
+
+  <main>
+    <section class="chapter-section active" id="ch1">
+      <div class="section-head"><span class="section-kicker">CH. 1</span><div><h2>選擇、誘因與消費者</h2><p>本章要理解：資源不夠滿足所有欲望時，人們如何做選擇？</p></div></div>
+
+      <article class="lecture-sheet">
+        <h3>機會成本：做出選擇時，真正放棄了什麼？</h3>
+        <p>資源有限，所以選擇一項就會放棄其他可能。<span class="key-ledger">機會成本＝放棄選項中價值最高者</span>。</p>
+        <div class="concept-lines">
+          <div class="concept-line"><b>只看最高者</b><span>放棄三個方案時，不把三者相加；只找其中價值最高的替代方案。</span></div>
+          <div class="concept-line"><b>不只金錢</b><span>放棄的可能是薪資，也可能是休息、陪伴家人或便利性。</span></div>
+          <div class="concept-line"><b>自有資源也有代價</b><span>自有店面若原本能出租，放棄的租金就是隱藏成本。</span></div>
+        </div>
+      </article>
+
+      <h3 class="mini-title">機會成本、外顯成本與隱藏成本</h3>
+      <div class="table-wrap"><table><thead><tr><th>概念</th><th>判斷方式</th><th>例子</th></tr></thead><tbody>
+        <tr><td>機會成本</td><td>選擇某方案所放棄的最高價值</td><td>選擇上課，放棄價值最高的打工收入</td></tr>
+        <tr><td>外顯成本</td><td>實際付給別人的金錢</td><td>票價、原料費、店租、員工薪資</td></tr>
+        <tr><td>隱藏成本</td><td>投入自有資源而放棄的收益</td><td>使用自有店面，放棄原可收取的租金</td></tr>
+      </tbody></table></div>
+      <div class="trap"><strong>先看題目問法：</strong>若只是問「放棄選項中的機會成本」，找價值最高的替代方案；若題目明確要求計算使用資源的完整機會成本，再將外顯成本與隱藏成本合計。</div>
+
+      <details class="worked" open><summary>範例一｜三個方案怎麼找機會成本？</summary><div class="worked-body">
+        <p>週六下午只能做一件事：家教可得 1,000 元、咖啡店代班可得 720 元、看電影帶來相當於 500 元的滿足。若選擇家教，機會成本是多少？</p>
+        <ol class="steps"><li>先圈出已選方案：家教。</li><li>列出真正放棄的選項：代班 720 元、電影價值 500 元。</li><li>兩者取價值最高者：max（720，500）＝720。</li><li><b>答案：機會成本為 720 元，不是 1,220 元。</b></li></ol>
+      </div></details>
+
+      <details class="worked"><summary>範例二｜外顯成本與隱藏成本要一起算</summary><div class="worked-body">
+        <p>小安使用自己名下、原可月租 20,000 元的店面開甜點店，每月另支付原料與水電 35,000 元。只考量題目所列資料，使用這些生產資源的機會成本是多少？</p>
+        <ol class="steps"><li>外顯成本：實際付出的原料與水電 35,000 元。</li><li>隱藏成本：自有店面若出租可得 20,000 元，現在放棄這筆租金。</li><li>機會成本＝35,000＋20,000＝55,000 元。</li><li><b>提醒：自己的店面不是「免費」，因為它原本能帶來租金。</b></li></ol>
+      </div></details>
+
+      <h3 class="mini-title">誘因：先判斷「鼓勵」還是「抑制」</h3>
+      <div class="incentive-matrix">
+        <article class="incentive-card positive"><span class="incentive-tag">金錢・正向</span><h4>給獎勵，鼓勵行為</h4><p>獎金、折扣、補助、減稅。</p><p class="micro">例：自備杯折 5 元，鼓勵自備杯。</p></article>
+        <article class="incentive-card negative"><span class="incentive-tag">金錢・負向</span><h4>增加金錢成本，抑制行為</h4><p>罰款、加稅、加收費用。</p><p class="micro">例：塑膠袋收費，降低索取意願。</p></article>
+        <article class="incentive-card positive"><span class="incentive-tag">非金錢・正向</span><h4>給肯定，鼓勵行為</h4><p>表揚、記功、頒發榮譽。</p><p class="micro">例：服務表現優良者公開表揚。</p></article>
+        <article class="incentive-card negative"><span class="incentive-tag">非金錢・負向</span><h4>給處分，抑制行為</h4><p>記過、取消資格、限制使用。</p><p class="micro">例：違規者暫停使用場地。</p></article>
+      </div>
+      <div class="trap"><strong>判別關鍵：</strong>正向、負向不是在說事情「好或壞」，而是看它用獎勵鼓勵行為，還是用成本或處分抑制行為。</div>
+
+      <h3 class="mini-title">消費行為：價格因素與非價格因素</h3>
+      <p class="soft">消費者會分配有限的金錢，購買能滿足需求的商品。判題時先看「商品本身價格有沒有改變」；沒有的話，再找所得、預期心理或個人偏好。</p>
+      <div class="table-wrap"><table><thead><tr><th>因素</th><th>變化</th><th>常見結果</th><th>辨認關鍵字</th></tr></thead><tbody>
+        <tr><td>商品價格</td><td>價格上升／下降</td><td>價格高少買；價格低多買</td><td>漲價、折扣、促銷</td></tr>
+        <tr><td>所得水準</td><td>收入增加／減少</td><td>消費能力改變</td><td>加薪、失業、零用錢</td></tr>
+        <tr><td>預期心理</td><td>預期未來價格或情況改變</td><td>提前或延後購買</td><td>聽說下月漲價、預期降價</td></tr>
+        <tr><td>個人偏好</td><td>喜好、廣告、流行改變</td><td>購買意願改變</td><td>代言、評價、興趣、潮流</td></tr>
+      </tbody></table></div>
+      <div class="example-line"><b>判別示範：</b>「民宿推出六折，訂房增加」是商品價格改變；「聽說下月會漲價，所以現在先買」才是預期心理。先問自己：題目改變的是現在的價格，還是消費者心中的條件？</div>
+
+      <div class="mnemonic"><b>需求法則</b><p>其他條件不變：價格愈高，需求量愈少；價格愈低，需求量愈多。價格與需求量「反向」變動。</p></div>
+
+      <h3 class="mini-title">有限資源怎麼分？</h3>
+      <div class="table-wrap"><table><thead><tr><th>方法</th><th>優點</th><th>可能缺點</th><th>情境</th></tr></thead><tbody>
+        <tr><td>抽籤</td><td>人人都有機會</td><td>全憑運氣</td><td>名額有限、條件相近</td></tr>
+        <tr><td>先占先贏</td><td>先到就能取得</td><td>耗費排隊時間，可能衝突</td><td>限量商品</td></tr>
+        <tr><td>輪流使用</td><td>都有機會使用</td><td>輪到者不一定正好需要</td><td>班級球場時段</td></tr>
+        <tr><td>預約登記</td><td>節省時間、符合需求</td><td>臨時需要者不能立即使用</td><td>圖書館討論室</td></tr>
+        <tr><td>使用者付費</td><td>較有效率，價高者取得</td><td>可能忽略經濟弱勢與公平</td><td>停車位、高速公路</td></tr>
+      </tbody></table></div>
+      <div class="trap"><strong>公平正義與效率：</strong>使用者付費常有利於有效利用資源；但公共政策還要考量實質平等，必要時可對弱勢提供合理差別待遇。</div>
+
+      <div class="classify-panel" id="classifyPanel">
+        <div class="mini-progress"><span id="classifyLabel">情境分類 1／8</span><div class="progress-track"><div class="progress-fill" id="classifyFill"></div></div><span id="classifyScore">0 分</span></div>
+        <h3>快速分類：真正影響購買的因素是什麼？</h3>
+        <div class="scenario-box" id="classifyScenario"></div>
+        <div class="bucket-buttons" id="classifyButtons"></div>
+        <div class="feedback" id="classifyFeedback" aria-live="polite"></div>
+        <div class="next-row" id="classifyNextRow"><button class="next-btn" type="button" id="classifyNext">下一題</button></div>
+      </div>
+    </section>
+
+    <section class="chapter-section" id="ch2">
+      <div class="section-head"><span class="section-kicker">CH. 2</span><div><h2>生產、成本、利潤與供給</h2><p>本章要理解：生產者如何使用有限資源，製造產品並獲取利潤？</p></div></div>
+
+      <div class="card-grid">
+        <article class="card wide"><span class="card-label">生產行為</span><h3>運用資源，製造或提供產品</h3><p>生產者（廠商）是生產行為的決策者；受僱員工是生產所使用的人力資源。</p>
+          <div class="product-types">
+            <div class="product-type"><span>有形的產品</span><strong>財貨</strong><p>看得到、能持有，例如腳踏車、鉛筆、餐點。</p></div>
+            <div class="product-type"><span>無形的服務</span><strong>勞務</strong><p>提供服務或勞動，例如運輸、剪髮、教學。</p></div>
+          </div>
+        </article>
+        <article class="card wide"><span class="card-label">生產選擇</span><h3>生產什麼、如何生產、為誰生產</h3><p>依市場需求選擇產品、決定合適的生產方式，並設定主要消費族群。</p></article>
+      </div>
+
+      <h3 class="mini-title">必會三公式</h3>
+      <div class="formula-flow">
+        <article class="formula-step-card focus"><span class="step-no">1</span><span class="must-label">必背</span><h4>先算銷貨收入</h4><strong>商品價格 × 銷售量</strong><p>例：50 元 × 180 份＝9,000 元</p></article>
+        <div class="formula-join" aria-hidden="true">→</div>
+        <article class="formula-step-card"><span class="step-no">2</span><h4>再加總生產成本</h4><strong>地租＋薪資＋租金＋利息＋原料……</strong><p>只加題目實際列出的成本</p></article>
+        <div class="formula-join" aria-hidden="true">→</div>
+        <article class="formula-step-card focus"><span class="step-no">3</span><span class="must-label">必背</span><h4>最後算利潤</h4><strong>銷貨收入－生產成本</strong><p>答案為負數，代表虧損</p></article>
+      </div>
+      <div class="formula-compare"><b>比較方案時：</b>每個方案都完成三步，再選「利潤最大」者。收入最高不代表利潤一定最高。</div>
+
+      <details class="worked" open><summary>範例三｜一題完整算完收入、成本、利潤</summary><div class="worked-body">
+        <p>園遊會賣雞蛋糕，每份 50 元，共售出 180 份；原料 3,200 元、攤位費 800 元、器材租金 1,000 元。</p>
+        <ol class="steps"><li>銷貨收入＝50 × 180＝9,000 元。</li><li>生產成本＝3,200＋800＋1,000＝5,000 元。</li><li>利潤＝9,000－5,000＝4,000 元。</li><li><b>檢查：收入大於成本，所以是獲利，不是虧損。</b></li></ol>
+      </div></details>
+
+      <details class="worked"><summary>範例四｜價格不是愈高，銷貨收入就一定愈高</summary><div class="worked-body">
+        <p>同一商品有三種售價方案：A 方案 80 元可賣 100 份；B 方案 60 元可賣 150 份；C 方案 50 元可賣 190 份。</p>
+        <ol class="steps"><li>A：80 × 100＝8,000 元。</li><li>B：60 × 150＝9,000 元。</li><li>C：50 × 190＝9,500 元。</li><li><b>銷貨收入最高是 C。價格最低，仍可能因銷量夠高而收入最高。</b></li></ol>
+      </div></details>
+
+      <h3 class="mini-title">生產成本的來源</h3>
+      <div class="table-wrap"><table><thead><tr><th>生產資源</th><th>支付的代價</th><th>例子</th></tr></thead><tbody>
+        <tr><td>土地</td><td>地租</td><td>租用農地、店面、倉庫</td></tr>
+        <tr><td>人力</td><td>薪資</td><td>支付員工工資</td></tr>
+        <tr><td>資本</td><td>租金或利息</td><td>租機器、借款購置設備</td></tr>
+        <tr><td>企業才能</td><td>承擔決策與風險</td><td>決定生產什麼、如何生產</td></tr>
+      </tbody></table></div>
+
+      <div class="trap"><strong>自己的資源也有代價：</strong>自有店面能出租、自有資金能存款生息、自己的時間能去工作。當題目說「考量機會成本」，這些被放棄的收益就是隱藏成本。</div>
+
+      <h3 class="mini-title">提高利潤的兩條路</h3>
+      <div class="card-grid">
+        <article class="card"><span class="card-label">增加銷貨收入</span><h3>提高價格或增加銷售量</h3><p>改善品質後提高價格；降價促銷、拓展通路以增加銷售量。</p><p class="micro">但漲價可能使需求量減少，必須一起評估。</p></article>
+        <article class="card"><span class="card-label">降低生產成本</span><h3>尋找成本較低的生產方法</h3><p>改善流程、使用合適機器、比價進貨，並維持產品品質。</p><p class="micro">不能因降成本而嚴重降低品質，否則可能流失顧客。</p></article>
+      </div>
+
+      <div class="mnemonic"><b>供給法則</b><p>其他條件不變：價格愈高，生產者願意且能提供的數量愈多；價格愈低，供給量愈少。價格與供給量「正向」變動。</p></div>
+
+      <div class="svg-card">
+        <div class="curve-tabs"><button class="curve-btn active" type="button" data-curve="demand">需求曲線</button><button class="curve-btn" type="button" data-curve="supply">供給曲線</button><button class="curve-btn" type="button" data-curve="compare">放在一起比較</button></div>
+        <svg viewBox="0 0 620 300" role="img" aria-labelledby="curveTitle curveDesc" style="width:100%;height:auto;max-height:330px">
+          <title id="curveTitle">需求與供給曲線示意圖</title><desc id="curveDesc">縱軸為價格，橫軸為數量。需求曲線向右下，供給曲線向右上。</desc>
+          <line x1="75" y1="245" x2="570" y2="245" stroke="#68716e" stroke-width="2"/><line x1="75" y1="245" x2="75" y2="35" stroke="#68716e" stroke-width="2"/>
+          <text x="545" y="276" fill="#68716e" font-size="15">數量 Q</text><text x="28" y="50" fill="#68716e" font-size="15">價格 P</text>
+          <path id="demandPath" d="M135 65 C225 92, 330 150, 510 226" fill="none" stroke="#6f9fc4" stroke-width="6" stroke-linecap="round"/>
+          <path id="supplyPath" d="M135 220 C250 205, 390 152, 510 58" fill="none" stroke="#25547f" stroke-width="6" stroke-linecap="round" opacity=".2"/>
+          <text id="demandLabel" x="128" y="55" fill="#5c8db5" font-weight="700">D 需求</text><text id="supplyLabel" x="500" y="50" fill="#25547f" font-weight="700" opacity=".2">S 供給</text>
+        </svg>
+        <div class="curve-note" id="curveNote">需求曲線向右下：價格上升時需求量減少；價格下降時需求量增加。</div>
+      </div>
+
+      <h3 class="mini-title">跟著算式練習</h3>
+      <p class="soft">改變數字就能觀察列式結果；這一段是幫助理解前面觀念，不需要死背畫面上的答案。</p>
+      <div class="lab-grid">
+        <article class="lab-card">
+          <h3>收入、成本與利潤</h3><p class="micro">隱藏成本只有在題目要求考量機會成本時才填入。</p>
+          <div class="input-grid">
+            <label class="input-label">商品單價（元）<input id="priceInput" type="number" min="0" value="60"></label>
+            <label class="input-label">銷售量（份）<input id="qtyInput" type="number" min="0" value="150"></label>
+            <label class="input-label">原料與其他支出（元）<input id="materialInput" type="number" min="0" value="3200"></label>
+            <label class="input-label">薪資、租金等（元）<input id="fixedInput" type="number" min="0" value="1800"></label>
+            <label class="input-label">隱藏成本（元）<input id="implicitInput" type="number" min="0" value="0"></label>
+          </div>
+          <div class="result-board" id="profitBoard" aria-live="polite"></div>
+          <div class="equation" id="profitEquation"></div>
+        </article>
+
+        <article class="lab-card">
+          <h3>價格 × 銷量：哪組收入最高？</h3>
+          <p class="micro">拖動售價。假設價格每增加 10 元，預估銷量減少 20 份。</p>
+          <div class="range-line"><label for="rangeA">A 售價</label><input id="rangeA" type="range" min="30" max="100" step="10" value="80"><span class="range-value" id="rangeAVal"></span></div>
+          <div class="range-line"><label for="rangeB">B 售價</label><input id="rangeB" type="range" min="30" max="100" step="10" value="60"><span class="range-value" id="rangeBVal"></span></div>
+          <div class="range-line"><label for="rangeC">C 售價</label><input id="rangeC" type="range" min="30" max="100" step="10" value="50"><span class="range-value" id="rangeCVal"></span></div>
+          <div class="revenue-table" id="revenueTable"></div>
+          <div class="feedback show good" id="revenueInsight"></div>
+        </article>
+
+        <article class="lab-card">
+          <h3>折後價格與折扣率</h3>
+          <p class="micro">「打七折」代表付原價的 70%，不是便宜 70%。</p>
+          <div class="input-grid">
+            <label class="input-label">原價（元）<input id="originalPrice" type="number" min="1" value="4000"></label>
+            <label class="input-label">優惠價（元）<input id="salePrice" type="number" min="0" value="2800"></label>
+          </div>
+          <div class="result-board" id="discountBoard"></div>
+          <div class="equation" id="discountEquation"></div>
+        </article>
+
+        <article class="lab-card">
+          <h3>回本月份</h3>
+          <p class="micro">初始投入 120,000 元；每月淨額＝收入－支出，累積淨額達 0 才算回本。</p>
+          <div class="input-grid">
+            <label class="input-label">每月收入（元）<input id="monthlyRevenue" type="number" min="0" value="38000"></label>
+            <label class="input-label">每月支出（元）<input id="monthlyCost" type="number" min="0" value="23000"></label>
+          </div>
+          <div class="result-board" id="breakEvenBoard"></div>
+          <div class="equation" id="breakEvenEquation"></div>
+        </article>
+      </div>
+
+      <h3 class="mini-title">計算前的固定檢查順序</h3>
+      <div class="flow"><div class="flow-step"><b>① 看單位</b>元、萬元、份、千個要先統一</div><div class="flow-arrow">→</div><div class="flow-step"><b>② 找公式</b>題目問收入、成本、利潤或機會成本？</div><div class="flow-arrow">→</div><div class="flow-step"><b>③ 代入</b>把每個數字放到正確位置</div><div class="flow-arrow">→</div><div class="flow-step"><b>④ 驗算</b>判斷正負、大小與情境是否合理</div></div>
+    </section>
+
+    <section class="chapter-section" id="challenge">
+      <div class="section-head"><span class="section-kicker">TEST</span><div><h2>綜合變化題</h2><p>混合機會成本、消費選擇、生產、資料表、曲線與計算，每題送出後立即顯示詳解。</p></div></div>
+      <div class="quiz-shell" id="quizShell">
+        <div class="quiz-top"><span class="quiz-count" id="quizCount">第 1 題</span><span class="difficulty" id="quizDifficulty">基礎</span></div>
+        <div class="quiz-progress"><span id="quizProgress"></span></div>
+        <div id="quizBody"></div>
+        <div class="feedback" id="quizFeedback" aria-live="polite"></div>
+        <div class="next-row" id="quizNextRow"><button class="next-btn" type="button" id="quizNext">下一題</button></div>
+      </div>
+    </section>
+  </main>
+
+  <noscript><div class="noscript">此網站需要啟用 JavaScript 才能使用計算機與互動測驗；觀念整理仍可正常閱讀。</div></noscript>
+  <footer>依所附《公民與社會 5》與國中公民第五冊「消費與生產」教材內容整理製作；照片未顯示可確認的出版社版本，故不另行推測。僅供課堂複習使用。</footer>
+</div>
+
+<script>
+'use strict';
+const watermarks={ch1:'選',ch2:'產',challenge:'驗'};
+const sections=[...document.querySelectorAll('.chapter-section')];
+const tabs=[...document.querySelectorAll('.tab-btn')];
+function showTab(id){
+  sections.forEach(s=>s.classList.toggle('active',s.id===id));
+  tabs.forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
+  document.getElementById('wm').textContent=watermarks[id]||'公';
+  window.scrollTo({top:document.querySelector('.tabs').offsetTop-2,behavior:'smooth'});
+}
+tabs.forEach(btn=>btn.addEventListener('click',()=>showTab(btn.dataset.tab)));
+
+const classifyData=[
+    {s:'超商宣布今天起咖啡每杯調漲 5 元，品妤知道漲價後少買一杯。',a:'商品價格',e:'今天的咖啡價格已經提高，直接造成購買量減少，屬商品價格因素。'},
+  {s:'爸爸獲得加薪後，家庭每月增加一次外食。',a:'所得水準',e:'商品本身價格沒有改變，是家庭所得提高，使消費能力增加。'},
+  {s:'聽說遊戲主機下個月會降價，阿哲決定延後購買。',a:'預期心理',e:'阿哲依據對未來價格的預期改變現在的購買時點。'},
+  {s:'喜歡的球星代言某品牌球鞋，小晴因此改買該品牌。',a:'個人偏好',e:'代言改變了個人喜好與購買意願，屬非價格因素中的個人偏好。'},
+  {s:'民宿平日推出六折優惠，訂房人數明顯增加。',a:'商品價格',e:'折扣使價格降低，其他條件不變時，需求量通常增加。'},
+  {s:'小宇這個月零用錢減少，因此取消原本想買的模型。',a:'所得水準',e:'零用錢就是可支配所得，所得減少影響消費能力。'},
+  {s:'消費者預期颱風後蔬菜會漲價，因此現在提前購買。',a:'預期心理',e:'關鍵是預期未來價格上漲，造成現在提前購買。'},
+  {s:'看完環保紀錄片後，若涵改買可重複使用的水壺。',a:'個人偏好',e:'商品價格與所得都沒改變，是價值觀與偏好發生改變。'}
+];
+const classifyCats=['商品價格','所得水準','預期心理','個人偏好'];
+let classifyIndex=0,classifyPoints=0,classifyLocked=false;
+function renderClassify(){
+  const item=classifyData[classifyIndex];classifyLocked=false;
+  document.getElementById('classifyLabel').textContent=`情境分類 ${classifyIndex+1}／${classifyData.length}`;
+  document.getElementById('classifyFill').style.width=`${classifyIndex/classifyData.length*100}%`;
+  document.getElementById('classifyScore').textContent=`${classifyPoints} 分`;
+  document.getElementById('classifyScenario').textContent=item.s;
+  document.getElementById('classifyButtons').innerHTML=classifyCats.map(c=>`<button class="bucket-btn" type="button" data-answer="${c}">${c}</button>`).join('');
+  const fb=document.getElementById('classifyFeedback');fb.className='feedback';fb.textContent='';
+  document.getElementById('classifyNextRow').classList.remove('show');
+  document.querySelectorAll('#classifyButtons .bucket-btn').forEach(btn=>btn.addEventListener('click',()=>answerClassify(btn)));
+}
+function answerClassify(btn){
+  if(classifyLocked)return;classifyLocked=true;
+  const item=classifyData[classifyIndex];const ok=btn.dataset.answer===item.a;
+  if(ok)classifyPoints++;
+  document.querySelectorAll('#classifyButtons .bucket-btn').forEach(b=>{b.disabled=true;if(b.dataset.answer===item.a)b.classList.add('correct')});
+  if(!ok)btn.classList.add('wrong');
+  const fb=document.getElementById('classifyFeedback');fb.className=`feedback show ${ok?'good':'bad'}`;fb.innerHTML=`<b>${ok?'正確。':'再看一次關鍵字。'}</b> ${item.e}`;
+  document.getElementById('classifyScore').textContent=`${classifyPoints} 分`;
+  document.getElementById('classifyFill').style.width=`${(classifyIndex+1)/classifyData.length*100}%`;
+  const next=document.getElementById('classifyNext');next.textContent=classifyIndex===classifyData.length-1?'重新練習':'下一題';
+  document.getElementById('classifyNextRow').classList.add('show');
+}
+document.getElementById('classifyNext').addEventListener('click',()=>{
+  if(classifyIndex===classifyData.length-1){classifyIndex=0;classifyPoints=0}else classifyIndex++;
+  renderClassify();
+});
+renderClassify();
+
+const demandPath=document.getElementById('demandPath'),supplyPath=document.getElementById('supplyPath');
+const demandLabel=document.getElementById('demandLabel'),supplyLabel=document.getElementById('supplyLabel'),curveNote=document.getElementById('curveNote');
+document.querySelectorAll('.curve-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.curve-btn').forEach(b=>b.classList.toggle('active',b===btn));
+  const mode=btn.dataset.curve;
+  demandPath.style.opacity=mode==='supply'?'.2':'1'; demandLabel.style.opacity=mode==='supply'?'.2':'1';
+  supplyPath.style.opacity=mode==='demand'?'.2':'1'; supplyLabel.style.opacity=mode==='demand'?'.2':'1';
+  curveNote.textContent=mode==='demand'?'需求曲線向右下：價格上升時需求量減少；價格下降時需求量增加。':mode==='supply'?'供給曲線向右上：價格上升時供給量增加；價格下降時供給量減少。':'先看主角：消費者看需求 D（反向）；生產者看供給 S（正向）。兩條曲線方向相反。';
+}));
+
+const money=n=>Math.round(n).toLocaleString('zh-TW');
+const num=id=>Math.max(0,Number(document.getElementById(id).value)||0);
+function updateProfit(){
+  const p=num('priceInput'),q=num('qtyInput'),m=num('materialInput'),f=num('fixedInput'),i=num('implicitInput');
+  const revenue=p*q,explicit=m+f,total=explicit+i,profit=revenue-total;
+  document.getElementById('profitBoard').innerHTML=`<div class="row"><span>銷貨收入</span><b>${money(revenue)} 元</b></div><div class="row"><span>外顯成本</span><b>${money(explicit)} 元</b></div><div class="row"><span>含隱藏成本的總成本</span><b>${money(total)} 元</b></div><div class="row"><span>${profit>=0?'利潤':'虧損'}</span><b>${money(Math.abs(profit))} 元</b></div>`;
+  document.getElementById('profitEquation').textContent=`收入 ${money(p)} × ${money(q)} ＝ ${money(revenue)}；成本 ${money(m)} ＋ ${money(f)} ＋ ${money(i)} ＝ ${money(total)}；利潤 ${money(revenue)} － ${money(total)} ＝ ${money(profit)}`;
+}
+['priceInput','qtyInput','materialInput','fixedInput','implicitInput'].forEach(id=>document.getElementById(id).addEventListener('input',updateProfit));updateProfit();
+
+function estimatedQty(price){return Math.max(20,260-(price-30)*2)}
+function updateRevenue(){
+  const rows=['A','B','C'].map(k=>{const p=num(`range${k}`),q=estimatedQty(p);return{k,p,q,r:p*q}});
+  const max=Math.max(...rows.map(x=>x.r));
+  rows.forEach(x=>document.getElementById(`range${x.k}Val`).textContent=`${x.p} 元`);
+  document.getElementById('revenueTable').innerHTML='<div class="head">方案</div><div class="head">價格</div><div class="head">銷量</div><div class="head">銷貨收入</div>'+rows.map(x=>`<div class="${x.r===max?'best':''}">${x.k}</div><div class="${x.r===max?'best':''}">${money(x.p)} 元</div><div class="${x.r===max?'best':''}">${money(x.q)} 份</div><div class="${x.r===max?'best':''}">${money(x.r)} 元</div>`).join('');
+  const best=rows.filter(x=>x.r===max).map(x=>x.k).join('、');
+  document.getElementById('revenueInsight').innerHTML=`目前銷貨收入最高：<b>${best} 方案，${money(max)} 元</b>。比較時一定要算價格 × 銷量。`;
+}
+['rangeA','rangeB','rangeC'].forEach(id=>document.getElementById(id).addEventListener('input',updateRevenue));updateRevenue();
+
+function updateDiscount(){
+  const o=Math.max(1,num('originalPrice')),s=num('salePrice'),ratio=s/o*100,off=100-ratio;
+  document.getElementById('discountBoard').innerHTML=`<div class="row"><span>付原價的比例</span><b>${ratio.toFixed(1)}%</b></div><div class="row"><span>相當於</span><b>${(ratio/10).toFixed(1)} 折</b></div><div class="row"><span>省下的比例</span><b>${off.toFixed(1)}%</b></div>`;
+  document.getElementById('discountEquation').textContent=`${money(s)} ÷ ${money(o)} × 100% ＝ ${ratio.toFixed(1)}%；所以約打 ${(ratio/10).toFixed(1)} 折`;
+}
+['originalPrice','salePrice'].forEach(id=>document.getElementById(id).addEventListener('input',updateDiscount));updateDiscount();
+
+function updateBreakEven(){
+  const investment=120000,r=num('monthlyRevenue'),c=num('monthlyCost'),net=r-c;
+  let message,equation;
+  if(net<=0){message='<div class="row"><span>每月淨額</span><b>'+money(net)+' 元</b></div><div class="row"><span>結果</span><b>目前無法回本</b></div>';equation=`每月淨額 ${money(r)} － ${money(c)} ＝ ${money(net)}；淨額不大於 0，累積值不會補回投入。`}
+  else{const month=Math.ceil(investment/net);const before=-investment+net*(month-1),after=-investment+net*month;message=`<div class="row"><span>每月淨額</span><b>${money(net)} 元</b></div><div class="row"><span>第 ${month-1} 月底累積</span><b>${money(before)} 元</b></div><div class="row"><span>最早回本</span><b>第 ${month} 個月</b></div>`;equation=`120,000 ÷ ${money(net)} ＝ ${(investment/net).toFixed(2)}，不足一個月仍要進位，所以第 ${month} 個月回本；該月底累積 ${money(after)} 元。`}
+  document.getElementById('breakEvenBoard').innerHTML=message;document.getElementById('breakEvenEquation').textContent=equation;
+}
+['monthlyRevenue','monthlyCost'].forEach(id=>document.getElementById(id).addEventListener('input',updateBreakEven));updateBreakEven();
+
+const quizData=[
+  {kind:'觀念單選',level:'基礎',type:'choice',stem:'小祐週日只能選一項活動：參加校隊練習（他認為價值 900 元）、到書店打工可得 800 元、在家休息（價值 500 元）。若他選擇參加校隊練習，其機會成本是多少？',options:['500 元','800 元','1,300 元','1,700 元'],answer:1,explain:'放棄的兩項是打工 800 元與休息 500 元，只取價值最高的打工，因此機會成本是 800 元，不是兩者總和。'},
+  {kind:'數字填答',level:'基礎',type:'number',stem:'果汁每杯售價 45 元，共賣出 160 杯。銷貨收入是多少元？（只填數字）',answer:7200,explain:'銷貨收入＝商品價格 × 銷售量＝45 × 160＝7,200 元。'},
+  {kind:'情境單選',level:'基礎',type:'choice',stem:'氣象預報指出下週寒流來襲，消費者因此提前購買暖暖包。影響這次消費行為的主要因素是？',options:['商品價格','所得水準','預期心理','使用者付費'],answer:2,explain:'消費者預期未來天氣改變，所以提前購買，屬於非價格因素中的預期心理。'},
+  {kind:'複選題',level:'進階',type:'multi',stem:'下列哪些敘述符合需求法則？（選出所有正確選項）',options:['飲料漲價後，其他條件不變，購買量減少','球星代言後銷量增加，一定是價格因素','住宿推出折扣後，訂房量增加','收入增加後買更多商品，這就是價格降低'],answer:[0,2],explain:'需求法則只討論其他條件不變時，價格與需求量反向變動。A、C 符合；代言與所得都是非價格因素。'},
+  {kind:'資料表計算',level:'進階',type:'choice',stem:'某攤位有三種售價方案，哪一方案的銷貨收入最高？',table:{headers:['方案','售價','預估銷量'],rows:[['甲','70 元','120 份'],['乙','60 元','150 份'],['丙','50 元','175 份']]},options:['甲','乙','丙','三者相同'],answer:1,explain:'甲：70×120＝8,400；乙：60×150＝9,000；丙：50×175＝8,750。因此乙最高。'},
+  {kind:'數字填答',level:'基礎',type:'number',stem:'某工廠銷貨收入 128 萬元，生產成本 93 萬元。利潤是多少萬元？（只填數字）',answer:35,explain:'利潤＝銷貨收入－生產成本＝128－93＝35 萬元。'},
+  {kind:'反推計算',level:'進階',type:'number',stem:'每份餐點售價 80 元，共賣 200 份，最後利潤為 4,500 元。生產成本是多少元？（只填數字）',answer:11500,explain:'先算收入：80×200＝16,000。由「利潤＝收入－成本」反推：成本＝16,000－4,500＝11,500 元。'},
+  {kind:'成本辨識',level:'基礎',type:'choice',stem:'製衣廠支付員工的薪水，在生產成本中屬於使用哪一種生產資源的代價？',options:['土地','人力','資本','自然景觀'],answer:1,explain:'使用人力資源所支付的代價是薪資；使用土地是地租，使用資本可能是租金或利息。'},
+  {kind:'機會成本計算',level:'進階',type:'number',stem:'阿凱用自己的店面開店。店面原可月租 22,000 元，開店另須支付原料、水電共 38,000 元。若考量題目列出的外顯與隱藏成本，機會成本共多少元？',answer:60000,explain:'外顯成本 38,000＋隱藏成本（放棄的租金）22,000＝60,000 元。'},
+  {kind:'供需判讀',level:'基礎',type:'choice',stem:'高麗菜價格上漲後，菜農願意種植並提供更多高麗菜。這最符合哪一敘述？',options:['價格與需求量正向變動','價格與需求量反向變動','價格與供給量正向變動','價格與供給量反向變動'],answer:2,explain:'主角是生產者（菜農），因此看供給。價格上漲、供給量增加，兩者正向變動。'},
+  {kind:'曲線情境',level:'進階',type:'choice',stem:'某圖的縱軸是價格、橫軸是數量，曲線由左下往右上。下列何者最適合解釋此圖？',options:['民宿降價，訂房人數增加','手機漲價，購買人數減少','蔬菜價格高，農民願意供應更多','預期明年漲價，現在提前購買'],answer:2,explain:'左下往右上代表價格與數量正向變動，是供給曲線；生產者在價格提高時願意供應更多。'},
+  {kind:'誘因複選',level:'進階',type:'multi',stem:'政府希望減少一次性塑膠袋使用。下列哪些屬於負向誘因？（選出所有正確選項）',options:['自備購物袋可集點','塑膠袋加收費用','大量使用塑膠袋加徵環境費','自備杯折價 5 元'],answer:[1,2],explain:'負向誘因是提高不希望行為的成本。塑膠袋收費與環境費都提高使用成本；集點與折價屬正向誘因。'},
+    {kind:'回本計算',level:'挑戰',type:'number',stem:'創業初始投入 90,000 元。之後每月收入 36,000 元、每月支出 21,000 元，且每月數字相同。最早在第幾個月初回本？',answer:7,explain:'每月淨額＝36,000－21,000＝15,000；90,000÷15,000＝6。完成前 6 個月後剛好累積 90,000 元，因此時間點是第 6 個月底，也就是第 7 個月初。'},
+  {kind:'折扣計算',level:'進階',type:'choice',stem:'客房原價 4,000 元，優惠價 2,800 元。下列何者正確？',options:['優惠價是原價的 30%，即打三折','優惠價是原價的 70%，即打七折','總共便宜 70%','房價下降，所以供給量一定增加'],answer:1,explain:'2,800÷4,000＝70%，代表付原價的 70%，即打七折；省下的是 30%。'},
+  {kind:'資源分配',level:'基礎',type:'choice',stem:'學校有一間錄音室，希望讓各社團事先安排時段、減少現場排隊與衝突。哪一種分配方式最合適？',options:['抽籤','先占先贏','預約登記','完全依價格競標'],answer:2,explain:'預約登記可以事先安排時段，節省等待並符合使用需求；仍可再訂定公平的預約規則。'},
+  {kind:'方案比較',level:'挑戰',type:'choice',stem:'工廠比較三個策略。若只考量利潤，應選哪一個？',table:{headers:['策略','銷貨收入','生產成本'],rows:[['甲','120 萬','90 萬'],['乙','108 萬','72 萬'],['丙','96 萬','54 萬']]},options:['甲','乙','丙','甲、丙相同'],answer:2,explain:'甲利潤 30 萬；乙 36 萬；丙 42 萬。應選利潤最高的丙，不能只看收入最高的甲。'},
+  {kind:'找未知數',level:'挑戰',type:'number',stem:'園遊會三種餐點都售價 60 元。滷味賣 40 份、每份成本 20 元；壽司賣 35 份、每份成本未知；乾冰汽水每份成本 15 元、銷量未知。若利潤由高到低為「乾冰汽水、壽司、滷味」，且未知成本只可能是 10 或 20 元、未知銷量只可能是 30 或 50 份，乾冰汽水最可能賣出幾份？',answer:50,explain:'滷味利潤＝(60－20)×40＝1,600。壽司若成本 10，利潤 1,750；若成本 20，利潤 1,400。要排在滷味之上，壽司成本須為 10。乾冰汽水若賣 30 份，利潤＝45×30＝1,350，無法最高；所以必須賣 50 份，利潤 2,250。'},
+  {kind:'公平與效率',level:'進階',type:'choice',stem:'偏遠山區公車乘客少、票款不足以支應成本，但政府仍補貼營運。最合理的解釋是？',options:['只追求資源使用效率','考量居民交通機會的實質平等','證明使用者付費永遠不合理','表示資源不再具有稀少性'],answer:1,explain:'若只看使用者付費與效率，路線可能停駛；政府補貼是兼顧偏遠居民基本交通機會與公平正義。'},
+  {kind:'陷阱辨識',level:'挑戰',type:'multi',stem:'關於收入、成本與利潤，下列哪些敘述正確？（選出所有正確選項）',options:['銷貨收入高的方案，利潤一定最高','成本降低而收入不變，利潤會增加','收入＝價格×銷售量','利潤為負數表示虧損'],answer:[1,2,3],explain:'利潤還要扣成本，所以收入最高不保證利潤最高；其餘三項都符合公式。'},
+  {kind:'整合推理',level:'挑戰',type:'choice',stem:'一家飲料店調高售價後，單杯利潤提高，但銷售量大幅下降，結果總利潤反而減少。這最能說明什麼？',options:['提高價格一定能提高總利潤','消費者完全不受價格影響','決策時要同時考量價格、銷量、收入與成本','供給法則不成立'],answer:2,explain:'總利潤不是只看單杯賺多少。漲價可能降低需求量，必須重新計算總收入與總成本，才能判斷總利潤。'},
+  {kind:'概念理解',level:'基礎',type:'choice',stem:'為什麼人們做選擇時會產生機會成本？',options:['因為所有商品都要付錢','因為資源有限，無法同時滿足所有欲望','因為每個人都偏好最便宜的方案','因為政府規定每次只能選一項'],answer:1,explain:'機會成本來自資源的稀少性。同一份時間、金錢或設備不能同時投入所有用途，因此選擇一項就會放棄其他可能。'},
+  {kind:'誘因判讀',level:'基礎',type:'choice',stem:'政府提供節電獎金，鼓勵家庭減少用電。這屬於哪一種誘因？',options:['金錢的正向誘因','金錢的負向誘因','非金錢的正向誘因','非金錢的負向誘因'],answer:0,explain:'獎金是金錢利益，而且目的是鼓勵節電行為，因此屬於金錢的正向誘因。'},
+  {kind:'非金錢成本',level:'進階',type:'multi',stem:'下列哪些可能成為機會成本的一部分？（選出所有正確選項）',options:['因上課而放棄的打工收入','因加班而放棄的休息時間','因出國而錯過的家庭聚會','與目前選擇完全無關的舊手機價格'],answer:[0,1,2],explain:'機會成本不一定是金錢，也可能是休息、陪伴與其他滿足；但必須是目前選擇造成的放棄。與這次選擇無關的舊手機價格不算。'},
+  {kind:'機會成本計算',level:'基礎',type:'number',stem:'下午只能做一件事。小安選擇參加比賽，因此放棄家教 900 元、演唱會帶來相當於 750 元的滿足、在家打電動相當於 400 元的滿足。小安的機會成本是多少元？',answer:900,explain:'在所有被放棄方案中，只取價值最高者：max（900、750、400）＝900 元。'},
+  {kind:'生產者辨識',level:'基礎',type:'choice',stem:'下列何者最符合課本所稱的「生產者」？',options:['在工廠受僱並領薪水的員工','決定生產方式並承擔經營風險的店家老闆','購買早餐的學生','借錢給公司的銀行存款戶'],answer:1,explain:'生產者是生產行為的決策者，也稱廠商。受僱員工是生產所使用的人力資源，並不是這個生產行為的決策者。'},
+  {kind:'財貨與勞務',level:'基礎',type:'multi',stem:'下列哪些屬於「勞務」？（選出所有正確選項）',options:['公車公司提供的運輸服務','理髮師提供的剪髮服務','文具店販售的鉛筆','工廠製造的腳踏車'],answer:[0,1],explain:'勞務是無形的服務，運輸與剪髮屬於勞務；鉛筆與腳踏車是有形的財貨。'},
+  {kind:'分配方法',level:'進階',type:'choice',stem:'社區只有少量復健器材，希望先讓真正需要的人提出時段需求，也避免長時間排隊。若主要考量符合需求與節省時間，最適合採用哪一方式？',options:['預約登記','先占先贏','完全抽籤','提高價格競標'],answer:0,explain:'預約登記能讓有需求者先安排時段，也可減少排隊時間；管理者仍需制定公平的預約與取消規則。'},
+  {kind:'供給法則',level:'進階',type:'multi',stem:'在其他條件不變時，下列哪些符合供給法則？（選出所有正確選項）',options:['芒果價格上漲，果農願意供應更多芒果','雞蛋價格下降，蛋農願意供應的數量減少','飲料漲價，學生購買量減少','所得提高，家庭增加外食次數'],answer:[0,1],explain:'供給法則看生產者：價格與供給量正向變動。C 是需求法則，D 是消費的非價格因素。'},
+  {kind:'反推銷量',level:'進階',type:'number',stem:'某商品單價 75 元，當日銷貨收入為 18,000 元。當日共售出多少件？（只填數字）',answer:240,explain:'銷售量＝銷貨收入÷商品價格＝18,000÷75＝240 件。'},
+  {kind:'累積回本',level:'挑戰',type:'choice',stem:'某工作室初始投入 50 萬元，各月淨額如下。最早在哪一個月底回本？',table:{headers:['月份','第 1 月','第 2 月','第 3 月','第 4 月'],rows:[['當月淨額','＋12 萬','＋18 萬','＋15 萬','＋10 萬']]},options:['第 1 月','第 2 月','第 3 月','第 4 月'],answer:3,explain:'從－50 萬開始累加：第 1 月－38 萬、第 2 月－20 萬、第 3 月－5 萬、第 4 月＋5 萬，因此第 4 月底才首次回本。'}
+];
+
+let quizIndex=0,quizScore=0,quizLocked=false,quizAnswers=[];
+const quizBody=document.getElementById('quizBody'),quizFeedback=document.getElementById('quizFeedback');
+function tableHTML(t){if(!t)return'';return `<table class="quiz-table"><thead><tr>${t.headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${t.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`}
+function renderQuiz(){
+  const q=quizData[quizIndex];quizLocked=false;
+  document.getElementById('quizCount').textContent=`第 ${quizIndex+1}／${quizData.length} 題`;
+  document.getElementById('quizDifficulty').textContent=q.level;
+  document.getElementById('quizProgress').style.width=`${quizIndex/quizData.length*100}%`;
+  let controls='';
+  if(q.type==='choice')controls=`<div class="option-list">${q.options.map((o,i)=>`<button class="option-btn" type="button" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div>`;
+  if(q.type==='multi')controls=`<div class="multi-hint">可選多個答案，選好後按「送出答案」</div><div class="option-list">${q.options.map((o,i)=>`<button class="option-btn multi" type="button" data-i="${i}" aria-pressed="false">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div><div class="answer-input"><button class="submit-btn" id="multiSubmit" type="button">送出答案</button></div>`;
+  if(q.type==='number')controls=`<div class="answer-input"><input id="numberAnswer" type="text" inputmode="decimal" autocomplete="off" placeholder="請輸入數字" aria-label="數字答案"><button class="submit-btn" id="numberSubmit" type="button">送出答案</button></div>`;
+  quizBody.innerHTML=`<div class="quiz-kind">${q.kind}</div><p class="quiz-stem">${q.stem}</p>${tableHTML(q.table)}${controls}`;
+  quizFeedback.className='feedback';quizFeedback.textContent='';document.getElementById('quizNextRow').classList.remove('show');
+  if(q.type==='choice')document.querySelectorAll('#quizBody .option-btn').forEach(b=>b.addEventListener('click',()=>gradeQuiz(Number(b.dataset.i),b)));
+  if(q.type==='multi'){
+    document.querySelectorAll('#quizBody .multi').forEach(b=>b.addEventListener('click',()=>{if(quizLocked)return;b.classList.toggle('selected');b.setAttribute('aria-pressed',b.classList.contains('selected'))}));
+    document.getElementById('multiSubmit').addEventListener('click',()=>{const selected=[...document.querySelectorAll('#quizBody .multi.selected')].map(b=>Number(b.dataset.i));gradeQuiz(selected)});
+  }
+  if(q.type==='number'){
+    document.getElementById('numberSubmit').addEventListener('click',()=>gradeQuiz(parseNumber(document.getElementById('numberAnswer').value)));
+    document.getElementById('numberAnswer').addEventListener('keydown',e=>{if(e.key==='Enter')gradeQuiz(parseNumber(e.target.value))});
+  }
+}
+function parseNumber(v){const cleaned=String(v).replace(/[,，\s元萬份個月]/g,'');return cleaned===''?NaN:Number(cleaned)}
+function sameArray(a,b){return Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&[...a].sort((x,y)=>x-y).every((v,i)=>v===[...b].sort((x,y)=>x-y)[i])}
+function gradeQuiz(answer,clicked){
+  if(quizLocked)return;
+  const q=quizData[quizIndex];
+  if((q.type==='number'&&Number.isNaN(answer))||(q.type==='multi'&&answer.length===0)){quizFeedback.className='feedback show bad';quizFeedback.textContent=q.type==='number'?'請先輸入數字再送出。':'請至少選一個答案再送出。';return}
+  quizLocked=true;
+  const ok=q.type==='multi'?sameArray(answer,q.answer):answer===q.answer;
+  if(ok)quizScore++;
+  quizAnswers.push({ok,answer});
+  if(q.type==='choice')document.querySelectorAll('#quizBody .option-btn').forEach(b=>{b.disabled=true;const i=Number(b.dataset.i);if(i===q.answer)b.classList.add('correct');else if(b===clicked)b.classList.add('wrong')});
+  if(q.type==='multi')document.querySelectorAll('#quizBody .multi').forEach(b=>{b.disabled=true;const i=Number(b.dataset.i);if(q.answer.includes(i))b.classList.add('correct');else if(b.classList.contains('selected'))b.classList.add('wrong')});
+  if(q.type==='number'){document.getElementById('numberAnswer').disabled=true;document.getElementById('numberSubmit').disabled=true}
+  quizFeedback.className=`feedback show ${ok?'good':'bad'}`;
+  const answerText=q.type==='number'?money(q.answer):q.type==='multi'?q.answer.map(i=>String.fromCharCode(65+i)).join('、'):String.fromCharCode(65+q.answer);
+  quizFeedback.innerHTML=`<b>${ok?'正確。':'答案是 '+answerText+'。'}</b> ${q.explain}`;
+  document.getElementById('quizProgress').style.width=`${(quizIndex+1)/quizData.length*100}%`;
+  document.getElementById('quizNext').textContent=quizIndex===quizData.length-1?'查看成績':'下一題';document.getElementById('quizNextRow').classList.add('show');
+}
+document.getElementById('quizNext').addEventListener('click',()=>{if(quizIndex<quizData.length-1){quizIndex++;renderQuiz()}else renderFinal()});
+function renderFinal(){
+  const percent=Math.round(quizScore/quizData.length*100);
+  const msg=percent>=90?'觀念、情境判讀與計算都很穩，可以再練習不同題組。':percent>=70?'主要觀念已掌握，回看答錯題的詳解會更穩。':'先回到第一、二章講義，把機會成本、需求供給與利潤公式各讀一次。';
+  document.getElementById('quizCount').textContent='挑戰完成';document.getElementById('quizDifficulty').textContent='成績單';document.getElementById('quizProgress').style.width='100%';
+  quizBody.innerHTML=`<div class="final-score"><div class="score-ring"><strong>${percent}</strong><small>總分</small></div><h3>${quizScore}／${quizData.length} 題答對</h3><p>${msg}</p><div class="review-list">${quizAnswers.map((a,i)=>`<div class="review-item ${a.ok?'good':'bad'}"><b>第 ${i+1} 題｜${a.ok?'答對':'需複習'}</b>　${quizData[i].kind}：${quizData[i].explain}</div>`).join('')}</div><button class="reset-btn" id="quizReset" type="button">重新挑戰全部題目</button></div>`;
+  quizFeedback.className='feedback';document.getElementById('quizNextRow').classList.remove('show');
+  document.getElementById('quizReset').addEventListener('click',()=>{quizIndex=0;quizScore=0;quizLocked=false;quizAnswers=[];renderQuiz()});
+}
+renderQuiz();
+</script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="始得西山宴遊記會考互動講義：原文、整段語譯、注釋、國學詞彙與即時測驗。">
+<title>始得西山宴遊記｜互動國文講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#55745f; --primary-dark:#344d3d; --accent:#c28d4c;
+  --soft:#e8eee5; --paper:#f5f1e8; --card:#fffdfa; --ink:#292621; --muted:#6f675f;
+  --line:#ded5c7; --seal:#ad4c3f; --success:#3f7457; --danger:#a8473e;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans TC","PingFang TC",sans-serif;line-height:1.75;overflow-wrap:anywhere}
+button{font:inherit}
+.hero{position:relative;overflow:hidden;text-align:center;padding:64px 20px 42px;background:linear-gradient(180deg,#fffdfa 0,var(--paper) 100%);border-bottom:1px solid var(--line)}
+.hero::after{content:"山";position:absolute;right:-8px;top:-68px;font-family:"Noto Serif TC","Songti TC",serif;font-size:250px;font-weight:900;color:var(--primary);opacity:.085;pointer-events:none}
+.eyebrow{position:relative;z-index:1;color:var(--seal);font-size:12px;font-weight:700;letter-spacing:.48em;margin-bottom:10px}
+h1,h2,h3,.serif{font-family:"Noto Serif TC","Songti TC",serif}
+.hero h1{position:relative;z-index:1;margin:0;color:var(--primary-dark);font-size:clamp(34px,6vw,54px);letter-spacing:.08em;font-weight:900}
+.byline{position:relative;z-index:1;margin:7px 0 18px;color:var(--muted);font-size:13.5px;letter-spacing:.13em}
+.lead{position:relative;z-index:1;max-width:720px;margin:auto;color:var(--muted);font-size:14.5px;line-height:1.9}
+.controls{position:sticky;top:0;z-index:50;display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;padding:10px 14px;background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);color:var(--muted);font-size:12.5px}
+.controls label{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}.controls input{position:absolute;opacity:0;pointer-events:none}
+.switch{position:relative;width:38px;height:21px;border-radius:999px;background:#cfc6ba;transition:.2s}.switch::after{content:"";position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:white;box-shadow:0 1px 4px #0004;transition:.2s}
+.controls input:checked+.switch{background:var(--primary)}.controls input:checked+.switch::after{transform:translateX(17px)}
+#score{color:var(--seal);font-weight:700}
+main{max-width:980px;margin:auto;padding:32px 18px 100px}.section{margin-bottom:52px;scroll-margin-top:80px}
+.section-head{display:flex;align-items:end;gap:12px;padding-bottom:9px;margin-bottom:20px;border-bottom:2px solid var(--primary)}
+.section-no{color:var(--seal);font:700 12px "Noto Sans TC",sans-serif;letter-spacing:.16em}.section h2{margin:0;font-size:24px;color:var(--primary-dark)}.section-en{margin-left:auto;color:var(--muted);font-size:11px;letter-spacing:.12em}
+.section-intro{margin:-6px 0 18px;color:var(--muted);font-size:13.5px}
+.context{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:18px}.context-card,.fact-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px 26px;box-shadow:0 12px 28px -25px #2b2823}
+.context-card{border-left:5px solid var(--seal)}.context-card p{margin:0 0 11px;font-size:14.5px}.context-card p:last-child{margin-bottom:0}.context-card b{color:var(--seal)}
+.fact-card{display:flex;flex-direction:column;justify-content:center;background:var(--soft);text-align:center}.fact-card .big{font:900 24px "Noto Serif TC","Songti TC",serif;color:var(--primary-dark);line-height:1.4}.fact-card .small{font-size:12px;color:var(--muted);margin-top:7px}.quote-strip{margin-top:16px;padding:14px 18px;border-radius:10px;background:var(--soft);color:var(--primary-dark);font:600 15px/1.9 "Noto Serif TC","Songti TC",serif}
+.passage{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:20px;overflow:visible;box-shadow:0 9px 24px -24px #29251f}
+.passage-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;background:var(--soft);border-bottom:1px solid var(--line);border-radius:16px 16px 0 0}.passage-number{font-size:11px;color:var(--seal);font-weight:800;margin-right:9px}.passage-tag{font-size:13px;color:var(--primary-dark);font-weight:700;letter-spacing:.04em}
+.translation-btn{flex:none;padding:5px 12px;border:1px solid var(--primary);border-radius:999px;background:var(--card);color:var(--primary-dark);font-size:11.5px;cursor:pointer}.translation-btn:hover{background:var(--primary);color:white}
+.passage-body{padding:24px 26px}.original{font:400 1.16rem/2.55 "Noto Serif TC","Songti TC",serif}.original p{margin:0}.original rt{font:600 .48em/1 "Noto Sans TC",sans-serif;color:var(--seal)}body.hide-zhuyin rt{display:none}
+.annot{color:var(--seal);font-weight:700;border-bottom:1px dotted var(--seal);cursor:pointer;position:relative}.annot::after{content:attr(data-n);font:700 .58em "Noto Sans TC",sans-serif;vertical-align:super;margin-left:1px}.annot.active{background:#f3ded7;border-radius:3px}
+.note-guide{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);font-size:12px;color:var(--muted)}.note-guide i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--seal);margin-right:8px}
+.translation{display:none;margin-top:17px;padding:15px 0 0 17px;border-left:4px solid var(--primary)}.passage.open .translation,body.show-all-trans .translation{display:block}.translation-label{color:var(--primary);font-size:11px;font-weight:800;letter-spacing:.16em;margin-bottom:10px}
+.translation-paragraph{margin:0;font-size:14px;line-height:2.05;color:var(--muted)}
+#glossTip{position:fixed;z-index:100;display:none;max-width:min(360px,calc(100vw - 24px));padding:12px 15px;border-radius:10px;background:#24211d;color:#fff;font-size:13px;line-height:1.7;box-shadow:0 12px 30px #0005}#glossTip.show{display:block}
+.table-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:14px}.word-table{width:100%;min-width:720px;border-collapse:collapse;font-size:13.5px}.word-table th{padding:12px 14px;text-align:left;background:var(--soft);color:var(--primary-dark);font:700 14px "Noto Serif TC",serif;border-bottom:2px solid var(--primary)}.word-table td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}.word-table tr:last-child td{border-bottom:0}.word-table tr:nth-child(even){background:#fbf9f5}.word-table .word{font:700 15px "Noto Serif TC",serif;color:var(--seal)}
+.path-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:13px}.path-step{position:relative;display:flex;gap:12px;padding:17px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--primary);border-radius:12px}.path-index{flex:none;display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:var(--soft);color:var(--primary-dark);font-size:12px;font-weight:800}.path-step b{font:700 15px "Noto Serif TC",serif;color:var(--primary-dark)}.path-step p{margin:4px 0 0;color:var(--muted);font-size:12.5px;line-height:1.7}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.feature-card{display:flex;flex-direction:column;text-align:left;min-height:180px;padding:20px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer}.feature-card:hover{border-color:var(--primary);transform:translateY(-2px)}.feature-no{font-size:11px;color:var(--seal);font-weight:800}.feature-title{font:800 18px "Noto Serif TC",serif;color:var(--primary-dark);margin:5px 0}.feature-brief{font-size:12.5px;color:var(--muted)}.feature-detail{display:none;margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:12.5px;line-height:1.8;color:var(--ink)}.feature-card.open .feature-detail{display:block}.feature-hint{margin-top:auto;padding-top:12px;font-size:10.5px;color:var(--primary)}
+.challenge-shell{padding:22px;background:linear-gradient(145deg,var(--card),var(--soft));border:1px solid var(--line);border-radius:16px}.challenge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.challenge-card{padding:17px;background:var(--card);border:1px solid var(--line);border-radius:12px}.challenge-kicker{font-size:10.5px;color:var(--seal);font-weight:800;letter-spacing:.12em}.challenge-quote{min-height:62px;margin:7px 0 12px;font:600 14px/1.8 "Noto Serif TC",serif}.challenge-options{display:flex;flex-wrap:wrap;gap:7px}.challenge-options button{padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:white;color:var(--ink);font-size:12px;cursor:pointer}.challenge-options button:hover:not(:disabled){border-color:var(--primary);background:var(--soft)}.challenge-options button.right{background:#e3f1e8;border-color:var(--success);color:var(--success);font-weight:700}.challenge-options button.wrong{background:#f7e3df;border-color:var(--danger);color:var(--danger)}.challenge-feedback{min-height:22px;margin-top:10px;color:var(--muted);font-size:12px;line-height:1.7}.challenge-feedback b{color:var(--primary-dark)}
+.quiz-card{padding:20px 22px;margin-bottom:14px;border:1px solid var(--line);border-radius:13px;background:var(--card)}.quiz-q{font-weight:700;font-size:14.5px;margin-bottom:11px}.quiz-q>span{color:var(--seal);margin-right:7px}.quiz-q em{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:var(--primary);color:white;font-style:normal;font-size:10px}.quiz-options{display:grid;gap:7px}.quiz-options button{width:100%;padding:10px 13px;text-align:left;border:1px solid var(--line);border-radius:7px;background:white;color:var(--ink);font-size:13.5px;cursor:pointer}.quiz-options button:hover:not(:disabled){border-color:var(--primary);background:#fbfaf6}.quiz-options button.correct{background:#e3f1e8;border-color:var(--success);color:#315d44;font-weight:700}.quiz-options button.wrong{background:#f7e3df;border-color:var(--danger);color:#7f3a34;text-decoration:line-through}.quiz-explain{display:none;margin-top:10px;padding:10px 12px;border-left:3px solid var(--primary);background:var(--soft);font-size:12.5px}.quiz-explain.show{display:block}.quiz-explain b{color:var(--seal);margin-right:7px}.quiz-summary{text-align:center;color:var(--primary-dark);font:700 16px "Noto Serif TC",serif;min-height:28px;margin-top:16px}.reset{display:block;margin:8px auto 0;padding:7px 18px;border:1px solid var(--primary);border-radius:999px;background:white;color:var(--primary-dark);font-size:12px;cursor:pointer}
+.section-label{display:block;align-self:center;color:var(--seal);font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.lexicon-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.lexicon-item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}.lexicon-top{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}.lexicon-index{font-size:10px;color:var(--seal);font-weight:800}.lexicon-top b{font:800 18px "Noto Serif TC",serif;color:var(--primary-dark)}.lexicon-top em{font-size:12px;color:var(--primary);font-style:normal;font-weight:700}.lexicon-item p{margin:7px 0 3px;font-size:13.5px}.lexicon-item small{display:block;color:var(--muted);font-size:11.5px;line-height:1.65}
+
+/* 虯髯客傳：章回式故事任務 */
+body.qiuran .hero{text-align:left;padding-left:max(24px,calc((100vw - 940px)/2));padding-right:34%;background:linear-gradient(105deg,#fffdfa 0 67%,#e8d9cf 67% 100%)}
+body.qiuran .hero::before{content:none}
+body.qiuran .hero::after{right:5%;top:-55px;color:#704f45;opacity:.12}body.qiuran .lead{margin-left:0;max-width:660px}
+body.qiuran main{max-width:920px}.story-stage{display:flex;align-items:center;gap:11px;margin:38px 0 13px;padding:10px 0;border-bottom:1px dashed #a98d80}.story-stage span{padding:3px 10px;background:var(--seal);color:white;font-size:11px;font-weight:800;letter-spacing:.1em}.story-stage b{font:800 18px "Noto Serif TC",serif;color:var(--primary-dark)}.story-stage em{margin-left:auto;color:var(--muted);font-size:11px;font-style:normal}.task-card{margin-left:26px;border-radius:4px 14px 14px 4px;border-left:4px solid var(--primary)}.task-card .passage-head{border-radius:0 13px 0 0;background:#f1e8e1}.task-card .original{font-size:1.12rem;line-height:2.35}.character-line{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}.character-line article{position:relative;padding:24px 22px;min-height:235px;border-right:1px solid var(--line)}.character-line article:last-child{border-right:0}.character-line article>span{position:absolute;right:13px;top:2px;color:var(--primary);opacity:.1;font:900 76px "Noto Serif TC",serif}.character-line h3{margin:0 0 4px;color:var(--primary-dark);font-size:21px}.character-line b{display:block;color:var(--seal);font-size:12.5px}.character-line p{font-size:13px;color:var(--muted);line-height:1.8}.qiuran-lexicon .lexicon-item:nth-child(odd){border-left:4px solid var(--primary)}body.qiuran .challenge-shell{padding:0;background:var(--card);border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0}body.qiuran .challenge-grid{display:block}body.qiuran .challenge-card{display:grid;grid-template-columns:74px minmax(0,1fr);column-gap:20px;padding:24px 22px;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0}body.qiuran .challenge-card:last-child{border-bottom:0}body.qiuran .challenge-kicker{grid-column:1;grid-row:1 / 4;padding-top:4px}body.qiuran .challenge-quote{grid-column:2;min-height:0;margin:0 0 14px;font-size:16px;line-height:1.95}body.qiuran .challenge-options,body.qiuran .challenge-feedback{grid-column:2}body.qiuran .challenge-options{gap:9px}body.qiuran .challenge-options button{min-height:44px;padding:8px 14px;border-radius:5px;font-size:13px}body.qiuran .challenge-feedback:empty{display:none}body.qiuran .section-head{border-bottom-color:#8b6d5f}
+
+/* 始得西山：由低至高的登山路徑 */
+body.shide{background:linear-gradient(180deg,#f7f3e9,#f2f0e8 38%,#f5f1e8)}body.shide .hero{text-align:left;padding:74px max(24px,calc((100vw - 900px)/2)) 58px;background:linear-gradient(150deg,#fbfaf5 0 55%,#dfe9df 55% 100%)}body.shide .hero::before{content:"";position:absolute;right:2%;bottom:-8px;width:46%;height:72%;background:linear-gradient(145deg,transparent 0 36%,#8aa18a55 36% 55%,transparent 55%),linear-gradient(35deg,transparent 0 40%,#526f5d33 40% 63%,transparent 63%);clip-path:polygon(0 100%,18% 58%,35% 76%,58% 18%,74% 54%,87% 35%,100% 100%);pointer-events:none}body.shide .hero::after{right:10%;top:-40px}.shide .lead{margin-left:0;max-width:620px}.shide .passage{border-radius:18px 3px 18px 3px}.shide .passage-head{border-radius:17px 2px 0 0;background:#e5ede3}.ascent-path{list-style:none;margin:0;padding:8px 0;position:relative}.ascent-path::before{content:"";position:absolute;left:28px;top:0;bottom:0;width:2px;background:linear-gradient(var(--line),var(--primary))}.ascent-path .path-step{display:flex;grid-template-columns:none;margin:0 0 14px 0;padding:16px 18px 16px 56px;border:0;border-radius:0 14px 14px 0;background:linear-gradient(90deg,#e6ede3,transparent 72%)}.ascent-path .path-index{position:absolute;left:15px;top:15px;background:var(--primary);color:white}.ascent-path .path-step:nth-child(even){margin-left:8%;background:linear-gradient(90deg,#edf0e7,transparent 72%)}.shide-lexicon{grid-template-columns:repeat(4,minmax(0,1fr))}.shide-lexicon .lexicon-item{padding:17px 15px;border-top:4px solid var(--primary);min-height:150px}.before-after{display:grid;grid-template-columns:1fr 1fr;margin-bottom:16px;border-radius:16px;overflow:hidden}.before-label,.after-label{padding:19px;text-align:center;font:800 18px "Noto Serif TC",serif}.before-label{background:#ece5dc;color:#715b4e}.after-label{background:#dfeadf;color:#355541}.before-after small{font:400 11px "Noto Sans TC",sans-serif}.shide-challenge .challenge-card:nth-child(-n+2){border-left:4px solid #9a806f}.shide-challenge .challenge-card:nth-child(n+3){border-left:4px solid #55745f}
+
+/* 岳陽樓：湖面雨晴雙景並讀 */
+body.yueyang{background:#f7f4ec}body.yueyang .hero{padding:78px 20px 64px;background:linear-gradient(180deg,#eff6f6 0 58%,#d7e7e9 58% 60%,#f7f4ec 60%)}body.yueyang .hero::before{content:"";position:absolute;left:0;right:0;bottom:36%;height:48px;background:repeating-radial-gradient(ellipse at 50% 100%,transparent 0 42px,#54788718 43px 44px,transparent 45px 72px);pointer-events:none}body.yueyang .hero::after{right:8%;top:-45px;color:#4f7180;opacity:.1}.yueyang .context{grid-template-columns:240px minmax(0,1fr)}.yueyang .context-card{order:2;border-left:0;border-top:5px solid var(--primary)}.yueyang .fact-card{order:1}.lake-opening{display:grid;grid-template-columns:.85fr 1.15fr;gap:16px}.weather-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:28px 0}.weather-column{padding:14px;border-radius:18px}.weather-column.rainy{background:#e4e8ea}.weather-column.sunny{background:#f2ead9}.weather-label{display:flex;justify-content:space-between;align-items:baseline;padding:5px 4px 13px}.weather-label b{font:800 19px "Noto Serif TC",serif}.weather-label span{font-size:10.5px;color:var(--muted)}.weather-column .passage{margin:0}.rainy .passage-head{background:#d7dfe2}.sunny .passage-head{background:#efe0bd}.benevolent-reading{border-left:6px solid var(--accent);padding-left:18px}.three-realms{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:12px}.realm{position:relative;min-height:205px;padding:22px;border:1px solid var(--line);background:var(--card);overflow:hidden}.realm>span{position:absolute;right:8px;bottom:-23px;font:900 92px "Noto Serif TC",serif;opacity:.08}.realm h3{margin:0;color:var(--primary-dark)}.realm p{font-size:13px;color:var(--muted)}.realm.rain{border-top:7px solid #6c7b83}.realm.sun{border-top:7px solid #d5ae61}.realm.heart{border-top:7px solid #ad4c3f}.lexicon-list{border:1px solid var(--line);border-radius:16px;overflow:hidden}.yueyang-lexicon .lexicon-item{display:grid;grid-template-columns:230px 1fr 1.2fr;align-items:center;gap:14px;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:14px 18px}.yueyang-lexicon .lexicon-item:last-child{border-bottom:0}.yueyang-lexicon .lexicon-top{flex-wrap:nowrap}.yueyang-lexicon .lexicon-item p,.yueyang-lexicon .lexicon-item small{margin:0}.lake-challenge{background:linear-gradient(100deg,#e2eaec,#fff8ea)}
+.exam-subhead{margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent);color:var(--primary-dark);font-size:19px}.exam-literature h3{margin:0 0 12px;font-size:20px;color:var(--primary-dark)}.exam-sources{margin-top:18px;padding:12px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}.exam-sources summary{cursor:pointer;color:var(--primary-dark)}.exam-sources a{color:var(--primary)}
+footer{text-align:center;padding:30px 20px 90px;color:var(--muted);font-size:11.5px}footer a{color:var(--primary-dark)}
+@media(max-width:720px){.context,.yueyang .context{grid-template-columns:1fr}.yueyang .context-card,.yueyang .fact-card{order:initial}.fact-card{min-height:130px}.passage-body{padding:20px 18px}.original{font-size:1.08rem;line-height:2.4}.section-en{display:none}.hero::after{font-size:160px}.controls{gap:12px}.challenge-shell{padding:14px}.lexicon-grid,.shide-lexicon{grid-template-columns:1fr}.character-line,.three-realms{grid-template-columns:1fr}.character-line article{min-height:0;border-right:0;border-bottom:1px solid var(--line)}.character-line article:last-child{border-bottom:0}.task-card{margin-left:0}.story-stage em{display:none}body.qiuran .challenge-card{grid-template-columns:1fr;gap:0;padding:22px 16px}body.qiuran .challenge-kicker{grid-column:1;grid-row:auto;margin-bottom:6px}body.qiuran .challenge-quote,body.qiuran .challenge-options,body.qiuran .challenge-feedback{grid-column:1}body.qiuran .hero,body.shide .hero{text-align:center;padding:56px 20px 42px;background:linear-gradient(180deg,#fffdfa,var(--paper))}body.qiuran .lead,body.shide .lead{margin:auto}.lake-opening,.weather-pair{grid-template-columns:1fr}.weather-label{display:block}.weather-label span{display:block;margin-top:3px}.yueyang-lexicon .lexicon-item{grid-template-columns:1fr;gap:4px}.three-realms .realm{min-height:160px}.ascent-path .path-step:nth-child(even){margin-left:0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.feature-card{transition:none}}
+
+</style>
+</head>
+<body class="shide">
+<header class="hero"><div class="eyebrow">互動國文講義</div><h1>始得西山宴遊記</h1><div class="byline">唐．柳宗元 ．《柳河東集》</div><p class="lead">柳宗元被貶永州後四處遊山水，直到登上西山，才第一次感到視野與心靈真正開展。文章以「未始知」和「遊於是乎始」前後照應，寫的不只是一次登山，更是一場從惴慄拘束走向心凝形釋的精神轉折。</p></header>
+<div class="controls">
+  <label><input id="toggleZhuyin" type="checkbox" checked><span class="switch"></span>顯示注音</label>
+  <label><input id="toggleTrans" type="checkbox"><span class="switch"></span>全文顯示語譯</label>
+  <span>測驗已作答 <span id="answered">0</span> / <span id="total">10</span>　正確 <span id="score">0</span> 題</span>
+</div>
+<main>
+  
+  <section class="section context-section" id="context">
+    <div class="section-head"><span class="section-label">WHY “BEGIN”</span><h2>貶謫之後，第一次真正的遊歷</h2></div>
+    <p class="section-intro">先理解「始得」：作者過去也曾遊山，但到了西山，才真正得到身心解放的遊歷。</p>
+    <div class="context"><div class="context-card"><p><b>柳宗元</b>（773－819），字子厚，唐代河東人，唐宋八大家之一。永貞元年（805），他因參與王叔文革新失敗，被貶為永州司馬；政治挫折與罪人身分，使他長期處在「恆惴慄」的憂懼中。</p><p>在永州期間，柳宗元寄情山水，陸續寫成〈始得西山宴遊記〉、〈小石潭記〉等八篇作品，合稱《永州八記》。本文居八記之首：前半先寫過去漫無目的的遊覽，後半才寫登西山後的驚異、開闊與物我合一。</p><div class="quote-strip">「心凝形釋，與萬化冥合。」</div></div><aside class="fact-card"><div class="big">未始遊 → 始遊</div><div class="small">外在登山與內在解放同時發生</div></aside></div>
+  </section>
+  <section class="section text-section" id="text"><div class="section-head"><span class="section-label">READ THE CLIMB</span><h2>沿著柳宗元的腳步讀課文</h2></div><p class="section-intro">保留原文四個自然段；每段對應一個視野與心境的轉折。</p>
+  <article class="passage" id="passage-1">
+    <div class="passage-head">
+      <div><span class="passage-number">01</span><span class="passage-tag">第一段｜漫遊永州，仍未識西山</span></div>
+      <button class="translation-btn" type="button" aria-expanded="false">看整段語譯</button>
+    </div>
+    <div class="passage-body">
+      <div class="original"><p>自余為<span class="annot" data-note="僇人：罪人。僇，音ㄌㄨˋ，通戮，指受刑辱或被貶謫的人。"><ruby>僇<rt>ㄌㄨˋ</rt></ruby>人</span>，居是州，恆<span class="annot" data-note="惴慄：憂懼不安。惴，音ㄓㄨㄟˋ。"><ruby>惴<rt>ㄓㄨㄟˋ</rt></ruby>慄</span>。其隙也，則<span class="annot" data-note="施施：緩慢行走的樣子。這裡含有無所用心、漫無目的之意。"><ruby>施施<rt>ㄧˊ ㄧˊ</rt></ruby>而行</span>，漫漫而遊。日與其徒上高山，入深林，窮<span class="annot" data-note="回溪：曲折迂迴的溪流。回，通迴。">回溪</span>；幽泉怪石，無遠不到。到則<span class="annot" data-note="披草：分開、撥開草叢。披，分開。">披草</span>而坐，傾壺而醉，醉則更相枕以臥，臥而夢。意有所極，夢亦同<span class="annot" data-note="趣：通趨，前往、趨向。"><ruby>趣<rt>ㄑㄩ</rt></ruby></span>。覺而起，起而歸。以為凡是州之山有異態者，皆我有也，而未始知西山之<span class="annot" data-note="怪特：奇怪特出，指景觀卓絕不凡。">怪特</span>。</p></div>
+      <div class="note-guide"><i></i>點擊標色詞語或右上角數字，查看注釋</div>
+      <div class="translation" aria-label="整段白話語譯">
+        <div class="translation-label">整段白話</div>
+        <p class="translation-paragraph">自從我成為被貶的罪人，住在永州，心中總是憂懼不安。有空閒時，我就緩步而行，漫無目的地遊逛。我每天和同伴登上高山、走入深林、探盡曲折溪流；凡有幽泉怪石的地方，不論多遠都會到達。到了以後便撥開草叢坐下，倒出壺中的酒喝到醉。醉後就彼此枕靠著躺下，躺下便入夢；心中想到哪裡，夢境也跟著到哪裡。醒來便起身，起身便回去。我以為永州境內具有奇異形態的山水，都已被我遊遍，卻還不曾知道西山的奇特卓絕。</p>
+      </div>
+    </div>
+  </article>
+  <article class="passage" id="passage-2">
+    <div class="passage-head">
+      <div><span class="passage-number">02</span><span class="passage-tag">第二段｜發現西山，攀援而登</span></div>
+      <button class="translation-btn" type="button" aria-expanded="false">看整段語譯</button>
+    </div>
+    <div class="passage-body">
+      <div class="original"><p>今年九月二十八日，因坐法華西亭，望西山，始指<span class="annot" data-note="異之：以它為奇異，也就是覺得西山不同尋常。異，意動用法。">異之</span>。遂命僕人過湘江，<span class="annot" data-note="緣染溪：沿著染溪前進。緣，沿著。">緣染溪</span>，<span class="annot" data-note="斫榛莽：砍除雜亂叢生的草木。斫，音ㄓㄨㄛˊ，砍；榛莽，叢生草木。"><ruby>斫<rt>ㄓㄨㄛˊ</rt></ruby>榛莽</span>，焚<span class="annot" data-note="茅茷：茂密的茅草。茷，音ㄈㄚˊ。">茅<ruby>茷<rt>ㄈㄚˊ</rt></ruby></span>，窮山之高而止。攀援而登，<span class="annot" data-note="箕踞：兩腿伸開而坐，形狀像簸箕，是自在不拘的坐姿。"><ruby>箕踞<rt>ㄐㄧ ㄐㄩˋ</rt></ruby></span>而遨，則凡數州之土壤，皆在<span class="annot" data-note="衽席：坐席。衽，音ㄖㄣˋ。此處形容數州土地都像在座席之下。"><ruby>衽<rt>ㄖㄣˋ</rt></ruby>席</span>之下。</p></div>
+      <div class="note-guide"><i></i>點擊標色詞語或右上角數字，查看注釋</div>
+      <div class="translation" aria-label="整段白話語譯">
+        <div class="translation-label">整段白話</div>
+        <p class="translation-paragraph">今年九月二十八日，我因為坐在法華寺西亭眺望西山，才指著它，覺得它格外奇異。於是命僕人渡過湘江，沿著染溪前進。一路砍除叢生草木、燒掉茂密茅草，直到登上山的最高處才停下。我們抓著草木攀登上去，伸開雙腿自在地坐著遊目四望。於是附近數州的土地，彷彿都在我們的坐席之下。</p>
+      </div>
+    </div>
+  </article>
+  <article class="passage" id="passage-3">
+    <div class="passage-head">
+      <div><span class="passage-number">03</span><span class="passage-tag">第三段｜視野開展，西山特出</span></div>
+      <button class="translation-btn" type="button" aria-expanded="false">看整段語譯</button>
+    </div>
+    <div class="passage-body">
+      <div class="original"><p>其高下之勢，<span class="annot" data-note="岈然窪然：山勢高處隆起、低處凹陷的樣子。岈，音ㄒㄧㄚ。"><ruby>岈<rt>ㄒㄧㄚ</rt></ruby>然窪然</span>，若<span class="annot" data-note="垤：音ㄉㄧㄝˊ，小土堆。此處從高處俯視，遠方山丘像小土堆。"><ruby>垤<rt>ㄉㄧㄝˊ</rt></ruby></span>若穴，尺寸千里，<span class="annot" data-note="攢蹙累積：聚集收縮、重疊累積。形容千里景物濃縮在眼前。"><ruby>攢蹙<rt>ㄘㄨㄢˊ ㄘㄨˋ</rt></ruby>累積</span>，莫得遁隱；縈青繚白，外與天際，四望如一。然後知是山之特出，不與<span class="annot" data-note="培塿：小土丘。培，音ㄆㄡˇ；塿，音ㄌㄡˇ。"><ruby>培塿<rt>ㄆㄡˇ ㄌㄡˇ</rt></ruby></span>為類。悠悠乎與<span class="annot" data-note="灝氣：天地間廣大的元氣。灝，音ㄏㄠˋ。"><ruby>灝<rt>ㄏㄠˋ</rt></ruby>氣</span>俱，而莫得其涯；洋洋乎與造物者遊，而不知其所窮。</p></div>
+      <div class="note-guide"><i></i>點擊標色詞語或右上角數字，查看注釋</div>
+      <div class="translation" aria-label="整段白話語譯">
+        <div class="translation-label">整段白話</div>
+        <p class="translation-paragraph">眼前高低起伏的地勢，有的隆起，有的低陷，遠看就像小土堆和洞穴。千里景物縮聚在尺寸之間，重疊聚集，沒有任何一處能逃離視線。青山白雲相互環繞，邊緣和天連接，向四方望去都是同樣遼闊。到這時我才知道西山確實卓然特立，不能和一般小丘同類相比。它深遠悠長，彷彿與天地元氣一同存在，看不見邊際。它廣大無邊，彷彿和大自然一同運行，不知道終點在哪裡。</p>
+      </div>
+    </div>
+  </article>
+  <article class="passage" id="passage-4">
+    <div class="passage-head">
+      <div><span class="passage-number">04</span><span class="passage-tag">第四段｜心凝形釋，真正始遊</span></div>
+      <button class="translation-btn" type="button" aria-expanded="false">看整段語譯</button>
+    </div>
+    <div class="passage-body">
+      <div class="original"><p><span class="annot" data-note="引觴滿酌：拿起酒杯，把酒斟滿。觴，音ㄕㄤ，酒杯。">引<ruby>觴<rt>ㄕㄤ</rt></ruby>滿酌</span>，<span class="annot" data-note="頹然：醉倒的樣子。">頹然</span>就醉，不知日之入。蒼然暮色，自遠而至，至無所見，而猶不欲歸。<span class="annot" data-note="心凝形釋：心神專一凝定，身體彷彿得到解脫，不再受形體拘束。">心凝形釋</span>，與<span class="annot" data-note="萬化：自然界不斷變化的萬物。冥合：不知不覺地融為一體。">萬化冥合</span>。然後知吾<span class="annot" data-note="向：先前、從前。">向</span>之未始遊，遊於是乎始，故為之文以<span class="annot" data-note="志：記錄、記下。">志</span>。是歲，元和四年也。</p></div>
+      <div class="note-guide"><i></i>點擊標色詞語或右上角數字，查看注釋</div>
+      <div class="translation" aria-label="整段白話語譯">
+        <div class="translation-label">整段白話</div>
+        <p class="translation-paragraph">我拿起酒杯斟滿酒，喝到醉倒，連太陽下山都不知道。蒼茫暮色從遠方籠罩過來，直到什麼都看不見，我仍不想回去。此刻心神凝定、形體彷彿獲得解放，和自然萬物不知不覺地融為一體。到這時我才知道，從前那些遊歷根本不能算真正的遊覽；真正的遊覽從這一次才開始。所以我寫下這篇文章來記錄這件事。這一年是唐憲宗元和四年。</p>
+      </div>
+    </div>
+  </article></section>
+  <section class="section ascent-section" id="structure"><div class="section-head"><span class="section-label">ASCENT</span><h2>從「未始」到「始得」</h2></div><p class="section-intro">文章先壓低舊遊的價值，再以登頂、遠眺與物我合一，完成心境翻轉。</p><ol class="ascent-path">
+  <li class="path-step"><span class="path-index">1</span><div><b>惴慄漫遊</b><p>帶著被貶後的憂懼四處遊覽，只求排遣。</p></div></li>
+  <li class="path-step"><span class="path-index">2</span><div><b>始指異之</b><p>偶然在法華西亭望見西山，第一次察覺它不同。</p></div></li>
+  <li class="path-step"><span class="path-index">3</span><div><b>攀援登頂</b><p>斫榛莽、焚茅茷，突破阻礙後視野忽然開展。</p></div></li>
+  <li class="path-step"><span class="path-index">4</span><div><b>西山特出</b><p>千里景物盡收眼底，西山不與一般小丘為類。</p></div></li>
+  <li class="path-step"><span class="path-index">5</span><div><b>心凝形釋</b><p>身心與萬物融合，過去的遊歷才被重新定義。</p></div></li></ol></section>
+  <section class="section words-section" id="words"><div class="section-head"><span class="section-label">TRAIL WORDS</span><h2>登山字詞行囊</h2></div><p class="section-intro">字詞本身放在最前面，括號清楚標出詞性或用法。</p><div class="lexicon-grid shide-lexicon">
+  <article class="lexicon-item">
+    <div class="lexicon-top"><span class="lexicon-index">01</span><b>僇</b><em>（名詞）</em></div>
+    <p>受刑辱、被貶謫的罪人</p><small>「自余為僇人」；僇通「戮」</small>
+  </article>
+  <article class="lexicon-item">
+    <div class="lexicon-top"><span class="lexicon-index">02</span><b>窮</b><em>（動詞）</em></div>
+    <p>走到盡頭、窮盡</p><small>「窮回溪」「窮山之高」都含走到盡頭之意</small>
+  </article>
+  <article class="lexicon-item">
+    <div class="lexicon-top"><span class="lexicon-index">03</span><b>趣</b><em>（通假字）</em></div>
+    <p>通「趨」，前往</p><small>「夢亦同趣」不是有趣</small>
+  </article>
+  <article class="lexicon-item">
+    <div class="lexicon-top"><span class="lexicon-index">04</span><b>異</b><em>（意動用法）</em></div>
+    <p>以……為奇異</p><small>「始指異之」即開始覺得西山不同</small>
+  </article>
+  <article class="lexicon-item">
+    <div class="lexicon-top"><span class="lexicon-index">05</span><b>箕踞</b><em>（動詞）</em></div>
+    <p>兩腿伸開坐著</p><small>姿勢像簸箕，寫出登頂後的自在</small>
+  </article>
+  <article class="lexicon-item">
+    <div class="lexicon-top"><span class="lexicon-index">06</span><b>培塿</b><em>（名詞）</em></div>
+    <p>小土丘</p><small>用來反襯西山卓然特立</small>
+  </article>
+  <article class="lexicon-item">
+    <div class="lexicon-top"><span class="lexicon-index">07</span><b>向</b><em>（副詞）</em></div>
+    <p>先前、從前</p><small>「吾向之未始遊」不是方向</small>
+  </article>
+  <article class="lexicon-item">
+    <div class="lexicon-top"><span class="lexicon-index">08</span><b>志</b><em>（動詞）</em></div>
+    <p>記錄、記下</p><small>「故為之文以志」</small>
+  </article></div></section>
+  <section class="section challenge-section" id="challenge"><div class="section-head"><span class="section-label">BEFORE / AFTER</span><h2>登山前後心境判讀</h2></div><p class="section-intro">判斷下列語句屬於「登西山前」或「登西山後」，觀察行為與心境如何改變。</p><div class="before-after"><div class="before-label">登西山前<br><small>惴慄・漫遊・起而歸</small></div><div class="after-label">登西山後<br><small>特出・不欲歸・冥合</small></div></div><div class="challenge-grid shide-challenge">
+  <div class="challenge-card" data-answer="0">
+    <div class="challenge-kicker">任務 1</div>
+    <div class="challenge-quote">恆惴慄。</div>
+    <div class="challenge-options">
+      <button type="button" data-option="0">登西山前</button>
+      <button type="button" data-option="1">登西山後</button></div>
+    <div class="challenge-feedback" aria-live="polite" data-explain="罪人身分使作者長期憂懼，這是發現西山以前的精神底色。"></div>
+  </div>
+  <div class="challenge-card" data-answer="0">
+    <div class="challenge-kicker">任務 2</div>
+    <div class="challenge-quote">覺而起，起而歸。</div>
+    <div class="challenge-options">
+      <button type="button" data-option="0">登西山前</button>
+      <button type="button" data-option="1">登西山後</button></div>
+    <div class="challenge-feedback" aria-live="polite" data-explain="舊遊像固定循環，醒來便走，沒有真正投入景物。"></div>
+  </div>
+  <div class="challenge-card" data-answer="1">
+    <div class="challenge-kicker">任務 3</div>
+    <div class="challenge-quote">而猶不欲歸。</div>
+    <div class="challenge-options">
+      <button type="button" data-option="0">登西山前</button>
+      <button type="button" data-option="1">登西山後</button></div>
+    <div class="challenge-feedback" aria-live="polite" data-explain="登山後即使暮色籠罩仍不願離去，與前文「起而歸」形成對比。"></div>
+  </div>
+  <div class="challenge-card" data-answer="1">
+    <div class="challenge-kicker">任務 4</div>
+    <div class="challenge-quote">心凝形釋，與萬化冥合。</div>
+    <div class="challenge-options">
+      <button type="button" data-option="0">登西山前</button>
+      <button type="button" data-option="1">登西山後</button></div>
+    <div class="challenge-feedback" aria-live="polite" data-explain="作者在西山獲得身心解放，達到物我合一境界。"></div>
+  </div></div></section>
+  
+  <section class="section quiz-section" id="quiz">
+    <div class="section-head"><span class="section-label">CHECK</span><h2>西山心境檢核</h2></div>
+    <p class="section-intro">共 10 題；點選後立即顯示答案與解析。</p>
+    
+  <article class="quiz-card" data-answer="0">
+    <div class="quiz-q"><span>Q1</span>「自余為僇人」的「僇」讀音與意思何者正確？<em>字音</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. ㄌㄨˋ，受刑辱或被貶的人</button>
+      <button type="button" data-option="1">B. ㄌㄧㄠˊ，同伴</button>
+      <button type="button" data-option="2">C. ㄌㄧㄡˋ，排行第六</button>
+      <button type="button" data-option="3">D. ㄌㄨㄛˋ，失落</button></div>
+    <div class="quiz-explain"><b>詳解</b>「僇」讀ㄌㄨˋ，通「戮」，本文指遭貶謫而帶有罪人身分。</div>
+  </article>
+  <article class="quiz-card" data-answer="1">
+    <div class="quiz-q"><span>Q2</span>「夢亦同趣」的「趣」應如何解釋？<em>字義</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 有趣</button>
+      <button type="button" data-option="1">B. 通「趨」，前往</button>
+      <button type="button" data-option="2">C. 催促</button>
+      <button type="button" data-option="3">D. 旨趣</button></div>
+    <div class="quiz-explain"><b>詳解</b>心中想到哪裡，夢也跟著前往哪裡；「趣」通「趨」。</div>
+  </article>
+  <article class="quiz-card" data-answer="2">
+    <div class="quiz-q"><span>Q3</span>「始指異之」的「異」屬於哪一種用法？<em>詞法</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 名詞作狀語</button>
+      <button type="button" data-option="1">B. 使動用法</button>
+      <button type="button" data-option="2">C. 意動用法</button>
+      <button type="button" data-option="3">D. 被動用法</button></div>
+    <div class="quiz-explain"><b>詳解</b>「異之」是「以之為異」，也就是覺得西山奇異。</div>
+  </article>
+  <article class="quiz-card" data-answer="2">
+    <div class="quiz-q"><span>Q4</span>第一段反覆寫醉、臥、夢、起、歸，主要作用為何？<em>文意</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 讚美酒量過人</button>
+      <button type="button" data-option="1">B. 說明旅費不足</button>
+      <button type="button" data-option="2">C. 呈現舊遊只是排遣，尚未真正解放心靈</button>
+      <button type="button" data-option="3">D. 交代同伴身分</button></div>
+    <div class="quiz-explain"><b>詳解</b>機械式循環凸顯舊遊仍受惴慄心境支配，為後文真正的「始遊」蓄勢。</div>
+  </article>
+  <article class="quiz-card" data-answer="1">
+    <div class="quiz-q"><span>Q5</span>「尺寸千里，攢蹙累積」描寫何種視覺感受？<em>景物</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 山路非常狹窄</button>
+      <button type="button" data-option="1">B. 從高處俯瞰，千里景物縮聚眼前</button>
+      <button type="button" data-option="2">C. 作者視力模糊</button>
+      <button type="button" data-option="3">D. 景物都被樹林遮蔽</button></div>
+    <div class="quiz-explain"><b>詳解</b>登高改變比例感，遠方千里山川彷彿濃縮在尺寸之內。</div>
+  </article>
+  <article class="quiz-card" data-answer="2">
+    <div class="quiz-q"><span>Q6</span>「不與培塿為類」最能凸顯西山哪項特質？<em>對比</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 草木茂盛</button>
+      <button type="button" data-option="1">B. 交通便利</button>
+      <button type="button" data-option="2">C. 卓然特立、境界高遠</button>
+      <button type="button" data-option="3">D. 山勢低平</button></div>
+    <div class="quiz-explain"><b>詳解</b>培塿是小土丘，作者以它反襯西山的怪特與高遠。</div>
+  </article>
+  <article class="quiz-card" data-answer="2">
+    <div class="quiz-q"><span>Q7</span>題目「始得」和文末哪一句前後照應？<em>結構</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 無遠不到</button>
+      <button type="button" data-option="1">B. 四望如一</button>
+      <button type="button" data-option="2">C. 遊於是乎始</button>
+      <button type="button" data-option="3">D. 不知日之入</button></div>
+    <div class="quiz-explain"><b>詳解</b>「始得」在文末落實為「遊於是乎始」，指出真正的遊賞從西山開始。</div>
+  </article>
+  <article class="quiz-card" data-answer="1">
+    <div class="quiz-q"><span>Q8</span>「心凝形釋，與萬化冥合」最接近下列何意？<em>心境</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 因醉酒而失去知覺</button>
+      <button type="button" data-option="1">B. 心神專一、形體解放，與自然融為一體</button>
+      <button type="button" data-option="2">C. 害怕暮色而不敢下山</button>
+      <button type="button" data-option="3">D. 決定永遠住在山上</button></div>
+    <div class="quiz-explain"><b>詳解</b>這句寫出登西山後的精神自由與物我合一。</div>
+  </article>
+  <article class="quiz-card" data-answer="1">
+    <div class="quiz-q"><span>Q9</span>〈始得西山宴遊記〉在《永州八記》中的位置為何？<em>文學常識</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 最後一篇</button>
+      <button type="button" data-option="1">B. 第一篇</button>
+      <button type="button" data-option="2">C. 唯一的議論文</button>
+      <button type="button" data-option="3">D. 不屬於永州八記</button></div>
+    <div class="quiz-explain"><b>詳解</b>本文是《永州八記》首篇，「始得」也開啟此後系列山水書寫。</div>
+  </article>
+  <article class="quiz-card" data-answer="2">
+    <div class="quiz-q"><span>Q10</span>本文最核心的轉變是什麼？<em>主旨</em></div>
+    <div class="quiz-options">
+      <button type="button" data-option="0">A. 由貧窮變富有</button>
+      <button type="button" data-option="1">B. 由不會飲酒到擅長飲酒</button>
+      <button type="button" data-option="2">C. 由惴慄拘束到心凝形釋</button>
+      <button type="button" data-option="3">D. 由獨遊改為群遊</button></div>
+    <div class="quiz-explain"><b>詳解</b>登山的外在行程對應內在解放，完成由憂懼到物我合一的轉折。</div>
+  </article><div class="quiz-summary" id="quizSummary" aria-live="polite"></div><button class="reset" id="resetQuiz" type="button">重新作答</button>
+  </section></main>
+<footer>始得西山宴遊記．互動國文講義｜原文與語譯主要參考 <a href="https://cerclearning.tp.edu.tw/classical/datapage/149" target="_blank" rel="noreferrer">國語文學科中心高中國文學習網</a>｜依篇章與會考閱讀方向整理，僅供課堂複習使用。</footer>
+<div id="glossTip" role="tooltip"></div>
+<script>
+const tip=document.getElementById('glossTip');let activeAnnot=null;
+function closeTip(){tip.classList.remove('show');if(activeAnnot)activeAnnot.classList.remove('active');activeAnnot=null}
+function openTip(el){if(activeAnnot===el){closeTip();return}closeTip();activeAnnot=el;el.classList.add('active');tip.textContent=el.dataset.note;tip.classList.add('show');const r=el.getBoundingClientRect();const w=tip.offsetWidth,h=tip.offsetHeight;let left=Math.min(Math.max(12,r.left),window.innerWidth-w-12);let top=r.bottom+9;if(top+h>window.innerHeight-12)top=Math.max(12,r.top-h-9);tip.style.left=left+'px';tip.style.top=top+'px'}
+document.querySelectorAll('.annot').forEach((el,i)=>{el.dataset.n=i+1;el.tabIndex=0;el.setAttribute('role','button');el.addEventListener('click',e=>{e.stopPropagation();openTip(el)});el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openTip(el)}})});
+document.addEventListener('click',closeTip);window.addEventListener('scroll',closeTip,{passive:true});window.addEventListener('resize',closeTip);
+document.getElementById('toggleZhuyin').addEventListener('change',e=>document.body.classList.toggle('hide-zhuyin',!e.target.checked));
+const translationButtons=[...document.querySelectorAll('.translation-btn')];
+function setTranslation(btn,open){btn.closest('.passage').classList.toggle('open',open);btn.textContent=open?'收合整段語譯':'看整段語譯';btn.setAttribute('aria-expanded',String(open))}
+document.getElementById('toggleTrans').addEventListener('change',e=>{document.body.classList.remove('show-all-trans');translationButtons.forEach(btn=>setTranslation(btn,e.target.checked))});
+translationButtons.forEach(btn=>btn.addEventListener('click',()=>{setTranslation(btn,btn.getAttribute('aria-expanded')!=='true');document.getElementById('toggleTrans').checked=translationButtons.every(b=>b.getAttribute('aria-expanded')==='true')}));
+document.querySelectorAll('.feature-card').forEach(card=>card.addEventListener('click',()=>{card.classList.toggle('open');card.setAttribute('aria-expanded',String(card.classList.contains('open')));card.querySelector('.feature-hint').textContent=card.classList.contains('open')?'點擊收合':'點擊展開'}));
+document.querySelectorAll('.challenge-card').forEach(card=>{card.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{const answer=Number(card.dataset.answer);const pick=Number(btn.dataset.option);const buttons=[...card.querySelectorAll('button')];buttons.forEach(b=>b.disabled=true);buttons[answer].classList.add('right');if(pick!==answer)btn.classList.add('wrong');card.querySelector('.challenge-feedback').innerHTML=(pick===answer?'<b>判斷正確。</b> ':'<b>再看一次原文線索。</b> ')+card.querySelector('.challenge-feedback').dataset.explain}))});
+document.getElementById('resetChallenge')?.addEventListener('click',()=>{document.querySelectorAll('.challenge-card').forEach(card=>{card.querySelectorAll('button').forEach(btn=>{btn.disabled=false;btn.classList.remove('right','wrong')});card.querySelector('.challenge-feedback').textContent=''});document.getElementById('challenge').scrollIntoView({behavior:'smooth',block:'start'})});
+let answered=0,score=0;
+document.querySelectorAll('.quiz-card').forEach(card=>{card.querySelectorAll('.quiz-options button').forEach(btn=>btn.addEventListener('click',()=>{if(btn.disabled)return;const answer=Number(card.dataset.answer),pick=Number(btn.dataset.option),buttons=[...card.querySelectorAll('.quiz-options button')];buttons.forEach(b=>b.disabled=true);buttons[answer].classList.add('correct');if(pick!==answer)btn.classList.add('wrong');else score++;answered++;card.querySelector('.quiz-explain').classList.add('show');document.getElementById('answered').textContent=answered;document.getElementById('score').textContent=score;if(answered===10)document.getElementById('quizSummary').textContent=score===10?'全數答對，已掌握全文重點。':score>=7?'答對 '+score+' 題，整體理解很穩固。':'答對 '+score+' 題，建議回看整段語譯與會考重點。'}))});
+document.getElementById('resetQuiz').addEventListener('click',()=>{answered=0;score=0;document.getElementById('answered').textContent=0;document.getElementById('score').textContent=0;document.getElementById('quizSummary').textContent='';document.querySelectorAll('.quiz-options button').forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong')});document.querySelectorAll('.quiz-explain').forEach(e=>e.classList.remove('show'));document.getElementById('quiz').scrollIntoView({behavior:'smooth'})});
+</script>
+</body></html>
